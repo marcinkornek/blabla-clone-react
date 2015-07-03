@@ -1,0 +1,37 @@
+{
+  "name": "chat-react",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "cjsx-loader": "^2.0.1",
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.9.3",
+    "css-loader": "^0.15.1",
+    "file-loader": "^0.8.4",
+    "http-server": "^0.8.0",
+    "jsx-loader": "^0.13.2",
+    "keymirror": "^0.1.1",
+    "node-sass": "^3.2.0",
+    "object-assign": "^3.0.0",
+    "react": "^0.13.3",
+    "react-bootstrap": "^0.23.4",
+    "react-hot-loader": "^1.2.7",
+    "react-router": "^0.13.3",
+    "sass-loader": "^1.0.2",
+    "style-loader": "^0.12.3",
+    "superagent": "^1.2.0",
+    "underscore": "^1.8.3",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.9.12",
+    "webpack-dev-server": "^1.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "http-server dist --silent",
+    "start-dev": "webpack-dev-server --config webpack-dev-server.config.js",
+    "start-hot-dev": "webpack-dev-server --config webpack-hot-dev-server.config.js",
+    "postinstall": "webpack --config webpack-production.config.js"
+  },
+  "author": "Marcin Kornek <marcinkornek@gmail.com>",
+  "license": "ISC"
+}
