@@ -7,7 +7,6 @@ module.exports = {
     colors: true,
     port: 8080,
     inline: true,
-    historyApiFallback: true
   },
   devtool: 'eval',
   entry: [
