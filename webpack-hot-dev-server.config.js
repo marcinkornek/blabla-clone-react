@@ -13,7 +13,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './src/app.cjsx'
+    './src/app.jsx'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -25,10 +25,15 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
   ],
   resolve: {
-    extensions: ['', '.js', '.cjsx', '.coffee']
+    extensions: ['', '.js', '.jsx', '.cjsx', '.coffee']
   },
   module: {
     loaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: ['react-hot', 'babel-loader'],
+        include: path.join(__dirname, 'src')
+      },
       {
         test: /\.cjsx?$/,
         loaders: ['react-hot', 'coffee-loader', 'cjsx-loader'],

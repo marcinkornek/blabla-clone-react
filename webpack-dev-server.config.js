@@ -11,7 +11,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
-    './src/app.cjsx'
+    './src/app.jsx'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -19,10 +19,15 @@ module.exports = {
     publicPath: '/static/'
   },
   resolve: {
-    extensions: ['', '.js', '.cjsx', '.coffee']
+    extensions: ['', '.js', '.jsx', '.cjsx', '.coffee']
   },
   module: {
     loaders: [
+      {
+        test: /\.jsx?$/,
+        loaders: ['babel-loader'],
+        include: path.join(__dirname, 'src')
+      },
       {
         test: /\.cjsx?$/,
         loaders: ['coffee-loader', 'cjsx-loader'],

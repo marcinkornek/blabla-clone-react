@@ -1,4 +1,3 @@
-alt = require('../alt.coffee')
 SessionActionCreators = require('../actions/SessionActionCreators.coffee')
 
 # _accessToken = []
@@ -39,4 +38,4 @@ class SessionStore
   #   _accessToken = data['access_token']
   #   _email = data['email']
 
-module.exports = alt.createStore(SessionStore, 'SessionStore')
+# module.exports = alt.createStore(SessionStore, 'SessionStore')

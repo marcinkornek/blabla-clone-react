@@ -10,7 +10,7 @@ module.exports = {
   },
   devtool: 'eval',
   entry: [
-    './src/app.cjsx'
+    './src/app.jsx'
   ],
   output: {
     path: path.join(__dirname, 'dist'),

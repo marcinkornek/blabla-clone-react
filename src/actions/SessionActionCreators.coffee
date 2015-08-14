@@ -1,4 +1,3 @@
-alt = require('../alt.coffee')
 WebAPIUtils = require('../utils/WebAPIUtils.coffee')
 
 SessionActionCreators =
@@ -18,4 +17,4 @@ SessionActionCreators =
       dispatcher.actions.receiveLogin(json)
     )
 
-module.exports = alt.createActions(SessionActionCreators)
+# module.exports = alt.createActions(SessionActionCreators)
