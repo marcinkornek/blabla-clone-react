@@ -2,11 +2,11 @@ import React                 from 'react'
 import Bootstrap             from 'react-bootstrap'
 import styles                from '../../stylesheets/session/LoginPage'
 
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments) } }
 var data = {}
 
-var LoginFbPage = React.createClass({
-  componentDidMount: function() {
+export default class LoginFbPage extends React.Component {
+  componentDidMount() {
     window.fbAsyncInit = (__bind(function() {
       FB.init({
         appId: '116661262005772',
@@ -14,57 +14,55 @@ var LoginFbPage = React.createClass({
         cookie: true,
         xfbml: true,
         version: 'v2.3'
-      });
-      return FB.Event.subscribe('auth.statusChange', this.statusChangeCallback);
+      })
+      FB.Event.subscribe('auth.statusChange', this.statusChangeCallback)
     }, this));
 
-    return (function(d) {
-      var id, js, ref;
-      id = "facebook-jssdk";
-      ref = d.getElementsByTagName("script")[0];
+    (function(d) {
+      var id, js, ref
+      id = "facebook-jssdk"
+      ref = d.getElementsByTagName("script")[0]
       if (d.getElementById(id)) {
-        return;
+        return
       }
-      js = d.createElement("script");
-      js.id = id;
-      js.async = true;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      return ref.parentNode.insertBefore(js, ref);
-    })(document);
-  },
+      js = d.createElement("script")
+      js.id = id
+      js.async = true
+      js.src = "//connect.facebook.net/en_US/sdk.js"
+      ref.parentNode.insertBefore(js, ref)
+    })(document)
+  }
 
-  getDataFromFb: function() {
-    return FB.api("/me", {
+  getDataFromFb() {
+    FB.api("/me", {
       fields: "last_name, first_name, email, id"
     }, function(response) {
-      return SessionActionCreators.loginFB(response);
-    });
-  },
+      console.log(response)
+    })
+  }
 
-  statusChangeCallback: function(response) {
+  statusChangeCallback(response) {
     if (response.status === 'connected' && data.login === true) {
-      return this.getDataFromFb();
+      this.getDataFromFb()
     }
-  },
+  }
 
-  checkLoginState: function() {
-    return FB.getLoginStatus(__bind(function(response) {
-      return this.statusChangeCallback(response);
-    }, this));
-  },
+  checkLoginState() {
+    FB.getLoginStatus(__bind(function(response) {
+      this.statusChangeCallback(response)
+    }, this))
+  }
 
-  loginWithFacebook: function() {
-    data.login = true;
-    return FB.login(this.checkLoginState(), {
+  loginWithFacebook() {
+    data.login = true
+    FB.login(this.checkLoginState(), {
       scope: 'email'
-    });
-  },
+    })
+  }
 
-  render: function() {
+  render() {
     return (
-      <button className='login-facebook-button btn btn-primary' onClick={this.loginWithFacebook}>Login with facebook</button>
+      <button className='login-facebook-button btn btn-primary' onClick={this.loginWithFacebook.bind(this)}>Login with facebook</button>
     )
   }
-});
-
-module.exports = LoginFbPage
+}

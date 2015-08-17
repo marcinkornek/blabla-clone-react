@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import Header               from './Header.jsx'
 
 export default class Application extends React.Component {
-
   constructor (props, context) {
     super(props, context)
   }
