@@ -7,13 +7,14 @@ module.exports = {
     colors: true,
     port: 8080,
     inline: true,
-    hot: true
+    hot: true,
+    historyApiFallback: true,
   },
   devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './src/app.jsx'
+    './src/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -25,10 +26,15 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx', '.cjsx', '.coffee']
+    extensions: ['', '.js', '.jsx', '.cjsx', '.coffee', '.scss']
   },
   module: {
     loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['react-hot', 'babel-loader'],
+        include: path.join(__dirname, 'src'),
+      },
       {
         test: /\.jsx?$/,
         loaders: ['react-hot', 'babel-loader'],
@@ -41,7 +47,7 @@ module.exports = {
       },
       {
         test: /\.coffee$/,
-        loader: 'coffee-loader'
+        loaders: ['react-hot', 'coffee-loader']
       },
       {
         test: /\.css$/,

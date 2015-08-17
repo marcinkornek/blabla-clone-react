@@ -7,11 +7,12 @@ module.exports = {
     colors: true,
     port: 8080,
     inline: true,
+    historyApiFallback: true,
   },
   devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
-    './src/app.jsx'
+    './src/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -19,10 +20,15 @@ module.exports = {
     publicPath: '/static/'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.cjsx', '.coffee']
+    extensions: ['', '.js', '.jsx', '.cjsx', '.coffee', '.scss']
   },
   module: {
     loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['babel-loader'],
+        include: path.join(__dirname, 'src'),
+      },
       {
         test: /\.jsx?$/,
         loaders: ['babel-loader'],
