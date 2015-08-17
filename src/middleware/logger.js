@@ -1,7 +1,7 @@
 export default function loggerMiddleware ({ getState }) {
   return next => action => {
-    console.log('action', action)
-    console.log('state', getState())
+    console.log('log action', action)
+    console.log('log state', getState())
     next(action)
   }
 }

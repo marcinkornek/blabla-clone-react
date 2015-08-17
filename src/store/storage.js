@@ -1,15 +1,13 @@
-export function put (key, value) {
-  window.localStorage.setItem(key, value)
-}
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunkMiddleware  from 'redux-thunk';
+import loggerMiddleware from '../middleware/logger';
+import rootReducer      from '../reducers/index';
 
-export function get (key) {
-  return window.localStorage.getItem(key)
-}
+const createStoreWithMiddleware = applyMiddleware(
+  thunkMiddleware,
+  loggerMiddleware
+)(createStore);
 
-export function remove (key) {
-  return window.localStorage.removeItem(key)
-}
-
-export function clear () {
-  window.localStorage.clear()
+export default function storage(initialState) {
+  return createStoreWithMiddleware(rootReducer, initialState);
 }

@@ -1,6 +1,8 @@
-import React                 from 'react'
+import React, { PropTypes }  from 'react'
 import Bootstrap             from 'react-bootstrap'
 import styles                from '../../stylesheets/session/LoginPage'
+import * as storage          from '../../../store/storage'
+import * as actions          from '../../../actions/session'
 
 export default class LoginEmailPage extends React.Component {
   constructor (props, context) {
@@ -10,6 +12,15 @@ export default class LoginEmailPage extends React.Component {
       showLoginForm: false,
       errors: []
     }
+  }
+
+  static propTypes = {
+    location: PropTypes.object
+  }
+
+  static contextTypes = {
+    store: PropTypes.any,
+    router: PropTypes.any
   }
 
   showFormOnClick() {
@@ -26,7 +37,14 @@ export default class LoginEmailPage extends React.Component {
     e.preventDefault()
     email    = this.refs.email.getValue()
     password = this.refs.password.getValue()
-    console.log(email, password)
+
+    const { store, router } = this.context
+    const { location } = this.props
+
+    setImmediate(() => {
+      store.dispatch(actions.logIn({email, password}))
+      storage.put('token', Math.random().toString(36).substring(7))
+    })
   }
 
   render() {

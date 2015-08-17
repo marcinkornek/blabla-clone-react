@@ -2,7 +2,7 @@ import React                 from 'react'
 import Bootstrap             from 'react-bootstrap'
 import LoginFbPage           from './LoginFbPage'
 import LoginEmailPage        from './LoginEmailPage'
-import styles                from '../../stylesheets/session/LoginPage.scss'
+import styles                from '../../stylesheets/session/LoginPage'
 
 export default class LoginPage extends React.Component {
   render() {

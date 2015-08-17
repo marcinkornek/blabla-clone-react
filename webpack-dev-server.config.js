@@ -26,12 +26,12 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: ['babel-loader'],
+        loaders: ['babel?optional[]=runtime&stage=0'],
         include: path.join(__dirname, 'src'),
       },
       {
         test: /\.jsx?$/,
-        loaders: ['babel-loader'],
+        loaders: ['babel?optional[]=runtime&stage=0'],
         include: path.join(__dirname, 'src')
       },
       {

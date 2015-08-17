@@ -32,12 +32,12 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: ['react-hot', 'babel-loader'],
+        loaders: ['react-hot', 'babel?optional[]=runtime&stage=0'],
         include: path.join(__dirname, 'src'),
       },
       {
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel-loader'],
+        loaders: ['react-hot', 'babel?optional[]=runtime&stage=0'],
         include: path.join(__dirname, 'src')
       },
       {
