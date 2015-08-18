@@ -12,7 +12,6 @@ const initialState = {
 }
 
 export default function sessions(state = initialState, action) {
-  console.log('aaaaaaaaaa')
   switch (action.type) {
   case types.LOGIN_EMAIL_REQUEST:
     return Object.assign({}, state, {

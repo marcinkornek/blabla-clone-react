@@ -5,7 +5,7 @@ import { connect }           from 'react-redux';
 import LoginFbPage           from '../components/javascripts/session/LoginFbPage'
 import LoginEmailPage        from '../components/javascripts/session/LoginEmailPage'
 import styles                from '../components/stylesheets/session/LoginPage'
-import { logInBackend }      from '../actions/session';
+import * as actions          from '../actions/session';
 
 export default class LoginPage extends React.Component {
   constructor (props, context) {
@@ -18,10 +18,13 @@ export default class LoginPage extends React.Component {
       <div>
         <Bootstrap.Row className='show-grid'>
           <Bootstrap.Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
-            <LoginFbPage />
+            <LoginFbPage 
+              onDataReceive={text =>
+                dispatch(actions.logInFbBackend(text))
+              } />
             <LoginEmailPage 
               onAddClick={text =>
-                dispatch(logInBackend(text))
+                dispatch(actions.logInEmailBackend(text))
               } />
           </Bootstrap.Col>
         </Bootstrap.Row>
@@ -31,8 +34,8 @@ export default class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  // isFetching: PropTypes.bool.isRequired,
+  // isLoggedIn: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
 };
 

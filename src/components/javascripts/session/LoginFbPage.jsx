@@ -1,4 +1,4 @@
-import React                 from 'react'
+import React, { PropTypes }  from 'react';
 import Bootstrap             from 'react-bootstrap'
 import styles                from '../../stylesheets/session/LoginPage'
 import sessionStore          from '../../stylesheets/session/LoginPage'
@@ -9,10 +9,6 @@ var data = {}
 export default class LoginFbPage extends React.Component {
   constructor (props, context) {
     super(props, context)
-
-    this.state = {
-      childText: 'child teeeeeeeext'
-    }
   }
 
   componentDidMount() {
@@ -43,10 +39,11 @@ export default class LoginFbPage extends React.Component {
   }
 
   getDataFromFb() {
+    var that = this
     FB.api("/me", {
       fields: "last_name, first_name, email, id"
     }, function(response) {
-      console.log(response)
+      that.props.onDataReceive(response);
     })
   }
 
@@ -77,3 +74,7 @@ export default class LoginFbPage extends React.Component {
     )
   }
 }
+
+LoginFbPage.propTypes = {
+  onDataReceive: PropTypes.func.isRequired
+};
