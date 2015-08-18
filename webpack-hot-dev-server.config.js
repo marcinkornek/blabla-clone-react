@@ -14,7 +14,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
-    './src/index'
+    './src/containers/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),

@@ -8,6 +8,15 @@ const createStoreWithMiddleware = applyMiddleware(
   loggerMiddleware
 )(createStore);
 
+const initialState = {
+  isLoggedIn: false,
+  user: {
+    email: undefined,
+    accessToken: undefined,
+    permissions: []
+  }
+}
+
 export default function storage(initialState) {
   return createStoreWithMiddleware(rootReducer, initialState);
 }

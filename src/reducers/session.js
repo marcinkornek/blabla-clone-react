@@ -1,7 +1,9 @@
-import { LOGGED_IN } from '../actions/session';
+import * as types from '../constants/ActionTypes'
 
 const initialState = {
-  loggedIn: false,
+  errors: [],
+  isFetching: false,
+  isLoggedIn: false,
   user: {
     email: undefined,
     accessToken: undefined,
@@ -10,15 +12,34 @@ const initialState = {
 }
 
 export default function sessions(state = initialState, action) {
+  console.log('aaaaaaaaaa')
   switch (action.type) {
-  case LOGGED_IN:
-    return [...state, {
+  case types.LOGIN_EMAIL_REQUEST:
+    return Object.assign({}, state, {
+      isFetching: true,
+    });
+  case types.LOGIN_EMAIL_SUCCESS:
+    return Object.assign({}, state, {
+      isFetching: false,
+      isLoggedIn: true,
       user: {
-        email: action.text['email'],
-        accessToken: action.text['accessToken'],
-        permissions: []
+        email: action.email,
+        accessToken: action.accessToken,
+        permissions: ['user']
       }
-    }]
+    });
+  case types.LOGIN_EMAIL_FAILURE:
+    console.log(action)
+    return Object.assign({}, state, {
+      errors: [action.errors],
+      isFetching: false,
+      isLoggedIn: false,
+      user: {
+        email: undefined,
+        accessToken: undefined,
+        permissions: []  
+      }
+    });
 
   default:
     return state;

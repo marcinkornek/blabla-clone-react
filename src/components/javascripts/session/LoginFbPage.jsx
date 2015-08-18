@@ -7,6 +7,14 @@ var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments)
 var data = {}
 
 export default class LoginFbPage extends React.Component {
+  constructor (props, context) {
+    super(props, context)
+
+    this.state = {
+      childText: 'child teeeeeeeext'
+    }
+  }
+
   componentDidMount() {
     window.fbAsyncInit = (__bind(function() {
       FB.init({
@@ -63,7 +71,9 @@ export default class LoginFbPage extends React.Component {
 
   render() {
     return (
-      <button className='login-facebook-button btn btn-primary' onClick={this.loginWithFacebook.bind(this)}>Login with facebook</button>
+      <div>
+        <button className='login-facebook-button btn btn-primary' onClick={this.loginWithFacebook.bind(this)}>Login with facebook</button>
+      </div>
     )
   }
 }

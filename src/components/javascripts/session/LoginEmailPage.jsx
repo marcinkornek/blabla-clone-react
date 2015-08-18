@@ -9,54 +9,15 @@ export default class LoginEmailPage extends React.Component {
     super(props, context)
 
     this.state = {
-      showLoginForm: false,
+      showLoginForm: true,
       errors: []
     }
   }
 
-  static propTypes = {
-    location: PropTypes.object
-  }
-
-  static contextTypes = {
-    store: PropTypes.any,
-    router: PropTypes.any
-  }
-
-  showFormOnClick() {
-    const { showLoginForm } = this.state
-    if (showLoginForm === false) {
-      this.setState({showLoginForm: true})
-    } else {
-      this.setState({showLoginForm: false})
-    }
-  }
-
-  handleSubmit(e) {
-    var email, password
-    e.preventDefault()
-    email    = this.refs.email.getValue()
-    password = this.refs.password.getValue()
-
-    const { store, router } = this.context
-    const { location } = this.props
-
-    setImmediate(() => {
-      store.dispatch(actions.logIn({email, password}))
-      storage.put('token', Math.random().toString(36).substring(7))
-    })
-  }
-
   render() {
-    var errors, LoginForm
-    if (this.state.errors.length > 0) {
-      errors =
-        <ErrorNotice errors={this.state.errors}/>
-    }
-
     if (this.state.showLoginForm) {
-      LoginForm =
-        <form className='login-email-form' onSubmit={this.handleSubmit.bind(this)}>
+      var LoginForm =
+        <form className='login-email-form' onSubmit={this.handleSubmitLoginForm.bind(this)}>
           <Bootstrap.Input type='text' label='Email' placeholder='Email' ref='email' />
           <Bootstrap.Input type='password' label='Password' placeholder='Password' ref='password' />
           <Bootstrap.ButtonInput type='submit' value='Login' />
@@ -70,4 +31,25 @@ export default class LoginEmailPage extends React.Component {
       </div>
     )
   }
+
+  showFormOnClick() {
+    const { showLoginForm } = this.state
+    if (showLoginForm === false) {
+      this.setState({showLoginForm: true})
+    } else {
+      this.setState({showLoginForm: false})
+    }
+  }
+
+  handleSubmitLoginForm(e) {
+    e.preventDefault()
+    const email    = this.refs.email.getValue()
+    const password = this.refs.password.getValue()
+
+    this.props.onAddClick({email: email, password: password});
+  }
 }
+
+LoginEmailPage.propTypes = {
+  onAddClick: PropTypes.func.isRequired
+};

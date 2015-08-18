@@ -12,7 +12,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
-    './src/index'
+    './src/containers/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
