@@ -8,15 +8,16 @@ const initialState = {
 }
 
 export default function users(state = initialState, action) {
+  console.log('reducer action', action)
   switch (action.type) {
-  case types.REQUEST_USERS:
+  case types.USERS_REQUEST:
     return Object.assign({}, state, {
       isFetching: true
     });
-  case types.RECEIVE_USERS:
+  case types.USERS_SUCCESS:
     return Object.assign({}, state, {
       isFetching: false,
-      items: action.users
+      items: action.items
     });
   default:
     return state;

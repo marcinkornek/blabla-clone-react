@@ -8,9 +8,9 @@ export default class UsersItem extends React.Component {
       <div className='user'>
         <div className='user-details'>
           {this.props.user.email}
-          {this.props.user.firstName}
-          {this.props.user.lastName}
-          {this.props.user.createdAt}
+          {this.props.user.first_name}
+          {this.props.user.last_name}
+          {this.props.user.created_at}
         </div>
         <div className='user-avatar'>
           {this.props.user.avatar}

@@ -2,9 +2,16 @@ import 'whatwg-fetch'
 import * as types from '../constants/ActionTypes'
 import * as cons  from '../constants/constants'
 
+function status(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response
+  }
+  throw new Error(response.statusText)
+}
+
 export function fetchUsers() {
   return dispatch => {
-    dispatch(requestUsers());
+    dispatch(usersRequest());
     return fetch(cons.APIEndpoints.USERS, {
     	method: 'get',
     	headers: {
@@ -12,22 +19,30 @@ export function fetchUsers() {
     		'Content-Type': 'application/json'
     	}
     })
-      .then(req => req.json())
-      .then(json => dispatch(receiveUsers(json)));
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(usersSuccess(json)))
+    .catch(errors => dispatch(usersFailure(errors)))
   };
 }
 
-export function requestUsers() {
-	console.log('bb');
+export function usersRequest() {
   return {
-    type: types.REQUEST_USERS,
+    type: types.USERS_REQUEST,
   };
 }
 
-export function receiveUsers(reddit, json) {
+export function usersSuccess(json) {
+  console.log('json', json);
   return {
-    type: types.RECEIVE_USERS,
-    users: json.data.children.map(child => child.data),
-    receivedAt: Date.now()
-  };
+    type: types.USERS_SUCCESS,
+    items: json
+  }
+}
+
+export function usersFailure(errors) {
+  return {
+    type: types.USERS_FAILURE,
+    errors: errors
+  }
 }
