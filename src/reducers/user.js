@@ -2,19 +2,19 @@ import * as types from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,
-  users: []
+  user: {}
 }
 
-export default function users(state = initialState, action) {
+export default function user(state = initialState, action) {
   switch (action.type) {
-  case types.USERS_REQUEST:
+  case types.USER_REQUEST:
     return Object.assign({}, state, {
       isFetching: true
     });
-  case types.USERS_SUCCESS:
+  case types.USER_SUCCESS:
     return Object.assign({}, state, {
       isFetching: false,
-      users: action.users
+      user: action.user
     });
   default:
     return state;

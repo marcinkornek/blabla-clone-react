@@ -8,9 +8,13 @@ export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
 
-export const USERS_REQUEST     	 = 'USERS_REQUEST';
-export const USERS_SUCCESS     	 = 'USERS_SUCCESS';
-export const USERS_FAILURE     	 = 'USERS_FAILURE';
+export const USERS_REQUEST       = 'USERS_REQUEST';
+export const USERS_SUCCESS       = 'USERS_SUCCESS';
+export const USERS_FAILURE       = 'USERS_FAILURE';
+
+export const USER_REQUEST     	 = 'USER_REQUEST';
+export const USER_SUCCESS     	 = 'USER_SUCCESS';
+export const USER_FAILURE     	 = 'USER_FAILURE';
 
 export const RECEIVE_LOGIN    	 = 'RECEIVE_LOGIN';
 export const ADD_SESSION      	 = 'ADD_SESSION';

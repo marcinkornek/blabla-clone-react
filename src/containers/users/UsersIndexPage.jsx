@@ -1,11 +1,11 @@
 import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
 import Bootstrap             from 'react-bootstrap'
-import styles                from '../../components/stylesheets/users/Users'
-import UsersItem             from '../../components/javascripts/users/UsersIndexItem'
+import styles                from '../../stylesheets/users/Users'
+import UsersItem             from '../../components/users/UsersIndexItem'
 import * as actions          from '../../actions/users';
 
-export default class UsersPage extends React.Component {
+export default class UsersIndexPage extends React.Component {
   constructor (props, context) {
     super(props, context)
   }
@@ -17,33 +17,33 @@ export default class UsersPage extends React.Component {
   }
 
   render() {
-    const { isFetching, items } = this.props
-    var users
-    if (items) {
-      users = items.map((user, i) =>
+    const { isFetching, users } = this.props
+    var usersList
+    if (users) {
+      usersList = users.map((user, i) =>
         <UsersItem user={user} key={i} />
       )
     } else {
-      users = 'No users'
+      usersList = 'No users'
     }
 
     return (
       <div className='users'>
-        {users}
+        {usersList}
       </div>
     )
   }
 }
 
-UsersPage.PropTypes = {
-  items: PropTypes.array.isRequired
+UsersIndexPage.PropTypes = {
+  users: PropTypes.array.isRequired
 }
 
 function select(state) {
   return {
     isFetching: state.users['isFetching'],
-    items: state.users['items']
+    users:      state.users['users']
   };
 }
 
-export default connect(select)(UsersPage);
+export default connect(select)(UsersIndexPage);

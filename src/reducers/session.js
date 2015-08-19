@@ -11,7 +11,7 @@ const initialState = {
   }
 }
 
-export default function sessions(state = initialState, action) {
+export default function session(state = initialState, action) {
   switch (action.type) {
   case types.LOGIN_EMAIL_REQUEST:
     return Object.assign({}, state, {
@@ -36,7 +36,7 @@ export default function sessions(state = initialState, action) {
       user: {
         email: undefined,
         accessToken: undefined,
-        permissions: []  
+        permissions: []
       }
     });
 
