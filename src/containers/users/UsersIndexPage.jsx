@@ -2,7 +2,7 @@ import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
 import Bootstrap             from 'react-bootstrap'
 import styles                from '../../stylesheets/users/Users'
-import UsersItem             from '../../components/users/UsersIndexItem'
+import UsersItem             from '../../components/users/UsersIndexPageItem'
 import * as actions          from '../../actions/users';
 
 export default class UsersIndexPage extends React.Component {
@@ -11,7 +11,6 @@ export default class UsersIndexPage extends React.Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount')
     const { dispatch } = this.props;
     dispatch(actions.fetchUsers());
   }

@@ -3,7 +3,7 @@ import { Link }              from 'react-router';
 import Bootstrap             from 'react-bootstrap'
 import styles                from '../../stylesheets/users/Users'
 
-export default class UsersIndexItem extends React.Component {
+export default class UsersIndexPageItem extends React.Component {
   render() {
     return (
       <div className='user'>

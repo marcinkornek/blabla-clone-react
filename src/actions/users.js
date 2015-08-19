@@ -43,6 +43,30 @@ export function fetchUser(userId) {
   };
 }
 
+export function createUser(text) {
+  return dispatch => {
+    dispatch(userCreateRequest());
+    return fetch(cons.APIEndpoints.USERS, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'first_name': text["firstName"],
+        'last_name': text["lastName"],
+        'email': text["email"],
+        'password': text["password"],
+        'password_confirmation': text["passwordConfirmation"]
+      })
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(userCreateSuccess(json)))
+    .catch(errors => dispatch(userCreateFailure(errors)))
+  };
+}
+
 export function usersRequest() {
   return {
     type: types.USERS_REQUEST,
@@ -81,6 +105,28 @@ export function userSuccess(json) {
 export function userFailure(errors) {
   return {
     type: types.USER_FAILURE,
+    errors: errors
+  }
+}
+
+
+export function userCreateRequest() {
+  return {
+    type: types.USER_CREATE_REQUEST,
+  };
+}
+
+export function userCreateSuccess(json) {
+  // console.log('userSuccess json', json);
+  return {
+    type: types.USER_CREATE_SUCCESS,
+    user: json
+  }
+}
+
+export function userCreateFailure(errors) {
+  return {
+    type: types.USER_CREATE_FAILURE,
     errors: errors
   }
 }

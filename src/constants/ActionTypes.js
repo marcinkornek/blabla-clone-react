@@ -12,9 +12,13 @@ export const USERS_REQUEST       = 'USERS_REQUEST';
 export const USERS_SUCCESS       = 'USERS_SUCCESS';
 export const USERS_FAILURE       = 'USERS_FAILURE';
 
-export const USER_REQUEST     	 = 'USER_REQUEST';
-export const USER_SUCCESS     	 = 'USER_SUCCESS';
-export const USER_FAILURE     	 = 'USER_FAILURE';
+export const USER_REQUEST        = 'USER_REQUEST';
+export const USER_SUCCESS        = 'USER_SUCCESS';
+export const USER_FAILURE        = 'USER_FAILURE';
+
+export const USER_CREATE_REQUEST = 'USER_CREATE_REQUEST';
+export const USER_CREATE_SUCCESS = 'USER_CREATE_SUCCESS';
+export const USER_CREATE_FAILURE = 'USER_CREATE_FAILURE';
 
 export const RECEIVE_LOGIN    	 = 'RECEIVE_LOGIN';
 export const ADD_SESSION      	 = 'ADD_SESSION';
