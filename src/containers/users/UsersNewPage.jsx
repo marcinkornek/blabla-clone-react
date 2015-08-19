@@ -34,15 +34,6 @@ RegisterPage.propTypes = {
 
 function select(state) {
   return {
-    // session: {
-    //   isFetching: state.session['isFetching'],
-    //   isLoggedIn: state.session['isLoggedIn'],
-    //   user: {
-    //     accessToken: state.session.user['accessToken'],
-    //     email:       state.session.user['email'],
-    //     permissions: state.session.user['permissios']
-    //   }
-    // }
   };
 }
 

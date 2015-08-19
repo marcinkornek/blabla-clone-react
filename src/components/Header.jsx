@@ -1,21 +1,42 @@
-import React           from 'react'
-import Router          from 'react-router'
-import { Link }        from 'react-router'
-import Bootstrap       from 'react-bootstrap'
+import React, { PropTypes } from 'react'
+import Router, { Link }     from 'react-router'
+import Bootstrap            from 'react-bootstrap'
 
 export default class Header extends React.Component {
   render() {
+    var rightNav
+    if (this.props.currentUser.email) {
+      rightNav =
+        <Bootstrap.Nav navbar right>
+          <li><a href='#' onClick={this.handleLogout.bind(this)}>Logout</a></li>
+        </Bootstrap.Nav>
+    } else {
+      rightNav =
+        <Bootstrap.Nav navbar right>
+          <li><Link to='/login'>Login</Link></li>
+          <li><Link to='/register'>Register</Link></li>
+        </Bootstrap.Nav>
+    }
+
     return (
       <Bootstrap.Navbar fixedTop brand='News App' toggleNavKey={0}>
         <Bootstrap.CollapsibleNav>
           <Bootstrap.Nav navbar>
-            <Link to='/'>Home</Link>
-            <Link to='/login'>Login</Link>
-            <Link to='/register'>Register</Link>
-            <Link to='/users'>Users</Link>
+            <li><Link to='/'>Home</Link></li>
+            <li><Link to='/users'>Users</Link></li>
           </Bootstrap.Nav>
+          {rightNav}
         </Bootstrap.CollapsibleNav>
       </Bootstrap.Navbar>
     )
   }
+
+  handleLogout(e) {
+    e.preventDefault()
+    this.props.onLogout();
+  }
 }
+
+Header.propTypes = {
+  onLogout: PropTypes.func.isRequired
+};

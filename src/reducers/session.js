@@ -39,6 +39,17 @@ export default function session(state = initialState, action) {
         permissions: []
       }
     });
+  case types.LOGOUT_SUCCESS:
+    return Object.assign({}, state, {
+      errors: [],
+      isFetching: false,
+      isLoggedIn: false,
+      user: {
+        email: undefined,
+        accessToken: undefined,
+        permissions: []
+      }
+    });
 
   default:
     return state;

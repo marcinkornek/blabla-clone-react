@@ -55,6 +55,27 @@ export function logInFbBackend(text) {
   };
 }
 
+export function logout(text) {
+  return dispatch => {
+    dispatch(logoutRequest());
+    return fetch(cons.APIEndpoints.LOGOUT, {
+      method: 'delete',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json',
+        'X-User-Email': text['email'],
+        'X-User-Token': text['accessToken']
+      },
+      body: JSON.stringify({
+        'access_token': text['accessToken'],
+      })
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(logoutSuccess(json)))
+    .catch(errors => dispatch(logoutFailure(errors)))
+  };
+}
 
 export function loginRequest() {
   return {
@@ -74,6 +95,26 @@ export function loginSuccess(json) {
 export function loginFailure(errors) {
   return {
     type: types.LOGIN_FAILURE,
+    errors: errors
+  }
+}
+
+export function logoutRequest() {
+  return {
+    type: types.LOGOUT_REQUEST,
+  }
+}
+
+export function logoutSuccess(json) {
+  console.log('json', json);
+  return {
+    type: types.LOGOUT_SUCCESS,
+  }
+}
+
+export function logoutFailure(errors) {
+  return {
+    type: types.LOGOUT_FAILURE,
     errors: errors
   }
 }
