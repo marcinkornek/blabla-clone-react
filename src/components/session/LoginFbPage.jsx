@@ -1,7 +1,6 @@
 import React, { PropTypes }  from 'react';
 import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/session/LoginPage'
-import sessionStore          from '../../stylesheets/session/LoginPage'
+import styles                from '../../stylesheets/session/Login'
 
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments) } }
 var data = {}

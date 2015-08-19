@@ -1,8 +1,6 @@
 import React, { PropTypes }  from 'react'
 import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/session/LoginPage'
-import * as storage          from '../../../store/storage'
-import * as actions          from '../../../actions/session'
+import styles                from '../../stylesheets/session/Login'
 
 export default class LoginEmailPage extends React.Component {
   constructor (props, context) {

@@ -1,9 +1,9 @@
 import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
 import Bootstrap             from 'react-bootstrap'
-import styles                from '../components/stylesheets/users/UsersPage'
-import UsersItem             from '../components/javascripts/users/UsersItem'
-import * as actions          from '../actions/users';
+import styles                from '../../components/stylesheets/users/Users'
+import UsersItem             from '../../components/javascripts/users/UsersIndexItem'
+import * as actions          from '../../actions/users';
 
 export default class UsersPage extends React.Component {
   constructor (props, context) {
@@ -36,7 +36,7 @@ export default class UsersPage extends React.Component {
 }
 
 UsersPage.PropTypes = {
-  users: PropTypes.array.isRequired
+  items: PropTypes.array.isRequired
 }
 
 function select(state) {

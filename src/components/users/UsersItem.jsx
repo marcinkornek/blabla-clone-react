@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react'
 import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/users/UsersPage'
+import styles                from '../../stylesheets/users/Users'
 
 export default class UsersItem extends React.Component {
   render() {
