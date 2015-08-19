@@ -13,21 +13,21 @@ const initialState = {
 
 export default function session(state = initialState, action) {
   switch (action.type) {
-  case types.LOGIN_EMAIL_REQUEST:
+  case types.LOGIN_REQUEST:
     return Object.assign({}, state, {
       isFetching: true,
     });
-  case types.LOGIN_EMAIL_SUCCESS:
+  case types.LOGIN_SUCCESS:
     return Object.assign({}, state, {
       isFetching: false,
       isLoggedIn: true,
       user: {
-        email: action.email,
-        accessToken: action.accessToken,
+        email: action['email'],
+        accessToken: action['accessToken'],
         permissions: ['user']
       }
     });
-  case types.LOGIN_EMAIL_FAILURE:
+  case types.LOGIN_FAILURE:
     console.log(action)
     return Object.assign({}, state, {
       errors: [action.errors],

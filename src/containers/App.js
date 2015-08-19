@@ -7,18 +7,20 @@ import storage        from '../store/storage'
 import routes         from './routes'
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
-const history = process.env.NODE_ENV === 'production' ?
-  new HashHistory() :
-  new BrowserHistory()
 
 const store = storage()
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.history = new BrowserHistory();
+  }
+
   render() {
     return (
       <div>
-        <Provider store = { store }>
-          { () => <Router history = {history} children={routes} /> }
+        <Provider store={store}>{ () =>
+          <Router history={this.history} children={routes} /> }
         </Provider>
         <DebugPanel top right bottom>
           <DevTools store={store}

@@ -73,7 +73,7 @@ export function loginSuccess(json) {
 
 export function loginFailure(errors) {
   return {
-    type: types.LOGIN_EMAIL_FAILURE,
+    type: types.LOGIN_FAILURE,
     errors: errors
   }
 }

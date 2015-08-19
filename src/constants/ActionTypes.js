@@ -1,8 +1,7 @@
-export const LOGIN_FB_REQUEST 	 = 'LOGIN_FB_REQUEST';
-export const LOGIN_EMAIL_REQUEST = 'LOGIN_EMAIL_REQUEST';
+export const LOGIN_REQUEST 	     = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS 			 = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE 			 = 'LOGIN_FAILURE';
-
+export const LOG_OUT          	 = 'LOG_OUT';
 
 export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
@@ -19,8 +18,3 @@ export const USER_FAILURE        = 'USER_FAILURE';
 export const USER_CREATE_REQUEST = 'USER_CREATE_REQUEST';
 export const USER_CREATE_SUCCESS = 'USER_CREATE_SUCCESS';
 export const USER_CREATE_FAILURE = 'USER_CREATE_FAILURE';
-
-export const RECEIVE_LOGIN    	 = 'RECEIVE_LOGIN';
-export const ADD_SESSION      	 = 'ADD_SESSION';
-export const LOGGED_IN        	 = 'LOGGED_IN';
-export const LOG_OUT          	 = 'LOG_OUT';
