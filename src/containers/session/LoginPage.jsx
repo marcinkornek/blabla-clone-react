@@ -34,8 +34,6 @@ export default class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  // isFetching: PropTypes.bool.isRequired,
-  // isLoggedIn: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
 };
 
@@ -45,7 +43,7 @@ function select(state) {
       isFetching: state.session['isFetching'],
       isLoggedIn: state.session['isLoggedIn'],
       user: {
-        accessToken: state.session.user['accessToken'],
+        access_token: state.session.user['access_token'],
         email:       state.session.user['email'],
         permissions: state.session.user['permissios']
       }

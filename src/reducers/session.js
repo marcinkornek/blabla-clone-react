@@ -5,8 +5,9 @@ const initialState = {
   isFetching: false,
   isLoggedIn: false,
   user: {
+    id: undefined,
     email: undefined,
-    accessToken: undefined,
+    access_token: undefined,
     permissions: []
   }
 }
@@ -22,20 +23,21 @@ export default function session(state = initialState, action) {
       isFetching: false,
       isLoggedIn: true,
       user: {
-        email: action['email'],
-        accessToken: action['accessToken'],
+        id:          action['id'],
+        email:       action['email'],
+        access_token: action['access_token'],
         permissions: ['user']
       }
     });
   case types.LOGIN_FAILURE:
-    console.log(action)
     return Object.assign({}, state, {
       errors: [action.errors],
       isFetching: false,
       isLoggedIn: false,
       user: {
+        id: undefined,
         email: undefined,
-        accessToken: undefined,
+        access_token: undefined,
         permissions: []
       }
     });
@@ -45,9 +47,18 @@ export default function session(state = initialState, action) {
       isFetching: false,
       isLoggedIn: false,
       user: {
+        id: undefined,
         email: undefined,
-        accessToken: undefined,
+        access_token: undefined,
         permissions: []
+      }
+    });
+  case types.USER_UPDATE_SUCCESS:
+    return Object.assign({}, state, {
+      user: {
+        id: action.session.id,
+        access_token: action.session.access_token,
+        email: action.user.email,
       }
     });
 

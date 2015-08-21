@@ -9,7 +9,7 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function logInEmailBackend(text) {
+export function logInEmailBackend(session) {
   return dispatch => {
     dispatch(loginRequest());
     return fetch(cons.APIEndpoints.LOGIN_EMAIL, {
@@ -19,8 +19,8 @@ export function logInEmailBackend(text) {
     		'Content-Type': 'application/json'
     	},
 		  body: JSON.stringify({
-		  	'email': text["email"],
-		  	'password': text["password"]
+		  	'email':    session["email"],
+		  	'password': session["password"]
 		  })
     })
     .then(status)
@@ -30,8 +30,8 @@ export function logInEmailBackend(text) {
   };
 }
 
-export function logInFbBackend(text) {
-  console.log('logInFbBackend', text);
+export function logInFbBackend(fbResponse) {
+  // console.log('logInFbBackend', text);
   return dispatch => {
     dispatch(loginRequest());
     return fetch(cons.APIEndpoints.LOGIN_FB, {
@@ -41,11 +41,11 @@ export function logInFbBackend(text) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'uid': text['id'],
-        'provider': 'facebook',
-        'email': text['email'],
-        'first_name': text['first_name'],
-        'last_name': text['last_name'],
+        'uid':        fbResponse['id'],
+        'provider':   'facebook',
+        'email':      fbResponse['email'],
+        'first_name': fbResponse['first_name'],
+        'last_name':  fbResponse['last_name'],
       })
     })
     .then(status)
@@ -55,7 +55,7 @@ export function logInFbBackend(text) {
   };
 }
 
-export function logout(text) {
+export function logout(session) {
   return dispatch => {
     dispatch(logoutRequest());
     return fetch(cons.APIEndpoints.LOGOUT, {
@@ -63,11 +63,11 @@ export function logout(text) {
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': text['email'],
-        'X-User-Token': text['accessToken']
+        'X-User-Email': session['email'],
+        'X-User-Token': session['access_token']
       },
       body: JSON.stringify({
-        'access_token': text['accessToken'],
+        'access_token': session['access_token'],
       })
     })
     .then(status)
@@ -84,11 +84,12 @@ export function loginRequest() {
 }
 
 export function loginSuccess(json) {
-  console.log('json', json);
+  // console.log('json', json);
 	return {
     type: types.LOGIN_SUCCESS,
-    email: json['email'],
-    accessToken: json['access_token']
+    id:          json['id'],
+    email:       json['email'],
+    access_token: json['access_token']
   }
 }
 
@@ -106,7 +107,7 @@ export function logoutRequest() {
 }
 
 export function logoutSuccess(json) {
-  console.log('json', json);
+  // console.log('json', json);
   return {
     type: types.LOGOUT_SUCCESS,
   }

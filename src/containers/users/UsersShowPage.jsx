@@ -17,8 +17,6 @@ export default class UsersShowPage extends React.Component {
 
   render() {
     const { isFetching, user } = this.props
-    console.log(user);
-
     return (
       <div className='users'>
         {user.first_name}

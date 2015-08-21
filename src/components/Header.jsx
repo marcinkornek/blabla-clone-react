@@ -8,7 +8,11 @@ export default class Header extends React.Component {
     if (this.props.currentUser.email) {
       rightNav =
         <Bootstrap.Nav navbar right>
-          <li><a href='#' onClick={this.handleLogout.bind(this)}>Logout</a></li>
+          <Bootstrap.DropdownButton eventKey={3} title={this.props.currentUser.email}>
+            <li><Link to='/account/edit'>Account</Link></li>
+            <Bootstrap.MenuItem divider />
+            <li><a href='' onClick={this.handleLogout.bind(this)}>Logout</a></li>
+          </Bootstrap.DropdownButton>
         </Bootstrap.Nav>
     } else {
       rightNav =

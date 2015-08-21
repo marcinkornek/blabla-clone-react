@@ -7,7 +7,7 @@ export default class LoginEmailPage extends React.Component {
     super(props, context)
 
     this.state = {
-      showLoginForm: true,
+      showLoginForm: false,
       errors: []
     }
   }

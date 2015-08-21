@@ -10,7 +10,7 @@ export default class Application extends React.Component {
 
   render () {
     const { dispatch, session, currentUser } = this.props
-    console.log(currentUser);
+    // console.log(currentUser);
     return (
       <div>
         <Header

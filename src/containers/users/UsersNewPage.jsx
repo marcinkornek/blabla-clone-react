@@ -6,7 +6,7 @@ import UsersNewPageForm      from '../../components/users/UsersNewPageForm'
 import styles                from '../../stylesheets/users/Users'
 import * as actions          from '../../actions/users';
 
-export default class RegisterPage extends React.Component {
+export default class UsersNewPage extends React.Component {
   constructor (props, context) {
     super(props, context)
   }
@@ -28,7 +28,7 @@ export default class RegisterPage extends React.Component {
   }
 }
 
-RegisterPage.propTypes = {
+UsersNewPage.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
@@ -37,4 +37,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(RegisterPage);
+export default connect(select)(UsersNewPage);

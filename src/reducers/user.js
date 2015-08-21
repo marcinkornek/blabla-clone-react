@@ -16,6 +16,10 @@ export default function user(state = initialState, action) {
       isFetching: false,
       user: action.user
     });
+  case types.USER_UPDATE_SUCCESS:
+    return Object.assign({}, state, {
+      user: action.user
+    });
   default:
     return state;
   }
