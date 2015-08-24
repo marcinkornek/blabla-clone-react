@@ -44,8 +44,8 @@ function select(state) {
       isLoggedIn: state.session['isLoggedIn'],
       user: {
         access_token: state.session.user['access_token'],
-        email:       state.session.user['email'],
-        permissions: state.session.user['permissios']
+        email:        state.session.user['email'],
+        permission:   state.session.user['permission']
       }
     }
   };

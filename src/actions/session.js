@@ -87,8 +87,9 @@ export function loginSuccess(json) {
   // console.log('json', json);
 	return {
     type: types.LOGIN_SUCCESS,
-    id:          json['id'],
-    email:       json['email'],
+    id:           json['id'],
+    email:        json['email'],
+    role:         json['role'],
     access_token: json['access_token']
   }
 }

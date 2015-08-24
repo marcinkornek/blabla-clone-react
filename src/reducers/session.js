@@ -5,10 +5,10 @@ const initialState = {
   isFetching: false,
   isLoggedIn: false,
   user: {
-    id: undefined,
-    email: undefined,
+    id:           undefined,
+    email:        undefined,
     access_token: undefined,
-    permissions: []
+    permission:   undefined
   }
 }
 
@@ -23,10 +23,10 @@ export default function session(state = initialState, action) {
       isFetching: false,
       isLoggedIn: true,
       user: {
-        id:          action['id'],
-        email:       action['email'],
+        id:           action['id'],
+        email:        action['email'],
         access_token: action['access_token'],
-        permissions: ['user']
+        permission:   action['role']
       }
     });
   case types.LOGIN_FAILURE:
@@ -35,10 +35,10 @@ export default function session(state = initialState, action) {
       isFetching: false,
       isLoggedIn: false,
       user: {
-        id: undefined,
-        email: undefined,
+        id:           undefined,
+        email:        undefined,
         access_token: undefined,
-        permissions: []
+        permission:   undefined
       }
     });
   case types.LOGOUT_SUCCESS:
@@ -47,10 +47,10 @@ export default function session(state = initialState, action) {
       isFetching: false,
       isLoggedIn: false,
       user: {
-        id: undefined,
-        email: undefined,
+        id:           undefined,
+        email:        undefined,
         access_token: undefined,
-        permissions: []
+        permission:   undefined
       }
     });
   case types.USER_UPDATE_SUCCESS:
