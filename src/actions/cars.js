@@ -9,22 +9,37 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchCars(userId, session) {
+export function fetchCars(userId) {
   return dispatch => {
     dispatch(carsRequest());
     return fetch(cons.APIEndpoints.USERS + '/' + userId + '/cars', {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'Content-Type': 'application/json'
       }
     })
     .then(status)
     .then(req => req.json())
     .then(json => dispatch(carsSuccess(json)))
     .catch(errors => dispatch(carsFailure(errors)))
+  };
+}
+
+export function fetchCar(carId) {
+  return dispatch => {
+    dispatch(carRequest());
+    return fetch(cons.APIEndpoints.CARS + '/' + carId, {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(carSuccess(json)))
+    .catch(errors => dispatch(carFailure(errors)))
   };
 }
 
@@ -89,6 +104,26 @@ export function carsSuccess(json) {
 export function carsFailure(errors) {
   return {
     type: types.CARS_FAILURE,
+    errors: errors
+  }
+}
+
+export function carRequest() {
+  return {
+    type: types.CAR_REQUEST,
+  };
+}
+
+export function carSuccess(json) {
+  return {
+    type: types.CAR_SUCCESS,
+    car: json
+  }
+}
+
+export function carFailure(errors) {
+  return {
+    type: types.CAR_FAILURE,
     errors: errors
   }
 }

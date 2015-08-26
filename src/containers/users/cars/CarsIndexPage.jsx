@@ -12,8 +12,8 @@ export default class CarsIndexPage extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch, session, currentUserId } = this.props;
-    dispatch(actions.fetchCars(currentUserId, session));
+    const { dispatch, currentUserId } = this.props;
+    dispatch(actions.fetchCars(currentUserId));
   }
 
   render() {
@@ -48,7 +48,6 @@ CarsIndexPage.PropTypes = {
 function select(state) {
   return {
     currentUserId: state.session.user.id,
-    session:       state.session,
     cars:          state.cars['cars'],
   };
 }

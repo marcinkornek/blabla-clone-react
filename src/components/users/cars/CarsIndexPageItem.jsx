@@ -33,7 +33,7 @@ export default class CarsIndexPageItem extends React.Component {
     return (
       <div className='car'>
         <div className='car-name'>
-          <Link to={`cars/${this.props.car.id}`}>{this.props.car.full_name}</Link>
+          <Link to={`/cars/${this.props.car.id}`}>{this.props.car.full_name}</Link>
         </div>
         <div className='car-details'>
           <div className='car-details__places'>
@@ -42,9 +42,11 @@ export default class CarsIndexPageItem extends React.Component {
           {stars}
         </div>
         <div className='car-options'>
-          <Bootstrap.OverlayTrigger placement='top' overlay={tooltipEdit} delayShow={300} delayHide={150}>
-            <Icon name='edit' />
-          </Bootstrap.OverlayTrigger>
+          <Link to={`/cars/${this.props.car.id}/edit`}>
+            <Bootstrap.OverlayTrigger placement='top' overlay={tooltipEdit} delayShow={300} delayHide={150}>
+              <Icon name='edit' />
+            </Bootstrap.OverlayTrigger>
+          </Link>
           <Bootstrap.OverlayTrigger placement='top' overlay={tooltipDelete} delayShow={300} delayHide={150}>
             <Icon name='trash' />
           </Bootstrap.OverlayTrigger>
