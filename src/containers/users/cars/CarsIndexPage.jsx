@@ -1,8 +1,9 @@
 import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
+import Router, { Link }      from 'react-router'
 import Bootstrap             from 'react-bootstrap'
 import styles                from '../../../stylesheets/users/Users'
-import CarsItem             from '../../../components/users/cars/CarsIndexPageItem'
+import CarsItem              from '../../../components/users/cars/CarsIndexPageItem'
 import * as actions          from '../../../actions/cars';
 
 export default class CarsIndexPage extends React.Component {
@@ -32,6 +33,9 @@ export default class CarsIndexPage extends React.Component {
           My cars
         </div>
         {carsList}
+        <div>
+          <Link to='/cars/new'><Bootstrap.Button bsStyle='primary'>New car</Bootstrap.Button></Link>
+        </div>
       </div>
     )
   }
