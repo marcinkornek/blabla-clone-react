@@ -9,7 +9,7 @@ export default class Header extends React.Component {
       rightNav =
         <Bootstrap.Nav navbar right>
           <Bootstrap.DropdownButton eventKey={3} title={this.props.currentUser.email}>
-            <li><Link to='/account/edit'>Account</Link></li>
+            <li><Link to='/account/user'>Account</Link></li>
             <Bootstrap.MenuItem divider />
             <li><a href='' onClick={this.handleLogout.bind(this)}>Logout</a></li>
           </Bootstrap.DropdownButton>

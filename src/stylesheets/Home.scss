@@ -1,3 +1,12 @@
 body {
   padding-top: 60px;
 }
+
+a {
+  color: black;
+
+  &:hover, &:active, &:focus {
+    color: black;
+    text-decoration: none;
+  }
+}

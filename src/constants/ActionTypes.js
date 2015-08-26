@@ -10,6 +10,10 @@ export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
 
+export const CARS_REQUEST        = 'CARS_REQUEST';
+export const CARS_SUCCESS        = 'CARS_SUCCESS';
+export const CARS_FAILURE        = 'CARS_FAILURE';
+
 export const USERS_REQUEST       = 'USERS_REQUEST';
 export const USERS_SUCCESS       = 'USERS_SUCCESS';
 export const USERS_FAILURE       = 'USERS_FAILURE';

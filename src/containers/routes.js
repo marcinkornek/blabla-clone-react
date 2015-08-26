@@ -58,7 +58,7 @@ export const createRoutes = (store) => {
       <Route name='register'   path='/register'      component={UsersNewPage}   onEnter={checkPermission(store, cons.Permissions.PUBLIC)} />
       <Route name='usersIndex' path='/users'         component={UsersIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
       <Route name='usersShow'  path='/users/:userId' component={UsersShowPage}  onEnter={checkPermission(store, cons.Permissions.USER)} />
-      <Route name='usersEdit'  path='/account/edit'  component={UsersEditPage}  onEnter={checkPermission(store, cons.Permissions.ADMIN)} />
+      <Route name='usersEdit'  path='/account/:type'  component={UsersEditPage}  onEnter={checkPermission(store, cons.Permissions.USER)} />
       <Route name='notAuthorized'  path='/403'  component={Home}                onEnter={checkPermission(store, cons.Permissions.PUBLIC)} />
     </Route>
   );

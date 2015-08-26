@@ -50,3 +50,68 @@
   display: inline-block;
   margin-left: 5px;
 }
+
+// User Account
+
+.account-menu {
+  border: 1px solid gray;
+  padding: 0;
+}
+
+.account-menu__heading {
+  border-bottom: 1px solid gray;
+  width: 100%;
+  padding: 5px;
+  font-weight: bold;
+  background-color: #B0B0B0;
+}
+
+.account-menu__item {
+  display: block;
+  background-color: #f8f8f8;
+  padding: 5px;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ffeb00;
+  }
+
+  &.active {
+    background-color: #ffeb00;
+  }
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+// User Account Edit
+
+.account-title {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid gray;
+}
+
+// User Cars Index
+
+.car {
+  width: 200px;
+  height: 100px;
+  display: inline-block;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.car-details__places {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.car-details__stars {
+  color: blue;
+  display: inline-block;
+}
