@@ -1,6 +1,7 @@
 import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
 import Bootstrap             from 'react-bootstrap'
+import { Link }              from 'react-router';
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
 import styles                from '../../../stylesheets/users/Users'
@@ -18,7 +19,7 @@ export default class CarsShowPage extends React.Component {
   }
 
   render() {
-    const { isFetching, car } = this.props
+    const { isFetching, car, currentUserId } = this.props
 
     const tooltipComfort = (
       <Bootstrap.Tooltip>{this.props.car.comfort}</Bootstrap.Tooltip>
@@ -44,10 +45,25 @@ export default class CarsShowPage extends React.Component {
         </div>
       </Bootstrap.OverlayTrigger>
 
-    var carMainInfoAvatar =
+    var carMainInfoPhoto =
       <div className='main-info__photo'>
         car photo
       </div>
+
+    var actions
+    if (currentUserId === this.props.car.owner_id) {
+      actions =
+        <div className='car-actions'>
+          <Link to={`/cars/${this.props.car.id}/edit`}>
+            <Bootstrap.OverlayTrigger placement='top' overlay={tooltipEdit} delayShow={300} delayHide={150}>
+              <Icon name='edit' />
+            </Bootstrap.OverlayTrigger>
+          </Link>
+          <Bootstrap.OverlayTrigger placement='top' overlay={tooltipDelete} delayShow={300} delayHide={150}>
+            <Icon name='trash' />
+          </Bootstrap.OverlayTrigger>
+        </div>
+    }
 
     var carMainInfoDetails =
       <div className='main-info__details'>
@@ -59,11 +75,12 @@ export default class CarsShowPage extends React.Component {
           <div className='car-details__color'>{car.color}</div>
           <div className='car-details__category'>{car.category}</div>
         </div>
+        {actions}
       </div>
 
     return (
       <Bootstrap.Grid className='car'>
-        {carMainInfoAvatar}
+        {carMainInfoPhoto}
         {carMainInfoDetails}
       </Bootstrap.Grid>
     )
@@ -76,8 +93,9 @@ CarsShowPage.PropTypes = {
 
 function select(state) {
   return {
-    isFetching: state.car['isFetching'],
-    car:        state.car['car']
+    isFetching:    state.car['isFetching'],
+    car:           state.car['car'],
+    currentUserId: state.session.user.id
   };
 }
 

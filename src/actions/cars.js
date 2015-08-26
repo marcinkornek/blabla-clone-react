@@ -72,12 +72,12 @@ export function createCar(car, session) {
         'X-User-Token': session['access_token']
       },
       body: JSON.stringify({
-        'brand': car["brand"],
-        'model': car["model"],
+        'brand':    car["brand"],
+        'model':    car["model"],
         'production_year': car["production_year"],
-        'places': car["places"],
-        'color': car["color"],
-        'comfort': car["comfort"],
+        'places':   car["places"],
+        'color':    car["color"],
+        'comfort':  car["comfort"],
         'category': car["category"],
       })
     })
@@ -85,6 +85,35 @@ export function createCar(car, session) {
     .then(req => req.json())
     .then(json => dispatch(carCreateSuccess(json)))
     .catch(errors => dispatch(carCreateFailure(errors)))
+  };
+}
+
+export function updateCar(car, session) {
+  return dispatch => {
+    dispatch(carUpdateRequest());
+    return fetch(cons.APIEndpoints.CARS + '/' + car.id, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json',
+        'X-User-Email': session['email'],
+        'X-User-Token': session['access_token']
+      },
+      body: JSON.stringify({
+        'id':       car["id"],
+        'brand':    car["brand"],
+        'model':    car["model"],
+        'production_year': car["production_year"],
+        'places':   car["places"],
+        'color':    car["color"],
+        'comfort':  car["comfort"],
+        'category': car["category"],
+      })
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(carUpdateSuccess(json)))
+    .catch(errors => dispatch(carUpdateFailure(errors)))
   };
 }
 
@@ -150,20 +179,40 @@ export function carsOptionsFailure(errors) {
 
 export function carCreateRequest() {
   return {
-    type: types.CARS_CREATE_REQUEST,
+    type: types.CAR_CREATE_REQUEST,
   };
 }
 
 export function carCreateSuccess(json) {
   return {
-    type: types.CARS_CREATE_SUCCESS,
-    cars: json
+    type: types.CAR_CREATE_SUCCESS,
+    car: json
   }
 }
 
 export function carCreateFailure(errors) {
   return {
-    type: types.CARS_CREATE_FAILURE,
+    type: types.CAR_CREATE_FAILURE,
+    errors: errors
+  }
+}
+
+export function carUpdateRequest() {
+  return {
+    type: types.CAR_UPDATE_REQUEST,
+  };
+}
+
+export function carUpdateSuccess(json) {
+  return {
+    type: types.CAR_UPDATE_SUCCESS,
+    car: json
+  }
+}
+
+export function carUpdateFailure(errors) {
+  return {
+    type: types.CAR_UPDATE_FAILURE,
     errors: errors
   }
 }

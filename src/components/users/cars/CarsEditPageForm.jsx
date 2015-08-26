@@ -29,7 +29,6 @@ export default class CarsEditPageForm extends React.Component {
       }
     }
 
-
     return (
       <div>
         <div className='account-title'>
@@ -37,16 +36,16 @@ export default class CarsEditPageForm extends React.Component {
         </div>
         <form className='-form' onSubmit={this.handleSubmitEditCarForm.bind(this)}>
           <Bootstrap.Input type='text' name='brand' label='Brand' placeholder='Brand' ref='brand' value={this.state.car.brand} onChange={this.handleChange.bind(this)} />
-          <Bootstrap.Input type='text' name='brand' label='Model' placeholder='Model' ref='model' value={this.state.car.model} onChange={this.handleChange.bind(this)} />
-          <Bootstrap.Input type='text' label='Production year' placeholder='Production year' ref='production_year' value={this.state.car.production_year} onChange={this.handleChange.bind(this)} />
-          <Bootstrap.Input type='text' label='Places' placeholder='Places' ref='places' value={this.state.car.places} onChange={this.handleChange.bind(this)} />
-          <Bootstrap.Input type='select' label='Color' ref='color' value={this.state.car.color} onChange={this.handleChange.bind(this)} >
+          <Bootstrap.Input type='text' name='model' label='Model' placeholder='Model' ref='model' value={this.state.car.model} onChange={this.handleChange.bind(this)} />
+          <Bootstrap.Input type='text' name='production_year' label='Production year' placeholder='Production year' ref='production_year' value={this.state.car.production_year} onChange={this.handleChange.bind(this)} />
+          <Bootstrap.Input type='text' name='places' label='Places' placeholder='Places' ref='places' value={this.state.car.places} onChange={this.handleChange.bind(this)} />
+          <Bootstrap.Input type='select' name='color' label='Color' ref='color' value={this.state.car.color} onChange={this.handleChange.bind(this)} >
             {colors}
           </Bootstrap.Input>
-          <Bootstrap.Input type='select' label='Comfort' ref='comfort' value={this.state.car.comfort} onChange={this.handleChange.bind(this)} >
+          <Bootstrap.Input type='select' name='comfort' label='Comfort' ref='comfort' value={this.state.car.comfort} onChange={this.handleChange.bind(this)} >
             {comforts}
           </Bootstrap.Input>
-          <Bootstrap.Input type='select' label='Category' ref='category' value={this.state.car.category} onChange={this.handleChange.bind(this)} >
+          <Bootstrap.Input type='select' name='category' label='Category' ref='category' value={this.state.car.category} onChange={this.handleChange.bind(this)} >
             {categories}
           </Bootstrap.Input>
           <Bootstrap.ButtonInput type='submit' value='Edit' />

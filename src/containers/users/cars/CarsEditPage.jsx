@@ -23,7 +23,7 @@ export default class CarsEditPage extends React.Component {
   }
 
   render() {
-    const { dispatch, car, carsOptions } = this.props;
+    const { dispatch, car, carsOptions, session } = this.props;
 
     return (
       <div>
@@ -32,7 +32,7 @@ export default class CarsEditPage extends React.Component {
             car={car}
             carsOptions={carsOptions}
             onAddClick={car =>
-              console.log(car)
+              dispatch(actions.updateCar(car, session))
             } />
         </Bootstrap.Row>
       </div>
@@ -48,7 +48,8 @@ function select(state) {
   return {
     currentUserId: state.session.user.id,
     car:           state.car.car,
-    carsOptions:   state.carsOptions.carsOptions
+    carsOptions:   state.carsOptions.carsOptions,
+    session:       state.session.user
   };
 }
 

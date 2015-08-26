@@ -41,7 +41,7 @@ export default class CarsIndexPageItem extends React.Component {
           </div>
           {stars}
         </div>
-        <div className='car-options'>
+        <div className='car-actions'>
           <Link to={`/cars/${this.props.car.id}/edit`}>
             <Bootstrap.OverlayTrigger placement='top' overlay={tooltipEdit} delayShow={300} delayHide={150}>
               <Icon name='edit' />
