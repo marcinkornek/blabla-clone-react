@@ -6,18 +6,18 @@ import styles                from '../../stylesheets/users/Users'
 export default class UsersIndexPageItem extends React.Component {
   render() {
     return (
-      <div className='user'>
+      <Bootstrap.Panel className='user'>
         <div className='user-details'>
-          <Link to={`/users/${this.props.user.id}`}>About</Link>
-          {this.props.user.email}
-          {this.props.user.first_name}
-          {this.props.user.last_name}
-          {this.props.user.created_at}
+          <Link to={`/users/${this.props.user.id}`}>
+          <div className='user-details__name'>{this.props.user.full_name}</div>
+          </Link>
+          <div className='user-details__email'>{this.props.user.email}</div>
+          <div className='user-details__timestamp'>{this.props.user.created_at}</div>
         </div>
         <div className='user-avatar'>
           {this.props.user.avatar}
         </div>
-      </div>
+      </Bootstrap.Panel>
     )
   }
 }

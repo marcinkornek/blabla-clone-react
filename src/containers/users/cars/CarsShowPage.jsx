@@ -6,6 +6,7 @@ import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
 import styles                from '../../../stylesheets/users/Users'
 import * as actions          from '../../../actions/cars';
+import CarsActions           from '../../../components/users/cars/CarsActions'
 
 export default class CarsShowPage extends React.Component {
   constructor (props, context) {
@@ -25,14 +26,6 @@ export default class CarsShowPage extends React.Component {
       <Bootstrap.Tooltip>{this.props.car.comfort}</Bootstrap.Tooltip>
     );
 
-    const tooltipEdit = (
-      <Bootstrap.Tooltip>Edit</Bootstrap.Tooltip>
-    );
-
-    const tooltipDelete = (
-      <Bootstrap.Tooltip>Delete</Bootstrap.Tooltip>
-    );
-
     var starsIcons = []
     for (var i = 0; i < this.props.car.comfort_stars; i++) {
       starsIcons.push(<Icon name='star' />);
@@ -50,19 +43,9 @@ export default class CarsShowPage extends React.Component {
         car photo
       </div>
 
-    var actions
-    if (currentUserId === this.props.car.owner_id) {
-      actions =
-        <div className='car-actions'>
-          <Link to={`/cars/${this.props.car.id}/edit`}>
-            <Bootstrap.OverlayTrigger placement='top' overlay={tooltipEdit} delayShow={300} delayHide={150}>
-              <Icon name='edit' />
-            </Bootstrap.OverlayTrigger>
-          </Link>
-          <Bootstrap.OverlayTrigger placement='top' overlay={tooltipDelete} delayShow={300} delayHide={150}>
-            <Icon name='trash' />
-          </Bootstrap.OverlayTrigger>
-        </div>
+    var carsActions
+    if (car.owner_id === currentUserId) {
+      carsActions = <CarsActions carId={this.props.car.id} />
     }
 
     var carMainInfoDetails =
@@ -75,7 +58,7 @@ export default class CarsShowPage extends React.Component {
           <div className='car-details__color'>{car.color}</div>
           <div className='car-details__category'>{car.category}</div>
         </div>
-        {actions}
+        {carsActions}
       </div>
 
     return (

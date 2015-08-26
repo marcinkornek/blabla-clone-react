@@ -3,19 +3,12 @@ import { Link }              from 'react-router';
 import Bootstrap             from 'react-bootstrap'
 import styles                from '../../../stylesheets/users/Users'
 import Icon                  from 'react-fa'
+import CarsActions           from './CarsActions'
 
 export default class CarsIndexPageItem extends React.Component {
   render() {
     const tooltipComfort = (
       <Bootstrap.Tooltip>{this.props.car.comfort}</Bootstrap.Tooltip>
-    );
-
-    const tooltipEdit = (
-      <Bootstrap.Tooltip>Edit</Bootstrap.Tooltip>
-    );
-
-    const tooltipDelete = (
-      <Bootstrap.Tooltip>Delete</Bootstrap.Tooltip>
     );
 
     var starsIcons = []
@@ -30,6 +23,11 @@ export default class CarsIndexPageItem extends React.Component {
         </div>
       </Bootstrap.OverlayTrigger>
 
+    var carsActions
+    if (this.props.car.owner_id === this.props.currentUserId) {
+      carsActions = <CarsActions carId={this.props.car.id} />
+    }
+
     return (
       <div className='car'>
         <div className='car-name'>
@@ -41,16 +39,7 @@ export default class CarsIndexPageItem extends React.Component {
           </div>
           {stars}
         </div>
-        <div className='car-actions'>
-          <Link to={`/cars/${this.props.car.id}/edit`}>
-            <Bootstrap.OverlayTrigger placement='top' overlay={tooltipEdit} delayShow={300} delayHide={150}>
-              <Icon name='edit' />
-            </Bootstrap.OverlayTrigger>
-          </Link>
-          <Bootstrap.OverlayTrigger placement='top' overlay={tooltipDelete} delayShow={300} delayHide={150}>
-            <Icon name='trash' />
-          </Bootstrap.OverlayTrigger>
-        </div>
+        {carsActions}
       </div>
     )
   }

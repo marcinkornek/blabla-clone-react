@@ -17,11 +17,11 @@ export default class CarsIndexPage extends React.Component {
   }
 
   render() {
-    const { cars } = this.props
+    const { cars, currentUserId } = this.props
     var carsList
     if (cars) {
       carsList = cars.map((car, i) =>
-        <CarsItem car={car} key={i} />
+        <CarsItem car={car} currentUserId={currentUserId} key={i} />
       )
     } else {
       carsList = 'No cars'

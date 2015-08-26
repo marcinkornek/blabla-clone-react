@@ -5,6 +5,7 @@ import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
 import styles                from '../../stylesheets/users/Users'
 import * as actions          from '../../actions/users';
+import CarsItem              from '../../components/users/cars/CarsIndexPageItem'
 
 export default class UsersShowPage extends React.Component {
   constructor (props, context) {
@@ -18,7 +19,7 @@ export default class UsersShowPage extends React.Component {
   }
 
   render() {
-    const { isFetching, user } = this.props
+    const { isFetching, user, currentUserId } = this.props
 
     var userSidebarActivity =
       <div className='sidebar'>
@@ -40,15 +41,24 @@ export default class UsersShowPage extends React.Component {
 
       </div>
 
+    var carsList
+    if (user.cars) {
+      carsList = user.cars.map((car, i) =>
+        <CarsItem car={car} currentUserId={currentUserId} key={i} />
+      )
+    } else {
+      carsList = 'No cars'
+    }
+
     var userSidebarCar =
       <div className='sidebar'>
         <div className='sidebar__title'>
           Car
         </div>
         <div className='sidebar__details'>
+          {carsList}
         </div>
       </div>
-
 
     var userMainInfoAvatar =
       <div className='main-info__avatar'>
@@ -93,9 +103,11 @@ UsersShowPage.PropTypes = {
 }
 
 function select(state) {
+  console.log('state', state.user['user'])
   return {
-    isFetching: state.user['isFetching'],
-    user:       state.user['user']
+    isFetching:    state.user['isFetching'],
+    user:          state.user['user'],
+    currentUserId: state.session.user.id
   };
 }
 
