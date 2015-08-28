@@ -1,10 +1,12 @@
 import React, { PropTypes }  from 'react'
-import { connect }           from 'react-redux';
 import Router, { Link }      from 'react-router'
 import Bootstrap             from 'react-bootstrap'
-import styles                from '../../../stylesheets/users/Users'
-import CarsItem              from '../../../components/users/cars/CarsIndexPageItem'
-import * as actions          from '../../../actions/cars';
+import { connect }           from 'react-redux';
+
+import * as actions          from '../../actions/cars';
+import styles                from '../../stylesheets/users/Users'
+import CarsItem              from '../../components/cars/CarsIndexPageItem'
+import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 export default class CarsIndexPage extends React.Component {
   constructor (props, context) {
@@ -13,11 +15,14 @@ export default class CarsIndexPage extends React.Component {
 
   componentDidMount() {
     const { dispatch, currentUserId } = this.props;
-    dispatch(actions.fetchCars(currentUserId));
+    if (currentUserId) {
+      dispatch(actions.fetchCars(currentUserId));
+    }
   }
 
   render() {
     const { cars, currentUserId } = this.props
+
     var carsList
     if (cars) {
       carsList = cars.map((car, i) =>
@@ -27,14 +32,22 @@ export default class CarsIndexPage extends React.Component {
       carsList = 'No cars'
     }
 
-    return (
-      <div className='cars'>
+    var carsMain =
+      <Bootstrap.Col xs={10}>
         <div className='account__title'>
           My cars
         </div>
         {carsList}
         <div>
           <Link to='/cars/new'><Bootstrap.Button bsStyle='primary'>New car</Bootstrap.Button></Link>
+        </div>
+      </Bootstrap.Col>
+
+    return (
+      <div className='show-grid'>
+        <div className='cars'>
+          <UserAccountMenu />
+          {carsMain}
         </div>
       </div>
     )

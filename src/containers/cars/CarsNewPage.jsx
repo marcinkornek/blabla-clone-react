@@ -2,9 +2,9 @@ import React, { PropTypes }  from 'react';
 import Bootstrap             from 'react-bootstrap'
 import { connect }           from 'react-redux';
 
-import CarsNewPageForm       from '../../../components/users/cars/CarsNewPageForm'
-import styles                from '../../../stylesheets/users/Users'
-import * as actions          from '../../../actions/cars';
+import * as actions          from '../../actions/cars';
+import styles                from '../../stylesheets/users/Users'
+import CarsNewPageForm       from '../../components/cars/CarsNewPageForm'
 
 export default class CarsNewPage extends React.Component {
   constructor (props, context) {
@@ -19,16 +19,14 @@ export default class CarsNewPage extends React.Component {
   render() {
     const { dispatch, carsOptions, session } = this.props;
     return (
-      <div>
-        <Bootstrap.Row className='show-grid'>
-          <Bootstrap.Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
-            <CarsNewPageForm
-              carsOptions={carsOptions}
-              onAddClick={(car, car_photo) =>
-                dispatch(actions.createCar(car, car_photo, session))
-              } />
-          </Bootstrap.Col>
-        </Bootstrap.Row>
+      <div className='show-grid'>
+        <Bootstrap.Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
+          <CarsNewPageForm
+            carsOptions={carsOptions}
+            onAddClick={(car, car_photo) =>
+              dispatch(actions.createCar(car, car_photo, session))
+            } />
+        </Bootstrap.Col>
       </div>
     )
   }

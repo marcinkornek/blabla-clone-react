@@ -4,9 +4,10 @@ import Bootstrap             from 'react-bootstrap'
 import { Link }              from 'react-router';
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
-import styles                from '../../../stylesheets/users/Users'
-import * as actions          from '../../../actions/cars';
-import CarsActions           from '../../../components/users/cars/CarsActions'
+
+import * as actions          from '../../actions/cars';
+import styles                from '../../stylesheets/users/Users'
+import CarsActions           from '../../components/cars/CarsActions'
 
 export default class CarsShowPage extends React.Component {
   constructor (props, context) {
@@ -38,9 +39,9 @@ export default class CarsShowPage extends React.Component {
         </div>
       </Bootstrap.OverlayTrigger>
 
-    var carMainInfoPhoto =
+    var carPhoto =
       <div className='main-info__photo'>
-        car photo
+        <img src={car.car_photo} />
       </div>
 
     var carsActions
@@ -48,23 +49,21 @@ export default class CarsShowPage extends React.Component {
       carsActions = <CarsActions carId={this.props.car.id} />
     }
 
-    var carMainInfoDetails =
-      <div className='main-info__details'>
-        <div className='car-details'>
-          <div className='car-details__name'>{car.full_name}</div>
-          <div className='car-details__places'>{this.props.car.places_full}</div>
-          {stars}
-          <div className='car-details__year'>{car.production_year}</div>
-          <div className='car-details__color'>{car.color}</div>
-          <div className='car-details__category'>{car.category}</div>
-        </div>
+    var carDetails =
+      <div className='car-details'>
+        <div className='car-details__name'>{car.full_name}</div>
+        <div className='car-details__places'>{this.props.car.places_full}</div>
+        {stars}
+        <div className='car-details__year'>{car.production_year}</div>
+        <div className='car-details__color'>{car.color}</div>
+        <div className='car-details__category'>{car.category}</div>
         {carsActions}
       </div>
 
     return (
       <Bootstrap.Grid className='car'>
-        {carMainInfoPhoto}
-        {carMainInfoDetails}
+        {carPhoto}
+        {carDetails}
       </Bootstrap.Grid>
     )
   }

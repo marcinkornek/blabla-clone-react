@@ -1,6 +1,18 @@
+.users {
+  text-align: center;
+}
+
 .sidebar__container {
+  display: inline-block;
   padding: 10px;
   border: 1px solid #BDBDBD;
+  width: 305px;
+}
+
+.main-info__container {
+  margin-left: 20px;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .sidebar {
@@ -86,6 +98,26 @@
   }
 }
 
+.account-menu__subitem {
+  display: block;
+  background-color: #f8f8f8;
+  padding: 5px;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #FFFFCC;
+  }
+
+  &.active {
+    background-color: #FFFFCC;
+  }
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
 // User Account Edit
 
 .account__title {
@@ -128,11 +160,20 @@
 // User Cars Index
 
 .car {
-  width: 200px;
-  height: 80px;
+  width: 32%;
+  min-width: 280px;
   display: inline-block;
   padding: 5px;
   margin-right: 10px;
+}
+
+.car-details {
+  width: 130px;
+  display: inline-block;
+}
+
+.car-details__name {
+  font-weight: bold;
 }
 
 .car-details__places {
@@ -145,11 +186,17 @@
   display: inline-block;
 }
 
+.car-photo {
+  display: inline-block;
+  float: right;
+}
+
 // Users Index
 
 .user {
-  width: 350px;
-  height: 150px;
+  width: 32%;
+  min-width: 320px;
+  height: 130px;
   display: inline-block;
   margin-right: 10px;
   margin-bottom: 10px;

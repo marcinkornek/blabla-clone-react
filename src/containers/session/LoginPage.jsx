@@ -15,19 +15,17 @@ export default class LoginPage extends React.Component {
   render() {
     const { dispatch } = this.props;
     return (
-      <div>
-        <Bootstrap.Row className='show-grid'>
-          <Bootstrap.Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
-            <LoginFbPage
-              onDataReceive={text =>
-                dispatch(actions.logInFbBackend(text))
-              } />
-            <LoginEmailPage
-              onAddClick={text =>
-                dispatch(actions.logInEmailBackend(text))
-              } />
-          </Bootstrap.Col>
-        </Bootstrap.Row>
+      <div className='show-grid'>
+        <Bootstrap.Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
+          <LoginFbPage
+            onDataReceive={text =>
+              dispatch(actions.logInFbBackend(text))
+            } />
+          <LoginEmailPage
+            onAddClick={text =>
+              dispatch(actions.logInEmailBackend(text))
+            } />
+        </Bootstrap.Col>
       </div>
     )
   }

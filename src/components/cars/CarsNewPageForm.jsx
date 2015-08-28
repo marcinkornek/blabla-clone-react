@@ -1,7 +1,7 @@
 import React, { PropTypes }  from 'react'
 import Bootstrap             from 'react-bootstrap'
-import styles                from '../../../stylesheets/users/Users'
-import FormTooltip           from '../../shared/FormTooltip'
+import styles                from '../../stylesheets/users/Users'
+import FormTooltip           from '../shared/FormTooltip'
 
 export default class CarsNewPageForm extends React.Component {
   constructor (props, context) {

@@ -1,7 +1,7 @@
 import React, { PropTypes }  from 'react'
 import { Link }              from 'react-router';
 import Bootstrap             from 'react-bootstrap'
-import styles                from '../../../stylesheets/users/Users'
+import styles                from '../../stylesheets/users/Users'
 import _                     from 'lodash'
 import Icon                  from 'react-fa'
 
@@ -21,7 +21,7 @@ export default class CarsActions extends React.Component {
 
     return (
       <div className='car-actions'>
-        <Link to={`/cars/${this.props.carId}/edit`}>
+        <Link to={`/account/cars/${this.props.carId}/edit`}>
           <Bootstrap.OverlayTrigger placement='top' overlay={tooltipEdit} delayShow={300} delayHide={150}>
             <Icon name='edit' />
           </Bootstrap.OverlayTrigger>

@@ -4,6 +4,7 @@ import Bootstrap            from 'react-bootstrap'
 
 export default class Header extends React.Component {
   render() {
+
     var rightNav
     if (this.props.currentUser.email) {
       rightNav =
@@ -22,13 +23,16 @@ export default class Header extends React.Component {
         </Bootstrap.Nav>
     }
 
+    var leftNav =
+      <Bootstrap.Nav navbar>
+        <li><Link to='/'>Home</Link></li>
+        <li><Link to='/users'>Users</Link></li>
+      </Bootstrap.Nav>
+
     return (
       <Bootstrap.Navbar fixedTop brand='News App' toggleNavKey={0}>
         <Bootstrap.CollapsibleNav>
-          <Bootstrap.Nav navbar>
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='/users'>Users</Link></li>
-          </Bootstrap.Nav>
+          {leftNav}
           {rightNav}
         </Bootstrap.CollapsibleNav>
       </Bootstrap.Navbar>

@@ -18,9 +18,7 @@ export default class Application extends React.Component {
             dispatch(actions.logout(currentUser))
           } />
         <div id='main' className='container'>
-          <div className='row'>
-            {this.props.children}
-          </div>
+          {this.props.children}
         </div>
       </div>
     )

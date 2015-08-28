@@ -1,9 +1,10 @@
 import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
 import Bootstrap             from 'react-bootstrap'
+
+import * as actions          from '../../actions/users';
 import styles                from '../../stylesheets/users/Users'
 import UsersItem             from '../../components/users/UsersIndexPageItem'
-import * as actions          from '../../actions/users';
 
 export default class UsersIndexPage extends React.Component {
   constructor (props, context) {
@@ -17,6 +18,7 @@ export default class UsersIndexPage extends React.Component {
 
   render() {
     const { isFetching, users } = this.props
+
     var usersList
     if (users) {
       usersList = users.map((user, i) =>

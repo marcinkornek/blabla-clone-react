@@ -3,9 +3,10 @@ import { connect }           from 'react-redux';
 import Bootstrap             from 'react-bootstrap'
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
-import styles                from '../../stylesheets/users/Users'
+
 import * as actions          from '../../actions/users';
-import CarsItem              from '../../components/users/cars/CarsIndexPageItem'
+import styles                from '../../stylesheets/users/Users'
+import CarsItem              from '../../components/cars/CarsIndexPageItem'
 
 export default class UsersShowPage extends React.Component {
   constructor (props, context) {
@@ -78,16 +79,16 @@ export default class UsersShowPage extends React.Component {
       </div>
 
     var userSidebar =
-      <Bootstrap.Col xs={3} className='sidebar__container'>
+      <div className='sidebar__container'>
         {userSidebarActivity}
         {userSidebarCar}
-      </Bootstrap.Col>
+      </div>
 
     var userMainInfo =
-      <Bootstrap.Col xs={7} className='main-info__container'>
+      <div className='main-info__container'>
         {userMainInfoAvatar}
         {userMainInfoDetails}
-      </Bootstrap.Col>
+      </div>
 
     var mainContent
     if (isFetching === true) {
