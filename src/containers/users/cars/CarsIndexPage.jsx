@@ -29,7 +29,7 @@ export default class CarsIndexPage extends React.Component {
 
     return (
       <div className='cars'>
-        <div className='account-title'>
+        <div className='account__title'>
           My cars
         </div>
         {carsList}

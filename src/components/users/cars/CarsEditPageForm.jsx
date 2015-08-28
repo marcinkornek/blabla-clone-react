@@ -31,7 +31,7 @@ export default class CarsEditPageForm extends React.Component {
 
     return (
       <div>
-        <div className='account-title'>
+        <div className='account__title'>
           My profile
         </div>
         <form className='-form' onSubmit={this.handleSubmitEditCarForm.bind(this)}>

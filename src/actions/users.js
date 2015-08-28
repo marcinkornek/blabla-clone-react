@@ -56,6 +56,8 @@ export function createUser(user) {
         'first_name': user["first_name"],
         'last_name':  user["last_name"],
         'email':      user["email"],
+        'tel_num':    user["tel_num"],
+        'birth_year': user["birth_year"],
         'password':   user["password"],
         'password_confirmation': user["passwordConfirmation"]
       })
@@ -83,6 +85,8 @@ export function updateUser(user, avatar, session) {
         'first_name': user["first_name"],
         'last_name':  user["last_name"],
         'email':      user["email"],
+        'tel_num':    user["tel_num"],
+        'birth_year': user["birth_year"],
         'avatar':     avatar
       })
     })

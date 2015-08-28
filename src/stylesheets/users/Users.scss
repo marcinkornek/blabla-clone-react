@@ -88,12 +88,40 @@
 
 // User Account Edit
 
-.account-title {
+.account__title {
   font-size: 20px;
   font-weight: bold;
   padding-bottom: 5px;
   margin-bottom: 10px;
   border-bottom: 1px solid gray;
+}
+
+.account_form-fields {
+  width: 300px;
+}
+
+
+.account_form-avatar {
+  margin-bottom: 10px;
+
+  img {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+}
+
+.account_form-avatar-label {
+  font-weight: bold;
+}
+
+.account_form-label {
+  font-weight: bold;
+}
+
+.account_form-label--required {
+  display: inline-block;
+  margin-left: 5px;
+  cursor: default;
 }
 
 // User Cars Index
