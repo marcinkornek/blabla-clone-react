@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes'
 
 const initialState = {
+  isSaving:   false,
   isFetching: false,
   user: {}
 }
@@ -16,8 +17,13 @@ export default function user(state = initialState, action) {
       isFetching: false,
       user: action.user
     });
+  case types.USER_UPDATE_REQUEST:
+    return Object.assign({}, state, {
+      isSaving: true
+    });
   case types.USER_UPDATE_SUCCESS:
     return Object.assign({}, state, {
+      isSaving: false,
       user: action.user
     });
   default:

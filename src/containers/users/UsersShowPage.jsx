@@ -62,7 +62,7 @@ export default class UsersShowPage extends React.Component {
 
     var userMainInfoAvatar =
       <div className='main-info__avatar'>
-        avatar
+        <img src={user.avatar}/>
       </div>
 
     if (user.age) {

@@ -2,25 +2,64 @@ import React, { PropTypes }  from 'react'
 import Bootstrap             from 'react-bootstrap'
 import styles                from '../../stylesheets/users/Users'
 import _                     from 'lodash'
+import Icon                  from 'react-fa'
 
 export default class UsersEditPageForm extends React.Component {
   constructor (props, context) {
     super(props, context)
+    this._handleSubmitEditUserForm = this.handleSubmitEditUserForm.bind(this)
+    this._handleFile = this.handleFile.bind(this)
     this.state = {
-      user: props.user
+      user: props.user,
+      files: []
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isSaving === false) {
+      this.setState({user: nextProps.user})
+    }
+  }
+
+  handleFile(e) {
+    var that = this;
+    var reader = new FileReader();
+    var file = e.target.files[0];
+    var path_name = e.target.value
+
+    reader.onload = function(upload) {
+      that.setState({
+        avatar: {
+          image: upload.target.result,
+          path_name: path_name
+        }
+      });
+    }
+    reader.readAsDataURL(file);
+  }
+
   render() {
+    var saving
+    if (this.props.isSaving === true) {
+      saving =
+        <div>
+          <Icon spin name="spinner" />
+          Saving...
+        </div>
+    }
+
     return (
       <div>
         <div className='account-title'>
           My profile
         </div>
-        <form className='-form' onSubmit={this.handleSubmitEditUserForm.bind(this)}>
+        <form className='form' onSubmit={this._handleSubmitEditUserForm} encType='multipart/form-data' >
           <Bootstrap.Input type='text' name='first_name' label='First name' placeholder='First name' ref='first_name' value={this.state.user.first_name} onChange={this.handleChange.bind(this)} />
           <Bootstrap.Input type='text' name='last_name' label='Last name' placeholder='Last name' ref='last_name' value={this.state.user.last_name} onChange={this.handleChange.bind(this)} />
           <Bootstrap.Input type='text' name='email' label='Email' placeholder='Email' ref='email' value={this.state.user.email} onChange={this.handleChange.bind(this)} />
+          {saving}
+          <img src={this.state.user.avatar}/>
+          <input type='file' name='avatar' label='Avatar' placeholder='Avatar' ref='avatar' onChange={this._handleFile} />
           <Bootstrap.ButtonInput type='submit' value='Edit' />
         </form>
       </div>
@@ -35,7 +74,7 @@ export default class UsersEditPageForm extends React.Component {
 
   handleSubmitEditUserForm(e) {
     e.preventDefault()
-    this.props.onAddClick(this.state.user);
+    this.props.onAddClick(this.state.user, this.state.avatar);
   }
 }
 

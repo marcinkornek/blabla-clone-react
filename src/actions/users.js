@@ -67,11 +67,9 @@ export function createUser(user) {
   };
 }
 
-export function updateUser(user, session) {
-  // console.log('updateUser', user, session)
-  // console.log('path', cons.APIEndpoints.USERS + '/' + user.id)
+export function updateUser(user, avatar, session) {
   return dispatch => {
-    // dispatch(userupdateRequest());
+    dispatch(userUpdateRequest());
     return fetch(cons.APIEndpoints.USERS + '/' + user.id, {
       method: 'PUT',
       headers: {
@@ -85,6 +83,7 @@ export function updateUser(user, session) {
         'first_name': user["first_name"],
         'last_name':  user["last_name"],
         'email':      user["email"],
+        'avatar':     avatar
       })
     })
     .then(status)
@@ -136,7 +135,6 @@ export function userFailure(errors) {
   }
 }
 
-
 export function userCreateRequest() {
   return {
     type: types.USER_CREATE_REQUEST,
@@ -158,6 +156,11 @@ export function userCreateFailure(errors) {
   }
 }
 
+export function userUpdateRequest() {
+  return {
+    type: types.USER_UPDATE_REQUEST,
+  };
+}
 
 export function userUpdateSuccess(json, session) {
   // console.log('userSuccess json', json);

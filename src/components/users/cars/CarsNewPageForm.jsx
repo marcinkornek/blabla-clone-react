@@ -28,7 +28,6 @@ export default class CarsNewPageForm extends React.Component {
         <Bootstrap.Input type='text' label='Brand' placeholder='Brand' ref='brand' />
         <Bootstrap.Input type='text' label='Model' placeholder='Model' ref='model' />
         <Bootstrap.Input type='text' label='Production year' placeholder='Production year' ref='production_year' />
-        <Bootstrap.Input type='text' label='Places' placeholder='Places' ref='places' />
         <Bootstrap.Input type='select' label='Color' ref='color'>
           {colors}
         </Bootstrap.Input>

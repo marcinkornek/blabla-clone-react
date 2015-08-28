@@ -29,7 +29,7 @@ export default class UsersEditPage extends React.Component {
   }
 
   render() {
-    const { dispatch, user, session } = this.props;
+    const { dispatch, user, session, isSaving } = this.props;
     var userEditMenu =
       <Bootstrap.Col xs={2} className='account-menu'>
         <div className='account-menu__heading'>
@@ -42,9 +42,9 @@ export default class UsersEditPage extends React.Component {
     var userEditForm =
       <Bootstrap.Col xs={10}>
         <UsersEditPageForm
-          user={user}
-          onAddClick={user =>
-            dispatch(actions.updateUser(user, session))
+          user={user} isSaving={isSaving}
+          onAddClick={(user, files) =>
+            dispatch(actions.updateUser(user, files, session))
           } />
       </Bootstrap.Col>
 
@@ -77,6 +77,7 @@ UsersEditPage.PropTypes = {
 
 function select(state) {
   return {
+    isSaving:      state.user.isSaving,
     session:       state.session.user,
     currentUserId: state.session.user.id,
     user:          state.user.user
