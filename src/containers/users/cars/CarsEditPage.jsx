@@ -23,16 +23,16 @@ export default class CarsEditPage extends React.Component {
   }
 
   render() {
-    const { dispatch, car, carsOptions, session } = this.props;
+    const { dispatch, car, carsOptions, session, isSaving } = this.props;
 
     return (
       <div>
         <Bootstrap.Row className='show-grid'>
           <CarsEditPageForm
-            car={car}
+            car={car} isSaving={isSaving}
             carsOptions={carsOptions}
-            onAddClick={car =>
-              dispatch(actions.updateCar(car, session))
+            onAddClick={(car, car_photo) =>
+              dispatch(actions.updateCar(car, car_photo, session))
             } />
         </Bootstrap.Row>
       </div>
@@ -46,6 +46,7 @@ CarsEditPage.PropTypes = {
 
 function select(state) {
   return {
+    isSaving:      state.car.isSaving,
     currentUserId: state.session.user.id,
     car:           state.car.car,
     carsOptions:   state.carsOptions.carsOptions,

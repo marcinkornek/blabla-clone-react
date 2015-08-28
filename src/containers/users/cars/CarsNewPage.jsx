@@ -24,8 +24,8 @@ export default class CarsNewPage extends React.Component {
           <Bootstrap.Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
             <CarsNewPageForm
               carsOptions={carsOptions}
-              onAddClick={car =>
-                dispatch(actions.createCar(car, session))
+              onAddClick={(car, car_photo) =>
+                dispatch(actions.createCar(car, car_photo, session))
               } />
           </Bootstrap.Col>
         </Bootstrap.Row>

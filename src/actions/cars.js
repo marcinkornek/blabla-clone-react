@@ -60,7 +60,7 @@ export function fetchCarsOptions() {
   };
 }
 
-export function createCar(car, session) {
+export function createCar(car, car_photo, session) {
   return dispatch => {
     dispatch(carCreateRequest());
     return fetch(cons.APIEndpoints.CARS, {
@@ -79,6 +79,7 @@ export function createCar(car, session) {
         'color':    car["color"],
         'comfort':  car["comfort"],
         'category': car["category"],
+        'car_photo': car_photo
       })
     })
     .then(status)
@@ -88,7 +89,7 @@ export function createCar(car, session) {
   };
 }
 
-export function updateCar(car, session) {
+export function updateCar(car, car_photo, session) {
   return dispatch => {
     dispatch(carUpdateRequest());
     return fetch(cons.APIEndpoints.CARS + '/' + car.id, {
@@ -108,6 +109,7 @@ export function updateCar(car, session) {
         'color':    car["color"],
         'comfort':  car["comfort"],
         'category': car["category"],
+        'car_photo': car_photo
       })
     })
     .then(status)

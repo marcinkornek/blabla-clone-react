@@ -33,6 +33,7 @@ export default class CarsIndexPageItem extends React.Component {
         <div className='car-name'>
           <Link to={`/cars/${this.props.car.id}`}>{this.props.car.full_name}</Link>
         </div>
+        <img src={this.props.car.car_photo} />
         <div className='car-details'>
           <div className='car-details__places'>
             {this.props.car.places_full}

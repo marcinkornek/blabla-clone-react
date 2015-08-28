@@ -10,10 +10,7 @@ export default class UsersEditPageForm extends React.Component {
     super(props, context)
     this._handleSubmitEditUserForm = this.handleSubmitEditUserForm.bind(this)
     this._handleFile = this.handleFile.bind(this)
-    this.state = {
-      user: props.user,
-      files: []
-    }
+    this.state = {user: props.user}
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,6 +34,17 @@ export default class UsersEditPageForm extends React.Component {
       });
     }
     reader.readAsDataURL(file);
+  }
+
+  handleChange(e) {
+    var user = _.cloneDeep(this.state.user)
+    user[e.target.name] = e.target.value
+    this.setState({user: user})
+  }
+
+  handleSubmitEditUserForm(e) {
+    e.preventDefault()
+    this.props.onAddClick(this.state.user, this.state.avatar);
   }
 
   render() {
@@ -73,7 +81,7 @@ export default class UsersEditPageForm extends React.Component {
 
           </div>
           <div className='account_form-avatar'>
-            <div className='account_form-avatar-label'>Avatar</div>
+            <FormTooltip label='Avatar' required='false' />
             {saving}
             <img src={this.state.user.avatar}/>
             <input type='file' name='avatar' label='Avatar' placeholder='Avatar' ref='avatar' onChange={this._handleFile} />
@@ -82,17 +90,6 @@ export default class UsersEditPageForm extends React.Component {
         </form>
       </div>
     )
-  }
-
-  handleChange(e) {
-    var user = _.cloneDeep(this.state.user)
-    user[e.target.name] = e.target.value
-    this.setState({user: user})
-  }
-
-  handleSubmitEditUserForm(e) {
-    e.preventDefault()
-    this.props.onAddClick(this.state.user, this.state.avatar);
   }
 }
 

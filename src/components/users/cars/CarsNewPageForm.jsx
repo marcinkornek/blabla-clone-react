@@ -1,10 +1,29 @@
 import React, { PropTypes }  from 'react'
 import Bootstrap             from 'react-bootstrap'
 import styles                from '../../../stylesheets/users/Users'
+import FormTooltip           from '../../shared/FormTooltip'
 
 export default class CarsNewPageForm extends React.Component {
   constructor (props, context) {
     super(props, context)
+    this._handleFile = this.handleFile.bind(this)
+  }
+
+  handleFile(e) {
+    var that = this;
+    var reader = new FileReader();
+    var file = e.target.files[0];
+    var path_name = e.target.value
+
+    reader.onload = function(upload) {
+      that.setState({
+        car_photo: {
+          image: upload.target.result,
+          path_name: path_name
+        }
+      });
+    }
+    reader.readAsDataURL(file);
   }
 
   render() {
@@ -25,18 +44,37 @@ export default class CarsNewPageForm extends React.Component {
 
     return (
       <form className='login-email-form' onSubmit={this.handleSubmitRegisterForm.bind(this)}>
-        <Bootstrap.Input type='text' label='Brand' placeholder='Brand' ref='brand' />
-        <Bootstrap.Input type='text' label='Model' placeholder='Model' ref='model' />
-        <Bootstrap.Input type='text' label='Production year' placeholder='Production year' ref='production_year' />
-        <Bootstrap.Input type='select' label='Color' ref='color'>
+        <FormTooltip label='Brand' required='true' />
+        <Bootstrap.Input type='text' placeholder='Brand' ref='brand' />
+
+        <FormTooltip label='Model' required='true' />
+        <Bootstrap.Input type='text' placeholder='Model' ref='model' />
+
+        <FormTooltip label='places' required='false' />
+        <Bootstrap.Input type='text' placeholder='Places' ref='places' />
+
+        <FormTooltip label='Production year' required='true' />
+        <Bootstrap.Input type='text' placeholder='Production year' ref='production_year' />
+
+        <FormTooltip label='Color' required='false' />
+        <Bootstrap.Input type='select' ref='color'>
           {colors}
         </Bootstrap.Input>
-        <Bootstrap.Input type='select' label='Comfort' ref='comfort'>
+
+        <FormTooltip label='Comfort' required='false' />
+        <Bootstrap.Input type='select' ref='comfort'>
           {comforts}
         </Bootstrap.Input>
-        <Bootstrap.Input type='select' label='Category' ref='category'>
+
+        <FormTooltip label='Category' required='false' />
+        <Bootstrap.Input type='select' ref='category'>
           {categories}
         </Bootstrap.Input>
+
+        <div className='account_form-photo'>
+          <FormTooltip label='Car photo' required='false' />
+          <input type='file' name='car_photo' ref='car_photo' onChange={this._handleFile} />
+        </div>
         <Bootstrap.ButtonInput type='submit' value='Create' />
       </form>
     )
@@ -53,7 +91,7 @@ export default class CarsNewPageForm extends React.Component {
       comfort: this.refs.comfort.getValue(),
       category: this.refs.category.getValue()
     }
-    this.props.onAddClick(newCar);
+    this.props.onAddClick(newCar, this.state.car_photo);
   }
 }
 
