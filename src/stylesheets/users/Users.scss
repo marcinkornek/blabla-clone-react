@@ -115,3 +115,22 @@
   color: blue;
   display: inline-block;
 }
+
+// Users Index
+
+.user {
+  width: 350px;
+  height: 150px;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.user-details {
+  display: inline-block;
+}
+
+.user-avatar {
+  display: inline-block;
+  float: right;
+}

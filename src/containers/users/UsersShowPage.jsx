@@ -98,7 +98,7 @@ export default class UsersShowPage extends React.Component {
         </div>
     } else {
       mainContent =
-        <Bootstrap.Grid className='user'>
+        <Bootstrap.Grid>
           {userSidebar}
           {userMainInfo}
         </Bootstrap.Grid>
