@@ -27,6 +27,7 @@ export default class Header extends React.Component {
       <Bootstrap.Nav navbar>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/users'>Users</Link></li>
+        <li><Link to='/rides'>Rides</Link></li>
       </Bootstrap.Nav>
 
     return (

@@ -5,6 +5,7 @@ import user                from './user';
 import cars                from './cars';
 import carsOptions         from './carsOptions';
 import car                 from './car';
+import rides               from './rides';
 
 const rootReducer = combineReducers({
   session,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   user,
   cars,
   car,
-  carsOptions
+  carsOptions,
+  rides
 });
 
 export default rootReducer;

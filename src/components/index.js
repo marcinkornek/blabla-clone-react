@@ -12,3 +12,5 @@ export { default as CarsNewPage }      from '../containers/cars/CarsNewPage'
 export { default as CarsIndexPage }    from '../containers/cars/CarsIndexPage'
 export { default as CarsShowPage }     from '../containers/cars/CarsShowPage'
 export { default as CarsEditPage }     from '../containers/cars/CarsEditPage'
+
+export { default as RidesIndexPage }   from '../containers/rides/RidesIndexPage'
