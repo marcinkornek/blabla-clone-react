@@ -59,6 +59,7 @@ export default function session(state = initialState, action) {
         id: action.session.id,
         access_token: action.session.access_token,
         email: action.user.email,
+        permission: action.user.role
       }
     });
 

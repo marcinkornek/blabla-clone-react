@@ -89,11 +89,25 @@ export default class UsersShowPage extends React.Component {
         {userMainInfoDetails}
       </Bootstrap.Col>
 
+    var mainContent
+    if (isFetching === true) {
+      mainContent =
+        <div>
+          <Icon spin name="spinner" />
+          Fetching...
+        </div>
+    } else {
+      mainContent =
+        <Bootstrap.Grid className='user'>
+          {userSidebar}
+          {userMainInfo}
+        </Bootstrap.Grid>
+    }
+
     return (
-      <Bootstrap.Grid className='user'>
-        {userSidebar}
-        {userMainInfo}
-      </Bootstrap.Grid>
+      <div>
+        {mainContent}
+      </div>
     )
   }
 }
