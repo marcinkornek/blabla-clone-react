@@ -29,7 +29,7 @@ export function fetchRides(userId) {
 export function fetchRide(rideId) {
   return dispatch => {
     dispatch(rideRequest());
-    return fetch(cons.APIEndpoints.CARS + '/' + rideId, {
+    return fetch(cons.APIEndpoints.RIDES + '/' + rideId, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -46,7 +46,7 @@ export function fetchRide(rideId) {
 export function createRide(ride, ride_photo, session) {
   return dispatch => {
     dispatch(rideCreateRequest());
-    return fetch(cons.APIEndpoints.CARS, {
+    return fetch(cons.APIEndpoints.RIDES, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -75,7 +75,7 @@ export function createRide(ride, ride_photo, session) {
 export function updateRide(ride, ride_photo, session) {
   return dispatch => {
     dispatch(rideUpdateRequest());
-    return fetch(cons.APIEndpoints.CARS + '/' + ride.id, {
+    return fetch(cons.APIEndpoints.RIDES + '/' + ride.id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
