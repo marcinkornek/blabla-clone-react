@@ -22,42 +22,94 @@ export default class RidesShowPage extends React.Component {
   render() {
     const { ride, currentUserId } = this.props
 
-    var rideCar, rideDriver
+    var rideDescriptionCar
     if (_.isEmpty(ride)) {
-      rideDriver = rideCar = null
+      rideDescriptionCar = null
     } else {
-      rideCar =
-        <div className='ride-details__car'>
+      rideDescriptionCar =
+        <div>
           <Link to={`/cars/${ride.car.id}`}>
-            {ride.car.full_name}
-          </Link>
-        </div>
-      rideDriver =
-        <div className='ride-details__driver'>
-          <Link to={`/users/${ride.driver.id}`}>
-            {ride.driver.full_name}
+            <div className='ride-show-description__details'>
+              <div className='ride-show-description__details-label'>Car name</div>
+              <div className='ride-show-description__details-value'>{ride.car.full_name}</div>
+            </div>
+            <div className='ride-show-description__details'>
+              <div className='ride-show-description__details-label'>Car photo</div>
+              <div className='ride-show-description__details-value'><img src={ride.car.car_photo} /></div>
+            </div>
           </Link>
         </div>
     }
 
-    var rideDetails =
-      <Bootstrap.Panel className='ride'>
-        <div className='ride-details'>
-          <Link to={`/rides/${ride.id}`}>
-            <div className='ride-details__start-city'>{ride.start_city}</div>
-            <div className='ride-details__destination-city'>{ride.destination_city}</div>
+    var rideDriver
+    if (_.isEmpty(ride)) {
+      rideDriver = null
+    } else {
+      rideDriver =
+        <div className='ride-show-driver'>
+          <div className='ride-show-driver__heading'>
+            User
+          </div>
+          <Link to={`/users/${ride.driver.id}`}>
+            <div>
+              <div className='ride-show-driver__details-avatar'><img src={ride.driver.avatar} /></div>
+              <div className='ride-show-driver__details-info'>
+                <div className='ride-show-driver__details-name'>{ride.driver.full_name}</div>
+                <div className='ride-show-driver__details-age'>({ride.driver.age} years)</div>
+                <div className='ride-show-driver__details-join'>
+                  <div className='ride-show-driver__details-join-label'>joined:</div>
+                  <div className='ride-show-driver__details-join-value'>
+                    <Timestamp value={ride.driver.created_at} format="D MMMM YYYY" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </Link>
-          <div className='ride-details__places'>{ride.seats}</div>
-          <div className='ride-details__places'>{ride.price}</div>
         </div>
-        {rideDriver}
-        {rideCar}
-      </Bootstrap.Panel>
+    }
+
+    var rideOffer = null
+
+    var rideDescription =
+      <div className='ride-show-description'>
+        <div className='ride-show-description__heading'>
+          <div className='ride-show-description__start-city'>{ride.start_city}</div>
+          <Icon name="long-arrow-right" className='ride-show-description__arrow'/>
+          <div className='ride-show-description__destination-city'>{ride.destination_city}</div>
+        </div>
+        <div className='ride-show-description__details'>
+          <div className='ride-show-description__details-label'>Start city</div>
+          <div className='ride-show-description__details-value'>{ride.start_city}</div>
+        </div>
+        <div className='ride-show-description__details'>
+          <div className='ride-show-description__details-label'>Destination city</div>
+          <div className='ride-show-description__details-value'>{ride.destination_city}</div>
+        </div>
+        <div className='ride-show-description__details'>
+          <div className='ride-show-description__details-label'>Date</div>
+          <div className='ride-show-description__details-value'>
+            <Timestamp value={ride.start_date} format="dddd D MMMM YYYY" />
+          </div>
+        </div>
+        <div className='ride-show-description__details'>
+          <div className='ride-show-description__details-label'>Time</div>
+          <div className='ride-show-description__details-value'>
+            <Timestamp value={ride.start_date} format="H:mm" />
+          </div>
+        </div>
+        {rideDescriptionCar}
+      </div>
 
     return (
-      <Bootstrap.Grid className='ride'>
-        {rideDetails}
-      </Bootstrap.Grid>
+      <div className='show-grid'>
+        <Bootstrap.Col xs={8}>
+          {rideDescription}
+        </Bootstrap.Col>
+        <Bootstrap.Col xs={4}>
+          {rideOffer}
+          {rideDriver}
+        </Bootstrap.Col>
+      </div>
     )
   }
 }

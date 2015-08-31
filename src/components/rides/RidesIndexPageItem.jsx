@@ -58,8 +58,8 @@ export default class RidesIndexPageItem extends React.Component {
     return (
       <Link to={`/rides/${this.props.ride.id}`}>
         <div className='ride'>
-          {rideDriver}
           {rideDescription}
+          {rideDriver}
           {rideOffer}
         </div>
       </Link>
