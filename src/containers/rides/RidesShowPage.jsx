@@ -15,7 +15,6 @@ export default class RidesShowPage extends React.Component {
 
   componentDidMount() {
     var rideId = this.props.params.rideId
-    console.log('fetch')
     const { dispatch } = this.props;
     dispatch(actions.fetchRide(rideId));
   }

@@ -29,10 +29,17 @@ export default class RidesIndexPage extends React.Component {
       ridesList = 'No rides'
     }
 
-    var ridesMain =
+    var ridesMain, ridesSearch
+
+    ridesSearch =
+      <Bootstrap.Col xs={2}>
+        Search
+      </Bootstrap.Col>
+
+    ridesMain =
       <Bootstrap.Col xs={10}>
         <div className='account__title'>
-          My rides
+          Rides
         </div>
         {ridesList}
         <div>
@@ -43,6 +50,7 @@ export default class RidesIndexPage extends React.Component {
     return (
       <div className='show-grid'>
         <div className='rides'>
+          {ridesSearch}
           {ridesMain}
         </div>
       </div>

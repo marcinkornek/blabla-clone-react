@@ -1,0 +1,121 @@
+.ride {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+
+  &:hover {
+    background-color: #F2FFFA;
+  }
+}
+
+.ride-driver {
+  display: inline-block;
+  width: 250px;
+  border-right: 1px solid #ddd;
+  height: 90px;
+  vertical-align: top;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.ride-driver__avatar {
+  display: inline-block;
+  margin-right: 10px;
+
+  img {
+    height: 50px;
+  }
+}
+
+.ride-driver__info {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.ride-driver__name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.ride-driver__age {
+  font-size: 12px;
+}
+
+.ride-description {
+  display: inline-block;
+  width: calc(100% - 400px);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.ride-description__start_date {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.ride-description__start-city {
+  display: inline-block;
+  color: #484C4B;
+}
+
+.ride-description__car {
+  margin-top: 20px;
+}
+
+.ride-description__car-label,
+.ride-description__car-name {
+  display: inline-block;
+  color: #484C4B;
+  margin-right: 5px;
+}
+
+.ride-description__destination-city {
+  display: inline-block;
+  color: #484C4B;
+}
+
+.ride-description__arrow {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #484C4B;
+}
+
+.ride-offer {
+  text-align: right;
+  display: inline-block;
+  width: 150px;
+  border-left: 1px solid #ddd;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+.ride-offer__price-value {
+  font-weight: bold;
+  margin-bottom: -5px;
+  font-size: 28px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.ride-offer__price-currency {
+  margin-bottom: -5px;
+  font-size: 22px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.ride-offer__price-label {
+  font-size: 18px;
+}
+
+.ride-offer__places-free {
+  font-weight: bold;
+  font-size: 25px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.ride-offer__places-label {
+  display: inline-block;
+}
