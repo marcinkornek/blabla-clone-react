@@ -14,8 +14,8 @@ export default class RidesIndexPage extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(actions.fetchRides());
+    const { dispatch, session } = this.props;
+    dispatch(actions.fetchRides(session));
   }
 
   render() {
@@ -69,7 +69,8 @@ RidesIndexPage.PropTypes = {
 function select(state) {
   return {
     rides:          state.rides['rides'],
-    currentUserId:  state.session.user.id
+    currentUserId:  state.session.user.id,
+    session:        state.session.user
   };
 }
 

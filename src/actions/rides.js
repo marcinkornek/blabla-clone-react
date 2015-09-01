@@ -9,14 +9,16 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchRides() {
+export function fetchRides(session) {
   return dispatch => {
     dispatch(ridesRequest());
     return fetch(cons.APIEndpoints.RIDES, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-User-Email': session['email'],
+        'X-User-Token': session['access_token']
       }
     })
     .then(status)
