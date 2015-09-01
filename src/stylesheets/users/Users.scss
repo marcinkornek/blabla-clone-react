@@ -43,26 +43,6 @@
   margin-right: 2px;
 }
 
-.main-info__avatar {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.main-info__details {
-  display: inline-block;
-}
-
-.main-info__details-name {
-  display: inline-block;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.main-info__details-age {
-  display: inline-block;
-  margin-left: 5px;
-}
-
 // User Account
 
 .account-menu {
@@ -204,4 +184,72 @@
 .user-avatar {
   display: inline-block;
   float: right;
+}
+
+// Users Show
+
+.user-show {
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.user-show__heading--info,
+.user-show__heading--car,
+.user-show__heading--activity {
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  padding-left: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #fafafa;
+}
+
+.user-show__details {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.user-show__details-car {
+  padding: 10px 0 10px 10px;
+  text-align: center;
+}
+
+.user-show__details-info {
+  padding: 10px;
+}
+
+.user-show__details-icon {
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.user-show__details-label {
+  display: inline-block;
+  width: 180px;
+}
+
+.user-show__details-value {
+  display: inline-block;
+  float: right;
+}
+
+.user-show__details-avatar {
+  display: inline-block;
+  margin: 10px;
+}
+
+.user-show__details-info {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.user-show__details-name {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.user-show__details-age {
+  display: inline-block;
+  margin-left: 5px;
 }

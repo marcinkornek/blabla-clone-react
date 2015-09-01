@@ -49,6 +49,13 @@
   padding-right: 5px;
 }
 
+.ride-simple-description {
+  display: inline-block;
+  width: calc(100% - 150px);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
 .ride-description__start_date {
   font-weight: bold;
   font-size: 18px;

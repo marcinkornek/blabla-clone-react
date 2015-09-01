@@ -7,6 +7,7 @@ import Icon                  from 'react-fa'
 import * as actions          from '../../actions/users';
 import styles                from '../../stylesheets/users/Users'
 import CarsItem              from '../../components/cars/CarsIndexPageItem'
+import RidesItem             from '../../components/rides/RidesIndexSimplePageItem'
 
 export default class UsersShowPage extends React.Component {
   constructor (props, context) {
@@ -22,24 +23,38 @@ export default class UsersShowPage extends React.Component {
   render() {
     const { isFetching, user, currentUserId } = this.props
 
-    var userSidebarActivity =
-      <div className='sidebar'>
-        <div className='sidebar__title'>
+    var ridesList
+    if (user.rides_as_driver) {
+      ridesList = user.rides_as_driver.map((ride, i) =>
+        <RidesItem ride={ride} key={i} />
+      )
+    } else {
+      ridesList = 'No rides'
+    }
+
+    var userRidesAsDriver =
+      <div className='user-show'>
+        <div className='user-show__heading--activity'>
+          Rides as driver
+        </div>
+        {ridesList}
+      </div>
+
+    var userActivity =
+      <div className='user-show'>
+        <div className='user-show__heading--activity'>
           Activity
         </div>
-        <div className='sidebar__details'>
-          <div>
-            <Icon name='clock-o' className='sidebar__details-icon'/>
-              Last visit:
-            <Timestamp value={user.last_visit} format="DD MMM YYYY" />
-          </div>
-          <div>
-            <Icon name='calendar-times-o' className='sidebar__details-icon'/>
-              Joined:
-            <Timestamp value={user.created_at} format="DD MMM YYYY" />
-          </div>
+        <div className='user-show__details'>
+          <Icon name='clock-o' className='user-show__details-icon'/>
+          <div className='user-show__details-label'>Last visit</div>
+          <div className='user-show__details-value'><Timestamp value={user.last_visit} format="DD MMM YYYY" /></div>
         </div>
-
+        <div className='user-show__details'>
+          <Icon name='calendar-times-o' className='user-show__details-icon'/>
+          <div className='user-show__details-label'>Joined</div>
+          <div className='user-show__details-value'><Timestamp value={user.created_at} format="DD MMM YYYY" /></div>
+        </div>
       </div>
 
     var carsList
@@ -51,19 +66,14 @@ export default class UsersShowPage extends React.Component {
       carsList = 'No cars'
     }
 
-    var userSidebarCar =
-      <div className='sidebar'>
-        <div className='sidebar__title'>
-          Car
+    var userCar =
+      <div className='user-show'>
+        <div className='user-show__heading--car'>
+          Cars
         </div>
-        <div className='sidebar__details'>
+        <div className='user-show__details-car'>
           {carsList}
         </div>
-      </div>
-
-    var userMainInfoAvatar =
-      <div className='main-info__avatar'>
-        <img src={user.avatar}/>
       </div>
 
     if (user.age) {
@@ -71,43 +81,31 @@ export default class UsersShowPage extends React.Component {
       <div className='main-info__details-age'>({user.age} years)</div>
     }
 
-    var userMainInfoDetails =
-      <div className='main-info__details'>
-        <div className='main-info__details-name'>{user.full_name}</div>
-        {age}
-        <div className='main-info__details-email'>{user.email}</div>
-      </div>
-
-    var userSidebar =
-      <div className='sidebar__container'>
-        {userSidebarActivity}
-        {userSidebarCar}
-      </div>
-
-    var userMainInfo =
-      <div className='main-info__container'>
-        {userMainInfoAvatar}
-        {userMainInfoDetails}
-      </div>
-
-    var mainContent
-    if (isFetching === true) {
-      mainContent =
-        <div>
-          <Icon spin name="spinner" />
-          Fetching...
+    var userInfo =
+      <div className='user-show'>
+        <div className='user-show__heading--info'>
+          User
         </div>
-    } else {
-      mainContent =
-        <Bootstrap.Grid>
-          {userSidebar}
-          {userMainInfo}
-        </Bootstrap.Grid>
-    }
+        <div className='user-show__details-avatar'>
+          <img src={user.avatar}/>
+        </div>
+        <div className='user-show__details-info'>
+          <div className='user-show__details-name'>{user.full_name}</div>
+          <div className='user-show__details-age'>{age}</div>
+          <div className='user-show__details-email'>{user.email}</div>
+        </div>
+      </div>
 
     return (
-      <div>
-        {mainContent}
+      <div className='show-grid'>
+        <Bootstrap.Col xs={8}>
+          {userInfo}
+          {userRidesAsDriver}
+        </Bootstrap.Col>
+        <Bootstrap.Col xs={4}>
+          {userActivity}
+          {userCar}
+        </Bootstrap.Col>
       </div>
     )
   }
