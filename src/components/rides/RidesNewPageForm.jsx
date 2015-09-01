@@ -1,16 +1,49 @@
 import React, { PropTypes }  from 'react'
 import Bootstrap             from 'react-bootstrap'
-
+import Geosuggest            from 'react-geosuggest'
 import styles                from '../../stylesheets/rides/Rides'
+import stylesGeosuggest      from '../../stylesheets/shared/Geosuggest'
 import FormTooltip           from '../shared/FormTooltip'
 
 export default class RidesNewPageForm extends React.Component {
   constructor (props, context) {
     super(props, context)
+
+    this.state = {
+      start: {
+        city: undefined,
+        lat: undefined,
+        lng: undefined
+      },
+      destination: {
+        city: undefined,
+        lat: undefined,
+        lng: undefined
+      }
+    }
+  }
+
+  onSuggestSelectStart(suggest) {
+    this.setState({
+      start: {
+        city: suggest.label,
+        lat: suggest.location.lat,
+        lng: suggest.location.lng
+      }
+    })
+  }
+
+  onSuggestSelectDestination(suggest) {
+    this.setState({
+      destination: {
+        city: suggest.label,
+        lat: suggest.location.lat,
+        lng: suggest.location.lng
+      }
+    })
   }
 
   render() {
-    console.log('this.props.ridesOptions', this.props.ridesOptions)
     var currencies = [<option value=''> -- select currency -- </option>]
     var cars       = [<option value=''> -- select car -- </option>]
     if (this.props.ridesOptions) {
@@ -22,27 +55,16 @@ export default class RidesNewPageForm extends React.Component {
       }
     }
 
-
     return (
       <form className='login-email-form' onSubmit={this.handleSubmitRegisterForm.bind(this)}>
 
         <FormTooltip label='Start city' required='true' />
-        <Bootstrap.Input type='text' placeholder='Start city' ref='start_city' />
-
-        <FormTooltip label='Start city lat' required='true' />
-        <Bootstrap.Input type='text' placeholder='Start city lat' ref='start_city_lat' />
-
-        <FormTooltip label='Start city lng' required='true' />
-        <Bootstrap.Input type='text' placeholder='Start city lng' ref='start_city_lng' />
+        <Geosuggest
+          onSuggestSelect={this.onSuggestSelectStart.bind(this)} ref='start_city' />
 
         <FormTooltip label='Destination city' required='true' />
-        <Bootstrap.Input type='text' placeholder='Destination city' ref='destination_city' />
-
-        <FormTooltip label='Destination city lat' required='true' />
-        <Bootstrap.Input type='text' placeholder='Destination city lat' ref='destination_city_lat' />
-
-        <FormTooltip label='Destination city lng' required='true' />
-        <Bootstrap.Input type='text' placeholder='Destination city lng' ref='destination_city_lng' />
+        <Geosuggest
+          onSuggestSelect={this.onSuggestSelectDestination.bind(this)} ref='destination_city' />
 
         <FormTooltip label='Seats' required='true' />
         <Bootstrap.Input type='number' placeholder='Seats' ref='seats' />
@@ -71,12 +93,12 @@ export default class RidesNewPageForm extends React.Component {
   handleSubmitRegisterForm(e) {
     e.preventDefault()
     var newRide = {
-      start_city:           this.refs.start_city.getValue(),
-      start_city_lat:       this.refs.start_city_lat.getValue(),
-      start_city_lng:       this.refs.start_city_lng.getValue(),
-      destination_city:     this.refs.destination_city.getValue(),
-      destination_city_lat: this.refs.destination_city_lat.getValue(),
-      destination_city_lng: this.refs.destination_city_lng.getValue(),
+      start_city:           this.state.start.city,
+      start_city_lat:       this.state.start.lat,
+      start_city_lng:       this.state.start.lng,
+      destination_city:     this.state.destination.city,
+      destination_city_lat: this.state.destination.lat,
+      destination_city_lng: this.state.destination.lng,
       seats:                this.refs.seats.getValue(),
       start_date:           this.refs.start_date.getValue(),
       car_id:               this.refs.car_id.getValue(),

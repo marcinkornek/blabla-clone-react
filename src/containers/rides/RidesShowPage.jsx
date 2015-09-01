@@ -7,7 +7,6 @@ import Icon                  from 'react-fa'
 
 import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
-import MapRoute              from '../../components/shared/MapRoute'
 
 export default class RidesShowPage extends React.Component {
   constructor (props, context) {
@@ -98,7 +97,6 @@ export default class RidesShowPage extends React.Component {
             <Timestamp value={ride.start_date} format="H:mm" />
           </div>
         </div>
-        <MapRoute />
         {rideDescriptionCar}
       </div>
 
