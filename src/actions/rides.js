@@ -43,7 +43,27 @@ export function fetchRide(rideId) {
   };
 }
 
-export function createRide(ride, ride_photo, session) {
+export function fetchRidesOptions(session) {
+  console.log('session', session)
+  return dispatch => {
+    dispatch(ridesOptionsRequest());
+    return fetch(cons.APIEndpoints.RIDES + '/options', {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json',
+        'X-User-Email': session['email'],
+        'X-User-Token': session['access_token']
+      }
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(ridesOptionsSuccess(json)))
+    .catch(errors => dispatch(ridesOptionsFailure(errors)))
+  };
+}
+
+export function createRide(ride, session) {
   return dispatch => {
     dispatch(rideCreateRequest());
     return fetch(cons.APIEndpoints.RIDES, {
@@ -55,14 +75,17 @@ export function createRide(ride, ride_photo, session) {
         'X-User-Token': session['access_token']
       },
       body: JSON.stringify({
-        'brand':    ride["brand"],
-        'model':    ride["model"],
-        'production_year': ride["production_year"],
-        'places':   ride["places"],
-        'color':    ride["color"],
-        'comfort':  ride["comfort"],
-        'category': ride["category"],
-        'ride_photo': ride_photo
+        'start_city':           ride["start_city"],
+        'start_city_lat':       ride["start_city_lat"],
+        'start_city_lng':       ride["start_city_lng"],
+        'destination_city':     ride["destination_city"],
+        'destination_city_lat': ride["destination_city_lat"],
+        'destination_city_lng': ride["destination_city_lng"],
+        'seats':                ride["seats"],
+        'start_date':           ride["start_date"],
+        'car_id':               ride["car_id"],
+        'price':                ride["price"],
+        'currency':             ride["currency"],
       })
     })
     .then(status)
@@ -178,6 +201,26 @@ export function rideUpdateSuccess(json) {
 export function rideUpdateFailure(errors) {
   return {
     type: types.RIDE_UPDATE_FAILURE,
+    errors: errors
+  }
+}
+
+export function ridesOptionsRequest() {
+  return {
+    type: types.RIDE_OPTIONS_REQUEST,
+  };
+}
+
+export function ridesOptionsSuccess(json) {
+  return {
+    type: types.RIDE_OPTIONS_SUCCESS,
+    ridesOptions: json
+  }
+}
+
+export function ridesOptionsFailure(errors) {
+  return {
+    type: types.RIDE_OPTIONS_FAILURE,
     errors: errors
   }
 }

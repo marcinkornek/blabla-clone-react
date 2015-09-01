@@ -50,7 +50,7 @@ export default class CarsNewPageForm extends React.Component {
         <FormTooltip label='Model' required='true' />
         <Bootstrap.Input type='text' placeholder='Model' ref='model' />
 
-        <FormTooltip label='places' required='false' />
+        <FormTooltip label='Places' required='false' />
         <Bootstrap.Input type='text' placeholder='Places' ref='places' />
 
         <FormTooltip label='Production year' required='true' />

@@ -2,3 +2,20 @@
   color: blue;
   display: inline-block;
 }
+
+.heading {
+  border-bottom: 1px solid gray;
+}
+
+.heading__title {
+  display: inline-block;
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  padding-top: 5px;
+}
+
+.heading__button {
+  float: right;
+  margin-bottom: 10px;
+}

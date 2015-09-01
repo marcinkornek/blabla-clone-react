@@ -5,7 +5,8 @@ import { connect }           from 'react-redux';
 
 import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
-import RidesItem              from '../../components/rides/RidesIndexPageItem'
+import sharedStyles          from '../../stylesheets/shared/Shared'
+import RidesItem             from '../../components/rides/RidesIndexPageItem'
 
 export default class RidesIndexPage extends React.Component {
   constructor (props, context) {
@@ -18,9 +19,9 @@ export default class RidesIndexPage extends React.Component {
   }
 
   render() {
-    const { rides } = this.props
+    const { rides, currentUserId } = this.props
+    var ridesMain, ridesSearch, ridesList, headingButton
 
-    var ridesList
     if (rides) {
       ridesList = rides.map((ride, i) =>
         <RidesItem ride={ride} key={i} />
@@ -29,7 +30,12 @@ export default class RidesIndexPage extends React.Component {
       ridesList = 'No rides'
     }
 
-    var ridesMain, ridesSearch
+    if (currentUserId) {
+      headingButton =
+        <div className='heading__button'>
+          <Link to='/rides/new'><Bootstrap.Button bsStyle='primary'>New ride</Bootstrap.Button></Link>
+        </div>
+    }
 
     ridesSearch =
       <Bootstrap.Col xs={2}>
@@ -38,13 +44,11 @@ export default class RidesIndexPage extends React.Component {
 
     ridesMain =
       <Bootstrap.Col xs={10}>
-        <div className='account__title'>
-          Rides
+        <div className='heading'>
+          <div className='heading__title'>Rides</div>
+          {headingButton}
         </div>
         {ridesList}
-        <div>
-          <Link to='/rides/new'><Bootstrap.Button bsStyle='primary'>New ride</Bootstrap.Button></Link>
-        </div>
       </Bootstrap.Col>
 
     return (
@@ -65,6 +69,7 @@ RidesIndexPage.PropTypes = {
 function select(state) {
   return {
     rides:          state.rides['rides'],
+    currentUserId:  state.session.user.id
   };
 }
 

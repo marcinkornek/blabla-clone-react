@@ -19,6 +19,7 @@ const {
   CarsShowPage,
   CarsEditPage,
 
+  RidesNewPage,
   RidesIndexPage,
   RidesShowPage,
 } = components
@@ -76,7 +77,8 @@ export const createRoutes = (store) => {
       <Route name='carsShow'       path='/cars/:carId'       component={CarsShowPage}     onEnter={checkPermission(store, cons.Permissions.PUBLIC)} />
 
       <Route name='ridesIndex'     path='/rides'             component={RidesIndexPage}   onEnter={checkPermission(store, cons.Permissions.PUBLIC)} />
-      <Route name='ridesShow'      path='/rides/:rideId'    component={RidesShowPage}     onEnter={checkPermission(store, cons.Permissions.PUBLIC)} />
+      <Route name='carsNew'        path='/rides/new'         component={RidesNewPage}     onEnter={checkPermission(store, cons.Permissions.USER)} />
+      <Route name='ridesShow'      path='/rides/:rideId'     component={RidesShowPage}    onEnter={checkPermission(store, cons.Permissions.PUBLIC)} />
 
       <Route name='notAuthorized'  path='/403'               component={Home}             onEnter={checkPermission(store, cons.Permissions.PUBLIC)} />
     </Route>
