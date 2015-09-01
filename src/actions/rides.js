@@ -9,7 +9,7 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchRides(userId) {
+export function fetchRides() {
   return dispatch => {
     dispatch(ridesRequest());
     return fetch(cons.APIEndpoints.RIDES, {
@@ -23,6 +23,23 @@ export function fetchRides(userId) {
     .then(req => req.json())
     .then(json => dispatch(ridesSuccess(json)))
     .catch(errors => dispatch(ridesFailure(errors)))
+  };
+}
+
+export function fetchRidesAsDriver(driverId) {
+  return dispatch => {
+    dispatch(ridesAsDriverRequest());
+    return fetch(cons.APIEndpoints.USERS + '/' + driverId + '/rides_as_driver', {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(ridesAsDriverSuccess(json)))
+    .catch(errors => dispatch(ridesAsDriverFailure(errors)))
   };
 }
 
@@ -221,6 +238,27 @@ export function ridesOptionsSuccess(json) {
 export function ridesOptionsFailure(errors) {
   return {
     type: types.RIDE_OPTIONS_FAILURE,
+    errors: errors
+  }
+}
+
+
+export function ridesAsDriverRequest() {
+  return {
+    type: types.RIDES_DRIVER_REQUEST,
+  };
+}
+
+export function ridesAsDriverSuccess(json) {
+  return {
+    type: types.RIDES_DRIVER_SUCCESS,
+    rides: json
+  }
+}
+
+export function ridesAsDriverFailure(errors) {
+  return {
+    type: types.RIDES_DRIVER_FAILURE,
     errors: errors
   }
 }

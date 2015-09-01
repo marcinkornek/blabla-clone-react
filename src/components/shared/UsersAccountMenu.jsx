@@ -29,6 +29,7 @@ export default class UsersAccountMenu extends React.Component {
         <Link to='/account/user' className='account-menu__item'>Profile</Link>
         <Link to='/account/cars' className='account-menu__item'>Cars</Link>
         {carsEditLinks}
+        <Link to='/account/rides_as_driver' className='account-menu__item'>Rides as driver</Link>
       </Bootstrap.Col>
     )
   }
