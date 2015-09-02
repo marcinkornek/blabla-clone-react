@@ -14,7 +14,12 @@ export default class RidesIndexPageItem extends React.Component {
       <Bootstrap.Tooltip>{this.props.ride.comfort}</Bootstrap.Tooltip>
     );
 
-    var rideDescription, rideDriver, rideOffer
+    var rideStatus, rideDescription, rideDriver, rideOffer
+
+    rideStatus =
+      <div className='ride-status'>
+        <div className='ride-status__label'>{this.props.ride.status}</div>
+      </div>
 
     rideDescription =
       <div className='ride-description'>
@@ -59,6 +64,7 @@ export default class RidesIndexPageItem extends React.Component {
     return (
       <Link to={`/rides/${this.props.ride.id}`}>
         <div className='ride'>
+          {rideStatus}
           {rideDescription}
           {rideDriver}
           {rideOffer}
