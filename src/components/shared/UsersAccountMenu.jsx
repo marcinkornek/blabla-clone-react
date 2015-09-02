@@ -30,6 +30,7 @@ export default class UsersAccountMenu extends React.Component {
         <Link to='/account/cars' className='account-menu__item'>Cars</Link>
         {carsEditLinks}
         <Link to='/account/rides_as_driver' className='account-menu__item'>Rides as driver</Link>
+        <Link to='/account/rides_as_passenger' className='account-menu__item'>Rides as passenger</Link>
       </Bootstrap.Col>
     )
   }

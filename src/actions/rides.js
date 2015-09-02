@@ -45,6 +45,25 @@ export function fetchRidesAsDriver(driverId) {
   };
 }
 
+export function fetchRidesAsPassenger(passengerId, session) {
+  return dispatch => {
+    dispatch(ridesAsPassengerRequest());
+    return fetch(cons.APIEndpoints.USERS + '/' + passengerId + '/rides_as_passenger', {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json',
+        'X-User-Email': session['email'],
+        'X-User-Token': session['access_token']
+      }
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(ridesAsPassengerSuccess(json)))
+    .catch(errors => dispatch(ridesAsPassengerFailure(errors)))
+  };
+}
+
 export function fetchRide(rideId) {
   return dispatch => {
     dispatch(rideRequest());
@@ -247,7 +266,6 @@ export function ridesOptionsFailure(errors) {
   }
 }
 
-
 export function ridesAsDriverRequest() {
   return {
     type: types.RIDES_DRIVER_REQUEST,
@@ -264,6 +282,26 @@ export function ridesAsDriverSuccess(json) {
 export function ridesAsDriverFailure(errors) {
   return {
     type: types.RIDES_DRIVER_FAILURE,
+    errors: errors
+  }
+}
+
+export function ridesAsPassengerRequest() {
+  return {
+    type: types.RIDES_PASSENGER_REQUEST,
+  };
+}
+
+export function ridesAsPassengerSuccess(json) {
+  return {
+    type: types.RIDES_PASSENGER_SUCCESS,
+    rides: json
+  }
+}
+
+export function ridesAsPassengerFailure(errors) {
+  return {
+    type: types.RIDES_PASSENGER_FAILURE,
     errors: errors
   }
 }

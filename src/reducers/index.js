@@ -9,6 +9,7 @@ import rides               from './rides';
 import ride                from './ride';
 import ridesOptions        from './ridesOptions';
 import ridesDriver         from './ridesDriver';
+import ridesPassenger      from './ridesPassenger';
 
 const rootReducer = combineReducers({
   session,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   ride,
   ridesOptions,
   ridesDriver,
+  ridesPassenger,
 });
 
 export default rootReducer;
