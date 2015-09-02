@@ -87,8 +87,8 @@ export default class RidesShowPage extends React.Component {
           <div className='ride-show-offer__details-price-currency'>{ride.currency}</div>
           <div className='ride-show-offer__details-price-label'>for person</div>
         </div>
-        <div className='ride-show-offer__details-seats'>
-          <div className='ride-show-offer__details-seats-value'>{ride.seats_full}</div>
+        <div className='ride-show-offer__details-places'>
+          <div className='ride-show-offer__details-places-value'>{ride.places_full}</div>
         </div>
         <div className='ride-show-offer__details-book'>
           <div className='ride-show-offer__details-book-info'>

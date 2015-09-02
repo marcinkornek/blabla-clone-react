@@ -92,7 +92,7 @@ export default class RidesEditPageForm extends React.Component {
             onSuggestSelect={this.onSuggestSelectDestination.bind(this)} ref='destination_city' initialValue={this.state.destination.city} />
 
           <FormTooltip label='Seats' required='true' />
-          <Bootstrap.Input type='text' name='seats' placeholder='Seats' ref='seats' value={this.state.ride.seats} onChange={this.handleChange.bind(this)} />
+          <Bootstrap.Input type='text' name='places' placeholder='Seats' ref='places' value={this.state.ride.places} onChange={this.handleChange.bind(this)} />
 
           <FormTooltip label='Start date' required='true' />
           <Bootstrap.Input type='text' name='start_date' placeholder='Start date' ref='start_date' value={this.state.ride.start_date} onChange={this.handleChange.bind(this)} />

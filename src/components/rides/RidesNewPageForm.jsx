@@ -67,7 +67,7 @@ export default class RidesNewPageForm extends React.Component {
           onSuggestSelect={this.onSuggestSelectDestination.bind(this)} ref='destination_city' />
 
         <FormTooltip label='Seats' required='true' />
-        <Bootstrap.Input type='number' placeholder='Seats' ref='seats' />
+        <Bootstrap.Input type='number' placeholder='Seats' ref='places' />
 
         <FormTooltip label='Start date' required='true' />
         <Bootstrap.Input type='date' placeholder='Start date' ref='start_date' />
@@ -99,7 +99,7 @@ export default class RidesNewPageForm extends React.Component {
       destination_city:     this.state.destination.city,
       destination_city_lat: this.state.destination.lat,
       destination_city_lng: this.state.destination.lng,
-      seats:                this.refs.seats.getValue(),
+      places:               this.refs.places.getValue(),
       start_date:           this.refs.start_date.getValue(),
       car_id:               this.refs.car_id.getValue(),
       price:                this.refs.price.getValue(),

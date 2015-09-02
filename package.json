@@ -23,6 +23,7 @@
     "moment": "^2.10.6",
     "node-sass": "^3.2.0",
     "object-assign": "^3.0.0",
+    "pluralize": "^1.1.5",
     "react": "^0.13.3",
     "react-bootstrap": "^0.23.7",
     "react-fa": "^3.4.0",

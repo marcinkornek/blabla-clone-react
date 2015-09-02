@@ -3,6 +3,7 @@ import { Link }              from 'react-router';
 import Bootstrap             from 'react-bootstrap'
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
+import pluralize             from 'pluralize'
 
 import styles                from '../../stylesheets/rides/Rides'
 import Stars                 from '../shared/Stars'
@@ -39,8 +40,8 @@ export default class RidesIndexSimplePageItem extends React.Component {
           <div className='ride-offer__price-lebel'>for person</div>
         </div>
         <div className='ride-offer__places'>
-          <div className='ride-offer__places-free'>{this.props.ride.seats}</div>
-          <div className='ride-offer__places-label'>pleces free</div>
+          <div className='ride-offer__places-free'>{this.props.ride.places}</div>
+          <div className='ride-offer__places-label'>{pluralize('place', this.props.ride.places)} free</div>
         </div>
       </div>
 
