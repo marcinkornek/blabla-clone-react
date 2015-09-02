@@ -114,7 +114,7 @@ export function createRide(ride, session) {
   };
 }
 
-export function updateRide(ride, ride_photo, session) {
+export function updateRide(ride, ride_start, ride_destination, session) {
   return dispatch => {
     dispatch(rideUpdateRequest());
     return fetch(cons.APIEndpoints.RIDES + '/' + ride.id, {
@@ -126,15 +126,18 @@ export function updateRide(ride, ride_photo, session) {
         'X-User-Token': session['access_token']
       },
       body: JSON.stringify({
-        'id':       ride["id"],
-        'brand':    ride["brand"],
-        'model':    ride["model"],
-        'production_year': ride["production_year"],
-        'places':   ride["places"],
-        'color':    ride["color"],
-        'comfort':  ride["comfort"],
-        'category': ride["category"],
-        'ride_photo': ride_photo
+        'id':                   ride['id'],
+        'start_city':           ride_start["city"],
+        'start_city_lat':       ride_start["lat"],
+        'start_city_lng':       ride_start["lng"],
+        'destination_city':     ride_destination["city"],
+        'destination_city_lat': ride_destination["lat"],
+        'destination_city_lng': ride_destination["lng"],
+        'seats':                ride["seats"],
+        'start_date':           ride["start_date"],
+        'car_id':               ride['car']["id"],
+        'price':                ride["price"],
+        'currency':             ride["currency"],
       })
     })
     .then(status)

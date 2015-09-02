@@ -7,6 +7,7 @@ import Icon                  from 'react-fa'
 
 import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
+import RidesActions          from '../../components/rides/RidesActions'
 
 export default class RidesShowPage extends React.Component {
   constructor (props, context) {
@@ -68,7 +69,33 @@ export default class RidesShowPage extends React.Component {
         </div>
     }
 
-    var rideOffer = null
+    var rideActions
+    if (_.isEmpty(ride)) {
+      rideActions = null
+    } else {
+      rideActions =
+        <RidesActions rideId={ride.id} rideOwner={ride.driver.id} currentUserId={currentUserId} />
+    }
+
+    var rideOffer =
+      <div className='ride-show-offer'>
+        <div className='ride-show-offer__heading'>
+          Offer
+        </div>
+        <div className='ride-show-offer__details-price'>
+          <div className='ride-show-offer__details-price-value'>{ride.price}</div>
+          <div className='ride-show-offer__details-price-currency'>{ride.currency}</div>
+          <div className='ride-show-offer__details-price-label'>for person</div>
+        </div>
+        <div className='ride-show-offer__details-seats'>
+          <div className='ride-show-offer__details-seats-value'>{ride.seats_full}</div>
+        </div>
+        <div className='ride-show-offer__details-book'>
+          <div className='ride-show-offer__details-book-info'>
+          </div>
+        </div>
+      </div>
+
 
     var rideDescription =
       <div className='ride-show-description'>
@@ -76,6 +103,9 @@ export default class RidesShowPage extends React.Component {
           <div className='ride-show-description__start-city'>{ride.start_city}</div>
           <Icon name="long-arrow-right" className='ride-show-description__arrow'/>
           <div className='ride-show-description__destination-city'>{ride.destination_city}</div>
+          <div className='ride-show-description__actions'>
+            {rideActions}
+          </div>
         </div>
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Start city</div>

@@ -11,7 +11,7 @@ export default class RidesIndexSimplePageItem extends React.Component {
   render() {
     const tooltipComfort = (
       <Bootstrap.Tooltip>{this.props.ride.comfort}</Bootstrap.Tooltip>
-    );
+    )
 
     var rideDescription, rideOffer
 

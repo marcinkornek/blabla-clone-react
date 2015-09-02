@@ -131,9 +131,11 @@
 
 // SHOW
 
+.ride-show-offer,
 .ride-show-driver,
 .ride-show-description {
   border: 1px solid #ddd;
+  margin-bottom: 20px;
 }
 
 .ride-show-description__heading {
@@ -148,6 +150,10 @@
 .ride-show-description__destination-city {
   display: inline-block;
   color: #484C4B;
+}
+
+.ride-show-description__actions {
+  float: right;
 }
 
 .ride-show-description__arrow {
@@ -172,7 +178,8 @@
   display: inline-block;
 }
 
-.ride-show-driver__heading {
+.ride-show-driver__heading,
+.ride-show-offer__heading {
   border-bottom: 1px solid #ddd;
   padding: 5px;
   padding-left: 10px;
@@ -183,7 +190,6 @@
 
 .ride-show-driver__details {
   padding: 5px;
-
 }
 
 .ride-show-driver__details-avatar {
@@ -216,3 +222,27 @@
 .ride-show-driver__details-join-value {
   display: inline-block;
 }
+
+.ride-show-offer__details-seats,
+.ride-show-offer__details-price {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.ride-show-offer__details-price-value {
+  font-size: 25px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.ride-show-offer__details-price-currency {
+  font-size: 22px;
+  display: inline-block;
+  text-transform: uppercase;
+  margin-right: 5px;
+}
+
+.ride-show-offer__details-price-label {
+  display: inline-block;
+}
+
