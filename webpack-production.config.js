@@ -10,17 +10,33 @@ module.exports = {
   },
   devtool: 'eval',
   entry: [
-    './src/app.jsx'
+    './src/containers/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'app.js',
   },
   resolve: {
-    extensions: ['', '.js', '.cjsx', '.coffee']
+    extensions: ['', '.js', '.jsx', '.cjsx', '.coffee', '.scss']
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      __DEVELOPMENT__: false,
+      __DEVTOOLS__: false
+    }),
+  ],
   module: {
     loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['babel?optional[]=runtime&stage=0'],
+        include: path.join(__dirname, 'src'),
+      },
+      {
+        test: /\.jsx?$/,
+        loaders: ['babel?optional[]=runtime&stage=0'],
+        include: path.join(__dirname, 'src')
+      },
       {
         test: /\.cjsx?$/,
         loaders: ['coffee-loader', 'cjsx-loader'],
@@ -31,7 +47,7 @@ module.exports = {
         loader: 'coffee-loader'
       },
       {
-        test: /\.css$/,
+        test: /\.(css)$/,
         loaders: ['style-loader', 'css-loader']
       },
       {

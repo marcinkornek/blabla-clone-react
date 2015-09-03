@@ -11,13 +11,22 @@ export default class LoginFbPage extends React.Component {
   }
 
   componentDidMount() {
+    var appId, version
+    if (__DEVELOPMENT__) {
+      appId = '116661262005772'
+      version = 'v2.3'
+    } else {
+      appId = '423991604472385'
+      version = 'v2.4'
+    }
+
     window.fbAsyncInit = (__bind(function() {
       FB.init({
-        appId: '116661262005772',
+        appId: appId,
         status: true,
         cookie: true,
         xfbml: true,
-        version: 'v2.3'
+        version: version
       })
       FB.Event.subscribe('auth.statusChange', this.statusChangeCallback)
     }, this));

@@ -24,6 +24,10 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      __DEVELOPMENT__: true,
+      __DEVTOOLS__: true
+    }),
   ],
   resolve: {
     extensions: ['', '.js', '.jsx', '.cjsx', '.coffee', '.scss']

@@ -22,6 +22,12 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx', '.cjsx', '.coffee', '.scss']
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      __DEVELOPMENT__: true,
+      __DEVTOOLS__: false
+    }),
+  ],
   module: {
     loaders: [
       {

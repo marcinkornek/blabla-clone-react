@@ -1,4 +1,9 @@
-var APIRoot = 'https://blabla-clone-api.herokuapp.com'
+var APIRoot
+if (__DEVELOPMENT__) {
+  APIRoot = 'http://localhost:3000'
+} else {
+  APIRoot = 'https://blabla-clone-api.herokuapp.com'
+}
 
 module.exports = {
   APIEndpoints: {
