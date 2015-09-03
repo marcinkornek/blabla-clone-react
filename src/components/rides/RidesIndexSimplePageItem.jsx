@@ -40,8 +40,8 @@ export default class RidesIndexSimplePageItem extends React.Component {
           <div className='ride-offer__price-lebel'>for person</div>
         </div>
         <div className='ride-offer__places'>
-          <div className='ride-offer__places-free'>{this.props.ride.places}</div>
-          <div className='ride-offer__places-label'>{pluralize('place', this.props.ride.places)} free</div>
+          <div className='ride-offer__places-free'>{this.props.ride.free_places_count}</div>
+          <div className='ride-offer__places-label'>/ {this.props.ride.places} {pluralize('place', this.props.ride.free_places_count)} free</div>
         </div>
       </div>
 

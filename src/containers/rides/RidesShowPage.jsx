@@ -4,6 +4,7 @@ import Bootstrap             from 'react-bootstrap'
 import { Link }              from 'react-router';
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
+import pluralize             from 'pluralize'
 
 import * as actions          from '../../actions/rides';
 import * as rrActions        from '../../actions/rides_requests';
@@ -88,7 +89,7 @@ export default class RidesShowPage extends React.Component {
           <div className='ride-show-offer__details-price-label'>for person</div>
         </div>
         <div className='ride-show-offer__details-places'>
-          <div className='ride-show-offer__details-places-value'>{ride.places_full}</div>
+          <div className='ride-show-offer__details-places-value'>{ride.free_places_count} / {ride.places} {pluralize('place', this.props.ride.free_places_count)} </div>
         </div>
         <div className='ride-show-offer__details-book'>
           <div className='ride-show-offer__details-book-info'>
