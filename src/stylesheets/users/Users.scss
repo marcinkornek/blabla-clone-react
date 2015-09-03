@@ -96,12 +96,22 @@
 
 // User Account Edit
 
-.account__title {
-  font-size: 20px;
-  font-weight: bold;
+.account__heading {
   padding-bottom: 5px;
   margin-bottom: 10px;
   border-bottom: 1px solid gray;
+  height: 40px;
+}
+
+.account__heading-title {
+  margin-top: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  float: left;
+}
+
+.account__heading-button {
+  float: right;
 }
 
 .account_form-fields {

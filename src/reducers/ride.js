@@ -3,7 +3,8 @@ import * as types from '../constants/ActionTypes'
 const initialState = {
   isSaving: false,
   isFetching: false,
-  ride: {}
+  ride: {},
+  places: undefined
 }
 
 export default function ride(state = initialState, action) {
@@ -15,7 +16,8 @@ export default function ride(state = initialState, action) {
   case types.RIDE_SUCCESS:
     return Object.assign({}, state, {
       isFetching: false,
-      ride: action.ride
+      ride: action.ride,
+      places: action.ride.free_places_count
     });
   case types.RIDE_UPDATE_REQUEST:
     return Object.assign({}, state, {
@@ -24,8 +26,13 @@ export default function ride(state = initialState, action) {
   case types.RIDE_UPDATE_SUCCESS:
     return Object.assign({}, state, {
       isSaving: false,
-      ride: action.ride
+      ride: action.ride,
+      places: action.ride.free_places_count
     });
+  case types.RIDE_REQUEST_CREATE_SUCCESS:
+  return Object.assign({}, state, {
+    places: action.places
+  });
   default:
     return state;
   }

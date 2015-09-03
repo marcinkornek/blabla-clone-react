@@ -34,13 +34,13 @@ export default class CarsIndexPage extends React.Component {
 
     var carsMain =
       <Bootstrap.Col xs={10}>
-        <div className='account__title'>
-          My cars
+        <div className='account__heading'>
+          <div className='account__heading-title'>My cars</div>
+          <div className='account__heading-button'>
+            <Link to='/cars/new'><Bootstrap.Button bsStyle='primary' bsSize='small'>New car</Bootstrap.Button></Link>
+          </div>
         </div>
         {carsList}
-        <div>
-          <Link to='/cars/new'><Bootstrap.Button bsStyle='primary'>New car</Bootstrap.Button></Link>
-        </div>
       </Bootstrap.Col>
 
     return (

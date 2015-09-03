@@ -12,14 +12,14 @@ export default class RidesNewPage extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch, session } = this.props;
+    const { dispatch, session } = this.props
     if (session) {
       dispatch(actions.fetchRidesOptions(session))
     }
   }
 
   render() {
-    const { dispatch, session, ridesOptions } = this.props;
+    const { dispatch, session, ridesOptions } = this.props
     return (
       <div className='show-grid'>
         <Bootstrap.Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>

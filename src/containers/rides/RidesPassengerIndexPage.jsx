@@ -23,7 +23,7 @@ export default class RidesPassengerIndexPage extends React.Component {
 
   render() {
     const { rides, currentUserId } = this.props
-    var ridesMain, ridesList, headingButton
+    var ridesMain, ridesList
 
     if (_.isEmpty(rides)) {
       ridesList = 'No rides'
@@ -33,17 +33,10 @@ export default class RidesPassengerIndexPage extends React.Component {
       )
     }
 
-    if (currentUserId) {
-      headingButton =
-        <div className='heading__button'>
-          <Link to='/rides/new'><Bootstrap.Button bsStyle='primary'>New ride</Bootstrap.Button></Link>
-        </div>
-    }
-
     ridesMain =
       <Bootstrap.Col xs={10}>
-        <div className='account__title'>
-          My rides as passenger
+        <div className='account__heading'>
+          <div className='account__heading-title'>My rides as passenger</div>
         </div>
         {ridesList}
       </Bootstrap.Col>

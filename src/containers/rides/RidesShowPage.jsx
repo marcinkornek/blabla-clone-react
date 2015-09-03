@@ -6,8 +6,10 @@ import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
 
 import * as actions          from '../../actions/rides';
+import * as rrActions        from '../../actions/rides_requests';
 import styles                from '../../stylesheets/rides/Rides'
 import RidesActions          from '../../components/rides/RidesActions'
+import RideOfferForm         from '../../components/rides/RideOfferForm'
 
 export default class RidesShowPage extends React.Component {
   constructor (props, context) {
@@ -16,14 +18,14 @@ export default class RidesShowPage extends React.Component {
 
   componentDidMount() {
     var rideId = this.props.params.rideId
-    const { dispatch } = this.props;
-    dispatch(actions.fetchRide(rideId));
+    const { dispatch } = this.props
+    dispatch(actions.fetchRide(rideId))
   }
 
   render() {
-    const { ride, currentUserId } = this.props
+    const { dispatch, ride, currentUserId, session } = this.props
+    var rideDescriptionCar, rideDriver, rideActions, rideOffer, rideDescription, places
 
-    var rideDescriptionCar
     if (_.isEmpty(ride)) {
       rideDescriptionCar = null
     } else {
@@ -42,7 +44,6 @@ export default class RidesShowPage extends React.Component {
         </div>
     }
 
-    var rideDriver
     if (_.isEmpty(ride)) {
       rideDriver = null
     } else {
@@ -69,7 +70,6 @@ export default class RidesShowPage extends React.Component {
         </div>
     }
 
-    var rideActions
     if (_.isEmpty(ride)) {
       rideActions = null
     } else {
@@ -77,7 +77,7 @@ export default class RidesShowPage extends React.Component {
         <RidesActions rideId={ride.id} rideOwner={ride.driver.id} currentUserId={currentUserId} />
     }
 
-    var rideOffer =
+    rideOffer =
       <div className='ride-show-offer'>
         <div className='ride-show-offer__heading'>
           Offer
@@ -92,12 +92,17 @@ export default class RidesShowPage extends React.Component {
         </div>
         <div className='ride-show-offer__details-book'>
           <div className='ride-show-offer__details-book-info'>
+            <RideOfferForm
+              places={ride.free_places_count}
+              currentUserId={currentUserId}
+              onAddClick={(places) =>
+                dispatch(rrActions.createRideRequest(ride.id, places, session))
+              } />
           </div>
         </div>
       </div>
 
-
-    var rideDescription =
+    rideDescription =
       <div className='ride-show-description'>
         <div className='ride-show-description__heading'>
           <div className='ride-show-description__start-city'>{ride.start_city}</div>
@@ -150,8 +155,9 @@ RidesShowPage.PropTypes = {
 
 function select(state) {
   return {
-    ride:           state.ride['ride'],
-    currentUserId: state.session.user.id
+    ride:          state.ride['ride'],
+    currentUserId: state.session.user.id,
+    session:       state.session.user
   };
 }
 

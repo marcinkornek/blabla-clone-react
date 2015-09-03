@@ -25,6 +25,9 @@ export default class UsersEditPage extends React.Component {
 
     var userEditForm =
       <Bootstrap.Col xs={10}>
+        <div className='account__heading'>
+          <div className='account__heading-title'>My profile</div>
+        </div>
         <UsersEditPageForm
           user={user} isSaving={isSaving}
           onAddClick={(user, files) =>

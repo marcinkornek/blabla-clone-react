@@ -25,25 +25,26 @@ export default class RidesDriverIndexPage extends React.Component {
     const { rides, currentUserId } = this.props
     var ridesMain, ridesList, headingButton
 
-    if (rides) {
+    if (_.isEmpty(rides)) {
+      ridesList = 'No rides'
+    } else {
       ridesList = rides.map((ride, i) =>
         <RidesItem ride={ride} key={i} />
       )
-    } else {
-      ridesList = 'No rides'
     }
 
     if (currentUserId) {
       headingButton =
-        <div className='heading__button'>
-          <Link to='/rides/new'><Bootstrap.Button bsStyle='primary'>New ride</Bootstrap.Button></Link>
+        <div className='account__heading-button'>
+          <Link to='/rides/new'><Bootstrap.Button bsStyle='primary' bsSize='small'>New ride</Bootstrap.Button></Link>
         </div>
     }
 
     ridesMain =
       <Bootstrap.Col xs={10}>
-        <div className='account__title'>
-          My rides as driver
+        <div className='account__heading'>
+          <div className='account__heading-title'>My rides as driver</div>
+          {headingButton}
         </div>
         {ridesList}
       </Bootstrap.Col>

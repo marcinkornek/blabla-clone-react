@@ -267,3 +267,17 @@
   -o-transform: rotate(270deg);   /* Opera */
   transform: rotate(270deg);
 }
+
+.book-ride {
+  padding: 10px;
+}
+
+.book-ride-form__select {
+  display: inline-block;
+  width: 120px;
+  margin-right: 5px;
+}
+
+.book-ride-form__submit {
+  display: inline-block;
+}

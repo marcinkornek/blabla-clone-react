@@ -59,9 +59,6 @@ export default class UsersEditPageForm extends React.Component {
 
     return (
       <div>
-        <div className='account__title'>
-          My profile
-        </div>
         <form className='account_form' onSubmit={this._handleSubmitEditUserForm} encType='multipart/form-data' >
           <div className='account_form-fields'>
             <FormTooltip label='First name' required='true' />
