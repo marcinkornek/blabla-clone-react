@@ -10,8 +10,6 @@ function status(response) {
 }
 
 export function createRideRequest(rideId, places, session) {
-  console.log('places', places)
-  console.log('session', session)
   return dispatch => {
     dispatch(rideRequestCreateRequest());
     return fetch(cons.APIEndpoints.RIDE_REQUESTS, {

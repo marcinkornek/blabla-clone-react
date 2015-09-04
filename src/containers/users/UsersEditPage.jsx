@@ -2,6 +2,7 @@ import React, { PropTypes }  from 'react';
 import Router, { Link }      from 'react-router'
 import Bootstrap             from 'react-bootstrap'
 import { connect }           from 'react-redux';
+import Icon                  from 'react-fa'
 
 import * as actions          from '../../actions/users';
 import styles                from '../../stylesheets/users/Users'
@@ -21,29 +22,45 @@ export default class UsersEditPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps.params', nextProps.params)
+    const { dispatch, currentUserId } = this.props;
+    if (nextProps.currentUserId && currentUserId === undefined) {
+      dispatch(actions.fetchUser(nextProps.currentUserId))
+    }
   }
 
   render() {
-    const { dispatch, user, session, isSaving } = this.props;
+    const { dispatch, isFetching, user, isSaving, session, currentUserId } = this.props;
+    var userEdit, userEditForm
 
-    console.log('user!!!!!!!', user)
-    var userEditForm =
+    if (isFetching || currentUserId === undefined) {
+      userEditForm =
+        <div>
+          <Icon spin name="spinner" />
+          Fetching..
+        </div>
+    } else {
+      userEditForm =
+        <div>
+          <UsersEditPageForm
+            user={user} isSaving={isSaving}
+            onAddClick={(user, files) =>
+              dispatch(actions.updateUser(user, files, session))
+            } />
+        </div>
+    }
+
+    userEdit =
       <Bootstrap.Col xs={10}>
         <div className='account__heading'>
           <div className='account__heading-title'>My profile</div>
         </div>
-        <UsersEditPageForm
-          user={user} isSaving={isSaving}
-          onAddClick={(user, files) =>
-            dispatch(actions.updateUser(user, files, session))
-          } />
+        {userEditForm}
       </Bootstrap.Col>
 
     return (
       <div className='show-grid'>
         <UserAccountMenu />
-        {userEditForm}
+        {userEdit}
       </div>
     )
   }
@@ -55,10 +72,11 @@ UsersEditPage.PropTypes = {
 
 function select(state) {
   return {
+    isFetching:    state.user.isFetching,
     isSaving:      state.user.isSaving,
-    session:       state.session.user,
+    user:          state.user.user,
     currentUserId: state.session.user.id,
-    user:          state.user.user
+    session:       state.session.user
   };
 }
 

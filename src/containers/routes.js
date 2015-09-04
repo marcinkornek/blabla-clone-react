@@ -1,8 +1,10 @@
 import React           from 'react'
-import { Route } 			 from 'react-router'
+import { Router, Route }       from 'react-router'
 import * as components from '../components'
 import * as actions    from '../actions/session'
 import * as cons       from '../constants/constants'
+
+var isLogged = false
 
 const {
   Application,
@@ -30,7 +32,7 @@ const {
 
 function checkPermission(path, store, permission) {
   return (nextState, transition) => {
-    console.log('path', path)
+    checkIfLoggedIn(store)
     if (isPublic(permission)) {
       return;
     } else {
@@ -51,6 +53,20 @@ function isPublic(permission) {
   return permission === 'public'
 }
 
+function checkIfLoggedIn(store) {
+  if (store.getState().session.isLoggedIn) {
+    if (localStorage.getItem('email') === null) {
+      saveToLocalStorage(store)
+      isLogged = true
+    }
+  } else {
+    if (localStorage.getItem('email') != null) {
+      getFromLocalStorage(store)
+      isLogged = true
+    }
+  }
+}
+
 function saveToLocalStorage(store) {
   if (localStorage.getItem('email') === null) {
     localStorage.setItem('email', store.getState().session.user.email)
@@ -63,27 +79,14 @@ function getFromLocalStorage(store) {
     email:        localStorage.getItem('email'),
     access_token: localStorage.getItem('access_token'),
   }
-  store.dispatch(actions.loginFromCookie(session))
+  store.dispatch(actions.loginFromCookie(session, Router))
 }
 
 function isLoggedIn(store) {
-  if (store.getState().session.isLoggedIn) {
-    if (localStorage.getItem('email') === null) {
-      saveToLocalStorage(store)
-    }
-    return true
-  } else {
-    if (localStorage.getItem('email') != null) {
-      getFromLocalStorage(store)
-      return true
-    } else {
-      return false
-    }
-  }
+  return isLogged
 }
 
 function isAuthorized(store, permission) {
-
   var userPermission = store.getState().session.user.permission
   if (userPermission === 'admin') {
     return true;

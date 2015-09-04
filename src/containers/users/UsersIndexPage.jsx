@@ -42,8 +42,8 @@ UsersIndexPage.PropTypes = {
 
 function select(state) {
   return {
-    isFetching: state.users['isFetching'],
-    users:      state.users['users']
+    isFetching: state.users.isFetching,
+    users:      state.users.users
   };
 }
 

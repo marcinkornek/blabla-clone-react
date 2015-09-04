@@ -24,7 +24,6 @@ export default class RidesEditPageForm extends React.Component {
         lng:  props.ride.destination_city_lng
       }
     }
-    console.log('this.state', this.state)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,7 +40,6 @@ export default class RidesEditPageForm extends React.Component {
 
   handleSubmitEditRideForm(e) {
     e.preventDefault()
-    console.log('aaaaaaaaaaaaaaaaaaaaa', this.state)
     this.props.onAddClick(this.state.ride, this.state.start, this.state.destination);
   }
 

@@ -10,7 +10,6 @@ function status(response) {
 }
 
 export function loginFromCookie(data) {
-  console.log('aaaaaaaaaaaaaaaaaaaaa', data)
   return dispatch => {
     dispatch(loginRequest());
     return fetch(cons.APIEndpoints.SESSIONS + '/get_user', {
@@ -51,7 +50,6 @@ export function logInEmailBackend(session) {
 }
 
 export function logInFbBackend(fbResponse) {
-  // console.log('logInFbBackend', text);
   return dispatch => {
     dispatch(loginRequest());
     return fetch(cons.APIEndpoints.LOGIN_FB, {
@@ -104,7 +102,6 @@ export function loginRequest() {
 }
 
 export function loginSuccess(json) {
-  console.log('json', json);
 	return {
     type: types.LOGIN_SUCCESS,
     id:           json['id'],
@@ -128,7 +125,6 @@ export function logoutRequest() {
 }
 
 export function logoutSuccess(json) {
-  // console.log('json', json);
   localStorage.clear()
   return {
     type: types.LOGOUT_SUCCESS,

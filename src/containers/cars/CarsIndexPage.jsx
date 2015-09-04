@@ -2,6 +2,7 @@ import React, { PropTypes }  from 'react'
 import Router, { Link }      from 'react-router'
 import Bootstrap             from 'react-bootstrap'
 import { connect }           from 'react-redux';
+import Icon                  from 'react-fa'
 
 import * as actions          from '../../actions/cars';
 import styles                from '../../stylesheets/users/Users'
@@ -20,16 +21,31 @@ export default class CarsIndexPage extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { dispatch, currentUserId } = this.props;
+    if (nextProps.currentUserId && currentUserId === undefined) {
+      dispatch(actions.fetchCars(nextProps.currentUserId))
+    }
+  }
+
   render() {
-    const { cars, currentUserId } = this.props
+    const { isFetching, cars, currentUserId } = this.props
 
     var carsList
-    if (_.isEmpty(cars)) {
-      carsList = 'No cars'
+    if (isFetching || currentUserId === undefined) {
+      carsList =
+        <div>
+          <Icon spin name="spinner" />
+          Fetching..
+        </div>
     } else {
-      carsList = cars.map((car, i) =>
-        <CarsItem car={car} currentUserId={currentUserId} key={i} />
-      )
+      if (_.isEmpty(cars)) {
+        carsList = 'No cars'
+      } else {
+        carsList = cars.map((car, i) =>
+          <CarsItem car={car} currentUserId={currentUserId} key={i} />
+        )
+      }
     }
 
     var carsMain =
@@ -60,8 +76,9 @@ CarsIndexPage.PropTypes = {
 
 function select(state) {
   return {
-    currentUserId: state.session.user.id,
-    cars:          state.cars['cars'],
+    isFetching:    state.cars.isFetching,
+    cars:          state.cars.cars,
+    currentUserId: state.session.user.id
   };
 }
 

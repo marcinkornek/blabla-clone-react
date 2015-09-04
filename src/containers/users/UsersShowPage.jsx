@@ -116,10 +116,9 @@ UsersShowPage.PropTypes = {
 }
 
 function select(state) {
-  console.log('state', state.user['user'])
   return {
-    isFetching:    state.user['isFetching'],
-    user:          state.user['user'],
+    isFetching:    state.user.isFetching,
+    user:          state.user.user,
     currentUserId: state.session.user.id
   };
 }

@@ -2,6 +2,7 @@ import React, { PropTypes }  from 'react'
 import Router, { Link }      from 'react-router'
 import Bootstrap             from 'react-bootstrap'
 import { connect }           from 'react-redux';
+import Icon                  from 'react-fa'
 
 import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
@@ -21,16 +22,31 @@ export default class RidesPassengerIndexPage extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { dispatch, currentUserId } = this.props;
+    if (nextProps.currentUserId && currentUserId === undefined) {
+      dispatch(actions.fetchRidesAsPassenger(nextProps.currentUserId, nextProps.session))
+    }
+  }
+
   render() {
-    const { rides, currentUserId } = this.props
+    const { isFetching, rides, currentUserId } = this.props
     var ridesMain, ridesList
 
-    if (_.isEmpty(rides)) {
-      ridesList = 'No rides'
+    if (isFetching || currentUserId === undefined) {
+      ridesList =
+        <div>
+          <Icon spin name="spinner" />
+          Fetching..
+        </div>
     } else {
-      ridesList = rides.map((ride, i) =>
-        <RidesItem ride={ride} key={i} />
-      )
+      if (_.isEmpty(rides)) {
+        ridesList = 'No rides'
+      } else {
+        ridesList = rides.map((ride, i) =>
+          <RidesItem ride={ride} key={i} />
+        )
+      }
     }
 
     ridesMain =
@@ -58,8 +74,9 @@ RidesPassengerIndexPage.PropTypes = {
 
 function select(state) {
   return {
-    rides:          state.ridesPassenger['rides'],
-    currentUserId:  state.session.user.id,
+    isFetching:    state.ridesPassenger.isFetching,
+    rides:         state.ridesPassenger.rides,
+    currentUserId: state.session.user.id,
     session:       state.session.user
   };
 }

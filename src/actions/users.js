@@ -104,7 +104,6 @@ export function usersRequest() {
 }
 
 export function usersSuccess(json) {
-  // console.log('usersSuccess json', json);
   return {
     type: types.USERS_SUCCESS,
     users: json
@@ -125,7 +124,6 @@ export function userRequest() {
 }
 
 export function userSuccess(json) {
-  // console.log('userSuccess json', json);
   return {
     type: types.USER_SUCCESS,
     user: json
@@ -146,7 +144,6 @@ export function userCreateRequest() {
 }
 
 export function userCreateSuccess(json) {
-  // console.log('userSuccess json', json);
   return {
     type: types.USER_CREATE_SUCCESS,
     user: json
@@ -167,7 +164,6 @@ export function userUpdateRequest() {
 }
 
 export function userUpdateSuccess(json, session) {
-  // console.log('userSuccess json', json);
   return {
     type: types.USER_UPDATE_SUCCESS,
     user: json,

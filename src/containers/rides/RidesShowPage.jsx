@@ -156,7 +156,7 @@ RidesShowPage.PropTypes = {
 
 function select(state) {
   return {
-    ride:          state.ride['ride'],
+    ride:          state.ride.ride,
     currentUserId: state.session.user.id,
     session:       state.session.user
   };

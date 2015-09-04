@@ -82,7 +82,6 @@ export function fetchRide(rideId) {
 }
 
 export function fetchRidesOptions(session) {
-  console.log('session', session)
   return dispatch => {
     dispatch(ridesOptionsRequest());
     return fetch(cons.APIEndpoints.RIDES + '/options', {

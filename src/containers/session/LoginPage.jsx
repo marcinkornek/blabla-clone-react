@@ -38,13 +38,9 @@ LoginPage.propTypes = {
 function select(state) {
   return {
     session: {
-      isFetching: state.session['isFetching'],
-      isLoggedIn: state.session['isLoggedIn'],
-      user: {
-        access_token: state.session.user['access_token'],
-        email:        state.session.user['email'],
-        permission:   state.session.user['permission']
-      }
+      isFetching: state.session.isFetching,
+      isLoggedIn: state.session.isLoggedIn,
+      user:       state.session.user
     }
   };
 }

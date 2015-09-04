@@ -60,8 +60,8 @@ CarsShowPage.PropTypes = {
 
 function select(state) {
   return {
-    isFetching:    state.car['isFetching'],
-    car:           state.car['car'],
+    isFetching:    state.car.isFetching,
+    car:           state.car.car,
     currentUserId: state.session.user.id
   };
 }
