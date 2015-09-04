@@ -9,14 +9,20 @@ export default class RideOfferForm extends React.Component {
     super(props, context)
   }
 
+  isNotAuthor() {
+    if (this.props.currentUserId != this.props.ride.driver.id) {
+      return true
+    }
+  }
+
   render() {
     var places = []
-    for (var i = 0; i < parseInt(this.props.places, 10); i++) {
+    for (var i = 0; i < parseInt(this.props.ride.places, 10); i++) {
       places.push(<option value={i + 1}> {pluralize('place', i + 1, true)} </option>);
     }
 
     var rideOfferForm
-    if (this.props.currentUserId && parseInt(this.props.places, 10) > 0) {
+    if (this.props.currentUserId && parseInt(this.props.ride.places, 10) > 0 && this.isNotAuthor()) {
       rideOfferForm =
         <div className='book-ride'>
           click to book place:
@@ -28,7 +34,7 @@ export default class RideOfferForm extends React.Component {
           </form>
         </div>
     } else {
-      if (this.props.currentUserId && parseInt(this.props.places, 10) > 0) {
+      if (this.props.currentUserId && parseInt(this.props.ride.places, 10) > 0 && this.isNotAuthor()) {
           rideOfferForm =
             <div className='book-ride'>
               No places

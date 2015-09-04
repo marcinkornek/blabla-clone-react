@@ -94,7 +94,7 @@ export default class RidesShowPage extends React.Component {
         <div className='ride-show-offer__details-book'>
           <div className='ride-show-offer__details-book-info'>
             <RideOfferForm
-              places={ride.free_places_count}
+              ride={ride}
               currentUserId={currentUserId}
               onAddClick={(places) =>
                 dispatch(rrActions.createRideRequest(ride.id, places, session))
