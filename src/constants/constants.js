@@ -11,7 +11,7 @@ module.exports = {
     CARS:          APIRoot + '/api/cars',
     RIDES:         APIRoot + '/api/rides',
     RIDE_REQUESTS: APIRoot + '/api/ride_requests',
-    LOGOUT:        APIRoot + '/api/sessions',
+    SESSIONS:      APIRoot + '/api/sessions',
     LOGIN_EMAIL:   APIRoot + '/api/sessions/login',
     LOGIN_FB:      APIRoot + '/api/sessions/oath_login'
   },

@@ -9,6 +9,26 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
+export function loginFromCookie(data) {
+  console.log('aaaaaaaaaaaaaaaaaaaaa', data)
+  return dispatch => {
+    dispatch(loginRequest());
+    return fetch(cons.APIEndpoints.SESSIONS + '/get_user', {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json',
+        'X-User-Email': data['email'],
+        'X-User-Token': data['access_token']
+      }
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(loginSuccess(json)))
+    .catch(errors => dispatch(loginFailure(errors)))
+  };
+}
+
 export function logInEmailBackend(session) {
   return dispatch => {
     dispatch(loginRequest());
@@ -58,7 +78,7 @@ export function logInFbBackend(fbResponse) {
 export function logout(session) {
   return dispatch => {
     dispatch(logoutRequest());
-    return fetch(cons.APIEndpoints.LOGOUT, {
+    return fetch(cons.APIEndpoints.SESSIONS, {
       method: 'delete',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -84,7 +104,7 @@ export function loginRequest() {
 }
 
 export function loginSuccess(json) {
-  // console.log('json', json);
+  console.log('json', json);
 	return {
     type: types.LOGIN_SUCCESS,
     id:           json['id'],
@@ -109,6 +129,7 @@ export function logoutRequest() {
 
 export function logoutSuccess(json) {
   // console.log('json', json);
+  localStorage.clear()
   return {
     type: types.LOGOUT_SUCCESS,
   }

@@ -17,6 +17,7 @@
     "file-loader": "^0.8.4",
     "http-server": "^0.8.0",
     "immutable": "^3.7.4",
+    "js-cookie": "^2.0.3",
     "jsx-loader": "^0.13.2",
     "keymirror": "^0.1.1",
     "lodash": "^3.10.1",
@@ -30,7 +31,7 @@
     "react-geosuggest": "^1.7.0",
     "react-hot-loader": "^1.2.7",
     "react-redux": "^0.9.0",
-    "react-router": "^1.0.0-beta3",
+    "react-router": "1.0.0-beta3",
     "react-time": "^3.0.0",
     "react-timeago": "^2.2.1",
     "redux": "^1.0.1",
@@ -42,7 +43,8 @@
     "url-loader": "^0.5.6",
     "webpack": "^1.9.12",
     "webpack-dev-server": "^1.9.0",
-    "whatwg-fetch": "^0.9.0"
+    "whatwg-fetch": "^0.9.0",
+    "redux-devtools": "^1.0.2"
   },
   "devDependencies": {
     "redux-devtools": "^1.0.2"

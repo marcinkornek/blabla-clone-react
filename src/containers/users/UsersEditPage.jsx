@@ -20,9 +20,14 @@ export default class UsersEditPage extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps.params', nextProps.params)
+  }
+
   render() {
     const { dispatch, user, session, isSaving } = this.props;
 
+    console.log('user!!!!!!!', user)
     var userEditForm =
       <Bootstrap.Col xs={10}>
         <div className='account__heading'>
