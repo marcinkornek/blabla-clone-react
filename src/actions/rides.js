@@ -64,14 +64,16 @@ export function fetchRidesAsPassenger(passengerId, session) {
   };
 }
 
-export function fetchRide(rideId) {
+export function fetchRide(rideId, session) {
   return dispatch => {
     dispatch(rideRequest());
     return fetch(cons.APIEndpoints.RIDES + '/' + rideId, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-User-Email': session['email'],
+        'X-User-Token': session['access_token']
       }
     })
     .then(status)

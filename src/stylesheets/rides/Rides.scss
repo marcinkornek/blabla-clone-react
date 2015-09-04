@@ -132,6 +132,7 @@
 // SHOW
 
 .ride-show-offer,
+.ride-show-requests,
 .ride-show-driver,
 .ride-show-description {
   border: 1px solid #ddd;
@@ -179,6 +180,7 @@
 }
 
 .ride-show-driver__heading,
+.ride-show-requests__heading,
 .ride-show-offer__heading {
   border-bottom: 1px solid #ddd;
   padding: 5px;
@@ -224,6 +226,7 @@
 }
 
 .ride-show-offer__details-places,
+.ride-show-requests__details-places,
 .ride-show-offer__details-price {
   padding: 10px;
   border-bottom: 1px solid #ddd;

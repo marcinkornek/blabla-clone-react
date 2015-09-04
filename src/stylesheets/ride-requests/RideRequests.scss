@@ -1,0 +1,39 @@
+.ride-request {
+  padding: 10px;
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+
+.ride-request__status {
+  display: inline-block;
+}
+
+.ride-request__status--pending {
+  color: red;
+  margin-right: 5px;
+}
+
+.ride-request__places {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.ride-request__places-value {
+  font-size: 18px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.ride-request__places-label {
+  display: inline-block;
+}
+
+.ride-request__passenger {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.ride-request__created {
+  display: inline-block;
+  color: gray;
+}

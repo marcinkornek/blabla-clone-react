@@ -7,10 +7,11 @@ import Icon                  from 'react-fa'
 import pluralize             from 'pluralize'
 
 import * as actions          from '../../actions/rides';
-import * as rrActions        from '../../actions/rides_requests';
+import * as rrActions        from '../../actions/ride_requests';
 import styles                from '../../stylesheets/rides/Rides'
 import RidesActions          from '../../components/rides/RidesActions'
 import RideOfferForm         from '../../components/rides/RideOfferForm'
+import RideRequestsIndexItem from '../../components/rides/RideRequestsIndexItem'
 
 export default class RidesShowPage extends React.Component {
   constructor (props, context) {
@@ -19,13 +20,21 @@ export default class RidesShowPage extends React.Component {
 
   componentDidMount() {
     var rideId = this.props.params.rideId
-    const { dispatch } = this.props
-    dispatch(actions.fetchRide(rideId))
+    const { dispatch, session, currentUserId } = this.props
+    dispatch(actions.fetchRide(rideId, session))
+  }
+
+  componentWillReceiveProps(nextProps) {
+    var rideId = this.props.params.rideId
+    const { dispatch, currentUserId } = this.props;
+    if (nextProps.currentUserId && currentUserId === undefined) {
+      dispatch(actions.fetchRide(rideId, nextProps.session))
+    }
   }
 
   render() {
     const { dispatch, ride, currentUserId, session } = this.props
-    var rideDescriptionCar, rideDriver, rideActions, rideOffer, rideDescription, places
+    var rideDescriptionCar, rideDriver, rideActions, rideOffer, rideDescription, places, rideRequests, rideRequestsList
 
     if (_.isEmpty(ride)) {
       rideDescriptionCar = null
@@ -48,27 +57,29 @@ export default class RidesShowPage extends React.Component {
     if (_.isEmpty(ride)) {
       rideDriver = null
     } else {
-      rideDriver =
-        <div className='ride-show-driver'>
-          <div className='ride-show-driver__heading'>
-            User
-          </div>
-          <Link to={`/users/${ride.driver.id}`}>
-            <div>
-              <div className='ride-show-driver__details-avatar'><img src={ride.driver.avatar} /></div>
-              <div className='ride-show-driver__details-info'>
-                <div className='ride-show-driver__details-name'>{ride.driver.full_name}</div>
-                <div className='ride-show-driver__details-age'>({ride.driver.age} years)</div>
-                <div className='ride-show-driver__details-join'>
-                  <div className='ride-show-driver__details-join-label'>joined:</div>
-                  <div className='ride-show-driver__details-join-value'>
-                    <Timestamp value={ride.driver.created_at} format="D MMMM YYYY" />
+      if (currentUserId != ride.driver.id) {
+        rideDriver =
+          <div className='ride-show-driver'>
+            <div className='ride-show-driver__heading'>
+              User
+            </div>
+            <Link to={`/users/${ride.driver.id}`}>
+              <div>
+                <div className='ride-show-driver__details-avatar'><img src={ride.driver.avatar} /></div>
+                <div className='ride-show-driver__details-info'>
+                  <div className='ride-show-driver__details-name'>{ride.driver.full_name}</div>
+                  <div className='ride-show-driver__details-age'>({ride.driver.age} years)</div>
+                  <div className='ride-show-driver__details-join'>
+                    <div className='ride-show-driver__details-join-label'>joined:</div>
+                    <div className='ride-show-driver__details-join-value'>
+                      <Timestamp value={ride.driver.created_at} format="D MMMM YYYY" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Link>
-        </div>
+            </Link>
+          </div>
+      }
     }
 
     if (_.isEmpty(ride)) {
@@ -76,6 +87,34 @@ export default class RidesShowPage extends React.Component {
     } else {
       rideActions =
         <RidesActions rideId={ride.id} rideOwner={ride.driver.id} currentUserId={currentUserId} />
+    }
+
+    if (ride.ride_requests && ride.ride_requests.length > 0) {
+      rideRequestsList =
+        ride.ride_requests.map((ride_request, i) =>
+          <RideRequestsIndexItem
+            ride_request={ride_request} key={i}
+            onAddClick={(passengerId, status) =>
+              dispatch(rrActions.changeRideRequest(ride.id, passengerId, status))
+            } />
+      )
+    }
+
+    if (ride.ride_requests) {
+      rideRequests =
+        <div className='ride-show-requests'>
+          <div className='ride-show-requests__heading'>
+            Requests
+          </div>
+          <div className='ride-show-requests__details-places'>
+            <div className='ride-show-requests__details-places-value'>{ride.requested_places_count} / {ride.free_places_count} {pluralize('place', ride.requested_places_count)} </div>
+          </div>
+          <div className='ride-show-requests__details-book'>
+            <div className='ride-show-requests__details-book-info'>
+              {rideRequestsList}
+            </div>
+          </div>
+        </div>
     }
 
     rideOffer =
@@ -143,6 +182,7 @@ export default class RidesShowPage extends React.Component {
         </Bootstrap.Col>
         <Bootstrap.Col xs={4}>
           {rideOffer}
+          {rideRequests}
           {rideDriver}
         </Bootstrap.Col>
       </div>

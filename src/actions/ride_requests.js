@@ -22,7 +22,7 @@ export function createRideRequest(rideId, places, session) {
       },
       body: JSON.stringify({
         'ride_id': rideId,
-        'places':  session['id'],
+        'places':  places,
       })
     })
     .then(status)
