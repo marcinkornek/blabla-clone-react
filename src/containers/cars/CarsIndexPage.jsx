@@ -24,12 +24,12 @@ export default class CarsIndexPage extends React.Component {
     const { cars, currentUserId } = this.props
 
     var carsList
-    if (cars) {
+    if (_.isEmpty(cars)) {
+      carsList = 'No cars'
+    } else {
       carsList = cars.map((car, i) =>
         <CarsItem car={car} currentUserId={currentUserId} key={i} />
       )
-    } else {
-      carsList = 'No cars'
     }
 
     var carsMain =
