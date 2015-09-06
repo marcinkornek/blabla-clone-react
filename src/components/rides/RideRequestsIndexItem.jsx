@@ -13,13 +13,17 @@ export default class RideRequestsIndexItem extends React.Component {
   render() {
     return (
       <div className='ride-request'>
-        <div className={'ride-request__status ride-request__status--' + this.props.ride_request.status}>{this.props.ride_request.status}</div>
-        <div className='ride-request__passenger'>{this.props.ride_request.passenger.full_name}</div>
-        <div className='ride-request__places'>
-          <div className='ride-request__places-value'>{this.props.ride_request.places}</div>
-          <div className='ride-request__places-label'>{pluralize('place', this.props.ride_request.places)}</div>
+        <div className='ride-request__status'>
+          <div className={'ride-request__status--' + this.props.ride_request.status}>{this.props.ride_request.status}</div>
         </div>
-        <div className='ride-request__created'><TimeAgo date={this.props.ride_request.created_at} /></div>
+        <div className='ride-request__info'>
+          <div className='ride-request__passenger'>{this.props.ride_request.passenger.full_name}</div>
+          <div className='ride-request__places'>
+            <div className='ride-request__places-value'>{this.props.ride_request.places}</div>
+            <div className='ride-request__places-label'>{pluralize('place', this.props.ride_request.places)}</div>
+          </div>
+          <div className='ride-request__created'><TimeAgo date={this.props.ride_request.created_at} /></div>
+        </div>
       </div>
     )
   }
