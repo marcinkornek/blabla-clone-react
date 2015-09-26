@@ -19,14 +19,14 @@ export default class RidesEditPage extends React.Component {
     const { dispatch, session } = this.props;
     dispatch(actions.fetchRidesOptions(session))
     if (rideId) {
-      dispatch(actions.fetchRide(rideId))
+      dispatch(actions.fetchRide(rideId, session))
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { dispatch } = this.props;
     if (nextProps.params.rideId !== this.props.params.rideId) {
-      dispatch(actions.fetchRide(nextProps.params.rideId))
+      dispatch(actions.fetchRide(nextProps.params.rideId, nextProps.session))
     }
   }
 

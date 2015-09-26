@@ -61,10 +61,11 @@ export function rideRequestCreateRequest() {
   };
 }
 
-export function rideRequestCreateSuccess(json) {
+export function rideRequestCreateSuccess(ride) {
   return {
     type: types.RIDE_REQUEST_CREATE_SUCCESS,
-    places: json.ride.free_places_count
+    places: ride.free_places_count,
+    ride: ride
   }
 }
 

@@ -13,6 +13,12 @@
   padding: 5px;
 }
 
+.ride-request__status-capitalized {
+  display: inline-block;
+  text-transform: capitalize;
+  margin-right: 5px;
+}
+
 .ride-request__info {
   display: inline-block;
   margin-right: 5px;

@@ -5,6 +5,7 @@ import { Link }              from 'react-router';
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
 import pluralize             from 'pluralize'
+import TimeAgo               from 'react-timeago'
 
 import * as actions          from '../../actions/rides';
 import * as rrActions        from '../../actions/ride_requests';
@@ -34,7 +35,7 @@ export default class RidesShowPage extends React.Component {
 
   render() {
     const { dispatch, ride, currentUserId, session } = this.props
-    var rideDescriptionCar, rideDriver, rideActions, rideOffer, rideDescription, places, rideRequests, rideRequestsList
+    var rideDescriptionCar, rideDriver, rideActions, rideOffer, rideDescription, places, rideRequests, rideRequestsList, rideFormOrStatus, rideStatusTimestamp
 
     if (_.isEmpty(ride)) {
       rideDescriptionCar = null
@@ -120,6 +121,41 @@ export default class RidesShowPage extends React.Component {
         </div>
     }
 
+    if (ride.requested && ride.ride_request.status != 'pending' ) {
+      rideStatusTimestamp =
+        <div>
+          <div className='ride-request__status-capitalized'>{ride.ride_request.status}:</div>
+          <TimeAgo date={ride.ride_request.updated_at} />
+        </div>
+    }
+
+    if (ride.requested) {
+      rideFormOrStatus =
+        <div className='ride-request'>
+          <div className='ride-request__status'>
+            <div className={'ride-request__status--' + ride.ride_request.status}>{ride.ride_request.status}</div>
+          </div>
+          <div className='ride-request__info'>
+            <div className='ride-request__places'>
+              <div className='ride-request__places-value'>{ride.ride_request.places}</div>
+              <div className='ride-request__places-label'>{pluralize('place', ride.ride_request.places)}</div>
+            </div>
+            <div className='ride-request__created'>
+              <div>Requested: <TimeAgo date={ride.ride_request.created_at} /></div>
+              {rideStatusTimestamp}
+            </div>
+          </div>
+        </div>
+    } else {
+      rideFormOrStatus =
+        <RideOfferForm
+          ride={ride}
+          currentUserId={currentUserId}
+          onAddClick={(places) =>
+            dispatch(rrActions.createRideRequest(ride.id, places, session))
+          } />
+    }
+
     rideOffer =
       <div className='ride-show-offer'>
         <div className='ride-show-offer__heading'>
@@ -135,12 +171,7 @@ export default class RidesShowPage extends React.Component {
         </div>
         <div className='ride-show-offer__details-book'>
           <div className='ride-show-offer__details-book-info'>
-            <RideOfferForm
-              ride={ride}
-              currentUserId={currentUserId}
-              onAddClick={(places) =>
-                dispatch(rrActions.createRideRequest(ride.id, places, session))
-              } />
+            {rideFormOrStatus}
           </div>
         </div>
       </div>

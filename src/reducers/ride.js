@@ -31,7 +31,8 @@ export default function ride(state = initialState, action) {
     });
   case types.RIDE_REQUEST_CREATE_SUCCESS:
   return Object.assign({}, state, {
-    places: action.places
+    places: action.places,
+    ride: action.ride
   });
   case types.RIDE_REQUEST_CHANGE_SUCCESS:
   return Object.assign({}, state, {
