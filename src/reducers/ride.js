@@ -30,14 +30,15 @@ export default function ride(state = initialState, action) {
       places: action.ride.free_places_count
     });
   case types.RIDE_REQUEST_CREATE_SUCCESS:
-  return Object.assign({}, state, {
-    places: action.places,
-    ride: action.ride
-  });
+    return Object.assign({}, state, {
+      ride: action.ride,
+      places: action.places
+    });
   case types.RIDE_REQUEST_CHANGE_SUCCESS:
-  return Object.assign({}, state, {
-    ride: action.ride,
-  });
+    return Object.assign({}, state, {
+      ride: action.ride,
+      places: action.places
+    });
   default:
     return state;
   }

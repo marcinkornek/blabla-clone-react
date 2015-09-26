@@ -96,7 +96,7 @@ export default class RidesShowPage extends React.Component {
           <RideRequestsIndexItem
             ride_request={ride_request} key={i}
             onAddClick={(status) =>
-              dispatch(rrActions.changeRideRequest(ride.id, status, session))
+              dispatch(rrActions.changeRideRequest(ride_request.id, status, session))
             }
             onAcceptRideRequest={(rideRequestId, status) =>
               dispatch(rrActions.acceptRideRequest(rideRequestId, status, session))
@@ -121,11 +121,11 @@ export default class RidesShowPage extends React.Component {
         </div>
     }
 
-    if (ride.requested && ride.ride_request.status != 'pending' ) {
+    if (ride.requested && ride.user_ride_request.status != 'pending' ) {
       rideStatusTimestamp =
         <div>
-          <div className='ride-request__status-capitalized'>{ride.ride_request.status}:</div>
-          <TimeAgo date={ride.ride_request.updated_at} />
+          <div className='ride-request__status-capitalized'>{ride.user_ride_request.status}:</div>
+          <TimeAgo date={ride.user_ride_request.updated_at} />
         </div>
     }
 
@@ -133,15 +133,15 @@ export default class RidesShowPage extends React.Component {
       rideFormOrStatus =
         <div className='ride-request'>
           <div className='ride-request__status'>
-            <div className={'ride-request__status--' + ride.ride_request.status}>{ride.ride_request.status}</div>
+            <div className={'ride-request__status--' + ride.user_ride_request.status}>{ride.user_ride_request.status}</div>
           </div>
           <div className='ride-request__info'>
             <div className='ride-request__places'>
-              <div className='ride-request__places-value'>{ride.ride_request.places}</div>
-              <div className='ride-request__places-label'>{pluralize('place', ride.ride_request.places)}</div>
+              <div className='ride-request__places-value'>{ride.user_ride_request.places}</div>
+              <div className='ride-request__places-label'>{pluralize('place', ride.user_ride_request.places)}</div>
             </div>
             <div className='ride-request__created'>
-              <div>Requested: <TimeAgo date={ride.ride_request.created_at} /></div>
+              <div>Requested: <TimeAgo date={ride.user_ride_request.created_at} /></div>
               {rideStatusTimestamp}
             </div>
           </div>

@@ -65,7 +65,6 @@ export function fetchRidesAsPassenger(passengerId, session) {
 }
 
 export function fetchRide(rideId, session) {
-  console.log('session', session)
   return dispatch => {
     dispatch(rideRequest());
     return fetch(cons.APIEndpoints.RIDES + '/' + rideId, {
