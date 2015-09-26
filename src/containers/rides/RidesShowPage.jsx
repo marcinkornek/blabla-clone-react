@@ -94,8 +94,11 @@ export default class RidesShowPage extends React.Component {
         ride.ride_requests.map((ride_request, i) =>
           <RideRequestsIndexItem
             ride_request={ride_request} key={i}
-            onAddClick={(passengerId, status) =>
-              dispatch(rrActions.changeRideRequest(ride.id, passengerId, status))
+            onAddClick={(status) =>
+              dispatch(rrActions.changeRideRequest(ride.id, status, session))
+            }
+            onAcceptRideRequest={(rideRequestId, status) =>
+              dispatch(rrActions.acceptRideRequest(rideRequestId, status, session))
             } />
       )
     }

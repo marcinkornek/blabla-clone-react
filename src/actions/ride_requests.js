@@ -32,6 +32,29 @@ export function createRideRequest(rideId, places, session) {
   };
 }
 
+export function changeRideRequest(rideRequestId, status, session) {
+  console.log('status', status)
+  return dispatch => {
+    dispatch(rideRequestChangeRequest());
+    return fetch(cons.APIEndpoints.RIDE_REQUESTS + '/' + rideRequestId, {
+      method: 'put',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json',
+        'X-User-Email': session['email'],
+        'X-User-Token': session['access_token']
+      },
+      body: JSON.stringify({
+        'status': status
+      })
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(rideRequestChangeSuccess(json)))
+    .catch(errors => dispatch(rideRequestChangeFailure(errors)))
+  };
+}
+
 export function rideRequestCreateRequest() {
   return {
     type: types.RIDE_REQUEST_CREATE_REQUEST,
@@ -48,6 +71,27 @@ export function rideRequestCreateSuccess(json) {
 export function rideRequestCreateFailure(errors) {
   return {
     type: types.RIDE_REQUEST_CREATE_FAILURE,
+    errors: errors
+  }
+}
+
+export function rideRequestChangeRequest() {
+  return {
+    type: types.RIDE_REQUEST_CHANGE_REQUEST,
+  };
+}
+
+export function rideRequestChangeSuccess(ride) {
+  console.log('ride', ride)
+  return {
+    type: types.RIDE_REQUEST_CHANGE_SUCCESS,
+    ride: ride
+  }
+}
+
+export function rideRequestChangeFailure(errors) {
+  return {
+    type: types.RIDE_REQUEST_CHANGE_FAILURE,
     errors: errors
   }
 }

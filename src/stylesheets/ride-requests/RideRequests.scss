@@ -15,6 +15,12 @@
 
 .ride-request__info {
   display: inline-block;
+  margin-right: 5px;
+}
+
+.ride-request__button {
+  vertical-align: top;
+  display: inline-block;
 }
 
 .ride-request__status--pending {

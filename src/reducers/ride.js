@@ -33,6 +33,10 @@ export default function ride(state = initialState, action) {
   return Object.assign({}, state, {
     places: action.places
   });
+  case types.RIDE_REQUEST_CHANGE_SUCCESS:
+  return Object.assign({}, state, {
+    ride: action.ride,
+  });
   default:
     return state;
   }
