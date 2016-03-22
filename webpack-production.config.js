@@ -10,7 +10,7 @@ module.exports = {
   },
   devtool: 'eval',
   entry: [
-    './src/containers/index'
+    './src/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),

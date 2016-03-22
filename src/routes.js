@@ -1,8 +1,8 @@
 import React           from 'react'
-import { Router, Route }       from 'react-router'
-import * as components from '../components'
-import * as actions    from '../actions/session'
-import * as cons       from '../constants/constants'
+import { Router, Route } from 'react-router'
+import * as components from './components'
+import * as actions    from './actions/session'
+import * as cons       from './constants/constants'
 
 var isLogged = false
 
