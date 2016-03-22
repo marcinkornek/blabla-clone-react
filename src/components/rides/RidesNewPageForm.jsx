@@ -1,9 +1,9 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import Geosuggest            from 'react-geosuggest'
-import styles                from '../../stylesheets/rides/Rides'
-import stylesGeosuggest      from '../../stylesheets/shared/Geosuggest'
-import FormTooltip           from '../shared/FormTooltip'
+import React, { PropTypes }   from 'react'
+import { Input, ButtonInput } from 'react-bootstrap'
+import Geosuggest             from 'react-geosuggest'
+import styles                 from '../../stylesheets/rides/Rides'
+import stylesGeosuggest       from '../../stylesheets/shared/Geosuggest'
+import FormTooltip            from '../shared/FormTooltip'
 
 export default class RidesNewPageForm extends React.Component {
   constructor (props, context) {
@@ -67,25 +67,25 @@ export default class RidesNewPageForm extends React.Component {
           onSuggestSelect={this.onSuggestSelectDestination.bind(this)} ref='destination_city' />
 
         <FormTooltip label='Seats' required='true' />
-        <Bootstrap.Input type='number' placeholder='Seats' ref='places' />
+        <Input type='number' placeholder='Seats' ref='places' />
 
         <FormTooltip label='Start date' required='true' />
-        <Bootstrap.Input type='date' placeholder='Start date' ref='start_date' />
+        <Input type='date' placeholder='Start date' ref='start_date' />
 
         <FormTooltip label='Car' required='true' />
-        <Bootstrap.Input type='select' ref='car_id'>
+        <Input type='select' ref='car_id'>
           {cars}
-        </Bootstrap.Input>
+        </Input>
 
         <FormTooltip label='Price' required='true' />
-        <Bootstrap.Input type='number' placeholder='Price' ref='price' />
+        <Input type='number' placeholder='Price' ref='price' />
 
         <FormTooltip label='Currency' required='true' />
-        <Bootstrap.Input type='select' ref='currency'>
+        <Input type='select' ref='currency'>
           {currencies}
-        </Bootstrap.Input>
+        </Input>
 
-        <Bootstrap.ButtonInput type='submit' value='Create' />
+        <ButtonInput type='submit' value='Create' />
       </form>
     )
   }

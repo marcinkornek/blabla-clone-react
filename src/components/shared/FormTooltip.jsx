@@ -1,6 +1,6 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/users/Users'
+import React, { PropTypes }        from 'react'
+import { Tooltip, OverlayTrigger } from 'react-bootstrap'
+import styles                      from '../../stylesheets/users/Users'
 
 export default class FormTooltip extends React.Component {
   constructor (props, context) {
@@ -9,17 +9,17 @@ export default class FormTooltip extends React.Component {
 
   render() {
     const tooltipRequired = (
-      <Bootstrap.Tooltip>required</Bootstrap.Tooltip>
+      <Tooltip id='tooltip-required'>required</Tooltip>
     )
 
     var label
     if (this.props.required === 'true') {
       label =
-        <Bootstrap.OverlayTrigger placement='top' overlay={tooltipRequired} delayShow={300} delayHide={150}>
+        <OverlayTrigger placement='top' overlay={tooltipRequired} delayShow={300} delayHide={150}>
           <div className='account_form-label--required'>
             *
           </div>
-        </Bootstrap.OverlayTrigger>
+        </OverlayTrigger>
     }
 
     return (

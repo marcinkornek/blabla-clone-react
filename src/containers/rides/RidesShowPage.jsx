@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
-import Bootstrap             from 'react-bootstrap'
+import { Col }             from 'react-bootstrap'
 import { Link }              from 'react-router';
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
@@ -211,14 +211,14 @@ export default class RidesShowPage extends React.Component {
 
     return (
       <div className='show-grid'>
-        <Bootstrap.Col xs={8}>
+        <Col xs={8}>
           {rideDescription}
-        </Bootstrap.Col>
-        <Bootstrap.Col xs={4}>
+        </Col>
+        <Col xs={4}>
           {rideOffer}
           {rideRequests}
           {rideDriver}
-        </Bootstrap.Col>
+        </Col>
       </div>
     )
   }

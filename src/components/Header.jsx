@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Router, { Link }     from 'react-router'
-import Bootstrap            from 'react-bootstrap'
+import { Nav, Navbar, NavDropdown, MenuItem } from 'react-bootstrap'
 
 export default class Header extends React.Component {
   render() {
@@ -8,35 +8,40 @@ export default class Header extends React.Component {
     var rightNav
     if (this.props.currentUser.email) {
       rightNav =
-        <Bootstrap.Nav navbar right>
-          <Bootstrap.DropdownButton eventKey={3} title={this.props.currentUser.email}>
-            <li><Link to='/account/user'>Account</Link></li>
-            <Bootstrap.MenuItem divider />
-            <li><a href='' onClick={this.handleLogout.bind(this)}>Logout</a></li>
-          </Bootstrap.DropdownButton>
-        </Bootstrap.Nav>
+        <Nav navbar pullRight>
+          <NavDropdown eventKey={1} title={this.props.currentUser.email} id="basic-nav-dropdown">
+            <MenuItem eventKey={1.1}><Link to='/account/user'>Account</Link></MenuItem>
+            <MenuItem divider />
+             <MenuItem eventKey={1.2}><a href='' onClick={this.handleLogout.bind(this)}>Logout</a></MenuItem>
+          </NavDropdown>
+        </Nav>
     } else {
       rightNav =
-        <Bootstrap.Nav navbar right>
-          <li><Link to='/login'>Login</Link></li>
-          <li><Link to='/register'>Register</Link></li>
-        </Bootstrap.Nav>
+        <Nav navbar pullRight>
+          <MenuItem eventKey={2}><Link to='/login'>Login</Link></MenuItem>
+          <MenuItem eventKey={3}><Link to='/register'>Register</Link></MenuItem>
+        </Nav>
     }
 
     var leftNav =
-      <Bootstrap.Nav navbar>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/users'>Users</Link></li>
-        <li><Link to='/rides'>Rides</Link></li>
-      </Bootstrap.Nav>
+      <Nav>
+        <MenuItem><Link to='/'>Home</Link></MenuItem>
+        <MenuItem><Link to='/users'>Users</Link></MenuItem>
+        <MenuItem><Link to='/rides'>Rides</Link></MenuItem>
+      </Nav>
 
     return (
-      <Bootstrap.Navbar fixedTop brand='News App' toggleNavKey={0}>
-        <Bootstrap.CollapsibleNav>
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            News App
+          </Navbar.Brand>
+        </Navbar.Header>
+        <Nav>
           {leftNav}
           {rightNav}
-        </Bootstrap.CollapsibleNav>
-      </Bootstrap.Navbar>
+        </Nav>
+      </Navbar>
     )
   }
 

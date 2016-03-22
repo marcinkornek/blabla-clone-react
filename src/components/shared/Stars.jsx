@@ -1,8 +1,7 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import Icon                  from 'react-fa'
-
-import styles                from '../../stylesheets/shared/Shared'
+import React, { PropTypes }        from 'react'
+import { Tooltip, OverlayTrigger } from 'react-bootstrap'
+import Icon                        from 'react-fa'
+import styles                      from '../../stylesheets/shared/Shared'
 
 export default class Stars extends React.Component {
   constructor (props, context) {
@@ -11,7 +10,7 @@ export default class Stars extends React.Component {
 
   render() {
     const tooltipComfort = (
-      <Bootstrap.Tooltip>{this.props.label}</Bootstrap.Tooltip>
+      <Tooltip id='tooltip-comfort'>{this.props.label}</Tooltip>
     )
 
     var stars = []
@@ -20,11 +19,11 @@ export default class Stars extends React.Component {
     }
 
     return (
-      <Bootstrap.OverlayTrigger placement='top' overlay={tooltipComfort} delayShow={300} delayHide={150}>
+      <OverlayTrigger placement='top' overlay={tooltipComfort} delayShow={300} delayHide={150}>
         <div className='stars'>
           {stars}
         </div>
-      </Bootstrap.OverlayTrigger>
+      </OverlayTrigger>
     )
   }
 }

@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react'
 import { Link }              from 'react-router';
-import Bootstrap             from 'react-bootstrap'
+import { Tooltip }           from 'react-bootstrap'
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
 import pluralize             from 'pluralize'
@@ -11,7 +11,7 @@ import Stars                 from '../shared/Stars'
 export default class RidesIndexPageItem extends React.Component {
   render() {
     const tooltipComfort = (
-      <Bootstrap.Tooltip>{this.props.ride.comfort}</Bootstrap.Tooltip>
+      <Tooltip id='tooltip-comfort'>{this.props.ride.comfort}</Tooltip>
     );
 
     var rideStatus, rideDescription, rideDriver, rideOffer

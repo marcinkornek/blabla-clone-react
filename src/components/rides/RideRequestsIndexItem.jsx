@@ -1,9 +1,9 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/ride-requests/RideRequests'
-import FormTooltip           from '../shared/FormTooltip'
-import pluralize             from 'pluralize'
-import TimeAgo               from 'react-timeago'
+import React, { PropTypes }   from 'react'
+import { Input, ButtonInput } from 'react-bootstrap'
+import styles                 from '../../stylesheets/ride-requests/RideRequests'
+import FormTooltip            from '../shared/FormTooltip'
+import pluralize              from 'pluralize'
+import TimeAgo                from 'react-timeago'
 
 export default class RideRequestsIndexItem extends React.Component {
   constructor (props, context) {
@@ -20,12 +20,12 @@ export default class RideRequestsIndexItem extends React.Component {
   render() {
     var rideRequestsButton =
       <form onSubmit={this.handleSubmitForm.bind(this)}>
-        <Bootstrap.Input type='select' name='status' ref='status' groupClassName='book-ride-form__select' value={this.state.ride_request.status} onChange={this.handleChange.bind(this)} standalone>
+        <Input type='select' name='status' ref='status' groupClassName='book-ride-form__select' value={this.state.ride_request.status} onChange={this.handleChange.bind(this)} standalone>
           <option value='accepted'> accept </option>
           <option value='pending'> pending </option>
           <option value='rejected'> reject </option>
-        </Bootstrap.Input>
-        <Bootstrap.ButtonInput type='submit' value='OK' groupClassName='book-ride-form__submit' standalone />
+        </Input>
+        <ButtonInput type='submit' value='OK' groupClassName='book-ride-form__submit' standalone />
       </form>
 
     return (

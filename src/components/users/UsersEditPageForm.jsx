@@ -1,9 +1,9 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/users/Users'
-import _                     from 'lodash'
-import Icon                  from 'react-fa'
-import FormTooltip           from '../shared/FormTooltip'
+import React, { PropTypes }   from 'react'
+import { Input, ButtonInput } from 'react-bootstrap'
+import styles                 from '../../stylesheets/users/Users'
+import _                      from 'lodash'
+import Icon                   from 'react-fa'
+import FormTooltip            from '../shared/FormTooltip'
 
 export default class UsersEditPageForm extends React.Component {
   constructor (props, context) {
@@ -62,19 +62,19 @@ export default class UsersEditPageForm extends React.Component {
         <form className='account_form' onSubmit={this._handleSubmitEditUserForm} encType='multipart/form-data' >
           <div className='account_form-fields'>
             <FormTooltip label='First name' required='true' />
-            <Bootstrap.Input type='text' name='first_name' placeholder='First name' ref='first_name' value={this.state.user.first_name} onChange={this.handleChange.bind(this)} />
+            <Input type='text' name='first_name' placeholder='First name' ref='first_name' value={this.state.user.first_name} onChange={this.handleChange.bind(this)} />
 
             <FormTooltip label='Last name' required='true' />
-            <Bootstrap.Input type='text' name='last_name' placeholder='Last name' ref='last_name' value={this.state.user.last_name} onChange={this.handleChange.bind(this)} />
+            <Input type='text' name='last_name' placeholder='Last name' ref='last_name' value={this.state.user.last_name} onChange={this.handleChange.bind(this)} />
 
             <FormTooltip label='Email' required='true' />
-            <Bootstrap.Input type='text' name='email' placeholder='Email' ref='email' value={this.state.user.email} onChange={this.handleChange.bind(this)} />
+            <Input type='text' name='email' placeholder='Email' ref='email' value={this.state.user.email} onChange={this.handleChange.bind(this)} />
 
             <FormTooltip label='Telephone number' required='false' />
-            <Bootstrap.Input type='text' name='tel_num' placeholder='Telephone number' ref='tel_num' value={this.state.user.tel_num} onChange={this.handleChange.bind(this)} />
+            <Input type='text' name='tel_num' placeholder='Telephone number' ref='tel_num' value={this.state.user.tel_num} onChange={this.handleChange.bind(this)} />
 
             <FormTooltip label='Birth year' required='false' />
-            <Bootstrap.Input type='text' name='birth_year' placeholder='Birth year' ref='birth_year' value={this.state.user.birth_year} onChange={this.handleChange.bind(this)} />
+            <Input type='text' name='birth_year' placeholder='Birth year' ref='birth_year' value={this.state.user.birth_year} onChange={this.handleChange.bind(this)} />
 
           </div>
           <div className='account_form-avatar'>
@@ -83,7 +83,7 @@ export default class UsersEditPageForm extends React.Component {
             <img src={this.state.user.avatar}/>
             <input type='file' name='avatar' label='Avatar' placeholder='Avatar' ref='avatar' onChange={this._handleFile} />
           </div>
-          <Bootstrap.ButtonInput type='submit' value='Edit' />
+          <ButtonInput type='submit' value='Edit' />
         </form>
       </div>
     )

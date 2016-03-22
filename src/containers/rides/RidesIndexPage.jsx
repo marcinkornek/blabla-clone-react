@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react'
 import Router, { Link }      from 'react-router'
-import Bootstrap             from 'react-bootstrap'
+import { Button, Col }       from 'react-bootstrap'
 import { connect }           from 'react-redux';
 import Icon                  from 'react-fa'
 
@@ -49,23 +49,23 @@ export default class RidesIndexPage extends React.Component {
     if (currentUserId) {
       headingButton =
         <div className='heading__button'>
-          <Link to='/rides/new'><Bootstrap.Button bsStyle='primary'>New ride</Bootstrap.Button></Link>
+          <Link to='/rides/new'><Button bsStyle='primary'>New ride</Button></Link>
         </div>
     }
 
     ridesSearch =
-      <Bootstrap.Col xs={2}>
+      <Col xs={2}>
         Search
-      </Bootstrap.Col>
+      </Col>
 
     ridesMain =
-      <Bootstrap.Col xs={10}>
+      <Col xs={10}>
         <div className='heading'>
           <div className='heading__title'>Rides</div>
           {headingButton}
         </div>
         {ridesList}
-      </Bootstrap.Col>
+      </Col>
 
     return (
       <div className='show-grid'>

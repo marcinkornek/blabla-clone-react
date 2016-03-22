@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react'
 import { Link }              from 'react-router';
-import Bootstrap             from 'react-bootstrap'
+import { Col }               from 'react-bootstrap'
 import styles                from '../../stylesheets/users/Users'
 
 export default class UsersAccountMenu extends React.Component {
@@ -22,7 +22,7 @@ export default class UsersAccountMenu extends React.Component {
     }
 
     return (
-      <Bootstrap.Col xs={2} className='account-menu'>
+      <Col xs={2} className='account-menu'>
         <div className='account-menu__heading'>
           Your profile
         </div>
@@ -31,7 +31,7 @@ export default class UsersAccountMenu extends React.Component {
         {carsEditLinks}
         <Link to='/account/rides_as_driver' className='account-menu__item'>Rides as driver</Link>
         <Link to='/account/rides_as_passenger' className='account-menu__item'>Rides as passenger</Link>
-      </Bootstrap.Col>
+      </Col>
     )
   }
 }

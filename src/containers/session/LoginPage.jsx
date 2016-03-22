@@ -1,5 +1,5 @@
 import React, { PropTypes }  from 'react';
-import Bootstrap             from 'react-bootstrap'
+import { Col }               from 'react-bootstrap'
 import { connect }           from 'react-redux';
 
 import LoginFbPage           from '../../components/session/LoginFbPage'
@@ -16,7 +16,7 @@ export default class LoginPage extends React.Component {
     const { dispatch } = this.props;
     return (
       <div className='show-grid'>
-        <Bootstrap.Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
+        <Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
           <LoginFbPage
             onDataReceive={text =>
               dispatch(actions.logInFbBackend(text))
@@ -25,7 +25,7 @@ export default class LoginPage extends React.Component {
             onAddClick={text =>
               dispatch(actions.logInEmailBackend(text))
             } />
-        </Bootstrap.Col>
+        </Col>
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import React, { PropTypes }  from 'react';
-import Bootstrap             from 'react-bootstrap'
+import { Col }             from 'react-bootstrap'
 import { connect }           from 'react-redux';
 
 import * as actions          from '../../actions/rides';
@@ -22,13 +22,13 @@ export default class RidesNewPage extends React.Component {
     const { dispatch, session, ridesOptions } = this.props
     return (
       <div className='show-grid'>
-        <Bootstrap.Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
+        <Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
           <RidesNewPageForm
             ridesOptions={ridesOptions}
             onAddClick={(ride) =>
               dispatch(actions.createRide(ride, session))
             } />
-        </Bootstrap.Col>
+        </Col>
       </div>
     )
   }

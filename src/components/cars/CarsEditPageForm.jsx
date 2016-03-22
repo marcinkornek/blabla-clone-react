@@ -1,9 +1,9 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/users/Users'
-import _                     from 'lodash'
-import Icon                  from 'react-fa'
-import FormTooltip           from '../shared/FormTooltip'
+import React, { PropTypes }   from 'react'
+import { Input, ButtonInput } from 'react-bootstrap'
+import styles                 from '../../stylesheets/users/Users'
+import _                      from 'lodash'
+import Icon                   from 'react-fa'
+import FormTooltip            from '../shared/FormTooltip'
 
 export default class CarsEditPageForm extends React.Component {
   constructor (props, context) {
@@ -79,31 +79,31 @@ export default class CarsEditPageForm extends React.Component {
         </div>
         <form className='-form' onSubmit={this._handleSubmitEditCarForm}>
           <FormTooltip label='Brand' required='true' />
-          <Bootstrap.Input type='text' name='brand' placeholder='Brand' ref='brand' value={this.state.car.brand} onChange={this.handleChange.bind(this)} />
+          <Input type='text' name='brand' placeholder='Brand' ref='brand' value={this.state.car.brand} onChange={this.handleChange.bind(this)} />
 
           <FormTooltip label='Model' required='true' />
-          <Bootstrap.Input type='text' name='model' placeholder='Model' ref='model' value={this.state.car.model} onChange={this.handleChange.bind(this)} />
+          <Input type='text' name='model' placeholder='Model' ref='model' value={this.state.car.model} onChange={this.handleChange.bind(this)} />
 
           <FormTooltip label='Places' required='true' />
-          <Bootstrap.Input type='text' name='places' placeholder='Places' ref='places' value={this.state.car.places} onChange={this.handleChange.bind(this)} />
+          <Input type='text' name='places' placeholder='Places' ref='places' value={this.state.car.places} onChange={this.handleChange.bind(this)} />
 
           <FormTooltip label='Production year' required='false' />
-          <Bootstrap.Input type='text' name='production_year' placeholder='Production year' ref='production_year' value={this.state.car.production_year} onChange={this.handleChange.bind(this)} />
+          <Input type='text' name='production_year' placeholder='Production year' ref='production_year' value={this.state.car.production_year} onChange={this.handleChange.bind(this)} />
 
           <FormTooltip label='Color' required='false' />
-          <Bootstrap.Input type='select' name='color' ref='color' value={this.state.car.color} onChange={this.handleChange.bind(this)} >
+          <Input type='select' name='color' ref='color' value={this.state.car.color} onChange={this.handleChange.bind(this)} >
             {colors}
-          </Bootstrap.Input>
+          </Input>
 
           <FormTooltip label='Comfort' required='false' />
-          <Bootstrap.Input type='select' name='comfort' ref='comfort' value={this.state.car.comfort} onChange={this.handleChange.bind(this)} >
+          <Input type='select' name='comfort' ref='comfort' value={this.state.car.comfort} onChange={this.handleChange.bind(this)} >
             {comforts}
-          </Bootstrap.Input>
+          </Input>
 
           <FormTooltip label='Category' required='false' />
-          <Bootstrap.Input type='select' name='category' ref='category' value={this.state.car.category} onChange={this.handleChange.bind(this)} >
+          <Input type='select' name='category' ref='category' value={this.state.car.category} onChange={this.handleChange.bind(this)} >
             {categories}
-          </Bootstrap.Input>
+          </Input>
 
           <div className='account_form-photo'>
             <FormTooltip label='Car photo' required='false' />
@@ -111,7 +111,7 @@ export default class CarsEditPageForm extends React.Component {
             <img src={this.state.car.car_photo}/>
             <input type='file' name='car_photo' ref='car_photo' onChange={this._handleFile} />
           </div>
-          <Bootstrap.ButtonInput type='submit' value='Edit' />
+          <ButtonInput type='submit' value='Edit' />
         </form>
       </div>
     )

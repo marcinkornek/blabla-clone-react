@@ -1,11 +1,11 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import _                     from 'lodash'
-import Icon                  from 'react-fa'
-import Geosuggest            from 'react-geosuggest'
-import FormTooltip           from '../shared/FormTooltip'
-import styles                from '../../stylesheets/users/Users'
-import stylesGeosuggest      from '../../stylesheets/shared/Geosuggest'
+import React, { PropTypes }   from 'react'
+import { Input, ButtonInput } from 'react-bootstrap'
+import _                      from 'lodash'
+import Icon                   from 'react-fa'
+import Geosuggest             from 'react-geosuggest'
+import FormTooltip            from '../shared/FormTooltip'
+import styles                 from '../../stylesheets/users/Users'
+import stylesGeosuggest       from '../../stylesheets/shared/Geosuggest'
 
 export default class RidesEditPageForm extends React.Component {
   constructor (props, context) {
@@ -90,25 +90,25 @@ export default class RidesEditPageForm extends React.Component {
             onSuggestSelect={this.onSuggestSelectDestination.bind(this)} ref='destination_city' initialValue={this.state.destination.city} />
 
           <FormTooltip label='Seats' required='true' />
-          <Bootstrap.Input type='text' name='places' placeholder='Seats' ref='places' value={this.state.ride.places} onChange={this.handleChange.bind(this)} />
+          <Input type='text' name='places' placeholder='Seats' ref='places' value={this.state.ride.places} onChange={this.handleChange.bind(this)} />
 
           <FormTooltip label='Start date' required='true' />
-          <Bootstrap.Input type='text' name='start_date' placeholder='Start date' ref='start_date' value={this.state.ride.start_date} onChange={this.handleChange.bind(this)} />
+          <Input type='text' name='start_date' placeholder='Start date' ref='start_date' value={this.state.ride.start_date} onChange={this.handleChange.bind(this)} />
 
           <FormTooltip label='Price' required='true' />
-          <Bootstrap.Input type='text' name='price' placeholder='Price' ref='price' value={this.state.ride.price} onChange={this.handleChange.bind(this)} />
+          <Input type='text' name='price' placeholder='Price' ref='price' value={this.state.ride.price} onChange={this.handleChange.bind(this)} />
 
           <FormTooltip label='Car' required='true' />
-          <Bootstrap.Input type='select' ref='car_id' value={this.state.ride.car.id} onChange={this.handleChange.bind(this)}>
+          <Input type='select' ref='car_id' value={this.state.ride.car.id} onChange={this.handleChange.bind(this)}>
             {cars}
-          </Bootstrap.Input>
+          </Input>
 
           <FormTooltip label='Currency' required='true' />
-          <Bootstrap.Input type='select' ref='currency' value={this.state.ride.currency} onChange={this.handleChange.bind(this)}>
+          <Input type='select' ref='currency' value={this.state.ride.currency} onChange={this.handleChange.bind(this)}>
             {currencies}
-          </Bootstrap.Input>
+          </Input>
 
-          <Bootstrap.ButtonInput type='submit' value='Edit' />
+          <ButtonInput type='submit' value='Edit' />
         </form>
       </div>
     )

@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
-import Bootstrap             from 'react-bootstrap'
+import { Grid }              from 'react-bootstrap'
 import { Link }              from 'react-router';
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
@@ -46,10 +46,10 @@ export default class CarsShowPage extends React.Component {
       </div>
 
     return (
-      <Bootstrap.Grid className='car'>
+      <Grid className='car'>
         {carPhoto}
         {carDetails}
-      </Bootstrap.Grid>
+      </Grid>
     )
   }
 }

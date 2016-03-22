@@ -1,7 +1,7 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/users/Users'
-import FormTooltip           from '../shared/FormTooltip'
+import React, { PropTypes }   from 'react'
+import { Input, ButtonInput } from 'react-bootstrap'
+import styles                 from '../../stylesheets/users/Users'
+import FormTooltip            from '../shared/FormTooltip'
 
 export default class UsersNewPageForm extends React.Component {
   constructor (props, context) {
@@ -12,27 +12,27 @@ export default class UsersNewPageForm extends React.Component {
     return (
       <form className='login-email-form' onSubmit={this.handleSubmitRegisterForm.bind(this)}>
         <FormTooltip label='First name' required='true' />
-        <Bootstrap.Input type='text' placeholder='First name' ref='first_name' />
+        <Input type='text' placeholder='First name' ref='first_name' />
 
         <FormTooltip label='Last name' required='true' />
-        <Bootstrap.Input type='text' placeholder='Last name' ref='last_name' />
+        <Input type='text' placeholder='Last name' ref='last_name' />
 
         <FormTooltip label='Email' required='true' />
-        <Bootstrap.Input type='email' placeholder='Email' ref='email' />
+        <Input type='email' placeholder='Email' ref='email' />
 
         <FormTooltip label='Telephone number' required='false' />
-        <Bootstrap.Input type='text' placeholder='Telephone number' ref='tel_num' />
+        <Input type='text' placeholder='Telephone number' ref='tel_num' />
 
         <FormTooltip label='Birth year' required='false' />
-        <Bootstrap.Input type='text' placeholder='Birth year' ref='birth_year' />
+        <Input type='text' placeholder='Birth year' ref='birth_year' />
 
         <FormTooltip label='Password' required='true' />
-        <Bootstrap.Input type='password' placeholder='Password' ref='password' />
+        <Input type='password' placeholder='Password' ref='password' />
 
         <FormTooltip label='Password confirmation' required='true' />
-        <Bootstrap.Input type='password' placeholder='Password confirmation' ref='passwordConfirmation' />
+        <Input type='password' placeholder='Password confirmation' ref='passwordConfirmation' />
 
-        <Bootstrap.ButtonInput type='submit' value='Login' />
+        <ButtonInput type='submit' value='Login' />
       </form>
     )
   }

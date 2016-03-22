@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
-import Bootstrap             from 'react-bootstrap'
+import { Col }             from 'react-bootstrap'
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
 
@@ -98,14 +98,14 @@ export default class UsersShowPage extends React.Component {
 
     return (
       <div className='show-grid'>
-        <Bootstrap.Col xs={8}>
+        <Col xs={8}>
           {userInfo}
           {userRidesAsDriver}
-        </Bootstrap.Col>
-        <Bootstrap.Col xs={4}>
+        </Col>
+        <Col xs={4}>
           {userActivity}
           {userCar}
-        </Bootstrap.Col>
+        </Col>
       </div>
     )
   }

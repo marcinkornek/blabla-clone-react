@@ -1,7 +1,7 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/users/Users'
-import FormTooltip           from '../shared/FormTooltip'
+import React, { PropTypes }   from 'react'
+import { Input, ButtonInput } from 'react-bootstrap'
+import styles                 from '../../stylesheets/users/Users'
+import FormTooltip            from '../shared/FormTooltip'
 
 export default class CarsNewPageForm extends React.Component {
   constructor (props, context) {
@@ -45,37 +45,37 @@ export default class CarsNewPageForm extends React.Component {
     return (
       <form className='login-email-form' onSubmit={this.handleSubmitRegisterForm.bind(this)}>
         <FormTooltip label='Brand' required='true' />
-        <Bootstrap.Input type='text' placeholder='Brand' ref='brand' />
+        <Input type='text' placeholder='Brand' ref='brand' />
 
         <FormTooltip label='Model' required='true' />
-        <Bootstrap.Input type='text' placeholder='Model' ref='model' />
+        <Input type='text' placeholder='Model' ref='model' />
 
         <FormTooltip label='Places' required='false' />
-        <Bootstrap.Input type='text' placeholder='Places' ref='places' />
+        <Input type='text' placeholder='Places' ref='places' />
 
         <FormTooltip label='Production year' required='true' />
-        <Bootstrap.Input type='text' placeholder='Production year' ref='production_year' />
+        <Input type='text' placeholder='Production year' ref='production_year' />
 
         <FormTooltip label='Color' required='false' />
-        <Bootstrap.Input type='select' ref='color'>
+        <Input type='select' ref='color'>
           {colors}
-        </Bootstrap.Input>
+        </Input>
 
         <FormTooltip label='Comfort' required='false' />
-        <Bootstrap.Input type='select' ref='comfort'>
+        <Input type='select' ref='comfort'>
           {comforts}
-        </Bootstrap.Input>
+        </Input>
 
         <FormTooltip label='Category' required='false' />
-        <Bootstrap.Input type='select' ref='category'>
+        <Input type='select' ref='category'>
           {categories}
-        </Bootstrap.Input>
+        </Input>
 
         <div className='account_form-photo'>
           <FormTooltip label='Car photo' required='false' />
           <input type='file' name='car_photo' ref='car_photo' onChange={this._handleFile} />
         </div>
-        <Bootstrap.ButtonInput type='submit' value='Create' />
+        <ButtonInput type='submit' value='Create' />
       </form>
     )
   }

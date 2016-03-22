@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react';
 import Router, { Link }      from 'react-router'
-import Bootstrap             from 'react-bootstrap'
+import { Col }               from 'react-bootstrap'
 import { connect }           from 'react-redux';
 import _                     from 'underscore';
 
@@ -36,14 +36,14 @@ export default class CarsEditPage extends React.Component {
     return (
       <div className='show-grid'>
         <UserAccountMenu userCars={userCars} />
-        <Bootstrap.Col xs={10}>
+        <Col xs={10}>
           <CarsEditPageForm
             car={car} isSaving={isSaving}
             carsOptions={carsOptions}
             onAddClick={(car, car_photo) =>
               dispatch(actions.updateCar(car, car_photo, session))
             } />
-        </Bootstrap.Col>
+        </Col>
       </div>
     )
   }

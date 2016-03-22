@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react';
 import Router, { Link }      from 'react-router'
-import Bootstrap             from 'react-bootstrap'
+import { Col }               from 'react-bootstrap'
 import { connect }           from 'react-redux';
 import _                     from 'underscore';
 
@@ -36,14 +36,14 @@ export default class RidesEditPage extends React.Component {
     return (
       <div className='show-grid'>
         <UserAccountMenu userRides={userRides} />
-        <Bootstrap.Col xs={10}>
+        <Col xs={10}>
           <RidesEditPageForm
             ride={ride} isSaving={isSaving}
             ridesOptions={ridesOptions}
             onAddClick={(ride, ride_start, ride_destination) =>
               dispatch(actions.updateRide(ride, ride_start, ride_destination, session))
             } />
-        </Bootstrap.Col>
+        </Col>
       </div>
     )
   }

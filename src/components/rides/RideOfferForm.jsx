@@ -1,8 +1,8 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/rides/Rides'
-import FormTooltip           from '../shared/FormTooltip'
-import pluralize             from 'pluralize'
+import React, { PropTypes }   from 'react'
+import { Input, ButtonInput } from 'react-bootstrap'
+import styles                 from '../../stylesheets/rides/Rides'
+import FormTooltip            from '../shared/FormTooltip'
+import pluralize              from 'pluralize'
 
 export default class RideOfferForm extends React.Component {
   constructor (props, context) {
@@ -27,10 +27,10 @@ export default class RideOfferForm extends React.Component {
         <div className='book-ride'>
           click to book place:
           <form className='book-ride-form' onSubmit={this.handleSubmitForm.bind(this)}>
-            <Bootstrap.Input type='select' name='book_places' ref='book_places' groupClassName='book-ride-form__select' standalone>
+            <Input type='select' name='book_places' ref='book_places' groupClassName='book-ride-form__select' standalone>
               {places}
-            </Bootstrap.Input>
-            <Bootstrap.ButtonInput type='submit' value='Book' groupClassName='book-ride-form__submit' standalone />
+            </Input>
+            <ButtonInput type='submit' value='Book' groupClassName='book-ride-form__submit' standalone />
           </form>
         </div>
     } else {

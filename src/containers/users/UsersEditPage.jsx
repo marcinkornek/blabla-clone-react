@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react';
 import Router, { Link }      from 'react-router'
-import Bootstrap             from 'react-bootstrap'
+import { Col }             from 'react-bootstrap'
 import { connect }           from 'react-redux';
 import Icon                  from 'react-fa'
 
@@ -50,12 +50,12 @@ export default class UsersEditPage extends React.Component {
     }
 
     userEdit =
-      <Bootstrap.Col xs={10}>
+      <Col xs={10}>
         <div className='account__heading'>
           <div className='account__heading-title'>My profile</div>
         </div>
         {userEditForm}
-      </Bootstrap.Col>
+      </Col>
 
     return (
       <div className='show-grid'>

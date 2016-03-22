@@ -1,6 +1,6 @@
-import React, { PropTypes }  from 'react'
-import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/session/Login'
+import React, { PropTypes }   from 'react'
+import { Input, ButtonInput } from 'react-bootstrap'
+import styles                 from '../../stylesheets/session/Login'
 
 export default class LoginEmailPage extends React.Component {
   constructor (props, context) {
@@ -16,9 +16,9 @@ export default class LoginEmailPage extends React.Component {
     if (this.state.showLoginForm) {
       var LoginForm =
         <form className='login-email-form' onSubmit={this.handleSubmitLoginForm.bind(this)}>
-          <Bootstrap.Input type='text' label='Email' placeholder='Email' ref='email' />
-          <Bootstrap.Input type='password' label='Password' placeholder='Password' ref='password' />
-          <Bootstrap.ButtonInput type='submit' value='Login' />
+          <Input type='text' label='Email' placeholder='Email' ref='email' />
+          <Input type='password' label='Password' placeholder='Password' ref='password' />
+          <ButtonInput type='submit' value='Login' />
         </form>
     }
 

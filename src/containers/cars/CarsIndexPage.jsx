@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react'
 import Router, { Link }      from 'react-router'
-import Bootstrap             from 'react-bootstrap'
+import { Button, Col }       from 'react-bootstrap'
 import { connect }           from 'react-redux';
 import Icon                  from 'react-fa'
 
@@ -49,15 +49,15 @@ export default class CarsIndexPage extends React.Component {
     }
 
     var carsMain =
-      <Bootstrap.Col xs={10}>
+      <Col xs={10}>
         <div className='account__heading'>
           <div className='account__heading-title'>My cars</div>
           <div className='account__heading-button'>
-            <Link to='/cars/new'><Bootstrap.Button bsStyle='primary' bsSize='small'>New car</Bootstrap.Button></Link>
+            <Link to='/cars/new'><Button bsStyle='primary' bsSize='small'>New car</Button></Link>
           </div>
         </div>
         {carsList}
-      </Bootstrap.Col>
+      </Col>
 
     return (
       <div className='show-grid'>

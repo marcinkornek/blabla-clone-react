@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react'
 import { Link }              from 'react-router';
-import Bootstrap             from 'react-bootstrap'
+import { Panel }             from 'react-bootstrap'
 
 import styles                from '../../stylesheets/users/Users'
 import CarsActions           from './CarsActions'
@@ -14,7 +14,7 @@ export default class CarsIndexPageItem extends React.Component {
     }
 
     return (
-      <Bootstrap.Panel className='car'>
+      <Panel className='car'>
         <div className='car-details'>
           <Link to={`/cars/${this.props.car.id}`}>
             <div className='car-details__name'>{this.props.car.full_name}</div>
@@ -28,7 +28,7 @@ export default class CarsIndexPageItem extends React.Component {
             <img src={this.props.car.car_photo} />
           </div>
         </Link>
-      </Bootstrap.Panel>
+      </Panel>
     )
   }
 }
