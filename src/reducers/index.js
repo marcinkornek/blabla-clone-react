@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer }   from 'react-router-redux';
 import session             from './session';
 import users               from './users';
 import user                from './user';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   ridesOptions,
   ridesDriver,
   ridesPassenger,
+  routing: routerReducer
 });
 
 export default rootReducer;

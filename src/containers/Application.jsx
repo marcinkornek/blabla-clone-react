@@ -9,7 +9,7 @@ export default class Application extends React.Component {
   }
 
   render () {
-    const { dispatch, session, currentUser } = this.props
+    const { dispatch, session, currentUser, children } = this.props
     return (
       <div>
         <Header
@@ -18,7 +18,7 @@ export default class Application extends React.Component {
             dispatch(actions.logout(currentUser))
           } />
         <div id='main' className='container'>
-          {this.props.children}
+          {children}
         </div>
       </div>
     )
