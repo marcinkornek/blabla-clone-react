@@ -15,9 +15,9 @@ export default class Header extends React.Component {
     if (currentUser.email) {
       navlinks.push(
         <NavDropdown eventKey={4} title={currentUser.email} id="basic-nav-dropdown">
-          <MenuItem eventKey={4.1}><Link to='/account/user'>Account</Link></MenuItem>
+          <LinkContainer to='/account/user'><MenuItem eventKey={4.1}>Account</MenuItem></LinkContainer>
           <MenuItem divider />
-           <MenuItem eventKey={4.2}><a href='' onClick={this.handleLogout.bind(this)}>Logout</a></MenuItem>
+          <MenuItem eventKey={4.2} onClick={this.handleLogout.bind(this)}>Logout</MenuItem>
         </NavDropdown>
       )
     } else {
