@@ -8,21 +8,21 @@ export default class Header extends React.Component {
     const { currentUser } = this.props;
 
     var navlinks = [
-      <LinkContainer to='/'><NavItem eventKey={1}>Home</NavItem></LinkContainer>,
-      <LinkContainer to='/users'><NavItem eventKey={2}>Users</NavItem></LinkContainer>,
-      <LinkContainer to='/rides'><NavItem eventKey={3}>Rides</NavItem></LinkContainer>
+      <LinkContainer key='main' to='/'><NavItem eventKey={1}>Home</NavItem></LinkContainer>,
+      <LinkContainer key='users' to='/users'><NavItem eventKey={2}>Users</NavItem></LinkContainer>,
+      <LinkContainer key='rides' to='/rides'><NavItem eventKey={3}>Rides</NavItem></LinkContainer>
     ]
     if (currentUser.email) {
       navlinks.push(
-        <NavDropdown eventKey={4} title={currentUser.email} id="basic-nav-dropdown">
+        <NavDropdown key ='dropdown' eventKey={4} title={currentUser.email} id="basic-nav-dropdown">
           <LinkContainer to='/account/user'><MenuItem eventKey={4.1}>Account</MenuItem></LinkContainer>
           <MenuItem divider />
           <MenuItem eventKey={4.2} onClick={this.handleLogout.bind(this)}>Logout</MenuItem>
         </NavDropdown>
       )
     } else {
-      navlinks.push(<LinkContainer to='/login'><NavItem eventKey={5}>Login</NavItem></LinkContainer>)
-      navlinks.push(<LinkContainer to='/register'><NavItem eventKey={6}>Register</NavItem></LinkContainer>)
+      navlinks.push(<LinkContainer key='login' to='/login'><NavItem eventKey={5}>Login</NavItem></LinkContainer>)
+      navlinks.push(<LinkContainer key='register' to='/register'><NavItem eventKey={6}>Register</NavItem></LinkContainer>)
     }
 
     var Brand = <Link to='/'>Brand</Link>
@@ -33,10 +33,13 @@ export default class Header extends React.Component {
           <Navbar.Brand>
             {Brand}
           </Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar.Header>
-        <Nav>
-          {_.map(navlinks, (n) => n)}
-        </Nav>
+        <Navbar.Collapse>
+          <Nav>
+            {_.map(navlinks, (n) => n)}
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
     )
   }
