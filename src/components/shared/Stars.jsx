@@ -15,7 +15,7 @@ export default class Stars extends React.Component {
 
     var stars = []
     for (var i = 0; i < this.props.stars; i++) {
-      stars.push(<Icon name='star' />);
+      stars.push(<Icon name='star' key={i} />);
     }
 
     return (
