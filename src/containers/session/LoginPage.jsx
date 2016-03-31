@@ -13,17 +13,18 @@ export default class LoginPage extends React.Component {
   }
 
   render() {
-    const { dispatch } = this.props;
+    const { dispatch, errors } = this.props;
     return (
       <div className='show-grid'>
         <Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
           <LoginFbPage
             onDataReceive={text =>
-              dispatch(actions.logInFbBackend(text))
+              dispatch(actions.logInFbBackend(this.context.router, text))
             } />
           <LoginEmailPage
+            errors = {errors}
             onAddClick={text =>
-              dispatch(actions.logInEmailBackend(text))
+              dispatch(actions.logInEmailBackend(this.context.router, text))
             } />
         </Col>
       </div>
@@ -35,13 +36,16 @@ LoginPage.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
+LoginPage.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
+
 function select(state) {
   return {
-    session: {
-      isFetching: state.session.isFetching,
-      isLoggedIn: state.session.isLoggedIn,
-      user:       state.session.user
-    }
+    errors:     state.session.errors,
+    isFetching: state.session.isFetching,
+    isLoggedIn: state.session.isLoggedIn,
+    user:       state.session.user
   };
 }
 

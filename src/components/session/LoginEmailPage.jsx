@@ -20,12 +20,15 @@ export default class LoginEmailPage extends React.Component {
           <Input type='password' label='Password' placeholder='Password' ref='password' />
           <ButtonInput type='submit' value='Login' />
         </form>
+
+        var errors = <div>{this.props.errors}</div>
     }
 
     return (
       <div>
         <button className='login-email-button btn btn-default' onClick={this.showFormOnClick.bind(this)}>Login with email and password</button>
         {LoginForm}
+        {errors}
       </div>
     )
   }

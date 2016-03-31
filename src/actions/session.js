@@ -9,7 +9,7 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function loginFromCookie(data) {
+export function loginFromCookie(router, data) {
   return dispatch => {
     dispatch(loginRequest());
     return fetch(cons.APIEndpoints.SESSIONS + '/get_user', {
@@ -23,12 +23,12 @@ export function loginFromCookie(data) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(loginSuccess(json)))
+    .then(json => dispatch(loginSuccess(router, json)))
     .catch(errors => dispatch(loginFailure(errors)))
   };
 }
 
-export function logInEmailBackend(session) {
+export function logInEmailBackend(router, session) {
   return dispatch => {
     dispatch(loginRequest());
     return fetch(cons.APIEndpoints.LOGIN_EMAIL, {
@@ -42,14 +42,19 @@ export function logInEmailBackend(session) {
 		  	'password': session["password"]
 		  })
     })
-    .then(status)
-    .then(req => req.json())
-    .then(json => dispatch(loginSuccess(json)))
-    .catch(errors => dispatch(loginFailure(errors)))
+    .then(response => response.text().then(text => ({ text, response })))
+    .then(({ text, response }) => {
+      if (response.ok) {
+        dispatch(loginSuccess(router, JSON.parse(text)))
+      } else {
+        return Promise.reject(text)
+      }
+    })
+    .catch(errors => dispatch(loginFailure(JSON.parse(errors))))
   };
 }
 
-export function logInFbBackend(fbResponse) {
+export function logInFbBackend(router, fbResponse) {
   return dispatch => {
     dispatch(loginRequest());
     return fetch(cons.APIEndpoints.LOGIN_FB, {
@@ -66,9 +71,8 @@ export function logInFbBackend(fbResponse) {
         'last_name':  fbResponse['last_name'],
       })
     })
-    .then(status)
     .then(req => req.json())
-    .then(json => dispatch(loginSuccess(json)))
+    .then(json => dispatch(loginSuccess(router, json)))
     .catch(errors => dispatch(loginFailure(errors)))
   };
 }
@@ -101,20 +105,23 @@ export function loginRequest() {
   }
 }
 
-export function loginSuccess(json) {
-	return {
-    type: types.LOGIN_SUCCESS,
-    id:           json['id'],
-    email:        json['email'],
-    role:         json['role'],
-    access_token: json['access_token']
-  }
+export function loginSuccess(router, json) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.LOGIN_SUCCESS,
+      id:           json['id'],
+      email:        json['email'],
+      role:         json['role'],
+      access_token: json['access_token']
+    });
+    router.replace('/')
+  };
 }
 
 export function loginFailure(errors) {
   return {
     type: types.LOGIN_FAILURE,
-    errors: errors
+    errors: errors.error
   }
 }
 

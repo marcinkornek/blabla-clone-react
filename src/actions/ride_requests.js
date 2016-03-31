@@ -33,7 +33,6 @@ export function createRideRequest(rideId, places, session) {
 }
 
 export function changeRideRequest(rideRequestId, status, session) {
-  console.log('status', status)
   return dispatch => {
     dispatch(rideRequestChangeRequest());
     return fetch(cons.APIEndpoints.RIDE_REQUESTS + '/' + rideRequestId, {

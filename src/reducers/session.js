@@ -19,8 +19,8 @@ export default function session(state = initialState, action) {
       isFetching: true,
     });
   case types.LOGIN_SUCCESS:
-    console.log('LOGIN_SUCCESS')
     return Object.assign({}, state, {
+      errors: [],
       isFetching: false,
       isLoggedIn: true,
       user: {
