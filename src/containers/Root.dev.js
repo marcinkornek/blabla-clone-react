@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { Provider }                    from 'react-redux'
-import { Router }                      from 'react-router'
+import { Router, browserHistory }      from 'react-router'
 import { createRoutes }                from '../routes';
 import configureStore                  from '../store/configureStore'
 import DevTools                        from './DevTools'
 
-const store = configureStore()
+const store = configureStore(browserHistory)
 const routes = createRoutes(store);
 
 export default class Root extends Component {
