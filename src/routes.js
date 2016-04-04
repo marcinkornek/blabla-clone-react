@@ -99,27 +99,27 @@ function isAuthorized(store, permission) {
 export const createRoutes = (store) => {
   return (
     <Route name ='App' component = {Application}>
-      <Route name='home' path='/' component={Home} onEnter={checkPermission('/', store, cons.Permissions.PUBLIC)} />
-      <Route name='login' path='/login' component={LoginPage} onEnter={checkPermission('/login', store, cons.Permissions.PUBLIC)} />
-      <Route name='register' path='/register' component={UsersNewPage} onEnter={checkPermission('/register', store, cons.Permissions.PUBLIC)} />
+      <Route path='/' component={Home} onEnter={checkPermission('/', store, cons.Permissions.PUBLIC)} />
+      <Route path='/login' component={LoginPage} onEnter={checkPermission('/login', store, cons.Permissions.PUBLIC)} />
+      <Route path='/register' component={UsersNewPage} onEnter={checkPermission('/register', store, cons.Permissions.PUBLIC)} />
 
-      <Route name='usersIndex' path='/users' component={UsersIndexPage} onEnter={checkPermission('/users', store, cons.Permissions.USER)} />
-      <Route name='usersShow' path='/users/:userId' component={UsersShowPage} onEnter={checkPermission('/users/:userId', store, cons.Permissions.PUBLIC)} />
-      <Route name='usersEdit' path='/account/user' component={UsersEditPage} onEnter={checkPermission('/account/user', store, cons.Permissions.USER)} />
+      <Route path='/users' component={UsersIndexPage} onEnter={checkPermission('/users', store, cons.Permissions.USER)} />
+      <Route path='/users/:userId' component={UsersShowPage} onEnter={checkPermission('/users/:userId', store, cons.Permissions.PUBLIC)} />
+      <Route path='/account/user' component={UsersEditPage} onEnter={checkPermission('/account/user', store, cons.Permissions.USER)} />
 
-      <Route name='carsIndex' path='/account/cars' component={CarsIndexPage} onEnter={checkPermission('/account/cars', store, cons.Permissions.USER)} />
-      <Route name='carsEdit' path='/account/cars/:carId/edit' component={CarsEditPage} onEnter={checkPermission('/account/cars/:carId/edit', store, cons.Permissions.USER)} />
-      <Route name='carsNew' path='/cars/new' component={CarsNewPage} onEnter={checkPermission('/cars/new', store, cons.Permissions.USER)} />
-      <Route name='carsShow' path='/cars/:carId' component={CarsShowPage} onEnter={checkPermission('/cars/:carId', store, cons.Permissions.PUBLIC)} />
+      <Route path='/account/cars' component={CarsIndexPage} onEnter={checkPermission('/account/cars', store, cons.Permissions.USER)} />
+      <Route path='/account/cars/:carId/edit' component={CarsEditPage} onEnter={checkPermission('/account/cars/:carId/edit', store, cons.Permissions.USER)} />
+      <Route path='/cars/new' component={CarsNewPage} onEnter={checkPermission('/cars/new', store, cons.Permissions.USER)} />
+      <Route path='/cars/:carId' component={CarsShowPage} onEnter={checkPermission('/cars/:carId', store, cons.Permissions.PUBLIC)} />
 
-      <Route name='ridesIndex'  path='/rides' component={RidesIndexPage} onEnter={checkPermission('/rides', store, cons.Permissions.PUBLIC)} />
-      <Route name='ridesDriverIndex' path='/account/rides_as_driver'  component={RidesDriverIndexPage} onEnter={checkPermission('/account/rides_as_driver', store, cons.Permissions.USER)} />
-      <Route name='ridesPassengerIndex' path='/account/rides_as_passenger'  component={RidesPassengerIndexPage} onEnter={checkPermission('/account/rides_as_passenger', store, cons.Permissions.USER)} />
-      <Route name='ridesDriverIndex' path='/account/rides_as_driver/:rideId/edit'  component={RidesEditPage} onEnter={checkPermission('/account/rides_as_driver/:rideId/edit', store, cons.Permissions.USER)} />
-      <Route name='carsNew' path='/rides/new' component={RidesNewPage} onEnter={checkPermission('/rides/new', store, cons.Permissions.USER)} />
-      <Route name='ridesShow' path='/rides/:rideId' component={RidesShowPage} onEnter={checkPermission('/rides/:rideId', store, cons.Permissions.PUBLIC)} />
+      <Route path='/rides' component={RidesIndexPage} onEnter={checkPermission('/rides', store, cons.Permissions.PUBLIC)} />
+      <Route path='/account/rides_as_driver'  component={RidesDriverIndexPage} onEnter={checkPermission('/account/rides_as_driver', store, cons.Permissions.USER)} />
+      <Route path='/account/rides_as_passenger'  component={RidesPassengerIndexPage} onEnter={checkPermission('/account/rides_as_passenger', store, cons.Permissions.USER)} />
+      <Route path='/account/rides_as_driver/:rideId/edit'  component={RidesEditPage} onEnter={checkPermission('/account/rides_as_driver/:rideId/edit', store, cons.Permissions.USER)} />
+      <Route path='/rides/new' component={RidesNewPage} onEnter={checkPermission('/rides/new', store, cons.Permissions.USER)} />
+      <Route path='/rides/:rideId' component={RidesShowPage} onEnter={checkPermission('/rides/:rideId', store, cons.Permissions.PUBLIC)} />
 
-      <Route name='notAuthorized' path='/403' component={Home} onEnter={checkPermission('/403', store, cons.Permissions.PUBLIC)} />
+      <Route path='/403' component={Home} onEnter={checkPermission('/403', store, cons.Permissions.PUBLIC)} />
     </Route>
   );
 };
