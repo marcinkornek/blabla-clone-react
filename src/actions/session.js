@@ -9,25 +9,6 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function loginFromCookie(router, data) {
-  return dispatch => {
-    dispatch(loginRequest());
-    return fetch(cons.APIEndpoints.SESSIONS + '/get_user', {
-      method: 'get',
-      headers: {
-        'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json',
-        'X-User-Email': data['email'],
-        'X-User-Token': data['access_token']
-      }
-    })
-    .then(status)
-    .then(req => req.json())
-    .then(json => dispatch(loginSuccess(router, json)))
-    .catch(errors => dispatch(loginFailure(errors)))
-  };
-}
-
 export function logInEmailBackend(router, session) {
   return dispatch => {
     dispatch(loginRequest());

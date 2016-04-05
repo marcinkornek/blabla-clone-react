@@ -1,3 +1,4 @@
+import * as storage        from 'redux-storage'
 import { combineReducers } from 'redux';
 import { routerReducer }   from 'react-router-redux';
 import session             from './session';
@@ -12,7 +13,7 @@ import ridesOptions        from './ridesOptions';
 import ridesDriver         from './ridesDriver';
 import ridesPassenger      from './ridesPassenger';
 
-const rootReducer = combineReducers({
+const rootReducer = storage.reducer(combineReducers({
   session,
   users,
   user,
@@ -25,6 +26,6 @@ const rootReducer = combineReducers({
   ridesDriver,
   ridesPassenger,
   routing: routerReducer
-});
+}));
 
 export default rootReducer;
