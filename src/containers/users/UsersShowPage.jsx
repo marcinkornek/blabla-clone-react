@@ -48,7 +48,7 @@ export default class UsersShowPage extends React.Component {
         <div className='user-show__details'>
           <Icon name='clock-o' className='user-show__details-icon'/>
           <div className='user-show__details-label'>Last visit</div>
-          <div className='user-show__details-value'><Timestamp value={user.last_visit} format="DD MMM YYYY" /></div>
+          <div className='user-show__details-value'><Timestamp value={user.last_seen_at} format="DD MMM YYYY - HH:mm" /></div>
         </div>
         <div className='user-show__details'>
           <Icon name='calendar-times-o' className='user-show__details-icon'/>
