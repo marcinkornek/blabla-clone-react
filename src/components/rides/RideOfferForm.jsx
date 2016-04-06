@@ -18,7 +18,7 @@ export default class RideOfferForm extends React.Component {
   render() {
     var places = []
     for (var i = 0; i < parseInt(this.props.ride.places, 10); i++) {
-      places.push(<option value={i + 1}> {pluralize('place', i + 1, true)} </option>);
+      places.push(<option key={i} value={i + 1}> {pluralize('place', i + 1, true)} </option>);
     }
 
     var rideOfferForm
