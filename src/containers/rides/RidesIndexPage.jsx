@@ -3,6 +3,7 @@ import Router, { Link }      from 'react-router'
 import { Button, Col }       from 'react-bootstrap'
 import { connect }           from 'react-redux';
 import Icon                  from 'react-fa'
+import ReactPaginate         from 'react-paginate'
 
 import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
@@ -27,8 +28,8 @@ export default class RidesIndexPage extends React.Component {
   }
 
   render() {
-    const { isFetching, rides, currentUserId } = this.props
-    var ridesMain, ridesSearch, ridesList, headingButton
+    const { isFetching, rides, pagination, currentUserId } = this.props
+    var ridesMain, ridesSearch, ridesList, headingButton, ridesPagination
 
     if (isFetching) {
       ridesList =
@@ -58,6 +59,18 @@ export default class RidesIndexPage extends React.Component {
         Search
       </Col>
 
+    ridesPagination =
+      <ReactPaginate previousLabel={"previous"}
+                     nextLabel={"next"}
+                     breakLabel={<a href="">...</a>}
+                     pageNum={pagination.total_pages}
+                     marginPagesDisplayed={2}
+                     pageRangeDisplayed={5}
+                     clickCallback={this.handlePageClick.bind(this)}
+                     containerClassName={"pagination"}
+                     subContainerClassName={"pages pagination"}
+                     activeClassName={"active"} />
+
     ridesMain =
       <Col xs={10}>
         <div className='heading'>
@@ -72,9 +85,16 @@ export default class RidesIndexPage extends React.Component {
         <div className='rides'>
           {ridesSearch}
           {ridesMain}
+          {ridesPagination}
         </div>
       </div>
     )
+  }
+
+  handlePageClick(e) {
+    const { dispatch, session } = this.props;
+    var page = e.selected + 1;
+    dispatch(actions.fetchRides(session, page))
   }
 }
 
@@ -86,6 +106,7 @@ function select(state) {
   return {
     isFetching:     state.rides.isFetching,
     rides:          state.rides.rides,
+    pagination:     state.rides.pagination,
     currentUserId:  state.session.user.id,
     session:        state.session.user
   };

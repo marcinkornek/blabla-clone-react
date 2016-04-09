@@ -82,7 +82,6 @@ export function rideRequestChangeRequest() {
 }
 
 export function rideRequestChangeSuccess(ride) {
-  console.log('ride', ride)
   return {
     type: types.RIDE_REQUEST_CHANGE_SUCCESS,
     ride: ride
