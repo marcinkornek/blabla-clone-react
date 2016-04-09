@@ -15,6 +15,7 @@
     "es6-promise": "^3.1.2",
     "eslint": "^1.1.0",
     "eslint-plugin-react": "^3.2.3",
+    "express": "^4.13.4",
     "file-loader": "^0.8.4",
     "http-server": "^0.9.0",
     "immutable": "^3.7.4",
@@ -62,7 +63,7 @@
     "redux-logger": "^2.6.1"
   },
   "scripts": {
-    "start": "http-server dist --silent",
+    "start": "node server.js",
     "start-dev": "npm build && webpack-dev-server --config webpack-dev-server.config.js",
     "start-hot-dev": "npm build && webpack-dev-server --config webpack-hot-dev-server.config.js",
     "postinstall": "webpack --config webpack-production.config.js",
