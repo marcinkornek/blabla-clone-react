@@ -1,6 +1,7 @@
 import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
 import Bootstrap             from 'react-bootstrap'
+import ReactPaginate         from 'react-paginate'
 
 import * as actions          from '../../actions/users';
 import styles                from '../../stylesheets/users/Users'
@@ -17,9 +18,9 @@ export default class UsersIndexPage extends React.Component {
   }
 
   render() {
-    const { isFetching, users } = this.props
+    const { isFetching, users, pagination } = this.props
 
-    var usersList
+    var usersList, ridesPagination
     if (users) {
       usersList = users.map((user, i) =>
         <UsersItem user={user} key={i} />
@@ -28,11 +29,30 @@ export default class UsersIndexPage extends React.Component {
       usersList = 'No users'
     }
 
+    ridesPagination =
+      <ReactPaginate previousLabel={"previous"}
+                     nextLabel={"next"}
+                     breakLabel={<a href="">...</a>}
+                     pageNum={pagination.total_pages}
+                     marginPagesDisplayed={2}
+                     pageRangeDisplayed={5}
+                     clickCallback={this.handlePageClick.bind(this)}
+                     containerClassName={"pagination"}
+                     subContainerClassName={"pages pagination"}
+                     activeClassName={"active"} />
+
     return (
       <div className='users'>
         {usersList}
+        <div>{ridesPagination}</div>
       </div>
     )
+  }
+
+  handlePageClick(e) {
+    const { dispatch } = this.props;
+    var page = e.selected + 1;
+    dispatch(actions.fetchUsers(page))
   }
 }
 
@@ -43,7 +63,8 @@ UsersIndexPage.PropTypes = {
 function select(state) {
   return {
     isFetching: state.users.isFetching,
-    users:      state.users.users
+    users:      state.users.users,
+    pagination: state.users.pagination
   };
 }
 

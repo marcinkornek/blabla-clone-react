@@ -9,10 +9,10 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchUsers() {
+export function fetchUsers(page = 1) {
   return dispatch => {
     dispatch(usersRequest());
-    return fetch(cons.APIEndpoints.USERS, {
+    return fetch(cons.APIEndpoints.USERS + '?page=' + page, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -106,7 +106,8 @@ export function usersRequest() {
 export function usersSuccess(json) {
   return {
     type: types.USERS_SUCCESS,
-    users: json
+    users: json.users,
+    pagination: json.meta
   }
 }
 
