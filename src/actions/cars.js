@@ -9,10 +9,10 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchCars(userId) {
+export function fetchCars(userId, page = 1, per = 10) {
   return dispatch => {
     dispatch(carsRequest());
-    return fetch(cons.APIEndpoints.USERS + '/' + userId + '/cars', {
+    return fetch(cons.APIEndpoints.USERS + '/' + userId + '/cars?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -128,7 +128,8 @@ export function carsRequest() {
 export function carsSuccess(json) {
   return {
     type: types.CARS_SUCCESS,
-    cars: json
+    cars: json.cars,
+    pagination: json.meta
   }
 }
 

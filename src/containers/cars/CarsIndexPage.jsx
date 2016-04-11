@@ -3,11 +3,14 @@ import Router, { Link }      from 'react-router'
 import { Button, Col }       from 'react-bootstrap'
 import { connect }           from 'react-redux';
 import Icon                  from 'react-fa'
+import ReactPaginate         from 'react-paginate'
 
 import * as actions          from '../../actions/cars';
 import styles                from '../../stylesheets/users/Users'
 import CarsItem              from '../../components/cars/CarsIndexPageItem'
 import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
+
+const per = 10
 
 export default class CarsIndexPage extends React.Component {
   constructor (props, context) {
@@ -17,21 +20,21 @@ export default class CarsIndexPage extends React.Component {
   componentDidMount() {
     const { dispatch, currentUserId } = this.props;
     if (currentUserId) {
-      dispatch(actions.fetchCars(currentUserId));
+      dispatch(actions.fetchCars(currentUserId, 1, per));
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { dispatch, currentUserId } = this.props;
     if (nextProps.currentUserId && currentUserId === undefined) {
-      dispatch(actions.fetchCars(nextProps.currentUserId))
+      dispatch(actions.fetchCars(nextProps.currentUserId, 1, per))
     }
   }
 
   render() {
-    const { isFetching, cars, currentUserId } = this.props
+    const { isFetching, cars, currentUserId, pagination } = this.props
 
-    var carsList
+    var carsList, carsPagination
     if (isFetching || currentUserId === undefined) {
       carsList =
         <div>
@@ -59,14 +62,35 @@ export default class CarsIndexPage extends React.Component {
         {carsList}
       </Col>
 
+    if (pagination.total_pages > 1) {
+      carsPagination =
+        <ReactPaginate previousLabel={"previous"}
+                       nextLabel={"next"}
+                       breakLabel={<a href="">...</a>}
+                       pageNum={pagination.total_pages}
+                       marginPagesDisplayed={2}
+                       pageRangeDisplayed={5}
+                       clickCallback={this.handlePageClick.bind(this)}
+                       containerClassName={"pagination"}
+                       subContainerClassName={"pages pagination"}
+                       activeClassName={"active"} />
+    }
+
     return (
       <div className='show-grid'>
         <div className='cars'>
           <UserAccountMenu />
           {carsMain}
+          {carsPagination}
         </div>
       </div>
     )
+  }
+
+  handlePageClick(e) {
+    const { dispatch, currentUserId } = this.props;
+    var page = e.selected + 1;
+    dispatch(actions.fetchCars(currentUserId, page, per))
   }
 }
 
@@ -78,6 +102,7 @@ function select(state) {
   return {
     isFetching:    state.cars.isFetching,
     cars:          state.cars.cars,
+    pagination:    state.cars.pagination,
     currentUserId: state.session.user.id
   };
 }

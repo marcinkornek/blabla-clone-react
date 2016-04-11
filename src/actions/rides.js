@@ -28,10 +28,10 @@ export function fetchRides(session, page = 1, per = 10) {
   };
 }
 
-export function fetchRidesAsDriver(driverId) {
+export function fetchRidesAsDriver(driverId, page = 1, per = 10) {
   return dispatch => {
     dispatch(ridesAsDriverRequest());
-    return fetch(cons.APIEndpoints.USERS + '/' + driverId + '/rides_as_driver', {
+    return fetch(cons.APIEndpoints.USERS + '/' + driverId + '/rides_as_driver?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -45,10 +45,10 @@ export function fetchRidesAsDriver(driverId) {
   };
 }
 
-export function fetchRidesAsPassenger(passengerId, session) {
+export function fetchRidesAsPassenger(passengerId, session, page = 1, per = 10) {
   return dispatch => {
     dispatch(ridesAsPassengerRequest());
-    return fetch(cons.APIEndpoints.USERS + '/' + passengerId + '/rides_as_passenger', {
+    return fetch(cons.APIEndpoints.USERS + '/' + passengerId + '/rides_as_passenger?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -277,7 +277,8 @@ export function ridesAsDriverRequest() {
 export function ridesAsDriverSuccess(json) {
   return {
     type: types.RIDES_DRIVER_SUCCESS,
-    rides: json
+    rides: json.rides,
+    pagination: json.meta
   }
 }
 
@@ -297,7 +298,8 @@ export function ridesAsPassengerRequest() {
 export function ridesAsPassengerSuccess(json) {
   return {
     type: types.RIDES_PASSENGER_SUCCESS,
-    rides: json
+    rides: json.rides,
+    pagination: json.meta
   }
 }
 
