@@ -9,10 +9,10 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchUsers(page = 1) {
+export function fetchUsers(page = 1, per = 10) {
   return dispatch => {
     dispatch(usersRequest());
-    return fetch(cons.APIEndpoints.USERS + '?page=' + page, {
+    return fetch(cons.APIEndpoints.USERS + '?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',

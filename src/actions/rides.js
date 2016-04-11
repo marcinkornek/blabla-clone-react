@@ -9,10 +9,10 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchRides(session, page = 1) {
+export function fetchRides(session, page = 1, per = 10) {
   return dispatch => {
     dispatch(ridesRequest());
-    return fetch(cons.APIEndpoints.RIDES + '?page=' + page, {
+    return fetch(cons.APIEndpoints.RIDES + '?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',

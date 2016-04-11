@@ -7,6 +7,8 @@ import * as actions          from '../../actions/users';
 import styles                from '../../stylesheets/users/Users'
 import UsersItem             from '../../components/users/UsersIndexPageItem'
 
+const per = 10
+
 export default class UsersIndexPage extends React.Component {
   constructor (props, context) {
     super(props, context)
@@ -14,7 +16,7 @@ export default class UsersIndexPage extends React.Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(actions.fetchUsers());
+    dispatch(actions.fetchUsers(1, per));
   }
 
   render() {
@@ -29,17 +31,19 @@ export default class UsersIndexPage extends React.Component {
       usersList = 'No users'
     }
 
-    ridesPagination =
-      <ReactPaginate previousLabel={"previous"}
-                     nextLabel={"next"}
-                     breakLabel={<a href="">...</a>}
-                     pageNum={pagination.total_pages}
-                     marginPagesDisplayed={2}
-                     pageRangeDisplayed={5}
-                     clickCallback={this.handlePageClick.bind(this)}
-                     containerClassName={"pagination"}
-                     subContainerClassName={"pages pagination"}
-                     activeClassName={"active"} />
+    if (pagination.total_pages > 1) {
+      ridesPagination =
+        <ReactPaginate previousLabel={"previous"}
+                       nextLabel={"next"}
+                       breakLabel={<a href="">...</a>}
+                       pageNum={pagination.total_pages}
+                       marginPagesDisplayed={2}
+                       pageRangeDisplayed={5}
+                       clickCallback={this.handlePageClick.bind(this)}
+                       containerClassName={"pagination"}
+                       subContainerClassName={"pages pagination"}
+                       activeClassName={"active"} />
+    }
 
     return (
       <div className='users'>
@@ -52,7 +56,7 @@ export default class UsersIndexPage extends React.Component {
   handlePageClick(e) {
     const { dispatch } = this.props;
     var page = e.selected + 1;
-    dispatch(actions.fetchUsers(page))
+    dispatch(actions.fetchUsers(page, per))
   }
 }
 

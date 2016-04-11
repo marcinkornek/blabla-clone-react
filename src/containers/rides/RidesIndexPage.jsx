@@ -10,6 +10,8 @@ import styles                from '../../stylesheets/rides/Rides'
 import sharedStyles          from '../../stylesheets/shared/Shared'
 import RidesItem             from '../../components/rides/RidesIndexPageItem'
 
+const per = 10
+
 export default class RidesIndexPage extends React.Component {
   constructor (props, context) {
     super(props, context)
@@ -17,7 +19,7 @@ export default class RidesIndexPage extends React.Component {
 
   componentDidMount() {
     const { dispatch, session, currentUserId } = this.props;
-    dispatch(actions.fetchRides(session))
+    dispatch(actions.fetchRides(session, 1, per))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,17 +61,19 @@ export default class RidesIndexPage extends React.Component {
         Search
       </Col>
 
-    ridesPagination =
-      <ReactPaginate previousLabel={"previous"}
-                     nextLabel={"next"}
-                     breakLabel={<a href="">...</a>}
-                     pageNum={pagination.total_pages}
-                     marginPagesDisplayed={2}
-                     pageRangeDisplayed={5}
-                     clickCallback={this.handlePageClick.bind(this)}
-                     containerClassName={"pagination"}
-                     subContainerClassName={"pages pagination"}
-                     activeClassName={"active"} />
+    if (pagination.total_pages > 1) {
+      ridesPagination =
+        <ReactPaginate previousLabel={"previous"}
+                       nextLabel={"next"}
+                       breakLabel={<a href="">...</a>}
+                       pageNum={pagination.total_pages}
+                       marginPagesDisplayed={2}
+                       pageRangeDisplayed={5}
+                       clickCallback={this.handlePageClick.bind(this)}
+                       containerClassName={"pagination"}
+                       subContainerClassName={"pages pagination"}
+                       activeClassName={"active"} />
+    }
 
     ridesMain =
       <Col xs={10}>
@@ -94,7 +98,7 @@ export default class RidesIndexPage extends React.Component {
   handlePageClick(e) {
     const { dispatch, session } = this.props;
     var page = e.selected + 1;
-    dispatch(actions.fetchRides(session, page))
+    dispatch(actions.fetchRides(session, page, per))
   }
 }
 
