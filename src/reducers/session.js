@@ -63,7 +63,10 @@ export default function session(state = initialState, action) {
         permission: action.user.role
       }
     });
-
+    case types.USER_UPDATE_FAILURE:
+    return Object.assign({}, state, {
+      errors: action.errors
+    });
   default:
     return state;
   }

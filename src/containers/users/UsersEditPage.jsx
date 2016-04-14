@@ -17,19 +17,12 @@ export default class UsersEditPage extends React.Component {
   componentDidMount() {
     const { dispatch, currentUserId } = this.props;
     if (currentUserId) {
-      dispatch(actions.fetchUser(currentUserId))
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { dispatch, currentUserId } = this.props;
-    if (nextProps.currentUserId && currentUserId === undefined) {
-      dispatch(actions.fetchUser(nextProps.currentUserId))
+      dispatch(actions.fetchUserProfile(currentUserId))
     }
   }
 
   render() {
-    const { dispatch, isFetching, user, isSaving, session, currentUserId } = this.props;
+    const { dispatch, isFetching, user, isSaving, session, currentUserId, errors } = this.props;
     var userEdit, userEditForm
 
     if (isFetching || currentUserId === undefined) {
@@ -42,7 +35,7 @@ export default class UsersEditPage extends React.Component {
       userEditForm =
         <div>
           <UsersEditPageForm
-            user={user} isSaving={isSaving}
+            user={user} isSaving={isSaving} errors={errors}
             onAddClick={(user, files) =>
               dispatch(actions.updateUser(user, files, session))
             } />
@@ -75,6 +68,7 @@ function select(state) {
     isFetching:    state.user.isFetching,
     isSaving:      state.user.isSaving,
     user:          state.user.user,
+    errors:        state.user.errors,
     currentUserId: state.session.user.id,
     session:       state.session.user
   };

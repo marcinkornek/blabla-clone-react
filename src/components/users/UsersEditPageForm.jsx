@@ -13,12 +13,6 @@ export default class UsersEditPageForm extends React.Component {
     this.state = {user: props.user}
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isSaving === false) {
-      this.setState({user: nextProps.user})
-    }
-  }
-
   handleFile(e) {
     var that = this;
     var reader = new FileReader();
@@ -48,7 +42,7 @@ export default class UsersEditPageForm extends React.Component {
   }
 
   render() {
-    var saving
+    var saving, formErrors
     if (this.props.isSaving === true) {
       saving =
         <div>
@@ -56,6 +50,8 @@ export default class UsersEditPageForm extends React.Component {
           Saving...
         </div>
     }
+
+    formErrors = <div>{this.props.errors.join(', ')}</div>
 
     return (
       <div>
@@ -83,6 +79,7 @@ export default class UsersEditPageForm extends React.Component {
             <img src={this.state.user.avatar}/>
             <input type='file' name='avatar' label='Avatar' placeholder='Avatar' ref='avatar' onChange={this._handleFile} />
           </div>
+          {formErrors}
           <ButtonInput type='submit' value='Edit' />
         </form>
       </div>

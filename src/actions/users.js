@@ -43,6 +43,23 @@ export function fetchUser(userId) {
   };
 }
 
+export function fetchUserProfile(userId) {
+  return dispatch => {
+    dispatch(userRequest());
+    return fetch(cons.APIEndpoints.USERS + '/' + userId + '/profile', {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(userSuccess(json)))
+    .catch(errors => dispatch(userFailure(errors)))
+  };
+}
+
 export function createUser(user) {
   return dispatch => {
     dispatch(userCreateRequest());
@@ -90,10 +107,15 @@ export function updateUser(user, avatar, session) {
         'avatar':     avatar
       })
     })
-    .then(status)
-    .then(req => req.json())
-    .then(json => dispatch(userUpdateSuccess(json, session)))
-    .catch(errors => dispatch(userUpdateFailure(errors)))
+    .then(response => response.text().then(text => ({ text, response })))
+    .then(({ text, response }) => {
+      if (response.ok) {
+        dispatch(userUpdateSuccess(JSON.parse(text), session))
+      } else {
+        return Promise.reject(text)
+      }
+    })
+    .catch(errors => dispatch(userUpdateFailure(JSON.parse(errors))))
   };
 }
 
