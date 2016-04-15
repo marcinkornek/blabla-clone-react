@@ -77,7 +77,7 @@ export default class LoginFbPage extends React.Component {
   render() {
     return (
       <div>
-        <button className='login-facebook-button btn btn-primary' onClick={this.loginWithFacebook.bind(this)}>Login with facebook</button>
+        <button className='btn btn-primary login-button' onClick={this.loginWithFacebook.bind(this)}>Login with facebook</button>
       </div>
     )
   }
