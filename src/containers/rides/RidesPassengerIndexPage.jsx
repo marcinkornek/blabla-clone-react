@@ -21,7 +21,6 @@ export default class RidesPassengerIndexPage extends React.Component {
   componentDidMount() {
     const { dispatch, currentUserId, session } = this.props;
     if (currentUserId) {
-      console.log(currentUserId);
       dispatch(actions.fetchRidesAsPassenger(currentUserId, session, 1, per))
     }
   }
