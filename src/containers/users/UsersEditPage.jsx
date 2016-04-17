@@ -22,7 +22,7 @@ export default class UsersEditPage extends React.Component {
   }
 
   render() {
-    const { dispatch, isFetching, user, isSaving, session, currentUserId, errors } = this.props;
+    const { dispatch, isFetching, session, currentUserId } = this.props;
     var userEdit, userEditForm
 
     if (isFetching || currentUserId === undefined) {
@@ -35,7 +35,7 @@ export default class UsersEditPage extends React.Component {
       userEditForm =
         <div>
           <UsersEditPageForm
-            user={user} isSaving={isSaving} errors={errors}
+            {...this.props}
             onAddClick={(user, files) =>
               dispatch(actions.updateUser(user, files, session))
             } />
