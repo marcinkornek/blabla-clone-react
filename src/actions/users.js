@@ -89,7 +89,7 @@ export function createUser(user) {
 export function updateUser(user, avatar, session) {
   return dispatch => {
     dispatch(userUpdateRequest());
-    return fetch(cons.APIEndpoints.USERS + '/' + user.id, {
+    return fetch(cons.APIEndpoints.USERS + '/' + session.id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -98,7 +98,7 @@ export function updateUser(user, avatar, session) {
         'X-User-Token': session['access_token']
       },
       body: JSON.stringify({
-        'id':         user["id"],
+        'id':         session["id"],
         'first_name': user["first_name"],
         'last_name':  user["last_name"],
         'email':      user["email"],

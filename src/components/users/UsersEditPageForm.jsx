@@ -1,92 +1,57 @@
 import React, { PropTypes }   from 'react'
-import { Input, ButtonInput } from 'react-bootstrap'
+import { reduxForm }          from 'redux-form'
+import classNames             from 'classnames'
+import UserValidator          from './UserValidator'
 import styles                 from '../../stylesheets/users/Users'
+import formsStyles            from '../../stylesheets/shared/Forms'
 import _                      from 'lodash'
-import Icon                   from 'react-fa'
-import FormTooltip            from '../shared/FormTooltip'
 
 export default class UsersEditPageForm extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-    this._handleSubmitEditUserForm = this.handleSubmitEditUserForm.bind(this)
-    this._handleFile = this.handleFile.bind(this)
-    this.state = {user: props.user}
-  }
-
-  handleFile(e) {
-    var that = this;
-    var reader = new FileReader();
-    var file = e.target.files[0];
-    var path_name = e.target.value
-
-    reader.onload = function(upload) {
-      that.setState({
-        avatar: {
-          image: upload.target.result,
-          path_name: path_name
-        }
-      });
-    }
-    reader.readAsDataURL(file);
-  }
-
-  handleChange(e) {
-    var user = _.cloneDeep(this.state.user)
-    user[e.target.name] = e.target.value
-    this.setState({user: user})
-  }
-
-  handleSubmitEditUserForm(e) {
-    e.preventDefault()
-    this.props.onAddClick(this.state.user, this.state.avatar);
-  }
-
   render() {
-    var saving, formErrors
-    if (this.props.isSaving === true) {
-      saving =
-        <div>
-          <Icon spin name="spinner" />
-          Saving...
-        </div>
-    }
-
-    formErrors = <div>{this.props.errors.join(', ')}</div>
-
+    const {fields: {first_name, last_name, email, tel_num, birth_year}, handleSubmit} = this.props;
     return (
-      <div>
-        <form className='account_form' onSubmit={this._handleSubmitEditUserForm} encType='multipart/form-data' >
-          <div className='account_form-fields'>
-            <FormTooltip label='First name' required='true' />
-            <Input type='text' name='first_name' placeholder='First name' ref='first_name' value={this.state.user.first_name} onChange={this.handleChange.bind(this)} />
-
-            <FormTooltip label='Last name' required='true' />
-            <Input type='text' name='last_name' placeholder='Last name' ref='last_name' value={this.state.user.last_name} onChange={this.handleChange.bind(this)} />
-
-            <FormTooltip label='Email' required='true' />
-            <Input type='text' name='email' placeholder='Email' ref='email' value={this.state.user.email} onChange={this.handleChange.bind(this)} />
-
-            <FormTooltip label='Telephone number' required='false' />
-            <Input type='text' name='tel_num' placeholder='Telephone number' ref='tel_num' value={this.state.user.tel_num} onChange={this.handleChange.bind(this)} />
-
-            <FormTooltip label='Birth year' required='false' />
-            <Input type='text' name='birth_year' placeholder='Birth year' ref='birth_year' value={this.state.user.birth_year} onChange={this.handleChange.bind(this)} />
-
-          </div>
-          <div className='account_form-avatar'>
-            <FormTooltip label='Avatar' required='false' />
-            {saving}
-            <img src={this.state.user.avatar}/>
-            <input type='file' name='avatar' label='Avatar' placeholder='Avatar' ref='avatar' onChange={this._handleFile} />
-          </div>
-          {formErrors}
-          <ButtonInput type='submit' value='Edit' />
-        </form>
-      </div>
-    )
+      <form onSubmit={handleSubmit}>
+        <div className={classNames('form-group', {'has-error': first_name.touched && first_name.error})}>
+          <label className="control-label">First Name</label>
+          <input type="text" placeholder="First Name" className="form-control" {...first_name}/>
+          {first_name.touched && first_name.error && <div className="form-error">{first_name.error}</div>}
+        </div>
+        <div className={classNames('form-group', {'has-error': last_name.touched && last_name.error})}>
+          <label className="control-label">Last Name</label>
+          <input type="text" placeholder="Last Name" className="form-control" {...last_name}/>
+          {last_name.touched && last_name.error && <div className="form-error">{last_name.error}</div>}
+        </div>
+        <div className={classNames('form-group', {'has-error': email.touched && email.error})}>
+          <label className="control-label">Email</label>
+          <input type="email" placeholder="Email" className="form-control" {...email}/>
+          {email.touched && email.error && <div className="form-error">{email.error}</div>}
+        </div>
+        <div className={classNames('form-group', {'has-error': tel_num.touched && tel_num.error})}>
+          <label className="control-label">Tel num</label>
+          <input type="tel_num" placeholder="Tel num" className="form-control" {...tel_num}/>
+          {tel_num.touched && tel_num.error && <div className="form-error">{tel_num.error}</div>}
+        </div>
+        <div className={classNames('form-group', {'has-error': birth_year.touched && birth_year.error})}>
+          <label className="control-label">Birth year</label>
+          <input type="birth_year" placeholder="Birth year" className="form-control" {...birth_year}/>
+          {birth_year.touched && birth_year.error && <div className="form-error">{birth_year.error}</div>}
+        </div>
+        <button type="submit" className="btn btn-default">Submit</button>
+      </form>
+    );
   }
 }
 
 UsersEditPageForm.propTypes = {
-  onAddClick: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired
 };
+
+UsersEditPageForm = reduxForm({
+  form: 'UsersEditPageForm',
+  fields: ['first_name', 'last_name', 'email', 'tel_num', 'birth_year'],
+  validate: UserValidator
+},
+state => ({ initialValues: state.user.user }),
+)(UsersEditPageForm);
+
+export default UsersEditPageForm;

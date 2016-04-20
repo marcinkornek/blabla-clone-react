@@ -1,0 +1,18 @@
+.control-label {
+  display: block;
+}
+
+.form-control {
+  display: inline-block;
+  max-width: 300px;
+}
+
+.has-error .form-control {
+  border-color: #a94442;
+}
+
+.form-error {
+  margin-left: 10px;
+  color: #a94442;
+  display: inline-block;
+}

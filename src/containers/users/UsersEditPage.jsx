@@ -21,6 +21,10 @@ export default class UsersEditPage extends React.Component {
     }
   }
 
+  handleSubmit(data) {
+    this.props.dispatch(actions.updateUser(data, null, this.props.session))
+  }
+
   render() {
     const { dispatch, isFetching, session, currentUserId } = this.props;
     var userEdit, userEditForm
@@ -34,11 +38,7 @@ export default class UsersEditPage extends React.Component {
     } else {
       userEditForm =
         <div>
-          <UsersEditPageForm
-            {...this.props}
-            onAddClick={(user, files) =>
-              dispatch(actions.updateUser(user, files, session))
-            } />
+          <UsersEditPageForm onSubmit={this.handleSubmit.bind(this)} />
         </div>
     }
 
@@ -66,9 +66,6 @@ UsersEditPage.PropTypes = {
 function select(state) {
   return {
     isFetching:    state.user.isFetching,
-    isSaving:      state.user.isSaving,
-    user:          state.user.user,
-    errors:        state.user.errors,
     currentUserId: state.session.user.id,
     session:       state.session.user
   };
