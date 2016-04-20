@@ -1,6 +1,7 @@
 import * as storage        from 'redux-storage'
 import { combineReducers } from 'redux';
 import { routerReducer }   from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form';
 import session             from './session';
 import users               from './users';
 import user                from './user';
@@ -25,7 +26,8 @@ const rootReducer = storage.reducer(combineReducers({
   ridesOptions,
   ridesDriver,
   ridesPassenger,
-  routing: routerReducer
+  routing: routerReducer,
+  form: formReducer
 }));
 
 export default rootReducer;
