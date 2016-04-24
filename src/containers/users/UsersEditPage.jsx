@@ -22,7 +22,16 @@ export default class UsersEditPage extends React.Component {
   }
 
   handleSubmit(data) {
-    this.props.dispatch(actions.updateUser(data, null, this.props.session))
+    var body = new FormData();
+    Object.keys(data).forEach(( key ) => {
+      if (key == 'avatar') {
+        body.append(key, data[ key ][0]);
+      } else {
+        body.append(key, data[ key ]);
+      }
+    });
+
+    this.props.dispatch(actions.updateUser(body, this.props.session))
   }
 
   render() {

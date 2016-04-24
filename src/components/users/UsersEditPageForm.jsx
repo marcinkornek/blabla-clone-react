@@ -1,6 +1,7 @@
 import React, { PropTypes }   from 'react'
 import { reduxForm }          from 'redux-form'
 import classNames             from 'classnames'
+import Dropzone               from 'react-dropzone';
 import UserValidator          from './UserValidator'
 import styles                 from '../../stylesheets/users/Users'
 import formsStyles            from '../../stylesheets/shared/Forms'
@@ -8,7 +9,7 @@ import _                      from 'lodash'
 
 export default class UsersEditPageForm extends React.Component {
   render() {
-    const {fields: {first_name, last_name, email, tel_num, birth_year}, handleSubmit} = this.props;
+    const {fields: {first_name, last_name, email, tel_num, birth_year, avatar}, handleSubmit, submitting} = this.props;
     return (
       <form onSubmit={handleSubmit}>
         <div className={classNames('form-group', {'has-error': first_name.touched && first_name.error})}>
@@ -36,7 +37,20 @@ export default class UsersEditPageForm extends React.Component {
           <input type="birth_year" placeholder="Birth year" className="form-control" {...birth_year}/>
           {birth_year.touched && birth_year.error && <div className="form-error">{birth_year.error}</div>}
         </div>
-        <button type="submit" className="btn btn-default">Submit</button>
+        <div>
+          <label>Avatar</label>
+          <Dropzone
+            { ...avatar }
+            onDrop={ ( filesToUpload, e ) => avatar.onChange(filesToUpload) }
+          >
+            <div>Try dropping some files here, or click to select files to upload.</div>
+          </Dropzone>
+        </div>
+        <div>
+          <button type="submit" className="btn btn-default" disabled={submitting}>
+            {submitting ? <i/> : <i/>} Submit
+          </button>
+        </div>
       </form>
     );
   }
@@ -48,7 +62,7 @@ UsersEditPageForm.propTypes = {
 
 UsersEditPageForm = reduxForm({
   form: 'UsersEditPageForm',
-  fields: ['first_name', 'last_name', 'email', 'tel_num', 'birth_year'],
+  fields: ['first_name', 'last_name', 'email', 'tel_num', 'birth_year', 'avatar'],
   validate: UserValidator
 },
 state => ({ initialValues: state.user.user }),

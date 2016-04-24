@@ -86,26 +86,18 @@ export function createUser(user) {
   };
 }
 
-export function updateUser(user, avatar, session) {
+export function updateUser(body, session) {
   return dispatch => {
+    console.log(body, session.id);
     dispatch(userUpdateRequest());
     return fetch(cons.APIEndpoints.USERS + '/' + session.id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json',
         'X-User-Email': session['email'],
         'X-User-Token': session['access_token']
       },
-      body: JSON.stringify({
-        'id':         session["id"],
-        'first_name': user["first_name"],
-        'last_name':  user["last_name"],
-        'email':      user["email"],
-        'tel_num':    user["tel_num"],
-        'birth_year': user["birth_year"],
-        'avatar':     avatar
-      })
+      body: body
     })
     .then(response => response.text().then(text => ({ text, response })))
     .then(({ text, response }) => {
