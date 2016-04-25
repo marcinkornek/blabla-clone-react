@@ -16,3 +16,14 @@
   color: #a94442;
   display: inline-block;
 }
+
+.form-dropzone {
+  width: 100%;
+  max-width: 300px;
+  border-width: 2px;
+  border-color: #666;
+  border-style: dashed;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+}

@@ -40,7 +40,7 @@ export default class UsersEditPageForm extends React.Component {
         <div>
           <label>Avatar</label>
           <Dropzone
-            { ...avatar }
+            { ...avatar } className='form-dropzone'
             onDrop={ ( filesToUpload, e ) => avatar.onChange(filesToUpload) }
           >
             <div>Try dropping some files here, or click to select files to upload.</div>
