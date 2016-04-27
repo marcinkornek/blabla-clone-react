@@ -76,18 +76,6 @@ function isAuthorized(store, permission) {
 export const createRoutes = (store) => {
   return (
     <Route name ='App' component = {Application}>
-      <Route name='home' path='/' component={Home} />
-      <Route name='usersShow' path='/users/:userId' component={UsersShowPage} />
-      <Route name='carsShow' path='/cars/:carId' component={CarsShowPage} />
-      <Route name='ridesIndex'  path='/rides' component={RidesIndexPage} />
-      <Route name='ridesShow' path='/rides/:rideId' component={RidesShowPage} />
-      <Route name='notAuthorized' path='/403' component={Home} />
-
-      <Route requireNoAuth>
-        <Route name='login' path='/login' component={LoginPage} />
-        <Route name='register' path='/register' component={UsersNewPage} />
-      </Route>
-
       <Route requireAuth>
         <Route name='usersIndex' path='/users' component={UsersIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
         <Route name='usersEdit' path='/account/user' component={UsersEditPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
@@ -100,6 +88,18 @@ export const createRoutes = (store) => {
         <Route name='ridesPassengerIndex' path='/account/rides_as_passenger' component={RidesPassengerIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
         <Route name='ridesDriverIndex' path='/account/rides_as_driver/:rideId/edit' component={RidesEditPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
         <Route name='carsNew' path='/rides/new' component={RidesNewPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
+      </Route>
+
+      <Route name='home' path='/' component={Home} />
+      <Route name='usersShow' path='/users/:userId' component={UsersShowPage} />
+      <Route name='carsShow' path='/cars/:carId' component={CarsShowPage} />
+      <Route name='ridesIndex'  path='/rides' component={RidesIndexPage} />
+      <Route name='ridesShow' path='/rides/:rideId' component={RidesShowPage} />
+      <Route name='notAuthorized' path='/403' component={Home} />
+
+      <Route requireNoAuth>
+        <Route name='login' path='/login' component={LoginPage} />
+        <Route name='register' path='/register' component={UsersNewPage} />
       </Route>
     </Route>
   );
