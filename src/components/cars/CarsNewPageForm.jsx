@@ -27,18 +27,18 @@ export default class CarsNewPageForm extends React.Component {
   }
 
   render() {
-    var colors = [<option value=''> -- select color -- </option>]
-    var comforts = [<option value=''> -- select comfort level -- </option>]
-    var categories = [<option value=''> -- select category -- </option>]
+    var colors = [<option value=''key={'color'}> -- select color -- </option>]
+    var comforts = [<option value=''key={'comfort'}> -- select comfort level -- </option>]
+    var categories = [<option value=''key={'category'}> -- select category -- </option>]
     if (this.props.carsOptions) {
       for (var i = 0; i < this.props.carsOptions.colors.length; i++) {
-        colors.push(<option value={this.props.carsOptions.colors[i]}> {this.props.carsOptions.colors[i]} </option>);
+        colors.push(<option value={this.props.carsOptions.colors[i]} key={'color' + i}> {this.props.carsOptions.colors[i]} </option>);
       }
       for (var i = 0; i < this.props.carsOptions.comforts.length; i++) {
-        comforts.push(<option value={this.props.carsOptions.comforts[i]}> {this.props.carsOptions.comforts[i]} </option>);
+        comforts.push(<option value={this.props.carsOptions.comforts[i]} key={'comfort' + i}> {this.props.carsOptions.comforts[i]} </option>);
       }
       for (var i = 0; i < this.props.carsOptions.categories.length; i++) {
-        categories.push(<option value={this.props.carsOptions.categories[i]}> {this.props.carsOptions.categories[i]} </option>);
+        categories.push(<option value={this.props.carsOptions.categories[i]} key={'category' + i}> {this.props.carsOptions.categories[i]} </option>);
       }
     }
 

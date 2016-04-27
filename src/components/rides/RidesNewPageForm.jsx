@@ -44,14 +44,14 @@ export default class RidesNewPageForm extends React.Component {
   }
 
   render() {
-    var currencies = [<option value=''> -- select currency -- </option>]
-    var cars       = [<option value=''> -- select car -- </option>]
+    var currencies = [<option value='' key={'option'}> -- select currency -- </option>]
+    var cars       = [<option value='' key={'car'}> -- select car -- </option>]
     if (this.props.ridesOptions) {
       for (var i = 0; i < this.props.ridesOptions.currencies.length; i++) {
-        currencies.push(<option value={this.props.ridesOptions.currencies[i]}> {this.props.ridesOptions.currencies[i]} </option>);
+        currencies.push(<option value={this.props.ridesOptions.currencies[i]} key={'option-' + i}> {this.props.ridesOptions.currencies[i]} </option>);
       }
       for (var i = 0; i < this.props.ridesOptions.cars.length; i++) {
-        cars.push(<option value={this.props.ridesOptions.cars[i].id}> {this.props.ridesOptions.cars[i].name} </option>);
+        cars.push(<option value={this.props.ridesOptions.cars[i].id} key={'car-' + i}> {this.props.ridesOptions.cars[i].name} </option>);
       }
     }
 
