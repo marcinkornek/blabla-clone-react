@@ -9,28 +9,18 @@ import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
 import sharedStyles          from '../../stylesheets/shared/Shared'
 import RidesItem             from '../../components/rides/RidesIndexPageItem'
+import RidesSearchCitiesItem from '../../components/rides/RidesSearchCitiesItem'
 
 const per = 10
 
 export default class RidesIndexPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-  }
-
   componentDidMount() {
     const { dispatch, session, currentUserId } = this.props;
     dispatch(actions.fetchRides(session, 1, per))
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { dispatch, currentUserId } = this.props;
-    if (nextProps.currentUserId && currentUserId === undefined) {
-      dispatch(actions.fetchRides(nextProps.session))
-    }
-  }
-
   render() {
-    const { isFetching, rides, pagination, currentUserId } = this.props
+    const { isFetching, rides, pagination, currentUserId, dispatch, session } = this.props
     var ridesMain, ridesSearch, ridesList, headingButton, ridesPagination
 
     if (isFetching) {
@@ -77,6 +67,10 @@ export default class RidesIndexPage extends React.Component {
 
     ridesMain =
       <Col xs={10}>
+        <RidesSearchCitiesItem
+          onAddClick={(searchCities) =>
+            dispatch(actions.fetchRides(session, 1, per, searchCities))
+          } />
         <div className='heading'>
           <div className='heading__title'>Rides</div>
           {headingButton}

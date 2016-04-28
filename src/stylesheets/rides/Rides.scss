@@ -284,3 +284,15 @@
 .book-ride-form__submit {
   display: inline-block;
 }
+
+.cities-search-form {
+  .geosuggest {
+    display: inline-block;
+    margin: 10px;
+    width: 30%;
+  }
+
+  .form-group {
+    display: inline-block;
+  }
+}

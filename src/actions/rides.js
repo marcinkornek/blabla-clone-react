@@ -9,10 +9,16 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchRides(session, page = 1, per = 10) {
+export function fetchRides(session, page = 1, per = 10, options = {}) {
   return dispatch => {
     dispatch(ridesRequest());
-    return fetch(cons.APIEndpoints.RIDES + '?page=' + page + '&per=' + per, {
+    var rideOptions = ''
+    if (options) {
+      if (options.start_city) { rideOptions = '&start_city=' + options.start_city }
+      if (options.destination_city) { rideOptions += '&destination_city=' + options.destination_city }
+      if (options.date) { rideOptions += '&date=' + options.date }
+    }
+    return fetch(cons.APIEndpoints.RIDES + '?page=' + page + '&per=' + per + rideOptions, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
