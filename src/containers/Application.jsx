@@ -4,10 +4,6 @@ import Header                from '../components/Header'
 import * as actions          from '../actions/session';
 
 export default class Application extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-  }
-
   render () {
     const { dispatch, session, currentUser, children } = this.props
     return (

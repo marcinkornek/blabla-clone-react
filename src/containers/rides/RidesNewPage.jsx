@@ -7,10 +7,6 @@ import styles                from '../../stylesheets/rides/Rides'
 import RidesNewPageForm       from '../../components/rides/RidesNewPageForm'
 
 export default class RidesNewPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-  }
-
   componentDidMount() {
     const { dispatch, session } = this.props
     if (session) {
