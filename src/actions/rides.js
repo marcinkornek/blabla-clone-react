@@ -9,7 +9,7 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchRides(session, page = 1, per = 10, options = {}) {
+export function fetchRides(router, session, page = 1, per = 10, options = {}) {
   return dispatch => {
     dispatch(ridesRequest());
     var rideOptions = ''
@@ -29,7 +29,7 @@ export function fetchRides(session, page = 1, per = 10, options = {}) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(ridesSuccess(json)))
+    .then(json => dispatch(ridesSuccess(router, json)))
     .catch(errors => dispatch(ridesFailure(errors)))
   };
 }
@@ -179,12 +179,15 @@ export function ridesRequest() {
   };
 }
 
-export function ridesSuccess(json) {
-  return {
-    type: types.RIDES_SUCCESS,
-    rides: json.rides,
-    pagination: json.meta
-  }
+export function ridesSuccess(router, json) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.RIDES_SUCCESS,
+      rides: json.rides,
+      pagination: json.meta
+    });
+    router.replace('/rides?page=' + json.meta.current_page)
+  };
 }
 
 export function ridesFailure(errors) {

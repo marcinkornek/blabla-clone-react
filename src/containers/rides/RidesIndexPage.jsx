@@ -14,14 +14,11 @@ import RidesSearchCitiesItem from '../../components/rides/RidesSearchCitiesItem'
 const per = 10
 
 export default class RidesIndexPage extends React.Component {
-  componentDidMount() {
-    const { dispatch, session, currentUserId } = this.props;
-    dispatch(actions.fetchRides(session, 1, per))
-  }
-
   render() {
     const { isFetching, rides, pagination, currentUserId, dispatch, session } = this.props
     var ridesMain, ridesSearch, ridesList, headingButton, ridesPagination
+    let { query } = this.props.location
+    var page = (parseInt(query.page, 10) || 1) - 1
 
     if (isFetching) {
       ridesList =
@@ -57,6 +54,7 @@ export default class RidesIndexPage extends React.Component {
                        nextLabel={"next"}
                        breakLabel={<a href="">...</a>}
                        pageNum={pagination.total_pages}
+                       initialSelected={page}
                        marginPagesDisplayed={2}
                        pageRangeDisplayed={5}
                        clickCallback={this.handlePageClick.bind(this)}
@@ -69,7 +67,7 @@ export default class RidesIndexPage extends React.Component {
       <Col xs={10}>
         <RidesSearchCitiesItem
           onAddClick={(searchCities) =>
-            dispatch(actions.fetchRides(session, 1, per, searchCities))
+            dispatch(actions.fetchRides(this.context.router, session, 1, per, searchCities))
           } />
         <div className='heading'>
           <div className='heading__title'>Rides</div>
@@ -92,13 +90,17 @@ export default class RidesIndexPage extends React.Component {
   handlePageClick(e) {
     const { dispatch, session } = this.props;
     var page = e.selected + 1;
-    dispatch(actions.fetchRides(session, page, per))
+    dispatch(actions.fetchRides(this.context.router, session, page, per))
   }
 }
 
 RidesIndexPage.PropTypes = {
   rides: PropTypes.array.isRequired
 }
+
+RidesIndexPage.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 function select(state) {
   return {
