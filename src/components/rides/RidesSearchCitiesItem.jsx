@@ -1,14 +1,19 @@
 import React, { PropTypes }   from 'react'
 import { Input, ButtonInput } from 'react-bootstrap'
 import Geosuggest             from 'react-geosuggest'
+import DatePicker             from 'react-datepicker'
+import moment                 from 'moment'
+
 import styles                 from '../../stylesheets/rides/Rides'
-import FormTooltip            from '../shared/FormTooltip'
+import formsStyles            from '../../stylesheets/shared/Forms'
+import datepickerStyles       from 'react-datepicker/dist/react-datepicker.css'
 
 export default class RidesSearchCitiesItem extends React.Component {
   constructor (props, context) {
     super(props, context)
 
     this.state = {
+      startDate: moment(this.props.query.date, "DD-MM-YYYY"),
       start: {
         city: undefined,
         lat: undefined,
@@ -20,6 +25,12 @@ export default class RidesSearchCitiesItem extends React.Component {
         lng: undefined
       }
     }
+  }
+
+  handleChange (date) {
+    this.setState({
+      startDate: date
+    })
   }
 
   onSuggestSelectStart(suggest) {
@@ -47,15 +58,22 @@ export default class RidesSearchCitiesItem extends React.Component {
     return (
       <form className='cities-search-form' onSubmit={this.handleSubmitForm.bind(this)}>
 
-        Start city
         <Geosuggest
           onSuggestSelect={this.onSuggestSelectStart.bind(this)} ref='start_city' initialValue={query.start_city}/>
 
-        Destination city
         <Geosuggest
           onSuggestSelect={this.onSuggestSelectDestination.bind(this)} ref='destination_city' initialValue={query.destination_city}/>
 
-        <ButtonInput type='submit' value='Edit' />
+        <DatePicker
+          ref='date'
+          selected={this.state.startDate}
+          onChange={this.handleChange.bind(this)}
+          dateFormat={'DD/MM/YYYY'}
+          className='form-control form-datepicker'
+          placeholderText='Date'
+          minDate={moment()} />
+
+        <ButtonInput type='submit' value='Search' className='form-search' />
       </form>
     )
 
@@ -65,7 +83,8 @@ export default class RidesSearchCitiesItem extends React.Component {
     e.preventDefault()
     var searchCities = {
       start_city:       this.refs.start_city.state.userInput,
-      destination_city: this.refs.destination_city.state.userInput
+      destination_city: this.refs.destination_city.state.userInput,
+      date:             this.refs.date.refs.input.state.value
     }
     this.props.onAddClick(searchCities);
   }
