@@ -43,16 +43,17 @@ export default class RidesSearchCitiesItem extends React.Component {
   }
 
   render() {
+    const { query } = this.props;
     return (
       <form className='cities-search-form' onSubmit={this.handleSubmitForm.bind(this)}>
 
         Start city
         <Geosuggest
-          onSuggestSelect={this.onSuggestSelectStart.bind(this)} ref='start_city' />
+          onSuggestSelect={this.onSuggestSelectStart.bind(this)} ref='start_city' initialValue={query.start_city}/>
 
         Destination city
         <Geosuggest
-          onSuggestSelect={this.onSuggestSelectDestination.bind(this)} ref='destination_city' />
+          onSuggestSelect={this.onSuggestSelectDestination.bind(this)} ref='destination_city' initialValue={query.destination_city}/>
 
         <ButtonInput type='submit' value='Edit' />
       </form>
@@ -63,12 +64,8 @@ export default class RidesSearchCitiesItem extends React.Component {
   handleSubmitForm(e) {
     e.preventDefault()
     var searchCities = {
-      start_city:           this.state.start.city,
-      start_city_lat:       this.state.start.lat,
-      start_city_lng:       this.state.start.lng,
-      destination_city:     this.state.destination.city,
-      destination_city_lat: this.state.destination.lat,
-      destination_city_lng: this.state.destination.lng,
+      start_city:       this.refs.start_city.state.userInput,
+      destination_city: this.refs.destination_city.state.userInput
     }
     this.props.onAddClick(searchCities);
   }

@@ -29,7 +29,7 @@ export function fetchRides(router, session, page = 1, per = 10, options = {}) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(ridesSuccess(router, json)))
+    .then(json => dispatch(ridesSuccess(router, json, options)))
     .catch(errors => dispatch(ridesFailure(errors)))
   };
 }
@@ -179,14 +179,20 @@ export function ridesRequest() {
   };
 }
 
-export function ridesSuccess(router, json) {
+export function ridesSuccess(router, json, options) {
   return (dispatch, getState) => {
+    var query = '?page=' + json.meta.current_page
+    if (options) {
+      if (options.start_city) { query += '&start_city=' + options.start_city }
+      if (options.destination_city) { query += '&destination_city=' + options.destination_city }
+      if (options.date) { query += '&date=' + options.date }
+    }
+    router.replace('/rides' + query)
     dispatch({
       type: types.RIDES_SUCCESS,
       rides: json.rides,
       pagination: json.meta
     });
-    router.replace('/rides?page=' + json.meta.current_page)
   };
 }
 

@@ -14,6 +14,13 @@ import RidesSearchCitiesItem from '../../components/rides/RidesSearchCitiesItem'
 const per = 10
 
 export default class RidesIndexPage extends React.Component {
+  componentDidMount() {
+    const { dispatch, session, currentUserId } = this.props;
+    let { query } = this.props.location
+    var page = query.page || 1
+    dispatch(actions.fetchRides(this.context.router, session, page, per, query))
+  }
+
   render() {
     const { isFetching, rides, pagination, currentUserId, dispatch, session } = this.props
     var ridesMain, ridesSearch, ridesList, headingButton, ridesPagination
@@ -65,7 +72,7 @@ export default class RidesIndexPage extends React.Component {
 
     ridesMain =
       <Col xs={10}>
-        <RidesSearchCitiesItem
+        <RidesSearchCitiesItem query={query}
           onAddClick={(searchCities) =>
             dispatch(actions.fetchRides(this.context.router, session, 1, per, searchCities))
           } />
@@ -89,8 +96,9 @@ export default class RidesIndexPage extends React.Component {
 
   handlePageClick(e) {
     const { dispatch, session } = this.props;
-    var page = e.selected + 1;
-    dispatch(actions.fetchRides(this.context.router, session, page, per))
+    let { query } = this.props.location
+    var page = query.page || 1
+    dispatch(actions.fetchRides(this.context.router, session, page, per, query))
   }
 }
 
