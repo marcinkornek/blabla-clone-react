@@ -9,7 +9,8 @@ import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
 import sharedStyles          from '../../stylesheets/shared/Shared'
 import RidesItem             from '../../components/rides/RidesIndexPageItem'
-import RidesSearchItem from '../../components/rides/RidesSearchItem'
+import RidesSearchItem       from '../../components/rides/RidesSearchItem'
+import RidesFilterItem       from '../../components/rides/RidesFilterItem'
 
 const per = 10
 
@@ -23,7 +24,7 @@ export default class RidesIndexPage extends React.Component {
 
   render() {
     const { isFetching, rides, pagination, currentUserId, dispatch, session } = this.props
-    var ridesMain, ridesSearch, ridesList, headingButton, ridesPagination
+    var ridesMain, ridesFilter, ridesList, headingButton, ridesPagination
     let { query } = this.props.location
     var page = (parseInt(query.page, 10) || 1) - 1
 
@@ -50,9 +51,12 @@ export default class RidesIndexPage extends React.Component {
         </div>
     }
 
-    ridesSearch =
+    ridesFilter =
       <Col xs={2}>
-        Search
+        <RidesFilterItem query={query}
+          onAddClick={(filterCities) =>
+            dispatch(actions.fetchRides(this.context.router, session, 1, per, filterCities))
+          } />
       </Col>
 
     if (pagination.total_pages > 1) {
@@ -86,7 +90,7 @@ export default class RidesIndexPage extends React.Component {
     return (
       <div className='show-grid'>
         <div className='rides'>
-          {ridesSearch}
+          {ridesFilter}
           {ridesMain}
           {ridesPagination}
         </div>
