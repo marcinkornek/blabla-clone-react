@@ -60,27 +60,17 @@ export function fetchCarsOptions() {
   };
 }
 
-export function createCar(car, car_photo, session) {
+export function createCar(body, session) {
   return dispatch => {
     dispatch(carCreateRequest());
     return fetch(cons.APIEndpoints.CARS, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json',
         'X-User-Email': session['email'],
         'X-User-Token': session['access_token']
       },
-      body: JSON.stringify({
-        'brand':    car["brand"],
-        'model':    car["model"],
-        'production_year': car["production_year"],
-        'places':   car["places"],
-        'color':    car["color"],
-        'comfort':  car["comfort"],
-        'category': car["category"],
-        'car_photo': car_photo
-      })
+      body: body
     })
     .then(status)
     .then(req => req.json())

@@ -16,6 +16,19 @@ export default class CarsNewPage extends React.Component {
     dispatch(actions.fetchCarsOptions());
   }
 
+  handleSubmit(data) {
+    var body = new FormData();
+    Object.keys(data).forEach((key) => {
+      if (key == 'car_photo') {
+        if (data[key]) { body.append(key, data[key][0])}
+      } else {
+        body.append(key, data[key]);
+      }
+    });
+
+    this.props.dispatch(actions.createCar(body, this.props.session))
+  }
+
   render() {
     const { dispatch, carsOptions, session } = this.props;
     return (
@@ -23,9 +36,7 @@ export default class CarsNewPage extends React.Component {
         <Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
           <CarsNewPageForm
             carsOptions={carsOptions}
-            onAddClick={(car, car_photo) =>
-              dispatch(actions.createCar(car, car_photo, session))
-            } />
+            onSubmit={this.handleSubmit.bind(this)} />
         </Col>
       </div>
     )
