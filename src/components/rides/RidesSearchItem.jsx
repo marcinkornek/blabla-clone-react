@@ -8,7 +8,7 @@ import styles                 from '../../stylesheets/rides/Rides'
 import formsStyles            from '../../stylesheets/shared/Forms'
 import datepickerStyles       from 'react-datepicker/dist/react-datepicker.css'
 
-export default class RidesSearchCitiesItem extends React.Component {
+export default class RidesSearchItem extends React.Component {
   constructor (props, context) {
     super(props, context)
 

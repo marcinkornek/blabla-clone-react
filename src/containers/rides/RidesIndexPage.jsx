@@ -9,7 +9,7 @@ import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
 import sharedStyles          from '../../stylesheets/shared/Shared'
 import RidesItem             from '../../components/rides/RidesIndexPageItem'
-import RidesSearchCitiesItem from '../../components/rides/RidesSearchCitiesItem'
+import RidesSearchItem from '../../components/rides/RidesSearchItem'
 
 const per = 10
 
@@ -72,12 +72,12 @@ export default class RidesIndexPage extends React.Component {
 
     ridesMain =
       <Col xs={10}>
-        <RidesSearchCitiesItem query={query}
+        <RidesSearchItem query={query}
           onAddClick={(searchCities) =>
             dispatch(actions.fetchRides(this.context.router, session, 1, per, searchCities))
           } />
         <div className='heading'>
-          <div className='heading__title'>Rides</div>
+          <div className='heading__title'>{pagination.total_count} Rides</div>
           {headingButton}
         </div>
         {ridesList}
