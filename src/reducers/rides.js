@@ -3,7 +3,8 @@ import * as types from '../constants/ActionTypes'
 const initialState = {
   isFetching: false,
   rides: [],
-  pagination: []
+  pagination: [],
+  filters: []
 }
 
 export default function rides(state = initialState, action) {
@@ -16,7 +17,8 @@ export default function rides(state = initialState, action) {
     return Object.assign({}, state, {
       isFetching: false,
       rides: action.rides,
-      pagination: action.pagination
+      pagination: action.pagination,
+      filters: action.filters
     });
   default:
     return state;

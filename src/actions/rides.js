@@ -191,7 +191,8 @@ export function ridesSuccess(router, json, options) {
     dispatch({
       type: types.RIDES_SUCCESS,
       rides: json.rides,
-      pagination: json.meta
+      pagination: json.meta,
+      filters: json.filters
     });
   };
 }
