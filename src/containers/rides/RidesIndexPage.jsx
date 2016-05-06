@@ -23,7 +23,7 @@ export default class RidesIndexPage extends React.Component {
   }
 
   render() {
-    const { isFetching, rides, pagination, currentUserId, dispatch, session } = this.props
+    const { isFetching, rides, pagination, filters, currentUserId, dispatch, session } = this.props
     var ridesMain, ridesFilter, ridesList, headingButton, ridesPagination
     let { query } = this.props.location
     var page = (parseInt(query.page, 10) || 1) - 1
@@ -53,7 +53,7 @@ export default class RidesIndexPage extends React.Component {
 
     ridesFilter =
       <Col xs={2}>
-        <RidesFilterItem query={query}
+        <RidesFilterItem query={query} filters={filters}
           onAddClick={(filterCities) =>
             dispatch(actions.fetchRides(this.context.router, session, 1, per, filterCities))
           } />
@@ -119,6 +119,7 @@ function select(state) {
     isFetching:     state.rides.isFetching,
     rides:          state.rides.rides,
     pagination:     state.rides.pagination,
+    filters:        state.rides.filters,
     currentUserId:  state.session.user.id,
     session:        state.session.user
   };
