@@ -6,7 +6,7 @@ import _                     from 'underscore';
 
 import * as actions          from '../../actions/cars';
 import styles                from '../../stylesheets/users/Users'
-import CarsEditPageForm      from '../../components/cars/CarsEditPageForm'
+import CarsPageForm          from '../../components/cars/CarsPageForm'
 import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 export default class CarsEditPage extends React.Component {
@@ -23,11 +23,17 @@ export default class CarsEditPage extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { dispatch } = this.props;
-    if (nextProps.params.carId !== this.props.params.carId) {
-      dispatch(actions.fetchCar(nextProps.params.carId))
-    }
+  handleSubmit(data) {
+    var body = new FormData();
+    Object.keys(data).forEach((key) => {
+      if (key == 'car_photo') {
+        if (data[key]) { body.append(key, data[key][0])}
+      } else {
+        body.append(key, data[key]);
+      }
+    });
+
+    this.props.dispatch(actions.updateCar(body, this.props.session))
   }
 
   render() {
@@ -37,12 +43,10 @@ export default class CarsEditPage extends React.Component {
       <div className='show-grid'>
         <UserAccountMenu userCars={userCars} />
         <Col xs={10}>
-          <CarsEditPageForm
-            car={car} isSaving={isSaving}
+          <CarsPageForm
+            isSaving={isSaving}
             carsOptions={carsOptions}
-            onAddClick={(car, car_photo) =>
-              dispatch(actions.updateCar(car, car_photo, session))
-            } />
+            onSubmit={this.handleSubmit.bind(this)} />
         </Col>
       </div>
     )
