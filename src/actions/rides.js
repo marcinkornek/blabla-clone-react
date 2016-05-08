@@ -108,30 +108,17 @@ export function fetchRidesOptions(session) {
   };
 }
 
-export function createRide(ride, session) {
+export function createRide(body, session) {
   return dispatch => {
     dispatch(rideCreateRequest());
     return fetch(cons.APIEndpoints.RIDES, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json',
         'X-User-Email': session['email'],
         'X-User-Token': session['access_token']
       },
-      body: JSON.stringify({
-        'start_city':           ride["start_city"],
-        'start_city_lat':       ride["start_city_lat"],
-        'start_city_lng':       ride["start_city_lng"],
-        'destination_city':     ride["destination_city"],
-        'destination_city_lat': ride["destination_city_lat"],
-        'destination_city_lng': ride["destination_city_lng"],
-        'places':                ride["places"],
-        'start_date':           ride["start_date"],
-        'car_id':               ride["car_id"],
-        'price':                ride["price"],
-        'currency':             ride["currency"],
-      })
+      body: body
     })
     .then(status)
     .then(req => req.json())

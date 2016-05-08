@@ -5,6 +5,7 @@ import { connect }           from 'react-redux';
 import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
 import RidesNewPageForm       from '../../components/rides/RidesNewPageForm'
+import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 export default class RidesNewPage extends React.Component {
   componentDidMount() {
@@ -14,16 +15,22 @@ export default class RidesNewPage extends React.Component {
     }
   }
 
+  handleSubmit(data) {
+    var body = new FormData();
+    Object.keys(data).forEach((key) => { body.append(key, data[key]) });
+
+    this.props.dispatch(actions.createRide(body, this.props.session))
+  }
+
   render() {
     const { dispatch, session, ridesOptions } = this.props
     return (
       <div className='show-grid'>
-        <Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
+        <UserAccountMenu/>
+        <Col xs={10}>
           <RidesNewPageForm
             ridesOptions={ridesOptions}
-            onAddClick={(ride) =>
-              dispatch(actions.createRide(ride, session))
-            } />
+            onSubmit={this.handleSubmit.bind(this)} />
         </Col>
       </div>
     )

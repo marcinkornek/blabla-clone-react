@@ -5,7 +5,6 @@ import Dropzone               from 'react-dropzone';
 import UserValidator          from './UserValidator'
 import styles                 from '../../stylesheets/users/Users'
 import formsStyles            from '../../stylesheets/shared/Forms'
-import _                      from 'lodash'
 
 export default class UsersEditPageForm extends React.Component {
   render() {
