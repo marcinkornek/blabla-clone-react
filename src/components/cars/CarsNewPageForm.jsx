@@ -6,7 +6,7 @@ import CarValidator           from './CarValidator'
 import styles                 from '../../stylesheets/users/Users'
 import formsStyles            from '../../stylesheets/shared/Forms'
 
-export default class CarsPageForm extends React.Component {
+export default class CarsNewPageForm extends React.Component {
   render() {
     const {fields: {brand, model, places, production_year, color, comfort, category, car_photo}, handleSubmit, submitting} = this.props;
     var colors = [<option value='' key={'color'}> -- select color -- </option>]
@@ -94,16 +94,14 @@ export default class CarsPageForm extends React.Component {
   }
 }
 
-CarsPageForm.propTypes = {
+CarsNewPageForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired
 };
 
-CarsPageForm = reduxForm({
-  form: 'CarsPageForm',
+CarsNewPageForm = reduxForm({
+  form: 'CarsNewPageForm',
   fields: ['brand', 'model', 'places', 'production_year', 'color', 'comfort', 'category', 'car_photo'],
   validate: CarValidator
-},
-state => ({ initialValues: state.car.car }),
-)(CarsPageForm);
+})(CarsNewPageForm);
 
-export default CarsPageForm;
+export default CarsNewPageForm;

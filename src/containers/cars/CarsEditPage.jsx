@@ -6,7 +6,7 @@ import _                     from 'underscore';
 
 import * as actions          from '../../actions/cars';
 import styles                from '../../stylesheets/users/Users'
-import CarsPageForm          from '../../components/cars/CarsPageForm'
+import CarsEditPageForm      from '../../components/cars/CarsEditPageForm'
 import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 export default class CarsEditPage extends React.Component {
@@ -43,7 +43,7 @@ export default class CarsEditPage extends React.Component {
       <div className='show-grid'>
         <UserAccountMenu userCars={userCars} />
         <Col xs={10}>
-          <CarsPageForm
+          <CarsEditPageForm
             isSaving={isSaving}
             carsOptions={carsOptions}
             onSubmit={this.handleSubmit.bind(this)} />
@@ -61,7 +61,7 @@ function select(state) {
   return {
     isSaving:      state.car.isSaving,
     currentUserId: state.session.user.id,
-    userCars:      state.user.user.cars,
+    userCars:      state.cars.cars,
     car:           state.car.car,
     carsOptions:   state.carsOptions.carsOptions,
     session:       state.session.user

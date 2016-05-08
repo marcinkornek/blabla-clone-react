@@ -4,7 +4,8 @@ import { connect }           from 'react-redux';
 
 import * as actions          from '../../actions/cars';
 import styles                from '../../stylesheets/users/Users'
-import CarsPageForm          from '../../components/cars/CarsPageForm'
+import CarsNewPageForm       from '../../components/cars/CarsNewPageForm'
+import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 export default class CarsNewPage extends React.Component {
   constructor (props, context) {
@@ -33,8 +34,9 @@ export default class CarsNewPage extends React.Component {
     const { dispatch, carsOptions, session } = this.props;
     return (
       <div className='show-grid'>
-        <Col xs={6} md={4} xsOffset={3} mdOffset={4} className='login__form'>
-          <CarsPageForm
+        <UserAccountMenu/>
+        <Col xs={10}>
+          <CarsNewPageForm
             carsOptions={carsOptions}
             onSubmit={this.handleSubmit.bind(this)} />
         </Col>
