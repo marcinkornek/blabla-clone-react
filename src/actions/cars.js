@@ -60,7 +60,7 @@ export function fetchCarsOptions() {
   };
 }
 
-export function createCar(body, session) {
+export function createCar(router, body, session) {
   return dispatch => {
     dispatch(carCreateRequest());
     return fetch(cons.APIEndpoints.CARS, {
@@ -74,7 +74,7 @@ export function createCar(body, session) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(carCreateSuccess(json)))
+    .then(json => dispatch(carCreateSuccess(router, json)))
     .catch(errors => dispatch(carCreateFailure(errors)))
   };
 }
@@ -176,11 +176,14 @@ export function carCreateRequest() {
   };
 }
 
-export function carCreateSuccess(json) {
-  return {
-    type: types.CAR_CREATE_SUCCESS,
-    car: json
-  }
+export function carCreateSuccess(router, json) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.CAR_CREATE_SUCCESS,
+      car: json
+    });
+    router.replace('/account/cars')
+  };
 }
 
 export function carCreateFailure(errors) {

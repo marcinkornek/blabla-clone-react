@@ -27,7 +27,7 @@ export default class CarsNewPage extends React.Component {
       }
     });
 
-    this.props.dispatch(actions.createCar(body, this.props.session))
+    this.props.dispatch(actions.createCar(this.context.router, body, this.props.session))
   }
 
   render() {
@@ -47,6 +47,10 @@ export default class CarsNewPage extends React.Component {
 
 CarsNewPage.propTypes = {
   dispatch: PropTypes.func.isRequired
+};
+
+CarsNewPage.contextTypes = {
+  router: React.PropTypes.object.isRequired
 };
 
 function select(state) {
