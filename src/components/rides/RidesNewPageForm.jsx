@@ -6,6 +6,8 @@ import RideValidator          from './RideValidator'
 import styles                 from '../../stylesheets/rides/Rides'
 import formsStyles            from '../../stylesheets/shared/Forms'
 import stylesGeosuggest       from '../../stylesheets/shared/Geosuggest'
+import DatePicker             from 'react-datepicker'
+import moment                 from 'moment'
 
 export default class RidesNewPageForm extends React.Component {
   render() {
@@ -44,7 +46,13 @@ export default class RidesNewPageForm extends React.Component {
 
         <div className={classNames('form-group', {'has-error': start_date.touched && start_date.error})}>
           <label className="control-label">Start date</label>
-          <input type="text" placeholder="Start date" className="form-control" {...start_date}/>
+          <DatePicker
+            {...start_date}
+            dateFormat='YYYY/MM/DD'
+            selected={start_date.value ? moment(start_date.value) : null }
+            className='form-control'
+            placeholderText='Start date'
+            minDate={moment()} />
           {start_date.touched && start_date.error && <div className="form-error">{start_date.error}</div>}
         </div>
 
