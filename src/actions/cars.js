@@ -79,32 +79,22 @@ export function createCar(router, body, session) {
   };
 }
 
-export function updateCar(car, car_photo, session) {
+export function updateCar(router, body, id, session) {
   return dispatch => {
+    console.log(body);
     dispatch(carUpdateRequest());
-    return fetch(cons.APIEndpoints.CARS + '/' + car.id, {
+    return fetch(cons.APIEndpoints.CARS + '/' + id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json',
         'X-User-Email': session['email'],
         'X-User-Token': session['access_token']
       },
-      body: JSON.stringify({
-        'id':       car["id"],
-        'brand':    car["brand"],
-        'model':    car["model"],
-        'production_year': car["production_year"],
-        'places':   car["places"],
-        'color':    car["color"],
-        'comfort':  car["comfort"],
-        'category': car["category"],
-        'car_photo': car_photo
-      })
+      body: body
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(carUpdateSuccess(json)))
+    .then(json => dispatch(carUpdateSuccess(router, json)))
     .catch(errors => dispatch(carUpdateFailure(errors)))
   };
 }
@@ -199,11 +189,14 @@ export function carUpdateRequest() {
   };
 }
 
-export function carUpdateSuccess(json) {
-  return {
-    type: types.CAR_UPDATE_SUCCESS,
-    car: json
-  }
+export function carUpdateSuccess(router, json) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.CAR_UPDATE_SUCCESS,
+      car: json
+    });
+    router.replace('/account/cars')
+  };
 }
 
 export function carUpdateFailure(errors) {

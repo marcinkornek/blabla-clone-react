@@ -33,7 +33,7 @@ export default class CarsEditPage extends React.Component {
       }
     });
 
-    this.props.dispatch(actions.updateCar(body, this.props.session))
+    this.props.dispatch(actions.updateCar(this.context.router, body, this.props.car.id, this.props.session))
   }
 
   render() {
@@ -55,7 +55,11 @@ export default class CarsEditPage extends React.Component {
 
 CarsEditPage.PropTypes = {
   car: PropTypes.array.isRequired
-}
+};
+
+CarsEditPage.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 function select(state) {
   return {
