@@ -17,7 +17,15 @@ export default class RidesNewPage extends React.Component {
 
   handleSubmit(data) {
     var body = new FormData();
-    Object.keys(data).forEach((key) => { body.append(key, data[key]) });
+    Object.keys(data).forEach((key) => {
+      if (key == 'destination_city' || key == 'start_city') {
+        body.append(key, data[key].label)
+        body.append(key + '_lat', data[key].location.lat)
+        body.append(key + '_lng', data[key].location.lng)
+      } else {
+        body.append(key, data[key])
+      }
+    });
 
     this.props.dispatch(actions.createRide(body, this.props.session))
   }

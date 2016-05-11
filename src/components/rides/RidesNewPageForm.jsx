@@ -9,6 +9,10 @@ import stylesGeosuggest       from '../../stylesheets/shared/Geosuggest'
 import DatePicker             from 'react-datepicker'
 import moment                 from 'moment'
 
+const GeoSuggestWrapper = ({ field, placeholder }) => (
+  <Geosuggest inputClassName='form-control' placeholder={placeholder} onSuggestSelect={field.onChange} {...field}/>
+);
+
 export default class RidesNewPageForm extends React.Component {
   render() {
     const {fields: {start_city, destination_city, places, start_date, car_id, price, currency}, handleSubmit, submitting} = this.props;
@@ -25,16 +29,15 @@ export default class RidesNewPageForm extends React.Component {
 
     return (
       <form onSubmit={handleSubmit}>
-
         <div className={classNames('form-group', {'has-error': start_city.touched && start_city.error})}>
           <label className="control-label">Start city</label>
-          <input type="text" placeholder="Start city" className="form-control" {...start_city}/>
+          <GeoSuggestWrapper field={start_city} placeholder="Start city"/>
           {start_city.touched && start_city.error && <div className="form-error">{start_city.error}</div>}
         </div>
 
         <div className={classNames('form-group', {'has-error': destination_city.touched && destination_city.error})}>
           <label className="control-label">Destination city</label>
-          <input type="text" placeholder="Destination city" className="form-control" {...destination_city}/>
+          <GeoSuggestWrapper field={destination_city} placeholder="Destination city"/>
           {destination_city.touched && destination_city.error && <div className="form-error">{destination_city.error}</div>}
         </div>
 
