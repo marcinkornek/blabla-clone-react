@@ -1,5 +1,5 @@
 import React, { PropTypes }   from 'react'
-import { Input, ButtonInput } from 'react-bootstrap'
+import { Button }             from 'react-bootstrap'
 import Geosuggest             from 'react-geosuggest'
 import DatePicker             from 'react-datepicker'
 import moment                 from 'moment'
@@ -73,7 +73,7 @@ export default class RidesSearchItem extends React.Component {
           placeholderText='Date'
           minDate={moment()} />
 
-        <ButtonInput type='submit' value='Search' className='form-search' />
+        <Button type='submit' className='form-search'>Search</Button>
       </form>
     )
 

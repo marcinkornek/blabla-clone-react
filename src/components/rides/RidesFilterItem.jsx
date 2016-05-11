@@ -1,6 +1,6 @@
 import React, { PropTypes }  from 'react'
 import { Link }              from 'react-router';
-import { Input }             from 'react-bootstrap'
+import { Checkbox }             from 'react-bootstrap'
 import Timestamp             from 'react-time'
 import Icon                  from 'react-fa'
 import pluralize             from 'pluralize'
@@ -12,8 +12,9 @@ export default class RidesFilterItem extends React.Component {
     const { query, filters } = this.props;
     return (
       <form className='cities-filter-form'>
-        hide rides without empty places ({filters.full_rides})
-        <Input type='checkbox' name='hide_full' ref='hide_full'></Input>
+        <Checkbox checked readOnly name='hide_full' ref='hide_full'>
+          hide rides without empty places ({filters.full_rides})
+        </Checkbox>
       </form>
     )
   }

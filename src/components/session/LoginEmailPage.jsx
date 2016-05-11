@@ -1,5 +1,5 @@
 import React, { PropTypes }   from 'react'
-import { Input, ButtonInput } from 'react-bootstrap'
+import { FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap'
 import styles                 from '../../stylesheets/session/Login'
 
 export default class LoginEmailPage extends React.Component {
@@ -15,9 +15,16 @@ export default class LoginEmailPage extends React.Component {
     if (this.state.showLoginForm) {
       var LoginForm =
         <form className='login-email-form' onSubmit={this.handleSubmitLoginForm.bind(this)}>
-          <Input type='text' label='Email' placeholder='Email' ref='email' />
-          <Input type='password' label='Password' placeholder='Password' ref='password' />
-          <ButtonInput type='submit' value='Login' />
+          <FormGroup controlId="formControlsText">
+            <ControlLabel>Email</ControlLabel>
+            <FormControl type='text' label='Email' placeholder='Email' ref='email' />
+          </FormGroup>
+          <FormGroup controlId="formControlsPassword">
+            <ControlLabel>Password</ControlLabel>
+            <FormControl type='password' label='Password' placeholder='Password' ref='password' />
+          </FormGroup>
+
+          <Button type='submit'>Login</Button>
         </form>
     }
 
