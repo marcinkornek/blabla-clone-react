@@ -1,120 +1,106 @@
 import React, { PropTypes }   from 'react'
-import { Input, ButtonInput } from 'react-bootstrap'
-import _                      from 'lodash'
-import Icon                   from 'react-fa'
+import { reduxForm }          from 'redux-form'
+import classNames             from 'classnames'
 import Geosuggest             from 'react-geosuggest'
-import FormTooltip            from '../shared/FormTooltip'
-import styles                 from '../../stylesheets/users/Users'
+import RideValidator          from './RideValidator'
+import styles                 from '../../stylesheets/rides/Rides'
+import formsStyles            from '../../stylesheets/shared/Forms'
 import stylesGeosuggest       from '../../stylesheets/shared/Geosuggest'
+import DatePicker             from 'react-datepicker'
+import moment                 from 'moment'
 
-export default class RidesEditPageForm extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-    this._handleSubmitEditRideForm = this.handleSubmitEditRideForm.bind(this)
-    this.state = {
-      ride: props.ride,
-      start: {
-        city: props.ride.start_city,
-        lat:  props.ride.start_city_lat,
-        lng:  props.ride.start_city_lng
-      },
-      destination: {
-        city: props.ride.destination_city,
-        lat:  props.ride.destination_city_lat,
-        lng:  props.ride.destination_city_lng
-      }
-    }
-  }
+const GeoSuggestWrapper = ({ field, placeholder }) => (
+  <Geosuggest inputClassName='form-control' placeholder={placeholder} onSuggestSelect={field.onChange} {...field}/>
+);
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isSaving === false) {
-      this.setState({ride: nextProps.ride})
-    }
-  }
-
-  handleChange(e) {
-    var ride = _.cloneDeep(this.state.ride)
-    ride[e.target.name] = e.target.value
-    this.setState({ride: ride})
-  }
-
-  handleSubmitEditRideForm(e) {
-    e.preventDefault()
-    this.props.onAddClick(this.state.ride, this.state.start, this.state.destination);
-  }
-
-  onSuggestSelectStart(suggest) {
-    this.setState({
-      start: {
-        city: suggest.label,
-        lat: suggest.location.lat,
-        lng: suggest.location.lng
-      }
-    })
-  }
-
-  onSuggestSelectDestination(suggest) {
-    this.setState({
-      destination: {
-        city: suggest.label,
-        lat: suggest.location.lat,
-        lng: suggest.location.lng
-      }
-    })
-  }
-
+export default class RidesNewPageForm extends React.Component {
   render() {
-    var currencies = [<option value=''> -- select currency -- </option>]
-    var cars       = [<option value=''> -- select car -- </option>]
+    const {fields: {start_city, destination_city, places, start_date, car_id, price, currency}, handleSubmit, submitting} = this.props;
+    var currencies = [<option value='' key={'option'}> -- select currency -- </option>]
+    var cars       = [<option value='' key={'car'}> -- select car -- </option>]
     if (this.props.ridesOptions) {
       for (var i = 0; i < this.props.ridesOptions.currencies.length; i++) {
-        currencies.push(<option value={this.props.ridesOptions.currencies[i]}> {this.props.ridesOptions.currencies[i]} </option>);
+        currencies.push(<option value={this.props.ridesOptions.currencies[i]} key={'option-' + i}> {this.props.ridesOptions.currencies[i]} </option>);
       }
       for (var i = 0; i < this.props.ridesOptions.cars.length; i++) {
-        cars.push(<option value={this.props.ridesOptions.cars[i].id}> {this.props.ridesOptions.cars[i].name} </option>);
+        cars.push(<option value={this.props.ridesOptions.cars[i].id} key={'car-' + i}> {this.props.ridesOptions.cars[i].name} </option>);
       }
     }
 
     return (
-      <div>
-        <div className='account__title'>
-          Edit ride
+      <form onSubmit={handleSubmit}>
+        <div className={classNames('form-group', {'has-error': start_city.touched && start_city.error})}>
+          <label className="control-label">Start city</label>
+          <GeoSuggestWrapper field={start_city} placeholder="Start city"/>
+          {start_city.touched && start_city.error && <div className="form-error">{start_city.error}</div>}
         </div>
-        <form className='-form' onSubmit={this._handleSubmitEditRideForm}>
-          <FormTooltip label='Start city' required='true' />
-          <Geosuggest
-            onSuggestSelect={this.onSuggestSelectStart.bind(this)} ref='start_city' initialValue={this.state.start.city} />
 
-          <FormTooltip label='Destination city' required='true' />
-          <Geosuggest
-            onSuggestSelect={this.onSuggestSelectDestination.bind(this)} ref='destination_city' initialValue={this.state.destination.city} />
+        <div className={classNames('form-group', {'has-error': destination_city.touched && destination_city.error})}>
+          <label className="control-label">Destination city</label>
+          <GeoSuggestWrapper field={destination_city} placeholder="Destination city"/>
+          {destination_city.touched && destination_city.error && <div className="form-error">{destination_city.error}</div>}
+        </div>
 
-          <FormTooltip label='Seats' required='true' />
-          <Input type='text' name='places' placeholder='Seats' ref='places' value={this.state.ride.places} onChange={this.handleChange.bind(this)} />
+        <div className={classNames('form-group', {'has-error': places.touched && places.error})}>
+          <label className="control-label">Seats</label>
+          <input type="text" placeholder="Seats" className="form-control" {...places}/>
+          {places.touched && places.error && <div className="form-error">{places.error}</div>}
+        </div>
 
-          <FormTooltip label='Start date' required='true' />
-          <Input type='text' name='start_date' placeholder='Start date' ref='start_date' value={this.state.ride.start_date} onChange={this.handleChange.bind(this)} />
+        <div className={classNames('form-group', {'has-error': start_date.touched && start_date.error})}>
+          <label className="control-label">Start date</label>
+          <DatePicker
+            {...start_date}
+            dateFormat='YYYY/MM/DD'
+            selected={start_date.value ? moment(start_date.value) : null }
+            className='form-control'
+            placeholderText='Start date'
+            minDate={moment()} />
+          {start_date.touched && start_date.error && <div className="form-error">{start_date.error}</div>}
+        </div>
 
-          <FormTooltip label='Price' required='true' />
-          <Input type='text' name='price' placeholder='Price' ref='price' value={this.state.ride.price} onChange={this.handleChange.bind(this)} />
+        <div className={classNames('form-group', {'has-error': car_id.touched && car_id.error})}>
+          <label className="control-label">Color</label>
+          <select className="form-control" {...car_id} value={car_id.value || ''}> />
+            {_.map(cars, (n) => n)}
+          </select>
+          {car_id.touched && car_id.error && <div className="form-error">{car_id.error}</div>}
+        </div>
 
-          <FormTooltip label='Car' required='true' />
-          <Input type='select' ref='car_id' value={this.state.ride.car.id} onChange={this.handleChange.bind(this)}>
-            {cars}
-          </Input>
+        <div className={classNames('form-group', {'has-error': price.touched && price.error})}>
+          <label className="control-label">Price</label>
+          <input type="text" placeholder="Price" className="form-control" {...price}/>
+          {price.touched && price.error && <div className="form-error">{price.error}</div>}
+        </div>
 
-          <FormTooltip label='Currency' required='true' />
-          <Input type='select' ref='currency' value={this.state.ride.currency} onChange={this.handleChange.bind(this)}>
-            {currencies}
-          </Input>
+        <div className={classNames('form-group', {'has-error': currency.touched && currency.error})}>
+          <label className="control-label">Color</label>
+          <select className="form-control" {...currency} value={currency.value || ''}> />
+            {_.map(currencies, (n) => n)}
+          </select>
+          {currency.touched && currency.error && <div className="form-error">{currency.error}</div>}
+        </div>
 
-          <ButtonInput type='submit' value='Edit' />
-        </form>
-      </div>
+        <div>
+          <button type="submit" className="btn btn-default" disabled={submitting}>
+            {submitting ? <i/> : <i/>} Submit
+          </button>
+        </div>
+      </form>
     )
   }
 }
 
-RidesEditPageForm.propTypes = {
-  onAddClick: PropTypes.func.isRequired
+RidesNewPageForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired
 };
+
+RidesNewPageForm = reduxForm({
+  form: 'RidesNewPageForm',
+  fields: ['start_city', 'destination_city', 'places', 'start_date', 'car_id', 'price', 'currency'],
+  validate: RideValidator
+},
+state => ({ initialValues: state.ride.ride }),
+)(RidesNewPageForm);
+
+export default RidesNewPageForm;

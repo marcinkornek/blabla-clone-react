@@ -1,19 +1,13 @@
 import React, { PropTypes }  from 'react';
-import Router, { Link }      from 'react-router'
-import { Col }               from 'react-bootstrap'
+import { Col }             from 'react-bootstrap'
 import { connect }           from 'react-redux';
-import _                     from 'underscore';
 
 import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
-import RidesEditPageForm     from '../../components/rides/RidesEditPageForm'
+import RidesEditPageForm       from '../../components/rides/RidesEditPageForm'
 import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 export default class RidesEditPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-  }
-
   componentDidMount() {
     var rideId = this.props.params.rideId
     const { dispatch, session } = this.props;
@@ -23,44 +17,48 @@ export default class RidesEditPage extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { dispatch } = this.props;
-    if (nextProps.params.rideId !== this.props.params.rideId) {
-      dispatch(actions.fetchRide(nextProps.params.rideId, nextProps.session))
-    }
+  handleSubmit(data) {
+    var body = new FormData();
+    Object.keys(data).forEach((key) => {
+      if (key == 'destination_city' || key == 'start_city') {
+        body.append(key, data[key].label)
+        body.append(key + '_lat', data[key].location.lat)
+        body.append(key + '_lng', data[key].location.lng)
+      } else {
+        body.append(key, data[key])
+      }
+    });
+
+    this.props.dispatch(actions.createRide(body, this.props.session))
   }
 
   render() {
-    const { dispatch, ride, ridesOptions, session, isSaving, userRides } = this.props;
-
+    const { dispatch, session, ridesOptions } = this.props
     return (
       <div className='show-grid'>
-        <UserAccountMenu userRides={userRides} />
+        <UserAccountMenu/>
         <Col xs={10}>
           <RidesEditPageForm
-            ride={ride} isSaving={isSaving}
             ridesOptions={ridesOptions}
-            onAddClick={(ride, ride_start, ride_destination) =>
-              dispatch(actions.updateRide(ride, ride_start, ride_destination, session))
-            } />
+            onSubmit={this.handleSubmit.bind(this)} />
         </Col>
       </div>
     )
   }
 }
 
-RidesEditPage.PropTypes = {
-  ride: PropTypes.array.isRequired
-}
+RidesEditPage.propTypes = {
+  dispatch: PropTypes.func.isRequired
+};
+
+RidesEditPage.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 function select(state) {
   return {
-    isSaving:      state.ride.isSaving,
-    currentUserId: state.session.user.id,
-    userRides:     state.user.user.rides,
-    ride:          state.ride.ride,
-    ridesOptions:  state.ridesOptions.ridesOptions,
-    session:       state.session.user
+    session:      state.session.user,
+    ridesOptions: state.ridesOptions.ridesOptions
   };
 }
 
