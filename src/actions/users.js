@@ -60,24 +60,15 @@ export function fetchUserProfile(userId) {
   };
 }
 
-export function createUser(user) {
+export function createUser(body) {
   return dispatch => {
     dispatch(userCreateRequest());
     return fetch(cons.APIEndpoints.USERS, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        'first_name': user["first_name"],
-        'last_name':  user["last_name"],
-        'email':      user["email"],
-        'tel_num':    user["tel_num"],
-        'birth_year': user["birth_year"],
-        'password':   user["password"],
-        'password_confirmation': user["passwordConfirmation"]
-      })
+      body: body
     })
     .then(status)
     .then(req => req.json())
