@@ -49,6 +49,10 @@ RidesNewPage.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
+RidesNewPage.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
+
 function select(state) {
   return {
     session:      state.session.user,

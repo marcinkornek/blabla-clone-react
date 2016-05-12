@@ -9,19 +9,15 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function logInEmailBackend(router, session) {
+export function logInEmailBackend(router, body) {
   return dispatch => {
     dispatch(loginRequest());
     return fetch(cons.APIEndpoints.LOGIN_EMAIL, {
     	method: 'post',
     	headers: {
     		'Accept': 'application/vnd.blabla-clone-v1+json',
-    		'Content-Type': 'application/json'
     	},
-		  body: JSON.stringify({
-		  	'email':    session["email"],
-		  	'password': session["password"]
-		  })
+		  body: body
     })
     .then(response => response.text().then(text => ({ text, response })))
     .then(({ text, response }) => {

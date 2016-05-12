@@ -1,6 +1,9 @@
 import React, { PropTypes }   from 'react'
-import { FormControl, FormGroup, ControlLabel, Button } from 'react-bootstrap'
+import { reduxForm }          from 'redux-form'
+import classNames             from 'classnames'
+import LoginValidator         from './LoginValidator'
 import styles                 from '../../stylesheets/session/Login'
+import formsStyles            from '../../stylesheets/shared/Forms'
 
 export default class LoginEmailPage extends React.Component {
   constructor (props, context) {
@@ -12,19 +15,28 @@ export default class LoginEmailPage extends React.Component {
   }
 
   render() {
+    const {fields: {email, password}, handleSubmit, submitting} = this.props;
+
     if (this.state.showLoginForm) {
       var LoginForm =
-        <form className='login-email-form' onSubmit={this.handleSubmitLoginForm.bind(this)}>
-          <FormGroup controlId="formControlsText">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl type='text' label='Email' placeholder='Email' ref='email' />
-          </FormGroup>
-          <FormGroup controlId="formControlsPassword">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl type='password' label='Password' placeholder='Password' ref='password' />
-          </FormGroup>
+        <form onSubmit={handleSubmit} className='login-email-form'>
+          <div className={classNames('form-group', {'has-error': email.touched && email.error})}>
+            <label className="control-label">Email</label>
+            <input type="text" placeholder="Email" className="form-control" {...email}/>
+            {email.touched && email.error && <div className="form-error">{email.error}</div>}
+          </div>
 
-          <Button type='submit'>Login</Button>
+          <div className={classNames('form-group', {'has-error': password.touched && password.error})}>
+            <label className="control-label">Password</label>
+            <input type="password" placeholder="Password" className="form-control" {...password}/>
+            {password.touched && password.error && <div className="form-error">{password.error}</div>}
+          </div>
+
+          <div>
+            <button type="submit" className="btn btn-default" disabled={submitting}>
+              {submitting ? <i/> : <i/>} Submit
+            </button>
+          </div>
         </form>
     }
 
@@ -44,16 +56,16 @@ export default class LoginEmailPage extends React.Component {
       this.setState({showLoginForm: false})
     }
   }
-
-  handleSubmitLoginForm(e) {
-    e.preventDefault()
-    const email    = this.refs.email.getValue()
-    const password = this.refs.password.getValue()
-
-    this.props.onAddClick({email: email, password: password});
-  }
 }
 
 LoginEmailPage.propTypes = {
-  onAddClick: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired
 };
+
+LoginEmailPage = reduxForm({
+  form: 'LoginEmailPage',
+  fields: ['email', 'password'],
+  validate: LoginValidator
+})(LoginEmailPage);
+
+export default LoginEmailPage;

@@ -9,8 +9,13 @@ import styles                from "../../stylesheets/session/Login"
 import * as actions          from "../../actions/session";
 
 export default class LoginPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+  handleSubmit(data) {
+    var body = new FormData();
+    Object.keys(data).forEach((key) => {
+      body.append(key, data[key])
+    });
+
+    this.props.dispatch(actions.logInEmailBackend(this.context.router, body))
   }
 
   render() {
@@ -44,10 +49,8 @@ export default class LoginPage extends React.Component {
                 } />
               <div className="login-button__separator">or</div>
               <LoginEmailPage
-                errors = {errors}
-                onAddClick={text =>
-                  dispatch(actions.logInEmailBackend(this.context.router, text))
-                } />
+                errors={errors}
+                onSubmit={this.handleSubmit.bind(this)} />
             </div>
             <div className="register-form">
               <h3 className="login-form__title">Register</h3>
