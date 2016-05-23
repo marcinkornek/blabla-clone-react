@@ -18,7 +18,24 @@ export default class RidesIndexPage extends React.Component {
   componentDidMount() {
     const { dispatch, session, currentUserId } = this.props;
     let { query } = this.props.location
+    console.log('location query', query);
     var page = query.page || 1
+    dispatch(actions.fetchRides(this.context.router, session, page, per, query))
+  }
+
+  handleSubmit(data) {
+    var query = {}
+    Object.keys(data).forEach((key) => {
+      if (data[key] != undefined) {
+        if (key == 'start_date') {
+          _.merge(query, { [key]: data[key] })
+        } else {
+          _.merge(query, { [key]: data[key].label })
+        }
+      }
+    });
+    const { dispatch, session } = this.props;
+    var page = 1
     dispatch(actions.fetchRides(this.context.router, session, page, per, query))
   }
 
@@ -77,9 +94,7 @@ export default class RidesIndexPage extends React.Component {
     ridesMain =
       <Col xs={10}>
         <RidesSearchItem query={query}
-          onAddClick={(searchCities) =>
-            dispatch(actions.fetchRides(this.context.router, session, 1, per, searchCities))
-          } />
+          onSubmit={this.handleSubmit.bind(this)} />
         <div className='heading'>
           <div className='heading__title'>{pagination.total_count} Rides</div>
           {headingButton}

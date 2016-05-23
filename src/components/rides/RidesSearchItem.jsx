@@ -1,5 +1,6 @@
 import React, { PropTypes }   from 'react'
-import { Button }             from 'react-bootstrap'
+import { reduxForm }          from 'redux-form'
+import classNames             from 'classnames'
 import Geosuggest             from 'react-geosuggest'
 import DatePicker             from 'react-datepicker'
 import moment                 from 'moment'
@@ -8,84 +9,50 @@ import styles                 from '../../stylesheets/rides/Rides'
 import formsStyles            from '../../stylesheets/shared/Forms'
 import datepickerStyles       from 'react-datepicker/dist/react-datepicker.css'
 
+const GeoSuggestWrapper = ({ field, placeholder, initialValue }) => (
+  <Geosuggest inputClassName='form-control' placeholder={placeholder} onSuggestSelect={field.onChange} initialValue={field.value.label}/>
+);
+
 export default class RidesSearchItem extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-
-    this.state = {
-      startDate: moment(this.props.query.date, "DD-MM-YYYY"),
-      start: {
-        city: undefined,
-        lat: undefined,
-        lng: undefined
-      },
-      destination: {
-        city: undefined,
-        lat: undefined,
-        lng: undefined
-      }
-    }
-  }
-
-  handleChange (date) {
-    this.setState({
-      startDate: date
-    })
-  }
-
-  onSuggestSelectStart(suggest) {
-    this.setState({
-      start: {
-        city: suggest.label,
-        lat: suggest.location.lat,
-        lng: suggest.location.lng
-      }
-    })
-  }
-
-  onSuggestSelectDestination(suggest) {
-    this.setState({
-      destination: {
-        city: suggest.label,
-        lat: suggest.location.lat,
-        lng: suggest.location.lng
-      }
-    })
-  }
-
   render() {
     const { query } = this.props;
+    const {fields: {start_city, destination_city, start_date}, handleSubmit, submitting} = this.props;
+
     return (
-      <form className='cities-search-form' onSubmit={this.handleSubmitForm.bind(this)}>
+      <form onSubmit={handleSubmit} className='rides-search'>
+        <div className='form-group'>
+          <GeoSuggestWrapper field={start_city} placeholder="Start city" initialValue={query.start_city}/>
+        </div>
 
-        <Geosuggest
-          onSuggestSelect={this.onSuggestSelectStart.bind(this)} ref='start_city' initialValue={query.start_city}/>
+        <div className='form-group'>
+          <GeoSuggestWrapper field={destination_city} placeholder="Destination city" initialValue={query.destination_city}/>
+        </div>
 
-        <Geosuggest
-          onSuggestSelect={this.onSuggestSelectDestination.bind(this)} ref='destination_city' initialValue={query.destination_city}/>
+        <div className='form-group'>
+          <DatePicker
+            {...start_date}
+            dateFormat='YYYY/MM/DD'
+            selected={start_date.value ? moment(start_date.value, 'YYYY/MM/DD') : null }
+            className='form-control '
+            placeholderText='Start date'
+            minDate={moment()} />
+        </div>
 
-        <DatePicker
-          ref='date'
-          selected={this.state.startDate}
-          onChange={this.handleChange.bind(this)}
-          dateFormat={'DD/MM/YYYY'}
-          className='form-control form-datepicker'
-          placeholderText='Date'
-          minDate={moment()} />
-
-        <Button type='submit' className='form-search'>Search</Button>
+        <button type="submit" className="btn btn-default" disabled={submitting}>
+          {submitting ? <i/> : <i/>} Submit
+        </button>
       </form>
     )
-
-  }
-
-  handleSubmitForm(e) {
-    e.preventDefault()
-    var searchCities = {
-      start_city:       this.refs.start_city.state.userInput,
-      destination_city: this.refs.destination_city.state.userInput,
-      date:             this.refs.date.refs.input.state.value
-    }
-    this.props.onAddClick(searchCities);
   }
 }
+
+RidesSearchItem.propTypes = {
+  handleSubmit: PropTypes.func.isRequired
+};
+
+RidesSearchItem = reduxForm({
+  form: 'RidesSearchItem',
+  fields: ['start_city', 'destination_city', 'start_date'],
+})(RidesSearchItem);
+
+export default RidesSearchItem;

@@ -16,7 +16,7 @@ export function fetchRides(router, session, page = 1, per = 10, options = {}) {
     if (options) {
       if (options.start_city) { rideOptions = '&start_city=' + options.start_city }
       if (options.destination_city) { rideOptions += '&destination_city=' + options.destination_city }
-      if (options.date) { rideOptions += '&date=' + options.date }
+      if (options.start_date) { rideOptions += '&start_date=' + options.start_date }
     }
     return fetch(cons.APIEndpoints.RIDES + '?page=' + page + '&per=' + per + rideOptions, {
       method: 'get',
@@ -172,7 +172,7 @@ export function ridesSuccess(router, json, options) {
     if (options) {
       if (options.start_city) { query += '&start_city=' + options.start_city }
       if (options.destination_city) { query += '&destination_city=' + options.destination_city }
-      if (options.date) { query += '&date=' + options.date }
+      if (options.start_date) { query += '&start_date=' + options.start_date }
     }
     router.replace('/rides' + query)
     dispatch({
