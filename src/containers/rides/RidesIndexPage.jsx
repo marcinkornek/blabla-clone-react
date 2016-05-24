@@ -18,8 +18,9 @@ export default class RidesIndexPage extends React.Component {
   componentDidMount() {
     const { dispatch, session, currentUserId } = this.props;
     let { query } = this.props.location
-    console.log('location query', query);
+
     var page = query.page || 1
+    dispatch(actions.loadSearchFormData(query))
     dispatch(actions.fetchRides(this.context.router, session, page, per, query))
   }
 

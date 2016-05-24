@@ -11,6 +11,7 @@ import car                 from './car';
 import rides               from './rides';
 import ride                from './ride';
 import ridesOptions        from './ridesOptions';
+import ridesSearch         from './ridesSearch';
 import ridesDriver         from './ridesDriver';
 import ridesPassenger      from './ridesPassenger';
 
@@ -24,6 +25,7 @@ const rootReducer = storage.reducer(combineReducers({
   rides,
   ride,
   ridesOptions,
+  ridesSearch,
   ridesDriver,
   ridesPassenger,
   routing: routerReducer,

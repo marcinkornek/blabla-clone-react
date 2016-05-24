@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import * as storage     from 'redux-storage'
+import * as types       from '../constants/ActionTypes'
 import createEngine     from 'redux-storage-engine-localstorage';
 import thunk            from 'redux-thunk'
 import createLogger     from 'redux-logger'
@@ -8,7 +9,7 @@ import DevTools         from '../containers/DevTools'
 import { routerMiddleware, push } from 'react-router-redux'
 
 const engine = createEngine('my-save-key');
-const sMiddleware = storage.createMiddleware(engine);
+const sMiddleware = storage.createMiddleware(engine, [types.RIDES_SEARCH_FORM]);
 
 export default function configureStore(history, initialState) {
   const rMiddleware = routerMiddleware(history)

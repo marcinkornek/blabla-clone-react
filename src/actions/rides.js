@@ -184,6 +184,13 @@ export function ridesSuccess(router, json, options) {
   };
 }
 
+export function loadSearchFormData(data) {
+  return {
+    type: types.RIDES_SEARCH_FORM,
+    data: data
+  }
+}
+
 export function ridesFailure(errors) {
   return {
     type: types.RIDES_FAILURE,

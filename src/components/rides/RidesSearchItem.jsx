@@ -9,23 +9,22 @@ import styles                 from '../../stylesheets/rides/Rides'
 import formsStyles            from '../../stylesheets/shared/Forms'
 import datepickerStyles       from 'react-datepicker/dist/react-datepicker.css'
 
-const GeoSuggestWrapper = ({ field, placeholder, initialValue }) => (
-  <Geosuggest inputClassName='form-control' placeholder={placeholder} onSuggestSelect={field.onChange} initialValue={field.value.label}/>
+const GeoSuggestWrapper = ({ field, placeholder }) => (
+  <Geosuggest inputClassName='form-control' placeholder={placeholder} onSuggestSelect={field.onChange} {...field}/>
 );
 
 export default class RidesSearchItem extends React.Component {
   render() {
-    const { query } = this.props;
     const {fields: {start_city, destination_city, start_date}, handleSubmit, submitting} = this.props;
 
     return (
       <form onSubmit={handleSubmit} className='rides-search'>
         <div className='form-group'>
-          <GeoSuggestWrapper field={start_city} placeholder="Start city" initialValue={query.start_city}/>
+          <GeoSuggestWrapper field={start_city} placeholder="Start city"/>
         </div>
 
         <div className='form-group'>
-          <GeoSuggestWrapper field={destination_city} placeholder="Destination city" initialValue={query.destination_city}/>
+          <GeoSuggestWrapper field={destination_city} placeholder="Destination city"/>
         </div>
 
         <div className='form-group'>
@@ -53,6 +52,8 @@ RidesSearchItem.propTypes = {
 RidesSearchItem = reduxForm({
   form: 'RidesSearchItem',
   fields: ['start_city', 'destination_city', 'start_date'],
-})(RidesSearchItem);
+},
+  state => ({ initialValues: state.ridesSearch.data }),
+)(RidesSearchItem);
 
 export default RidesSearchItem;
