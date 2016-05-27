@@ -92,6 +92,7 @@ export function loginSuccess(router, json) {
       access_token: json['access_token']
     });
     router.replace('/')
+    saveToLocalStorage(json)
   };
 }
 
@@ -120,4 +121,9 @@ export function logoutFailure(errors) {
     type: types.LOGOUT_FAILURE,
     errors: errors
   }
+}
+
+function saveToLocalStorage(json) {
+  localStorage.setItem('email', json.email)
+  localStorage.setItem('access_token', json.access_token)
 }
