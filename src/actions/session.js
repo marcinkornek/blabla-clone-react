@@ -9,6 +9,25 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
+export function loginFromCookie(data) {
+  return dispatch => {
+    dispatch(loginRequest());
+    return fetch(cons.APIEndpoints.SESSIONS + '/get_user', {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json',
+        'X-User-Email': data['email'],
+        'X-User-Token': data['access_token']
+      }
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(loginSuccess(json)))
+    .catch(errors => dispatch(loginFailure(errors)))
+  };
+}
+
 export function logInEmailBackend(router, body) {
   return dispatch => {
     dispatch(loginRequest());
@@ -22,7 +41,7 @@ export function logInEmailBackend(router, body) {
     .then(response => response.text().then(text => ({ text, response })))
     .then(({ text, response }) => {
       if (response.ok) {
-        dispatch(loginSuccess(router, JSON.parse(text)))
+        dispatch(loginSuccessWithRedirect(router, JSON.parse(text)))
       } else {
         return Promise.reject(text)
       }
@@ -49,7 +68,7 @@ export function logInFbBackend(router, fbResponse) {
       })
     })
     .then(req => req.json())
-    .then(json => dispatch(loginSuccess(router, json)))
+    .then(json => dispatch(loginSuccessWithRedirect(router, json)))
     .catch(errors => dispatch(loginFailure(errors)))
   };
 }
@@ -82,7 +101,7 @@ export function loginRequest() {
   }
 }
 
-export function loginSuccess(router, json) {
+export function loginSuccess(json) {
   return (dispatch, getState) => {
     dispatch({
       type: types.LOGIN_SUCCESS,
@@ -91,8 +110,14 @@ export function loginSuccess(router, json) {
       role:         json['role'],
       access_token: json['access_token']
     });
-    router.replace('/')
     saveToLocalStorage(json)
+  };
+}
+
+export function loginSuccessWithRedirect(router, json) {
+  return (dispatch, getState) => {
+    dispatch(loginSuccess(json));
+    router.replace('/')
   };
 }
 
