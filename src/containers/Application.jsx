@@ -11,7 +11,7 @@ export default class Application extends React.Component {
         <Header
           currentUser={currentUser}
           onLogout={text =>
-            dispatch(actions.logout(currentUser))
+            dispatch(actions.logout(this.context.router, currentUser))
           } />
         <div id='main' className='container'>
           {children}
@@ -20,6 +20,10 @@ export default class Application extends React.Component {
     )
   }
 }
+
+Application.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 function select(state) {
   return {

@@ -73,7 +73,7 @@ export function logInFbBackend(router, fbResponse) {
   };
 }
 
-export function logout(session) {
+export function logout(router, session) {
   return dispatch => {
     dispatch(logoutRequest());
     return fetch(cons.APIEndpoints.SESSIONS, {
@@ -90,7 +90,7 @@ export function logout(session) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(logoutSuccess(json)))
+    .then(json => dispatch(logoutSuccess(router, json)))
     .catch(errors => dispatch(logoutFailure(errors)))
   };
 }
@@ -134,11 +134,14 @@ export function logoutRequest() {
   }
 }
 
-export function logoutSuccess(json) {
-  localStorage.clear()
-  return {
-    type: types.LOGOUT_SUCCESS,
-  }
+export function logoutSuccess(router, json) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.LOGOUT_SUCCESS,
+    });
+    localStorage.clear()
+    router.replace('/')
+  };
 }
 
 export function logoutFailure(errors) {
