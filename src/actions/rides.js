@@ -108,7 +108,7 @@ export function fetchRidesOptions(session) {
   };
 }
 
-export function createRide(body, session) {
+export function createRide(router, body, session) {
   return dispatch => {
     dispatch(rideCreateRequest());
     return fetch(cons.APIEndpoints.RIDES, {
@@ -122,40 +122,29 @@ export function createRide(body, session) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(rideCreateSuccess(json)))
+    .then(json => dispatch(rideCreateSuccessWithRedirect(router, json)))
     .catch(errors => dispatch(rideCreateFailure(errors)))
   };
 }
 
-export function updateRide(ride, ride_start, ride_destination, session) {
+export function updateRide(router, body, session, ride_id) {
   return dispatch => {
+    console.log('body', body);
+    console.log('session', session);
+    console.log('ride_id', ride_id);
     dispatch(rideUpdateRequest());
-    return fetch(cons.APIEndpoints.RIDES + '/' + ride.id, {
+    return fetch(cons.APIEndpoints.RIDES + '/' + ride_id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json',
         'X-User-Email': session['email'],
         'X-User-Token': session['access_token']
       },
-      body: JSON.stringify({
-        'id':                   ride['id'],
-        'start_city':           ride_start["city"],
-        'start_city_lat':       ride_start["lat"],
-        'start_city_lng':       ride_start["lng"],
-        'destination_city':     ride_destination["city"],
-        'destination_city_lat': ride_destination["lat"],
-        'destination_city_lng': ride_destination["lng"],
-        'places':                ride["places"],
-        'start_date':           ride["start_date"],
-        'car_id':               ride['car']["id"],
-        'price':                ride["price"],
-        'currency':             ride["currency"],
-      })
+      body: body
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(rideUpdateSuccess(json)))
+    .then(json => dispatch(rideUpdateSuccessWithRedirect(router, json)))
     .catch(errors => dispatch(rideUpdateFailure(errors)))
   };
 }
@@ -224,6 +213,13 @@ export function rideCreateRequest() {
   };
 }
 
+export function rideCreateSuccessWithRedirect(router, json) {
+  return (dispatch, getState) => {
+    dispatch(rideCreateSuccess(json));
+    router.replace('/account/rides_as_driver')
+  };
+}
+
 export function rideCreateSuccess(json) {
   return {
     type: types.RIDE_CREATE_SUCCESS,
@@ -241,6 +237,13 @@ export function rideCreateFailure(errors) {
 export function rideUpdateRequest() {
   return {
     type: types.RIDE_UPDATE_REQUEST,
+  };
+}
+
+export function rideUpdateSuccessWithRedirect(router, json) {
+  return (dispatch, getState) => {
+    dispatch(rideUpdateSuccess(json));
+    router.replace('/account/rides_as_driver')
   };
 }
 

@@ -27,7 +27,7 @@ export default class RidesNewPage extends React.Component {
       }
     });
 
-    this.props.dispatch(actions.createRide(body, this.props.session))
+    this.props.dispatch(actions.createRide(this.context.router, body, this.props.session))
   }
 
   render() {

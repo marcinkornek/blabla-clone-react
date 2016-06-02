@@ -60,7 +60,7 @@ export default class RidesNewPageForm extends React.Component {
         </div>
 
         <div className={classNames('form-group', {'has-error': car_id.touched && car_id.error})}>
-          <label className="control-label">Color</label>
+          <label className="control-label">Car</label>
           <select className="form-control" {...car_id} value={car_id.value || ''}> />
             {_.map(cars, (n) => n)}
           </select>
@@ -74,7 +74,7 @@ export default class RidesNewPageForm extends React.Component {
         </div>
 
         <div className={classNames('form-group', {'has-error': currency.touched && currency.error})}>
-          <label className="control-label">Color</label>
+          <label className="control-label">Currency</label>
           <select className="form-control" {...currency} value={currency.value || ''}> />
             {_.map(currencies, (n) => n)}
           </select>

@@ -18,22 +18,26 @@ export default class RidesEditPage extends React.Component {
   }
 
   handleSubmit(data) {
+    const { dispatch, session, ride } = this.props
+
     var body = new FormData();
     Object.keys(data).forEach((key) => {
       if (key == 'destination_city' || key == 'start_city') {
         body.append(key, data[key].label)
-        body.append(key + '_lat', data[key].location.lat)
-        body.append(key + '_lng', data[key].location.lng)
+        if (data[key].location) {
+          body.append(key + '_lat', data[key].location.lat)
+          body.append(key + '_lng', data[key].location.lng)
+        }
       } else {
         body.append(key, data[key])
       }
     });
 
-    this.props.dispatch(actions.createRide(body, this.props.session))
+    dispatch(actions.updateRide(this.context.router, body, session, ride.id))
   }
 
   render() {
-    const { dispatch, session, ridesOptions } = this.props
+    const { dispatch, session, ridesOptions, ride } = this.props
     return (
       <div className='show-grid'>
         <UserAccountMenu/>
@@ -57,6 +61,7 @@ RidesEditPage.contextTypes = {
 
 function select(state) {
   return {
+    ride:         state.ride.ride,
     session:      state.session.user,
     ridesOptions: state.ridesOptions.ridesOptions
   };
