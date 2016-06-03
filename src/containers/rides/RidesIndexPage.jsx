@@ -53,12 +53,12 @@ export default class RidesIndexPage extends React.Component {
           Fetching..
         </div>
     } else {
-      if (rides) {
+      if (_.isEmpty(rides)) {
+        ridesList = 'No rides'
+      } else {
         ridesList = rides.map((ride, i) =>
           <RidesItem ride={ride} key={i} />
         )
-      } else {
-        ridesList = 'No rides'
       }
     }
 
