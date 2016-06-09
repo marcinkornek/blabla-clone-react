@@ -1,21 +1,34 @@
 import React, { PropTypes }  from 'react'
-import { Link }              from 'react-router';
-import { Checkbox }             from 'react-bootstrap'
-import Timestamp             from 'react-time'
-import Icon                  from 'react-fa'
-import pluralize             from 'pluralize'
+import { reduxForm }         from 'redux-form'
 
 import styles                from '../../stylesheets/rides/Rides'
 
 export default class RidesFilterItem extends React.Component {
   render() {
-    const { query, filters } = this.props;
+    const {fields: {hide_full}, handleSubmit, submitting, filters} = this.props;
     return (
-      <form className='cities-filter-form'>
-        <Checkbox checked readOnly name='hide_full' ref='hide_full'>
+      <form onSubmit={handleSubmit} className='cities-filter-form'>
+        <label>
+          <input type="checkbox" {...hide_full} checked={hide_full.value}/>
           hide rides without empty places ({filters.full_rides})
-        </Checkbox>
+        </label>
+        <button type="submit" className="btn btn-default" disabled={submitting}>
+          {submitting ? <i/> : <i/>} Filter
+        </button>
       </form>
     )
   }
 }
+
+RidesFilterItem.propTypes = {
+  handleSubmit: PropTypes.func.isRequired
+};
+
+RidesFilterItem = reduxForm({
+  form: 'RidesFilterItem',
+  fields: ['hide_full'],
+},
+  state => ({ initialValues: state.ridesSearch.data }),
+)(RidesFilterItem);
+
+export default RidesFilterItem;

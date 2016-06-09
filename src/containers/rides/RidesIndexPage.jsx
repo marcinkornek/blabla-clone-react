@@ -18,8 +18,8 @@ export default class RidesIndexPage extends React.Component {
   componentDidMount() {
     const { dispatch, session, currentUserId } = this.props;
     let { query } = this.props.location
-
     var page = query.page || 1
+    query.hide_full = query.hide_full || false
     dispatch(actions.loadSearchFormData(query))
     dispatch(actions.fetchRides(this.context.router, session, page, per, query))
   }
@@ -28,16 +28,19 @@ export default class RidesIndexPage extends React.Component {
     var query = {}
     Object.keys(data).forEach((key) => {
       if (data[key] != undefined) {
-        if (key == 'start_date') {
-          _.merge(query, { [key]: data[key] })
+        if (key == 'start_city' || key == 'destination_city') {
+          _.merge(query, { [key]: data[key].label || data[key] })
         } else {
-          _.merge(query, { [key]: data[key].label })
+          _.merge(query, { [key]: data[key] })
         }
       }
     });
     const { dispatch, session } = this.props;
+    var query_from_location = this.props.location.query
     var page = 1
-    dispatch(actions.fetchRides(this.context.router, session, page, per, query))
+    var extended = _.extend(query_from_location, query)
+    dispatch(actions.loadSearchFormData(extended))
+    dispatch(actions.fetchRides(this.context.router, session, page, per, extended))
   }
 
   render() {
@@ -72,9 +75,7 @@ export default class RidesIndexPage extends React.Component {
     ridesFilter =
       <Col xs={2}>
         <RidesFilterItem query={query} filters={filters}
-          onAddClick={(filterCities) =>
-            dispatch(actions.fetchRides(this.context.router, session, 1, per, filterCities))
-          } />
+          onSubmit={this.handleSubmit.bind(this)} />
       </Col>
 
     if (pagination.total_pages > 1) {
