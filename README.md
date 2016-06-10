@@ -1,10 +1,19 @@
-## Blablacar clone application using React + Alt + Rails API
+## Frontend for Blablacar clone application using React + Redux + [*Rails API*](github.com/marcinkornek/blabla-clone-api)
 
-### Description
-Application which uses React + Flux + Rails API.
+#### Description
+Application which uses React + Redux + [*Rails API*](github.com/marcinkornek/blabla-clone-api).
 
-### Usage
+## Setup
+Install packages:
 ```
 $ npm install
-$ npm run watch
 ```
+
+## Usage
+Run server:
+```
+$ npm run start-dev
+```
+
+## Heroku
+[*blabla-clone-react*](blabla-clone-react.herokuapp.com)
