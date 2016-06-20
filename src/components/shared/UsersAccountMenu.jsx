@@ -15,7 +15,7 @@ export default class UsersAccountMenu extends React.Component {
     } else {
       carsEditLinks = this.props.userCars.map((car, i) =>
         <div>
-          <Link to={`/account/cars/${car.id}/edit`} className='account-menu__subitem'>{car.full_name}</Link>
+          <Link to={`/account/cars/${car.id}/edit`} key="car-#{i}" className='account-menu__subitem'>{car.full_name}</Link>
         </div>
       )
     }
