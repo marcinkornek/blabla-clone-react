@@ -8,6 +8,8 @@ var data = {}
 export default class LoginFbPage extends React.Component {
   constructor (props, context) {
     super(props, context)
+    this.statusChangeCallback = this.statusChangeCallback.bind(this)
+    this.loginWithFacebook = this.loginWithFacebook.bind(this)
   }
 
   componentDidMount() {
@@ -77,7 +79,7 @@ export default class LoginFbPage extends React.Component {
   render() {
     return (
       <div>
-        <button className='btn btn-primary login-button' onClick={this.loginWithFacebook.bind(this)}>Login with facebook</button>
+        <button className='btn btn-primary login-button' onClick={this.loginWithFacebook}>Login with facebook</button>
       </div>
     )
   }
