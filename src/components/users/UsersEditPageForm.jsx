@@ -7,6 +7,13 @@ import styles                 from '../../stylesheets/users/Users'
 import formsStyles            from '../../stylesheets/shared/Forms'
 
 export default class UsersEditPageForm extends React.Component {
+  constructor (props, context) {
+    super(props, context)
+    this.state = {
+      file: undefined
+    }
+  }
+
   render() {
     const {fields: {first_name, last_name, email, tel_num, birth_year, avatar}, handleSubmit, submitting} = this.props;
     return (
@@ -16,35 +23,50 @@ export default class UsersEditPageForm extends React.Component {
           <input type="text" placeholder="First Name" className="form-control" {...first_name}/>
           {first_name.touched && first_name.error && <div className="form-error">{first_name.error}</div>}
         </div>
+
         <div className={classNames('form-group', {'has-error': last_name.touched && last_name.error})}>
           <label className="control-label">Last Name</label>
           <input type="text" placeholder="Last Name" className="form-control" {...last_name}/>
           {last_name.touched && last_name.error && <div className="form-error">{last_name.error}</div>}
         </div>
+
         <div className={classNames('form-group', {'has-error': email.touched && email.error})}>
           <label className="control-label">Email</label>
           <input type="email" placeholder="Email" className="form-control" {...email}/>
           {email.touched && email.error && <div className="form-error">{email.error}</div>}
         </div>
+
         <div className={classNames('form-group', {'has-error': tel_num.touched && tel_num.error})}>
           <label className="control-label">Tel num</label>
           <input type="tel_num" placeholder="Tel num" className="form-control" {...tel_num}/>
           {tel_num.touched && tel_num.error && <div className="form-error">{tel_num.error}</div>}
         </div>
+
         <div className={classNames('form-group', {'has-error': birth_year.touched && birth_year.error})}>
           <label className="control-label">Birth year</label>
           <input type="birth_year" placeholder="Birth year" className="form-control" {...birth_year}/>
           {birth_year.touched && birth_year.error && <div className="form-error">{birth_year.error}</div>}
         </div>
+
         <div>
           <label>Avatar</label>
+          <img className='user-image__preview' src={this.props.fields.avatar.initialValue} />
           <Dropzone
             { ...avatar } className='form-dropzone'
-            onDrop={ ( filesToUpload, e ) => avatar.onChange(filesToUpload) }
+            onDrop={ ( file, e ) => {
+              this.setState({file: file[0]})
+              avatar.onChange(file)
+            }}
           >
             <div>Try dropping some files here, or click to select files to upload.</div>
           </Dropzone>
+
+          {this.state.file ? <div>
+          <div>Preview...</div>
+          <img className='user-image__preview' src={this.state.file.preview} />
+          </div> : null}
         </div>
+
         <div>
           <button type="submit" className="btn btn-default" disabled={submitting}>
             {submitting ? <i/> : <i/>} Submit
