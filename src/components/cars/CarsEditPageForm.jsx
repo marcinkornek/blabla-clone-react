@@ -3,10 +3,17 @@ import { reduxForm }          from 'redux-form'
 import classNames             from 'classnames'
 import Dropzone               from 'react-dropzone';
 import CarValidator           from './CarValidator'
-import styles                 from '../../stylesheets/users/Users'
+import styles                 from '../../stylesheets/cars/Cars'
 import formsStyles            from '../../stylesheets/shared/Forms'
 
 export default class CarsEditPageForm extends React.Component {
+  constructor (props, context) {
+    super(props, context)
+    this.state = {
+      file: undefined
+    }
+  }
+
   render() {
     const {fields: {brand, model, places, production_year, color, comfort, category, car_photo}, handleSubmit, submitting} = this.props;
     var colors = [<option value='' key={'color'}> -- select color -- </option>]
@@ -25,7 +32,7 @@ export default class CarsEditPageForm extends React.Component {
     }
 
     return (
-      <form className='car-new-form' onSubmit={handleSubmit}>
+      <form className='car-edit-form' onSubmit={handleSubmit}>
         <div className={classNames('form-group', {'has-error': brand.touched && brand.error})}>
           <label className="control-label">Brand</label>
           <input type="text" placeholder="Brand" className="form-control" {...brand}/>
@@ -58,7 +65,6 @@ export default class CarsEditPageForm extends React.Component {
           {color.touched && color.error && <div className="form-error">{color.error}</div>}
         </div>
 
-
         <div className={classNames('form-group', {'has-error': comfort.touched && comfort.error})}>
           <label className="control-label">Comfort</label>
           <select className="form-control" {...comfort} value={comfort.value || ''}> />
@@ -77,12 +83,21 @@ export default class CarsEditPageForm extends React.Component {
 
         <div>
           <label>Car photo</label>
+          <img className='car-image__preview' src={this.props.fields.car_photo.initialValue} />
           <Dropzone
             { ...car_photo } className='form-dropzone'
-            onDrop={ ( filesToUpload, e ) => car_photo.onChange(filesToUpload) }
+            onDrop={ ( file, e ) => {
+              this.setState({file: file[0]})
+              car_photo.onChange(file)
+            }}
           >
             <div>Try dropping some files here, or click to select files to upload.</div>
           </Dropzone>
+
+          {this.state.file ? <div>
+          <div>Preview...</div>
+          <img className='car-image__preview' src={this.state.file.preview} />
+          </div> : null}
         </div>
         <div>
           <button type="submit" className="btn btn-default" disabled={submitting}>
