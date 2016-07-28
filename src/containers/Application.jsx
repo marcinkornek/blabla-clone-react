@@ -1,15 +1,23 @@
 import React, { PropTypes }  from 'react'
 import { connect }           from 'react-redux';
-import Header                from '../components/Header'
+import HeaderNew             from '../components/HeaderNew'
 import * as actions          from '../actions/session';
+import injectTapEventPlugin  from 'react-tap-event-plugin';
+import Dimensions            from 'react-dimensions'
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
 export default class Application extends React.Component {
   render () {
+
     const { dispatch, session, currentUser, children } = this.props
     return (
       <div>
-        <Header
+        <HeaderNew
           currentUser={currentUser}
+          containerWidth={this.props.containerWidth}
           onLogout={text =>
             dispatch(actions.logout(this.context.router, currentUser))
           } />
@@ -32,4 +40,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(Application);
+export default Dimensions()(connect(select)(Application));

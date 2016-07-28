@@ -10,3 +10,9 @@ a {
     text-decoration: none;
   }
 }
+
+#main {
+  @media (min-width: 1000px) {
+    padding-left: 260px;
+  }
+}
