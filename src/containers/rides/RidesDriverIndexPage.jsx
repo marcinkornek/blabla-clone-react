@@ -9,7 +9,6 @@ import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
 import sharedStyles          from '../../stylesheets/shared/Shared'
 import RidesItem             from '../../components/rides/RidesIndexSimplePageItem'
-import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 const per = 10
 
@@ -85,7 +84,6 @@ export default class RidesDriverIndexPage extends React.Component {
     return (
       <div className='show-grid'>
         <div className='rides'>
-          <UserAccountMenu />
           {ridesMain}
           {ridesPagination}
         </div>

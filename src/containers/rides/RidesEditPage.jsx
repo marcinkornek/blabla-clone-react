@@ -5,7 +5,6 @@ import { connect }           from 'react-redux';
 import * as actions          from '../../actions/rides';
 import styles                from '../../stylesheets/rides/Rides'
 import RidesEditPageForm       from '../../components/rides/RidesEditPageForm'
-import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 export default class RidesEditPage extends React.Component {
   componentDidMount() {
@@ -40,7 +39,6 @@ export default class RidesEditPage extends React.Component {
     const { dispatch, session, ridesOptions, ride } = this.props
     return (
       <div className='show-grid'>
-        <UserAccountMenu/>
         <Col xs={10}>
           <RidesEditPageForm
             ridesOptions={ridesOptions}

@@ -8,7 +8,6 @@ import ReactPaginate         from 'react-paginate'
 import * as actions          from '../../actions/cars';
 import styles                from '../../stylesheets/users/Users'
 import CarsItem              from '../../components/cars/CarsIndexPageItem'
-import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 const per = 10
 
@@ -79,7 +78,6 @@ export default class CarsIndexPage extends React.Component {
     return (
       <div className='show-grid'>
         <div className='cars'>
-          <UserAccountMenu />
           {carsMain}
           {carsPagination}
         </div>

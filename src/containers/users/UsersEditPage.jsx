@@ -7,7 +7,6 @@ import Icon                  from 'react-fa'
 import * as actions          from '../../actions/users';
 import styles                from '../../stylesheets/users/Users'
 import UsersEditPageForm     from '../../components/users/UsersEditPageForm'
-import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 export default class UsersEditPage extends React.Component {
   constructor (props, context) {
@@ -61,7 +60,6 @@ export default class UsersEditPage extends React.Component {
 
     return (
       <div className='show-grid'>
-        <UserAccountMenu />
         {userEdit}
       </div>
     )

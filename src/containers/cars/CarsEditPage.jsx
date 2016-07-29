@@ -7,7 +7,6 @@ import _                     from 'underscore';
 import * as actions          from '../../actions/cars';
 import styles                from '../../stylesheets/users/Users'
 import CarsEditPageForm      from '../../components/cars/CarsEditPageForm'
-import UserAccountMenu       from '../../components/shared/UsersAccountMenu'
 
 export default class CarsEditPage extends React.Component {
   constructor (props, context) {
@@ -41,7 +40,6 @@ export default class CarsEditPage extends React.Component {
 
     return (
       <div className='show-grid'>
-        <UserAccountMenu userCars={userCars} />
         <Col xs={10}>
           <CarsEditPageForm
             isSaving={isSaving}
