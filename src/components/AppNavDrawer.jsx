@@ -14,6 +14,8 @@ import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
 import SocialGroup from 'material-ui/svg-icons/social/group'
 import MapsDirectionsCar from 'material-ui/svg-icons/maps/directions-car'
 import RaisedButton from 'material-ui/RaisedButton'
+import DriverIcon from './icons/DriverIcon'
+import PassengerIcon from './icons/PassengerIcon'
 
 const SelectableList = MakeSelectable(List);
 
@@ -65,8 +67,8 @@ export default class AppNavDrawer extends React.Component {
           nestedItems={[
             <ListItem primaryText="My profile" value="/account/user" leftIcon={<ActionAccountBox />}/>,
             <ListItem primaryText="My cars" value="/account/cars" leftIcon={<MapsDirectionsCar />} />,
-            <ListItem primaryText="My rides as driver" value="/account/rides_as_driver" />,
-            <ListItem primaryText="My rides as passenger" value="/account/rides_as_passenger" />,
+            <ListItem primaryText="My rides as driver" value="/account/rides_as_driver" leftIcon={<DriverIcon />}/>,
+            <ListItem primaryText="My rides as passenger" value="/account/rides_as_passenger" leftIcon={<PassengerIcon />}/>,
             <RaisedButton label="Logout" fullWidth={true} onTouchTap={onLogout} />
           ]}/>
       )
