@@ -6,20 +6,23 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import Root from './containers/Root'
 import configureStore from './store/configureStore'
 
-function getFromLocalStorage() {
+function getFromLocalStorage(store) {
   var email = localStorage.getItem('email')
   var access_token = localStorage.getItem('access_token')
   var data = { email: email, access_token: access_token }
   if (email != null && access_token != null) {
-    store.dispatch(actions.loginFromCookie(data))
+    store.dispatch(actions.loginFromCookie(data)).then(renderApp)
   }
 }
 
-const store = configureStore(browserHistory)
-const history = syncHistoryWithStore(browserHistory, store)
-getFromLocalStorage()
+function renderApp() {
+  const history = syncHistoryWithStore(browserHistory, store)
+  render(
+    <Root store={store} history={history} />,
+    document.getElementById('root')
+  )
+}
 
-render(
-  <Root store={store} history={history} />,
-  document.getElementById('root')
-)
+
+const store = configureStore(browserHistory)
+getFromLocalStorage(store)
