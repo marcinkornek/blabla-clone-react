@@ -65,6 +65,7 @@ export default class HeaderNew extends Component {
           onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
           title={title}
           zDepth={0}
+          style={{position: 'fixed'}}
           showMenuIconButton={showMenuIconButton} />
         <AppNavDrawer
           location={location}

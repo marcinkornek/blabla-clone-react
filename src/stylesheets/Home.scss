@@ -12,7 +12,9 @@ a {
 }
 
 #main {
+  padding-top: 80px;
+
   @media (min-width: 1000px) {
-    padding-left: 260px;
+    padding-left: 275px;
   }
 }
