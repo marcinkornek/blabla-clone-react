@@ -1,6 +1,8 @@
 import React, { PropTypes }  from 'react'
 import Router, { Link }      from 'react-router'
-import { Button, Col }       from 'react-bootstrap'
+import Button                from 'react-bootstrap/lib/Button'
+import Row                   from 'react-bootstrap/lib/Row'
+import Col                   from 'react-bootstrap/lib/Col'
 import { connect }           from 'react-redux';
 import Icon                  from 'react-fa'
 import ReactPaginate         from 'react-paginate'
@@ -72,12 +74,6 @@ export default class RidesIndexPage extends React.Component {
         </div>
     }
 
-    ridesFilter =
-      <Col xs={2}>
-        <RidesFilterItem query={query} filters={filters}
-          onSubmit={this.handleSubmit.bind(this)} />
-      </Col>
-
     if (pagination.total_pages > 1) {
       ridesPagination =
         <ReactPaginate previousLabel={"previous"}
@@ -93,21 +89,27 @@ export default class RidesIndexPage extends React.Component {
                        activeClassName={"active"} />
     }
 
+    <RidesFilterItem query={query} filters={filters}
+      onSubmit={this.handleSubmit.bind(this)} />
+
     ridesMain =
-      <Col xs={10}>
-        <RidesSearchItem query={query}
-          onSubmit={this.handleSubmit.bind(this)} />
-        <div className='heading'>
-          <div className='heading__title'>{pagination.total_count} Rides</div>
-          {headingButton}
-        </div>
-        {ridesList}
-      </Col>
+      <Row>
+        <Col xs={12}>
+          <RidesFilterItem query={query} filters={filters}
+            onSubmit={this.handleSubmit.bind(this)} />
+          <RidesSearchItem query={query}
+            onSubmit={this.handleSubmit.bind(this)} />
+          <div className='heading'>
+            <div className='heading__title'>{pagination.total_count} Rides</div>
+            {headingButton}
+          </div>
+          {ridesList}
+        </Col>
+      </Row>
 
     return (
       <div className='show-grid'>
         <div className='rides'>
-          {ridesFilter}
           {ridesMain}
           {ridesPagination}
         </div>
