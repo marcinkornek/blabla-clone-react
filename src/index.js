@@ -11,11 +11,13 @@ function getFromLocalStorage(store) {
   var access_token = localStorage.getItem('access_token')
   var data = { email: email, access_token: access_token }
   if (email != null && access_token != null) {
-    store.dispatch(actions.loginFromCookie(data)).then(renderApp)
+    store.dispatch(actions.loginFromCookie(data)).then(renderApp(store))
+  } else {
+    renderApp(store)
   }
 }
 
-function renderApp() {
+function renderApp(store) {
   const history = syncHistoryWithStore(browserHistory, store)
   render(
     <Root store={store} history={history} />,
