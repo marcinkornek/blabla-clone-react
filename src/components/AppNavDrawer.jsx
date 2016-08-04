@@ -2,18 +2,14 @@ import React, { Component, PropTypes } from 'react'
 import Drawer from 'material-ui/Drawer'
 import { List, ListItem, MakeSelectable } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
-import Subheader from 'material-ui/Subheader'
-import DropDownMenu from 'material-ui/DropDownMenu'
-import MenuItem from 'material-ui/MenuItem'
 import { spacing, typography, zIndex } from 'material-ui/styles'
 import { cyan500 } from 'material-ui/styles/colors'
-import ContentInbox from 'material-ui/svg-icons/content/inbox'
+import RaisedButton from 'material-ui/RaisedButton'
 import ContentAddBox from 'material-ui/svg-icons/content/add-box'
 import ActionSearch from 'material-ui/svg-icons/action/search'
 import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
 import SocialGroup from 'material-ui/svg-icons/social/group'
 import MapsDirectionsCar from 'material-ui/svg-icons/maps/directions-car'
-import RaisedButton from 'material-ui/RaisedButton'
 import DriverIcon from './icons/DriverIcon'
 import PassengerIcon from './icons/PassengerIcon'
 
@@ -65,18 +61,18 @@ export default class AppNavDrawer extends React.Component {
           primaryText="My account"
           primaryTogglesNestedList={true}
           nestedItems={[
-            <ListItem primaryText="My profile" value="/account/user" leftIcon={<ActionAccountBox />}/>,
-            <ListItem primaryText="My cars" value="/account/cars" leftIcon={<MapsDirectionsCar />} />,
-            <ListItem primaryText="My rides as driver" value="/account/rides_as_driver" leftIcon={<DriverIcon />}/>,
-            <ListItem primaryText="My rides as passenger" value="/account/rides_as_passenger" leftIcon={<PassengerIcon />}/>,
+            <ListItem primaryText="My profile" value="/account/user" key="my-profile" leftIcon={<ActionAccountBox />}/>,
+            <ListItem primaryText="My cars" value="/account/cars" key="my-cars" leftIcon={<MapsDirectionsCar />} />,
+            <ListItem primaryText="My rides as driver" value="/account/rides_as_driver" key="my-rides-driver" leftIcon={<DriverIcon />}/>,
+            <ListItem primaryText="My rides as passenger" value="/account/rides_as_passenger" key="my-rides-passenger" leftIcon={<PassengerIcon />}/>,
             <RaisedButton label="Logout" fullWidth={true} onTouchTap={onLogout} />
           ]}/>
       )
     } else {
       return (
         [
-          <ListItem primaryText='Login' value='/login' />,
-          <ListItem primaryText='Register' value='/register' />
+          <ListItem primaryText='Login' value='/login' key="login" />,
+          <ListItem primaryText='Register' value='/register' key="register" />
         ]
       )
     }
@@ -112,14 +108,14 @@ export default class AppNavDrawer extends React.Component {
             primaryText="Rides"
             primaryTogglesNestedList={true}
             nestedItems={[
-              <ListItem primaryText="Add ride" value="/rides/new" leftIcon={<ContentAddBox />}/>,
-              <ListItem primaryText="Search rides" value="/rides" leftIcon={<ActionSearch />}/>,
+              <ListItem primaryText="Add ride" value="/rides/new" key="add-ride" leftIcon={<ContentAddBox />}/>,
+              <ListItem primaryText="Search rides" value="/rides" key="search-rides" leftIcon={<ActionSearch />}/>,
             ]} />
           <ListItem
             primaryText="Users"
             primaryTogglesNestedList={true}
             nestedItems={[
-              <ListItem primaryText="Browse users" value="/users" leftIcon={<SocialGroup />} />,
+              <ListItem primaryText="Browse users" value="/users" key="browse-users" leftIcon={<SocialGroup />} />,
             ]} />
           {this.nestedAccountItems()}
         </SelectableList>
