@@ -1,9 +1,7 @@
-import React, { PropTypes }   from 'react'
-import { reduxForm }          from 'redux-form'
-import classNames             from 'classnames'
-import LoginValidator         from './LoginValidator'
-import styles                 from '../../stylesheets/session/Login'
-import formsStyles            from '../../stylesheets/shared/Forms'
+import React, { PropTypes } from 'react'
+import { reduxForm, Field } from 'redux-form'
+import { renderTextField } from '../shared/RenderTextField'
+import LoginValidator from './LoginValidator'
 
 export default class LoginEmailPage extends React.Component {
   constructor (props, context) {
@@ -15,28 +13,16 @@ export default class LoginEmailPage extends React.Component {
   }
 
   render() {
-    const {fields: {email, password}, handleSubmit, submitting} = this.props;
+    const { handleSubmit, submitting } = this.props;
 
     if (this.state.showLoginForm) {
       var LoginForm =
         <form onSubmit={handleSubmit} className='login-email-form'>
-          <div className={classNames('form-group', {'has-error': email.touched && email.error})}>
-            <label className="control-label">Email</label>
-            <input type="text" placeholder="Email" className="form-control" {...email}/>
-            {email.touched && email.error && <div className="form-error">{email.error}</div>}
-          </div>
-
-          <div className={classNames('form-group', {'has-error': password.touched && password.error})}>
-            <label className="control-label">Password</label>
-            <input type="password" placeholder="Password" className="form-control" {...password}/>
-            {password.touched && password.error && <div className="form-error">{password.error}</div>}
-          </div>
-
-          <div>
-            <button type="submit" className="btn btn-default" disabled={submitting}>
-              {submitting ? <i/> : <i/>} Submit
-            </button>
-          </div>
+          <Field name="email" type="text" component={renderTextField} label="Email"/>
+          <Field name="password" type="password" component={renderTextField} label="Password"/>
+          <button type="submit" className="btn btn-default form-submit" disabled={submitting}>
+            {submitting ? <i/> : <i/>} Submit
+          </button>
         </form>
     }
 
@@ -60,12 +46,9 @@ export default class LoginEmailPage extends React.Component {
 
 LoginEmailPage.propTypes = {
   handleSubmit: PropTypes.func.isRequired
-};
+}
 
-LoginEmailPage = reduxForm({
+export default reduxForm({
   form: 'LoginEmailPage',
-  fields: ['email', 'password'],
   validate: LoginValidator
-})(LoginEmailPage);
-
-export default LoginEmailPage;
+})(LoginEmailPage)
