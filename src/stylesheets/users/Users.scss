@@ -260,8 +260,21 @@
   margin-left: 5px;
 }
 
-.user-image__preview {
+.file-input .user-avatar__preview {
   display: block;
-  max-width: 100px;
-  margin-bottom: 15px;
+  height: auto !important;
+  margin: -25px 0 0 -10px !important;
+
+  .user-avatar__preview-title {
+    margin-top: 10px;
+  }
+
+  .user-avatar__preview-image {
+    max-width: 100px;
+  }
+
+  .user-avatar__preview-filename {
+    display: block;
+    color: gray;
+  }
 }

@@ -25,6 +25,5 @@ function renderApp(store) {
   )
 }
 
-
 const store = configureStore(browserHistory)
 getFromLocalStorage(store)

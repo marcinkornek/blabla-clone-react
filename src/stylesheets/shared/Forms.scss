@@ -58,3 +58,38 @@
     margin-right: 10px;
   }
 }
+
+.text-input {
+  display: block !important;
+  width: 100% !important;
+}
+
+.radio-input {
+  margin: 20px 0 -10px;
+
+  label {
+    display: block;
+  }
+}
+
+.file-input {
+  margin: 20px 0 -10px;
+
+  > div {
+    width: 100% !important;
+    max-width: 300px;
+    height: 65px !important;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+}
+
+.form-submit {
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  color: #bbbbbb;
+  font-size: 16px;
+}

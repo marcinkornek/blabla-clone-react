@@ -1,21 +1,22 @@
-import React, { PropTypes }  from 'react';
-import Router, { Link }      from 'react-router'
-import { Col }             from 'react-bootstrap'
-import { connect }           from 'react-redux';
-import Icon                  from 'react-fa'
+import React, { PropTypes } from 'react';
+import Router, { Link } from 'react-router'
+import { Col } from 'react-bootstrap'
+import { connect } from 'react-redux';
+import Icon from 'react-fa'
 
-import * as actions          from '../../actions/users';
-import styles                from '../../stylesheets/users/Users'
-import UsersNewPageForm     from '../../components/users/UsersNewPageForm'
+import * as actions from '../../actions/users';
+import styles from '../../stylesheets/users/Users'
+import UsersNewPageForm from '../../components/users/UsersNewPageForm'
 
 export default class UsersNewPage extends React.Component {
   handleSubmit(data) {
+    console.log(data);
     var body = new FormData();
     Object.keys(data).forEach(( key ) => {
       if (key == 'avatar') {
-        body.append(key, data[ key ][0]);
+        body.append(key, data[key][0]);
       } else {
-        body.append(key, data[ key ]);
+        body.append(key, data[key]);
       }
     });
 

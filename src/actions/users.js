@@ -102,6 +102,20 @@ export function updateUser(body, session) {
   };
 }
 
+export function checkUserEmailUniqueness(email) {
+  return dispatch => {
+    return fetch(cons.APIEndpoints.USERS + '/check_if_unique?email=' + email, {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(status)
+    .then(req => req.json())
+  };
+}
+
 export function usersRequest() {
   return {
     type: types.USERS_REQUEST,
