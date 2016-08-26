@@ -1,11 +1,11 @@
 import React, { PropTypes }   from 'react'
 import { reduxForm, Field }   from 'redux-form'
-import classNames             from 'classnames'
-import Dropzone               from 'react-dropzone';
-import styles                 from '../../stylesheets/users/Users'
-import UserNewValidator       from './UserNewValidator'
 import { renderTextField }    from '../shared/RenderTextField'
+import { renderRadioGroup }   from '../shared/RenderRadioGroup'
+import Dropzone               from 'react-dropzone';
+import UserNewValidator       from './UserNewValidator'
 import asyncValidate          from './asyncEmailValidate'
+import { RadioButton }        from 'material-ui/RadioButton'
 
 class UsersNewPageForm extends React.Component {
   static propTypes = {
@@ -19,9 +19,11 @@ class UsersNewPageForm extends React.Component {
         <Field name="first_name" type="text" component={renderTextField} label="First name"/>
         <Field name="last_name" type="text" component={renderTextField} label="Last name"/>
         <Field name="email" type="text" component={renderTextField} label="Email"/>
-        <div className="radio-input">
-          <label><Field name="gender" component="input" type="radio" value="male"/> Male</label>
-          <label><Field name="gender" component="input" type="radio" value="female"/> Female</label>
+        <div>
+          <Field name="gender" component={renderRadioGroup}>
+            <RadioButton value="male" label="male"/>
+            <RadioButton value="female" label="female"/>
+          </Field>
         </div>
         <Field name="tel_num" type="text" component={renderTextField} label="Tel num"/>
         <Field name="birth_year" type="number" component={renderTextField} label="Birth year"/>
