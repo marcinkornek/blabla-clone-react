@@ -57,8 +57,8 @@ export default function session(state = initialState, action) {
   case types.USER_UPDATE_SUCCESS:
     return Object.assign({}, state, {
       user: {
-        id: action.session.id,
-        access_token: action.session.access_token,
+        id: action.session.user.id,
+        access_token: action.session.user.access_token,
         email: action.user.email,
         permission: action.user.role
       }

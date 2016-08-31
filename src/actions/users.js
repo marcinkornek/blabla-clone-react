@@ -77,16 +77,16 @@ export function createUser(body) {
   };
 }
 
-export function updateUser(body, session) {
-  return dispatch => {
-    console.log(body, session.id);
+export function updateUser(body) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(userUpdateRequest());
-    return fetch(cons.APIEndpoints.USERS + '/' + session.id, {
+    return fetch(cons.APIEndpoints.USERS + '/' + session.user.id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       },
       body: body
     })
@@ -103,12 +103,15 @@ export function updateUser(body, session) {
 }
 
 export function checkUserEmailUniqueness(email) {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const { session } = getState()
     return fetch(cons.APIEndpoints.USERS + '/check_if_unique?email=' + email, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       }
     })
     .then(status)

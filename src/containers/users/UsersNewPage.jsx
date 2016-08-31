@@ -3,6 +3,7 @@ import Router, { Link } from 'react-router'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import Icon from 'react-fa'
+import _ from 'lodash'
 
 import * as actions from '../../actions/users';
 import styles from '../../stylesheets/users/Users'
@@ -10,17 +11,17 @@ import UsersNewPageForm from '../../components/users/UsersNewPageForm'
 
 export default class UsersNewPage extends React.Component {
   handleSubmit(data) {
-    console.log(data);
     var body = new FormData();
     Object.keys(data).forEach(( key ) => {
+      console.log(key, data[key]);
       if (key == 'avatar') {
-        body.append(key, data[key][0]);
+        if (_.isObject(data[key])) { body.append(key, data[key][0]) }
       } else {
-        body.append(key, data[key]);
+        if (!_.isEmpty(data[key])) { body.append(key, data[key]) }
       }
-    });
+    })
 
-    this.props.dispatch(actions.createUser(body, this.props.session))
+    this.props.dispatch(actions.createUser(body))
   }
 
   render() {

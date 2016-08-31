@@ -1,8 +1,9 @@
 import React, { PropTypes }  from 'react';
 import Router, { Link }      from 'react-router'
-import { Col }             from 'react-bootstrap'
+import { Col }               from 'react-bootstrap'
 import { connect }           from 'react-redux';
 import Icon                  from 'react-fa'
+import _                     from 'lodash'
 
 import * as actions          from '../../actions/users';
 import styles                from '../../stylesheets/users/Users'
@@ -23,18 +24,19 @@ export default class UsersEditPage extends React.Component {
   handleSubmit(data) {
     var body = new FormData();
     Object.keys(data).forEach(( key ) => {
+      console.log(key, data[key]);
       if (key == 'avatar') {
-        body.append(key, data[ key ][0]);
+        if (_.isObject(data[key])) { body.append(key, data[key][0]) }
       } else {
-        body.append(key, data[ key ]);
+        if (!_.isEmpty(data[key])) { body.append(key, data[key]) }
       }
-    });
+    })
 
-    this.props.dispatch(actions.updateUser(body, this.props.session))
+    this.props.dispatch(actions.updateUser(body))
   }
 
   render() {
-    const { dispatch, isFetching, session, currentUserId } = this.props;
+    const { isFetching, currentUserId } = this.props;
     var userEdit, userEditForm
 
     if (isFetching || currentUserId === undefined) {
@@ -73,8 +75,7 @@ UsersEditPage.PropTypes = {
 function select(state) {
   return {
     isFetching:    state.user.isFetching,
-    currentUserId: state.session.user.id,
-    session:       state.session.user
+    currentUserId: state.session.user.id
   };
 }
 
