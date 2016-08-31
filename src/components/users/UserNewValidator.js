@@ -16,13 +16,6 @@ export default function UserNewValidator(values, props) {
       errors.tel_num = 'Phone must match the form "111222333"'
     }
   }
-  if(values.birth_year) {
-    if (isNaN(Number(values.birth_year))) {
-      errors.birth_year = 'Must be a number'
-    } else if (Number(values.birth_year) < 1900 || Number(values.birth_year) > new Date().getFullYear()) {
-      errors.birth_year = 'Incorrect birth year'
-    }
-  }
   if(!values.password) {
     errors.password = 'Required';
   } else if (values.password.length < 8) {
