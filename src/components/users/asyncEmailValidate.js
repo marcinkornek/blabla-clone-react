@@ -6,11 +6,9 @@ const asyncValidate = (values, dispatch) => {
   // it still returns error in console 'Uncaught (in promise) Object {email: "This email is taken"}'
   return dispatch(actions.checkUserEmailUniqueness(values.email))
     .then((json) => {
-      return new Promise(resolve => {
-        if (json.errors.length > 0) {
-          throw { email: 'This email is taken' }
-        }
-      })
+      if (json.errors.length > 0) {
+        throw { email: 'This email is taken' }
+      }
     })
 }
 
