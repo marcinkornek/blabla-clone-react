@@ -19,10 +19,10 @@ class RidesNewPageForm extends React.Component {
     var cars = []
     if (ridesOptions) {
       for (var i = 0; i < ridesOptions.currencies.length; i++) {
-        currencies.push(<MenuItem value={ridesOptions.currencies[i]} key={'option-' + i} value={ridesOptions.currencies[i]} primaryText={ridesOptions.currencies[i]}/>);
+        currencies.push(<MenuItem value={ridesOptions.currencies[i]} key={'option-' + i} primaryText={ridesOptions.currencies[i]}/>);
       }
       for (var i = 0; i < ridesOptions.cars.length; i++) {
-        cars.push(<MenuItem value={ridesOptions.cars[i].id} key={'car-' + i} value={ridesOptions.cars[i].id} primaryText={ridesOptions.cars[i].name}/>);
+        cars.push(<MenuItem value={ridesOptions.cars[i].id} key={'car-' + i} primaryText={ridesOptions.cars[i].name}/>);
       }
     }
 
