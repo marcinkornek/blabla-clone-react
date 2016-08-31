@@ -11,7 +11,7 @@ function getFromLocalStorage(store) {
   var access_token = localStorage.getItem('access_token')
   var data = { email: email, access_token: access_token }
   if (email != null && access_token != null) {
-    store.dispatch(actions.loginFromCookie(data)).then(renderApp(store))
+    store.dispatch(actions.loginFromCookie(data)).then(setTimeout(() => renderApp(store), 500))
   } else {
     renderApp(store)
   }
