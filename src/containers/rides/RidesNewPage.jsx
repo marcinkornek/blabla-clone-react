@@ -33,7 +33,7 @@ export default class RidesNewPage extends React.Component {
     const { dispatch, session, ridesOptions } = this.props
     return (
       <div className='show-grid'>
-        <Col xs={12}>
+        <Col xs={10}>
           <RidesNewPageForm
             ridesOptions={ridesOptions}
             onSubmit={this.handleSubmit.bind(this)} />

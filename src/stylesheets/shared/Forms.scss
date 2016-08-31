@@ -64,12 +64,21 @@
   width: 100% !important;
 }
 
+.select-input {
+  width: 100% !important;
+}
+
 .radio-input {
   margin: 20px 0 -10px;
 
   label {
     display: block;
   }
+}
+
+.date-input > div {
+  display: block !important;
+  width: 100% !important;
 }
 
 .file-input {
