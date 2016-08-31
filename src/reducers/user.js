@@ -15,6 +15,7 @@ export default function user(state = initialState, action) {
       isFetching: true
     });
   case types.USER_SUCCESS:
+    action.user.date_of_birth = new Date(action.user.date_of_birth)
     return Object.assign({}, state, {
       isFetching: false,
       user: action.user

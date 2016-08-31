@@ -2,10 +2,11 @@ import React, { PropTypes }   from 'react'
 import { reduxForm, Field }   from 'redux-form'
 import { renderTextField }    from '../shared/RenderTextField'
 import { renderRadioGroup }   from '../shared/RenderRadioGroup'
+import { RadioButton }        from 'material-ui/RadioButton'
+import DatePicker             from '../inputs/DatePicker'
 import Dropzone               from 'react-dropzone';
 import UserNewValidator       from './UserNewValidator'
 import asyncValidate          from './asyncEmailValidate'
-import { RadioButton }        from 'material-ui/RadioButton'
 
 class UsersNewPageForm extends React.Component {
   static propTypes = {
@@ -26,7 +27,10 @@ class UsersNewPageForm extends React.Component {
           </Field>
         </div>
         <Field name="tel_num" type="text" component={renderTextField} label="Tel num"/>
-        <Field name="birth_year" type="number" component={renderTextField} label="Birth year"/>
+        <Field name="date_of_birth"
+          component={DatePicker}
+          floatingLabelText="Date of birth"
+          className='date-input'/>
         <div className='file-input'>
           <label>Avatar</label>
           <Field name="avatar" component={props =>

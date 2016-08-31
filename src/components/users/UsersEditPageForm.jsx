@@ -1,92 +1,81 @@
 import React, { PropTypes }   from 'react'
-import { reduxForm }          from 'redux-form'
-import classNames             from 'classnames'
+import { connect }            from 'react-redux'
+import { reduxForm, Field }   from 'redux-form'
+import { renderTextField }    from '../shared/RenderTextField'
+import { renderRadioGroup }   from '../shared/RenderRadioGroup'
 import Dropzone               from 'react-dropzone';
 import UserValidator          from './UserValidator'
-import styles                 from '../../stylesheets/users/Users'
-import formsStyles            from '../../stylesheets/shared/Forms'
+import asyncValidate          from './asyncEmailValidate'
+import { RadioButton }        from 'material-ui/RadioButton'
+import DatePicker             from '../inputs/DatePicker'
 
-export default class UsersEditPageForm extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-    this.state = {
-      file: undefined
-    }
-  }
+class UsersEditPageForm extends React.Component {
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired
+  };
 
   render() {
-    const {fields: {first_name, last_name, email, tel_num, birth_year, avatar}, handleSubmit, submitting} = this.props;
+    const { handleSubmit, submitting } = this.props;
     return (
       <form onSubmit={handleSubmit}>
-        <div className={classNames('form-group', {'has-error': first_name.touched && first_name.error})}>
-          <label className="control-label">First Name</label>
-          <input type="text" placeholder="First Name" className="form-control" {...first_name}/>
-          {first_name.touched && first_name.error && <div className="form-error">{first_name.error}</div>}
-        </div>
-
-        <div className={classNames('form-group', {'has-error': last_name.touched && last_name.error})}>
-          <label className="control-label">Last Name</label>
-          <input type="text" placeholder="Last Name" className="form-control" {...last_name}/>
-          {last_name.touched && last_name.error && <div className="form-error">{last_name.error}</div>}
-        </div>
-
-        <div className={classNames('form-group', {'has-error': email.touched && email.error})}>
-          <label className="control-label">Email</label>
-          <input type="email" placeholder="Email" className="form-control" {...email}/>
-          {email.touched && email.error && <div className="form-error">{email.error}</div>}
-        </div>
-
-        <div className={classNames('form-group', {'has-error': tel_num.touched && tel_num.error})}>
-          <label className="control-label">Tel num</label>
-          <input type="tel_num" placeholder="Tel num" className="form-control" {...tel_num}/>
-          {tel_num.touched && tel_num.error && <div className="form-error">{tel_num.error}</div>}
-        </div>
-
-        <div className={classNames('form-group', {'has-error': birth_year.touched && birth_year.error})}>
-          <label className="control-label">Birth year</label>
-          <input type="birth_year" placeholder="Birth year" className="form-control" {...birth_year}/>
-          {birth_year.touched && birth_year.error && <div className="form-error">{birth_year.error}</div>}
-        </div>
-
+        <Field name="first_name" type="text" component={renderTextField} label="First name *"/>
+        <Field name="last_name" type="text" component={renderTextField} label="Last name *"/>
+        <Field name="email" type="text" component={renderTextField} label="Email *"/>
         <div>
+          <Field name="gender" component={renderRadioGroup}>
+            <RadioButton value="male" label="male"/>
+            <RadioButton value="female" label="female"/>
+          </Field>
+        </div>
+        <Field name="tel_num" type="text" component={renderTextField} label="Tel num"/>
+        <Field name="date_of_birth"
+          component={DatePicker}
+          floatingLabelText="Date of birth"
+          className='date-input'/>
+        <div className='file-input'>
           <label>Avatar</label>
-          <img className='user-image__preview' src={this.props.fields.avatar.initialValue} />
-          <Dropzone
-            { ...avatar } className='form-dropzone'
-            onDrop={ ( file, e ) => {
-              this.setState({file: file[0]})
-              avatar.onChange(file)
-            }}
-          >
-            <div>Try dropping some files here, or click to select files to upload.</div>
-          </Dropzone>
-
-          {this.state.file ? <div>
-          <div>Preview...</div>
-          <img className='user-image__preview' src={this.state.file.preview} />
-          </div> : null}
+          <Field name="avatar" component={props =>
+            <Dropzone
+              {...props.input}
+              multiple={false}
+              onDrop={(filesToUpload) => {
+                this.files = filesToUpload;
+                return props.input.onChange(filesToUpload);
+              }}
+            >
+              <div>Try dropping a file here, or click to select file to upload.</div>
+            </Dropzone>
+            } type="file" />
+          {this.files &&
+            <div className='user-avatar__preview'>
+              <div className='user-avatar__preview-title'>Preview</div>
+              {this.files.map((file, i) =>
+                <div>
+                  <img key={'image' + i} className='user-avatar__preview-image' src={file.preview} />
+                  <span key={i} className='user-avatar__preview-filename'>{file.name}</span>
+                </div>
+              )}
+            </div>
+          }
         </div>
 
-        <div>
-          <button type="submit" className="btn btn-default" disabled={submitting}>
-            {submitting ? <i/> : <i/>} Submit
-          </button>
-        </div>
+        <button type="submit" className="btn btn-default form-submit">Submit</button>
       </form>
     );
   }
 }
 
-UsersEditPageForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
-};
-
 UsersEditPageForm = reduxForm({
   form: 'UsersEditPageForm',
-  fields: ['first_name', 'last_name', 'email', 'tel_num', 'birth_year', 'avatar'],
-  validate: UserValidator
-},
-state => ({ initialValues: state.user.user }),
-)(UsersEditPageForm);
+  validate: UserValidator,
+  asyncValidate,
+  asyncBlurFields: ['email']
+})(UsersEditPageForm)
 
-export default UsersEditPageForm;
+UsersEditPageForm = connect(
+  state => ({
+    initialValues: state.user.user
+  })
+)(UsersEditPageForm)
+
+export default UsersEditPageForm
