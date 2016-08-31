@@ -65,7 +65,7 @@ export default class AppNavDrawer extends React.Component {
             <ListItem primaryText="My cars" value="/account/cars" key="my-cars" leftIcon={<MapsDirectionsCar />} />,
             <ListItem primaryText="My rides as driver" value="/account/rides_as_driver" key="my-rides-driver" leftIcon={<DriverIcon />}/>,
             <ListItem primaryText="My rides as passenger" value="/account/rides_as_passenger" key="my-rides-passenger" leftIcon={<PassengerIcon />}/>,
-            <RaisedButton label="Logout" fullWidth={true} onTouchTap={onLogout} />
+            <RaisedButton label="Logout" fullWidth={true} onTouchTap={onLogout} key="logout" />
           ]}/>
       )
     } else {
