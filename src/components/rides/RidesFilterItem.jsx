@@ -1,39 +1,34 @@
-import React, { PropTypes }  from 'react'
-import { reduxForm }         from 'redux-form'
-import Checkbox              from 'material-ui/Checkbox'
+import React, { PropTypes }   from 'react'
+import { connect }            from 'react-redux'
+import { reduxForm, Field }   from 'redux-form'
+import Checkbox               from '../inputs/Checkbox'
 
-const renderCheckbox = ({ input, label }) => (
-  <Checkbox label={label}
-    checked={input.value ? true : false}
-    onCheck={input.onChange}/>
-)
+class RidesFilterItem extends React.Component {
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired
+  }
 
-export default class RidesFilterItem extends React.Component {
   render() {
-    const {fields: {hide_full}, handleSubmit, submitting, filters} = this.props;
+    const {handleSubmit, filters} = this.props
     return (
-      <form onSubmit={handleSubmit} className='cities-filter-form'>
-        <label>
-          <input type="checkbox" {...hide_full} checked={hide_full.value}/>
-          hide rides without empty places ({filters.full_rides})
-        </label>
-        <button type="submit" className="btn btn-default" disabled={submitting}>
-          {submitting ? <i/> : <i/>} Filter
-        </button>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <Field name="hide_full" component={Checkbox} label={`Hide full rides (${filters.full_rides})`} labelPosition="right"/>
+        </div>
+        <button type="submit" className="btn btn-default form-submit">Submit</button>
       </form>
     )
   }
 }
 
-RidesFilterItem.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
-};
-
 RidesFilterItem = reduxForm({
-  form: 'RidesFilterItem',
-  fields: ['hide_full'],
-},
-  state => ({ initialValues: state.ridesSearch.data }),
-)(RidesFilterItem);
+  form: 'RidesFilterItem'
+})(RidesFilterItem)
 
-export default RidesFilterItem;
+RidesFilterItem = connect(
+  state => ({
+    initialValues: state.ridesSearch.data
+  })
+)(RidesFilterItem)
+
+export default RidesFilterItem

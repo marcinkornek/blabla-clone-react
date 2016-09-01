@@ -89,11 +89,6 @@ export default class RidesIndexPage extends React.Component {
                        activeClassName={"active"} />
     }
 
-    <RidesFilterItem query={query} filters={filters}
-      onSubmit={this.handleSubmit.bind(this)} />
-
-    // <RidesSearchItem query={query}
-    //   onSubmit={this.handleSubmit.bind(this)} />
     ridesMain =
       <Row>
         <Col xs={12}>
