@@ -28,7 +28,7 @@ export default class UsersEditPage extends React.Component {
       if (key == 'avatar') {
         if (_.isObject(data[key])) { body.append(key, data[key][0]) }
       } else {
-        if (!_.isEmpty(data[key])) { body.append(key, data[key]) }
+        if (data[key]) { body.append(key, data[key]) }
       }
     })
 

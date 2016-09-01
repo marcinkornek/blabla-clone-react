@@ -13,11 +13,10 @@ export default class UsersNewPage extends React.Component {
   handleSubmit(data) {
     var body = new FormData();
     Object.keys(data).forEach(( key ) => {
-      console.log(key, data[key]);
       if (key == 'avatar') {
         if (_.isObject(data[key])) { body.append(key, data[key][0]) }
       } else {
-        if (!_.isEmpty(data[key])) { body.append(key, data[key]) }
+        if (data[key]) { body.append(key, data[key]) }
       }
     })
 
