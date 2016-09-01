@@ -51,10 +51,10 @@ export default class CarsIndexPage extends React.Component {
     }
 
     var carsMain =
-      <Col xs={10}>
-        <div className='account__heading'>
-          <div className='account__heading-title'>My cars</div>
-          <div className='account__heading-button'>
+      <Col xs={12}>
+        <div className='heading'>
+          <div className='heading-title'>My cars</div>
+          <div className='heading-button'>
             <Link to='/cars/new'><Button bsStyle='primary' bsSize='small'>New car</Button></Link>
           </div>
         </div>

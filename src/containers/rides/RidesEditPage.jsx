@@ -39,7 +39,10 @@ export default class RidesEditPage extends React.Component {
     const { dispatch, ridesOptions, ride } = this.props
     return (
       <div className='show-grid'>
-        <Col xs={10}>
+        <Col xs={12}>
+          <div className='heading'>
+            <div className='heading-title'>Edit ride</div>
+          </div>
           <RidesEditPageForm
             ridesOptions={ridesOptions}
             onSubmit={this.handleSubmit.bind(this)} />

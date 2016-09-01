@@ -52,9 +52,9 @@ export default class RidesPassengerIndexPage extends React.Component {
     }
 
     ridesMain =
-      <Col xs={10}>
-        <div className='account__heading'>
-          <div className='account__heading-title'>My rides as passenger</div>
+      <Col xs={12}>
+        <div className='heading'>
+          <div className='heading-title'>My rides as passenger</div>
         </div>
         {ridesList}
       </Col>

@@ -28,9 +28,9 @@ export default class UsersNewPage extends React.Component {
 
     return (
       <div className='show-grid'>
-        <Col xs={10}>
-          <div className='account__heading'>
-            <div className='account__heading-title'>Register</div>
+        <Col xs={12}>
+          <div className='heading'>
+            <div className='heading-title'>Register</div>
           </div>
           <UsersNewPageForm onSubmit={this.handleSubmit.bind(this)} />
         </Col>

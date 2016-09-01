@@ -53,7 +53,7 @@ export default class HeaderNew extends Component {
     let showMenuIconButton = true
     let { navDrawerOpen } = this.state
 
-    if (containerWidth > 1000) {
+    if (containerWidth > 992) {
       docked = true
       navDrawerOpen = true
       showMenuIconButton = false

@@ -6,11 +6,12 @@ import { renderSelectField }  from '../shared/RenderSelectField'
 import DatePicker             from '../inputs/DatePicker'
 import RideValidator          from './RideValidator'
 import MenuItem               from 'material-ui/MenuItem'
+import styles                 from '../../stylesheets/shared/Forms'
 
 class RidesNewPageForm extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
-  };
+  }
 
   render() {
     const { handleSubmit, submitting, ridesOptions } = this.props

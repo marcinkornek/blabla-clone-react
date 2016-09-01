@@ -12,7 +12,7 @@ import DatePicker             from '../inputs/DatePicker'
 class UsersEditPageForm extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
-  };
+  }
 
   render() {
     const { handleSubmit, submitting } = this.props;

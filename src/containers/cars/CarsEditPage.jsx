@@ -41,7 +41,10 @@ export default class CarsEditPage extends React.Component {
 
     return (
       <div className='show-grid'>
-        <Col xs={10}>
+        <Col xs={12}>
+          <div className='heading'>
+            <div className='heading-title'>Edit car</div>
+          </div>
           <CarsEditPageForm
             carsOptions={carsOptions}
             onSubmit={this.handleSubmit.bind(this)} />

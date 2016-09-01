@@ -19,3 +19,21 @@
   float: right;
   margin-bottom: 10px;
 }
+
+.heading {
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid gray;
+  height: 40px;
+}
+
+.heading-title {
+  margin-top: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  float: left;
+}
+
+.heading-button {
+  float: right;
+}

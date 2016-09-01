@@ -53,9 +53,9 @@ export default class UsersEditPage extends React.Component {
     }
 
     userEdit =
-      <Col xs={10}>
-        <div className='account__heading'>
-          <div className='account__heading-title'>My profile</div>
+      <Col xs={12}>
+        <div className='heading'>
+          <div className='heading-title'>My profile</div>
         </div>
         {userEditForm}
       </Col>

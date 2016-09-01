@@ -53,15 +53,15 @@ export default class RidesDriverIndexPage extends React.Component {
 
     if (currentUserId) {
       headingButton =
-        <div className='account__heading-button'>
+        <div className='heading-button'>
           <Link to='/rides/new'><Button bsStyle='primary' bsSize='small'>New ride</Button></Link>
         </div>
     }
 
     ridesMain =
-      <Col xs={10}>
-        <div className='account__heading'>
-          <div className='account__heading-title'>My rides as driver</div>
+      <Col xs={12}>
+        <div className='heading'>
+          <div className='heading-title'>My rides as driver</div>
           {headingButton}
         </div>
         {ridesList}

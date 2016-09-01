@@ -16,7 +16,7 @@ import RidesFilterItem       from '../../components/rides/RidesFilterItem'
 
 const per = 10
 
-export default class RidesIndexPage extends React.Component {
+class RidesIndexPage extends React.Component {
   componentDidMount() {
     const { dispatch, currentUserId } = this.props;
     let { query } = this.props.location
@@ -93,6 +93,8 @@ export default class RidesIndexPage extends React.Component {
       <Row>
         <Col xs={12}>
           <RidesFilterItem query={query} filters={filters}
+            onSubmit={this.handleSubmit.bind(this)} />
+          <RidesSearchItem query={query}
             onSubmit={this.handleSubmit.bind(this)} />
           <div className='heading'>
             <div className='heading__title'>{pagination.total_count} Rides</div>
