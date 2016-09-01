@@ -18,17 +18,16 @@ export default class RidesPassengerIndexPage extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatch, currentUserId, session } = this.props;
+    const { dispatch, currentUserId } = this.props;
     if (currentUserId) {
-      dispatch(actions.fetchRidesAsPassenger(currentUserId, session, 1, per))
+      dispatch(actions.fetchRidesAsPassenger(currentUserId, 1, per))
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { dispatch, currentUserId } = this.props;
     if (nextProps.currentUserId && currentUserId === undefined) {
-      console.log(nextProps.currentUserId);
-      dispatch(actions.fetchRidesAsPassenger(nextProps.currentUserId, nextProps.session, 1, per))
+      dispatch(actions.fetchRidesAsPassenger(nextProps.currentUserId, 1, per))
     }
   }
 
@@ -85,9 +84,9 @@ export default class RidesPassengerIndexPage extends React.Component {
   }
 
   handlePageClick(e) {
-    const { dispatch, currentUserId, session } = this.props;
+    const { dispatch, currentUserId } = this.props;
     var page = e.selected + 1;
-    dispatch(actions.fetchRidesAsPassenger(currentUserId, session, page, per))
+    dispatch(actions.fetchRidesAsPassenger(currentUserId, page, per))
   }
 }
 
@@ -100,8 +99,7 @@ function select(state) {
     isFetching:    state.ridesPassenger.isFetching,
     rides:         state.ridesPassenger.rides,
     pagination:    state.ridesPassenger.pagination,
-    currentUserId: state.session.user.id,
-    session:       state.session.user
+    currentUserId: state.session.user.id
   };
 }
 

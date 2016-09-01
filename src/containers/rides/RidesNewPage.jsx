@@ -8,10 +8,8 @@ import RidesNewPageForm       from '../../components/rides/RidesNewPageForm'
 
 export default class RidesNewPage extends React.Component {
   componentDidMount() {
-    const { dispatch, session } = this.props
-    if (session) {
-      dispatch(actions.fetchRidesOptions(session))
-    }
+    const { dispatch } = this.props
+    dispatch(actions.fetchRidesOptions())
   }
 
   handleSubmit(data) {
@@ -22,15 +20,15 @@ export default class RidesNewPage extends React.Component {
         body.append(key + '_lat', data[key].location.lat)
         body.append(key + '_lng', data[key].location.lng)
       } else {
-        body.append(key, data[key])
+        if (data[key]) { body.append(key, data[key]) }
       }
     });
 
-    this.props.dispatch(actions.createRide(this.context.router, body, this.props.session))
+    this.props.dispatch(actions.createRide(this.context.router, body))
   }
 
   render() {
-    const { dispatch, session, ridesOptions } = this.props
+    const { dispatch, ridesOptions } = this.props
     return (
       <div className='show-grid'>
         <Col xs={10}>
@@ -53,7 +51,6 @@ RidesNewPage.contextTypes = {
 
 function select(state) {
   return {
-    session:      state.session.user,
     ridesOptions: state.ridesOptions.ridesOptions
   };
 }

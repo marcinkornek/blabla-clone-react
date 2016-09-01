@@ -12,7 +12,7 @@ injectTapEventPlugin();
 export default class Application extends React.Component {
   render () {
 
-    const { dispatch, session, currentUser, children } = this.props
+    const { dispatch, currentUser, children } = this.props
     return (
       <div>
         <HeaderNew
@@ -35,8 +35,8 @@ Application.contextTypes = {
 
 function select(state) {
   return {
-    isLoggedIn:  state.session['isLoggedIn'],
-    currentUser: state.session['user']
+    isLoggedIn:  state.session.isLoggedIn,
+    currentUser: state.session.user
   };
 }
 

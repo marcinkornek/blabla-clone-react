@@ -14,6 +14,7 @@ export default function ride(state = initialState, action) {
       isFetching: true
     });
   case types.RIDE_SUCCESS:
+    action.ride.start_date = new Date(action.ride.start_date)
     return Object.assign({}, state, {
       isFetching: false,
       ride: action.ride,

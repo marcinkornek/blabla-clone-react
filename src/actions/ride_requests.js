@@ -9,16 +9,17 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function createRideRequest(rideId, places, session) {
-  return dispatch => {
+export function createRideRequest(rideId, places) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(rideRequestCreateRequest());
     return fetch(cons.APIEndpoints.RIDE_REQUESTS, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       },
       body: JSON.stringify({
         'ride_id': rideId,
@@ -32,16 +33,17 @@ export function createRideRequest(rideId, places, session) {
   };
 }
 
-export function changeRideRequest(rideRequestId, status, session) {
-  return dispatch => {
+export function changeRideRequest(rideRequestId, status) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(rideRequestChangeRequest());
     return fetch(cons.APIEndpoints.RIDE_REQUESTS + '/' + rideRequestId, {
       method: 'put',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       },
       body: JSON.stringify({
         'status': status

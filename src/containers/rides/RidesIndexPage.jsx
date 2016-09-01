@@ -18,12 +18,12 @@ const per = 10
 
 export default class RidesIndexPage extends React.Component {
   componentDidMount() {
-    const { dispatch, session, currentUserId } = this.props;
+    const { dispatch, currentUserId } = this.props;
     let { query } = this.props.location
     var page = query.page || 1
     query.hide_full = query.hide_full || false
     dispatch(actions.loadSearchFormData(query))
-    dispatch(actions.fetchRides(this.context.router, session, page, per, query))
+    dispatch(actions.fetchRides(this.context.router, page, per, query))
   }
 
   handleSubmit(data) {
@@ -37,16 +37,16 @@ export default class RidesIndexPage extends React.Component {
         }
       }
     });
-    const { dispatch, session } = this.props;
+    const { dispatch } = this.props;
     var query_from_location = this.props.location.query
     var page = 1
     var extended = _.extend(query_from_location, query)
     dispatch(actions.loadSearchFormData(extended))
-    dispatch(actions.fetchRides(this.context.router, session, page, per, extended))
+    dispatch(actions.fetchRides(this.context.router, page, per, extended))
   }
 
   render() {
-    const { isFetching, rides, pagination, filters, currentUserId, dispatch, session } = this.props
+    const { isFetching, rides, pagination, filters, currentUserId, dispatch } = this.props
     var ridesMain, ridesFilter, ridesList, headingButton, ridesPagination
     let { query } = this.props.location
     var page = (parseInt(query.page, 10) || 1) - 1
@@ -92,12 +92,12 @@ export default class RidesIndexPage extends React.Component {
     <RidesFilterItem query={query} filters={filters}
       onSubmit={this.handleSubmit.bind(this)} />
 
+    // <RidesSearchItem query={query}
+    //   onSubmit={this.handleSubmit.bind(this)} />
     ridesMain =
       <Row>
         <Col xs={12}>
           <RidesFilterItem query={query} filters={filters}
-            onSubmit={this.handleSubmit.bind(this)} />
-          <RidesSearchItem query={query}
             onSubmit={this.handleSubmit.bind(this)} />
           <div className='heading'>
             <div className='heading__title'>{pagination.total_count} Rides</div>
@@ -118,10 +118,10 @@ export default class RidesIndexPage extends React.Component {
   }
 
   handlePageClick(e) {
-    const { dispatch, session } = this.props;
+    const { dispatch } = this.props;
     let { query } = this.props.location
     var page = query.page || 1
-    dispatch(actions.fetchRides(this.context.router, session, page, per, query))
+    dispatch(actions.fetchRides(this.context.router, page, per, query))
   }
 }
 
@@ -140,7 +140,6 @@ function select(state) {
     pagination:     state.rides.pagination,
     filters:        state.rides.filters,
     currentUserId:  state.session.user.id,
-    session:        state.session.user
   };
 }
 

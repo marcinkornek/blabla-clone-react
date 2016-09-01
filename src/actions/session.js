@@ -60,11 +60,11 @@ export function logInFbBackend(router, fbResponse) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'uid':        fbResponse['id'],
+        'uid':        fbResponse.id,
         'provider':   'facebook',
-        'email':      fbResponse['email'],
-        'first_name': fbResponse['first_name'],
-        'last_name':  fbResponse['last_name'],
+        'email':      fbResponse.email,
+        'first_name': fbResponse.first_name,
+        'last_name':  fbResponse.last_name,
       })
     })
     .then(req => req.json())
@@ -73,19 +73,20 @@ export function logInFbBackend(router, fbResponse) {
   };
 }
 
-export function logout(router, session) {
-  return dispatch => {
+export function logout(router) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(logoutRequest());
     return fetch(cons.APIEndpoints.SESSIONS, {
       method: 'delete',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       },
       body: JSON.stringify({
-        'access_token': session['access_token'],
+        'access_token': session.user.access_token,
       })
     })
     .then(status)
@@ -105,10 +106,10 @@ export function loginSuccess(json) {
   return (dispatch, getState) => {
     dispatch({
       type: types.LOGIN_SUCCESS,
-      id:           json['id'],
-      email:        json['email'],
-      role:         json['role'],
-      access_token: json['access_token']
+      id:           json.id,
+      email:        json.email,
+      role:         json.role,
+      access_token: json.access_token
     });
     saveToLocalStorage(json)
   };

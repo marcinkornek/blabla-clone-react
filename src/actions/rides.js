@@ -9,8 +9,9 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchRides(router, session, page = 1, per = 10, options = {}) {
-  return dispatch => {
+export function fetchRides(router, page = 1, per = 10, options = {}) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(ridesRequest());
     var rideOptions = ''
     if (options) {
@@ -24,8 +25,8 @@ export function fetchRides(router, session, page = 1, per = 10, options = {}) {
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       }
     })
     .then(status)
@@ -52,16 +53,17 @@ export function fetchRidesAsDriver(driverId, page = 1, per = 10) {
   };
 }
 
-export function fetchRidesAsPassenger(passengerId, session, page = 1, per = 10) {
-  return dispatch => {
+export function fetchRidesAsPassenger(passengerId, page = 1, per = 10) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(ridesAsPassengerRequest());
     return fetch(cons.APIEndpoints.USERS + '/' + passengerId + '/rides_as_passenger?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       }
     })
     .then(status)
@@ -71,16 +73,17 @@ export function fetchRidesAsPassenger(passengerId, session, page = 1, per = 10) 
   };
 }
 
-export function fetchRide(rideId, session) {
-  return dispatch => {
+export function fetchRide(rideId) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(rideRequest());
     return fetch(cons.APIEndpoints.RIDES + '/' + rideId, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       }
     })
     .then(status)
@@ -90,16 +93,17 @@ export function fetchRide(rideId, session) {
   };
 }
 
-export function fetchRidesOptions(session) {
-  return dispatch => {
+export function fetchRidesOptions() {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(ridesOptionsRequest());
     return fetch(cons.APIEndpoints.RIDES + '/options', {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       }
     })
     .then(status)
@@ -109,15 +113,16 @@ export function fetchRidesOptions(session) {
   };
 }
 
-export function createRide(router, body, session) {
-  return dispatch => {
+export function createRide(router, body) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(rideCreateRequest());
     return fetch(cons.APIEndpoints.RIDES, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       },
       body: body
     })
@@ -128,18 +133,16 @@ export function createRide(router, body, session) {
   };
 }
 
-export function updateRide(router, body, session, ride_id) {
-  return dispatch => {
-    console.log('body', body);
-    console.log('session', session);
-    console.log('ride_id', ride_id);
+export function updateRide(router, body, ride_id) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(rideUpdateRequest());
     return fetch(cons.APIEndpoints.RIDES + '/' + ride_id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       },
       body: body
     })

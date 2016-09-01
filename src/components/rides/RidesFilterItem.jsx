@@ -1,7 +1,12 @@
 import React, { PropTypes }  from 'react'
 import { reduxForm }         from 'redux-form'
+import Checkbox              from 'material-ui/Checkbox'
 
-import styles                from '../../stylesheets/rides/Rides'
+const renderCheckbox = ({ input, label }) => (
+  <Checkbox label={label}
+    checked={input.value ? true : false}
+    onCheck={input.onChange}/>
+)
 
 export default class RidesFilterItem extends React.Component {
   render() {

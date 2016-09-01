@@ -21,20 +21,20 @@ export default class RidesShowPage extends React.Component {
 
   componentDidMount() {
     var rideId = this.props.params.rideId
-    const { dispatch, session, currentUserId } = this.props
-    dispatch(actions.fetchRide(rideId, session))
+    const { dispatch, currentUserId } = this.props
+    dispatch(actions.fetchRide(rideId))
   }
 
   componentWillReceiveProps(nextProps) {
     var rideId = this.props.params.rideId
     const { dispatch, currentUserId } = this.props;
     if (nextProps.currentUserId && currentUserId === undefined) {
-      dispatch(actions.fetchRide(rideId, nextProps.session))
+      dispatch(actions.fetchRide(rideId))
     }
   }
 
   render() {
-    const { dispatch, ride, currentUserId, session } = this.props
+    const { dispatch, ride, currentUserId } = this.props
     var rideDescriptionCar, rideDriver, rideActions, rideOffer, rideDescription, places, rideRequests, rideRequestsList, rideFormOrStatus, rideStatusTimestamp
 
     if (_.isEmpty(ride)) {
@@ -96,10 +96,10 @@ export default class RidesShowPage extends React.Component {
           <RideRequestsIndexItem
             ride_request={ride_request} key={i}
             onAddClick={(status) =>
-              dispatch(rrActions.changeRideRequest(ride_request.id, status, session))
+              dispatch(rrActions.changeRideRequest(ride_request.id, status))
             }
             onAcceptRideRequest={(rideRequestId, status) =>
-              dispatch(rrActions.acceptRideRequest(rideRequestId, status, session))
+              dispatch(rrActions.acceptRideRequest(rideRequestId, status))
             } />
       )
     }
@@ -152,7 +152,7 @@ export default class RidesShowPage extends React.Component {
           ride={ride}
           currentUserId={currentUserId}
           onAddClick={(places) =>
-            dispatch(rrActions.createRideRequest(ride.id, places, session))
+            dispatch(rrActions.createRideRequest(ride.id, places))
           } />
     }
 
@@ -232,7 +232,6 @@ function select(state) {
   return {
     ride:          state.ride.ride,
     currentUserId: state.session.user.id,
-    session:       state.session.user
   };
 }
 
