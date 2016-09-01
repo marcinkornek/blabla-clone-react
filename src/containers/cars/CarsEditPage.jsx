@@ -25,24 +25,24 @@ export default class CarsEditPage extends React.Component {
   handleSubmit(data) {
     var body = new FormData();
     Object.keys(data).forEach((key) => {
+      console.log(key, data[key]);
       if (key == 'car_photo') {
-        if (data[key]) { body.append(key, data[key][0])}
+        if (_.isObject(data[key])) { body.append(key, data[key][0]) }
       } else {
-        body.append(key, data[key]);
+        if (data[key]) { body.append(key, data[key]) }
       }
-    });
+    })
 
-    this.props.dispatch(actions.updateCar(this.context.router, body, this.props.car.id, this.props.session))
+    this.props.dispatch(actions.updateCar(this.context.router, body, this.props.car.id))
   }
 
   render() {
-    const { dispatch, car, carsOptions, session, isSaving, userCars } = this.props;
+    const { dispatch, car, carsOptions, isSaving, userCars } = this.props;
 
     return (
       <div className='show-grid'>
         <Col xs={10}>
           <CarsEditPageForm
-            isSaving={isSaving}
             carsOptions={carsOptions}
             onSubmit={this.handleSubmit.bind(this)} />
         </Col>
@@ -65,9 +65,8 @@ function select(state) {
     currentUserId: state.session.user.id,
     userCars:      state.cars.cars,
     car:           state.car.car,
-    carsOptions:   state.carsOptions.carsOptions,
-    session:       state.session.user
-  };
+    carsOptions:   state.carsOptions.carsOptions
+  }
 }
 
 export default connect(select)(CarsEditPage);

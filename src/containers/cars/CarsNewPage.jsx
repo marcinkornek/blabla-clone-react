@@ -20,17 +20,17 @@ export default class CarsNewPage extends React.Component {
     var body = new FormData();
     Object.keys(data).forEach((key) => {
       if (key == 'car_photo') {
-        if (data[key]) { body.append(key, data[key][0])}
+        if (_.isObject(data[key])) { body.append(key, data[key][0]) }
       } else {
-        body.append(key, data[key]);
+        if (!_.isEmpty(data[key])) { body.append(key, data[key]) }
       }
     });
 
-    this.props.dispatch(actions.createCar(this.context.router, body, this.props.session))
+    this.props.dispatch(actions.createCar(this.context.router, body))
   }
 
   render() {
-    const { dispatch, carsOptions, session } = this.props;
+    const { dispatch, carsOptions } = this.props;
     return (
       <div className='show-grid'>
         <Col xs={10}>
@@ -53,7 +53,6 @@ CarsNewPage.contextTypes = {
 
 function select(state) {
   return {
-    session:     state.session.user,
     carsOptions: state.carsOptions.carsOptions
   };
 }

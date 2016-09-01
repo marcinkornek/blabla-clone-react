@@ -60,15 +60,16 @@ export function fetchCarsOptions() {
   };
 }
 
-export function createCar(router, body, session) {
-  return dispatch => {
+export function createCar(router, body) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(carCreateRequest());
     return fetch(cons.APIEndpoints.CARS, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       },
       body: body
     })
@@ -79,16 +80,16 @@ export function createCar(router, body, session) {
   };
 }
 
-export function updateCar(router, body, id, session) {
-  return dispatch => {
-    console.log(body);
+export function updateCar(router, body, id) {
+  return (dispatch, getState) => {
+    const { session } = getState()
     dispatch(carUpdateRequest());
     return fetch(cons.APIEndpoints.CARS + '/' + id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'X-User-Email': session['email'],
-        'X-User-Token': session['access_token']
+        'X-User-Email': session.user.email,
+        'X-User-Token': session.user.access_token
       },
       body: body
     })
