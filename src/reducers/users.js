@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,
-  users: [],
+  items: [],
   pagination: []
 }
 
@@ -15,7 +15,7 @@ export default function users(state = initialState, action) {
   case types.USERS_SUCCESS:
     return Object.assign({}, state, {
       isFetching: false,
-      users: action.users,
+      items: action.items,
       pagination: action.pagination
     });
   default:

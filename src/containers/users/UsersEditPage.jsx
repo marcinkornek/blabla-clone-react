@@ -1,30 +1,31 @@
-import React, { PropTypes }  from 'react';
-import Router, { Link }      from 'react-router'
-import { Col }               from 'react-bootstrap'
-import { connect }           from 'react-redux';
-import Icon                  from 'react-fa'
-import _                     from 'lodash'
+import React, { Component, PropTypes } from 'react'
+import Router, { Link } from 'react-router'
+import { Col } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import Icon from 'react-fa'
+import _ from 'lodash'
+import * as actions from '../../actions/users'
+import styles from '../../stylesheets/users/Users'
+import UsersEditPageForm from '../../components/users/UsersEditPageForm'
 
-import * as actions          from '../../actions/users';
-import styles                from '../../stylesheets/users/Users'
-import UsersEditPageForm     from '../../components/users/UsersEditPageForm'
-
-export default class UsersEditPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+class UsersEditPage extends Component {
+  static PropTypes = {
+    isFetching: PropTypes.bool.isRequired,
+    currentUserId: PropTypes.number.isRequired
   }
 
   componentDidMount() {
-    const { dispatch, currentUserId } = this.props;
+    const { fetchUserProfile, currentUserId } = this.props
     if (currentUserId) {
-      dispatch(actions.fetchUserProfile(currentUserId))
+      fetchUserProfile(currentUserId)
     }
   }
 
   handleSubmit(data) {
-    var body = new FormData();
+    const { updateUser } = this.props
+
+    var body = new FormData()
     Object.keys(data).forEach(( key ) => {
-      console.log(key, data[key]);
       if (key == 'avatar') {
         if (_.isObject(data[key])) { body.append(key, data[key][0]) }
       } else {
@@ -32,11 +33,11 @@ export default class UsersEditPage extends React.Component {
       }
     })
 
-    this.props.dispatch(actions.updateUser(body))
+    updateUser(body)
   }
 
   render() {
-    const { isFetching, currentUserId } = this.props;
+    const { isFetching, currentUserId } = this.props
     var userEdit, userEditForm
 
     if (isFetching || currentUserId === undefined) {
@@ -68,15 +69,16 @@ export default class UsersEditPage extends React.Component {
   }
 }
 
-UsersEditPage.PropTypes = {
-  user: PropTypes.array.isRequired
-}
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    isFetching:    state.user.isFetching,
-    currentUserId: state.session.user.id
-  };
+    isFetching: state.user.isFetching,
+    currentUserId: state.session.id
+  }
 }
 
-export default connect(select)(UsersEditPage);
+const mapDispatchToProps = {
+  fetchUserProfile: actions.fetchUserProfile,
+  updateUser: actions.updateUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersEditPage)

@@ -1,25 +1,32 @@
-import React, { PropTypes }  from 'react';
-import { Col }             from 'react-bootstrap'
-import { connect }           from 'react-redux';
+import React, { Component, PropTypes }  from 'react'
+import { Col } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import * as actions from '../../actions/rides'
+import styles from '../../stylesheets/rides/Rides'
+import RidesEditPageForm from '../../components/rides/RidesEditPageForm'
 
-import * as actions          from '../../actions/rides';
-import styles                from '../../stylesheets/rides/Rides'
-import RidesEditPageForm       from '../../components/rides/RidesEditPageForm'
+class RidesEditPage extends Component {
+  static propTypes = {
+    ride: PropTypes.object.isRequired,
+    ridesOptions: PropTypes.object.isRequired
+  }
 
-export default class RidesEditPage extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   componentDidMount() {
-    var rideId = this.props.params.rideId
-    const { dispatch } = this.props;
-    dispatch(actions.fetchRidesOptions())
+    const { fetchRidesOptions, fetchRide, params: { rideId } } = this.props
+    fetchRidesOptions()
     if (rideId) {
-      dispatch(actions.fetchRide(rideId))
+      fetchRide(rideId)
     }
   }
 
   handleSubmit(data) {
-    const { dispatch, ride } = this.props
+    const { updateRide, ride } = this.props
 
-    var body = new FormData();
+    var body = new FormData()
     Object.keys(data).forEach((key) => {
       if (key == 'destination_city' || key == 'start_city') {
         body.append(key, data[key].label)
@@ -30,13 +37,13 @@ export default class RidesEditPage extends React.Component {
       } else {
         if (data[key]) { body.append(key, data[key]) }
       }
-    });
+    })
 
-    dispatch(actions.updateRide(this.context.router, body, ride.id))
+    updateRide(this.context.router, body, ride.id)
   }
 
   render() {
-    const { dispatch, ridesOptions, ride } = this.props
+    const { ridesOptions, ride } = this.props
     return (
       <div className='show-grid'>
         <Col xs={12}>
@@ -52,19 +59,17 @@ export default class RidesEditPage extends React.Component {
   }
 }
 
-RidesEditPage.propTypes = {
-  dispatch: PropTypes.func.isRequired
-};
-
-RidesEditPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    ride:         state.ride.ride,
-    ridesOptions: state.ridesOptions.ridesOptions
-  };
+    ride: state.ride,
+    ridesOptions: state.ridesOptions
+  }
 }
 
-export default connect(select)(RidesEditPage);
+const mapDispatchToProps = {
+  fetchRidesOptions: actions.fetchRidesOptions,
+  fetchRide: actions.fetchRide,
+  updateRide: actions.updateRide
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RidesEditPage)

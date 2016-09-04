@@ -1,32 +1,34 @@
-import React, { PropTypes }  from 'react'
-import Router, { Link }      from 'react-router'
-import { Button, Col }       from 'react-bootstrap'
-import { connect }           from 'react-redux';
-import Icon                  from 'react-fa'
-import ReactPaginate         from 'react-paginate'
-
-import * as actions          from '../../actions/cars';
-import styles                from '../../stylesheets/users/Users'
-import CarsItem              from '../../components/cars/CarsIndexPageItem'
+import React, { Component, PropTypes } from 'react'
+import Router, { Link } from 'react-router'
+import { Button, Col } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import Icon from 'react-fa'
+import ReactPaginate from 'react-paginate'
+import * as actions from '../../actions/cars'
+import styles from '../../stylesheets/users/Users'
+import CarsItem from '../../components/cars/CarsIndexPageItem'
 
 const per = 10
 
-export default class CarsIndexPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+class CarsIndexPage extends Component {
+  static PropTypes = {
+    isFetching: PropTypes.bool.isRequired,
+    cars: PropTypes.array.isRequired,
+    pagination: PropTypes.object.isRequired,
+    currentUserId: PropTypes.number
   }
 
   componentDidMount() {
-    const { dispatch, currentUserId } = this.props;
+    const { fetchCars, currentUserId } = this.props
     if (currentUserId) {
-      dispatch(actions.fetchCars(currentUserId, 1, per));
+      fetchCars(currentUserId, 1, per)
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { dispatch, currentUserId } = this.props;
+    const { fetchCars, currentUserId } = this.props
     if (nextProps.currentUserId && currentUserId === undefined) {
-      dispatch(actions.fetchCars(nextProps.currentUserId, 1, per))
+      fetchCars(nextProps.currentUserId, 1, per)
     }
   }
 
@@ -86,23 +88,24 @@ export default class CarsIndexPage extends React.Component {
   }
 
   handlePageClick(e) {
-    const { dispatch, currentUserId } = this.props;
-    var page = e.selected + 1;
-    dispatch(actions.fetchCars(currentUserId, page, per))
+    const { fetchCars, currentUserId } = this.props
+    var page = e.selected + 1
+    fetchCars(currentUserId, page, per)
   }
 }
 
-CarsIndexPage.PropTypes = {
-  cars: PropTypes.array.isRequired
-}
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    isFetching:    state.cars.isFetching,
-    cars:          state.cars.cars,
-    pagination:    state.cars.pagination,
-    currentUserId: state.session.user.id
-  };
+    isFetching: state.cars.isFetching,
+    cars: state.cars.items,
+    pagination: state.cars.pagination,
+    currentUserId: state.session.id
+  }
 }
 
-export default connect(select)(CarsIndexPage);
+const mapDispatchToProps = {
+  fetchCars: actions.fetchCars
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarsIndexPage)

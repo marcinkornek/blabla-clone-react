@@ -1,19 +1,28 @@
-import React, { PropTypes }  from 'react';
-import { Col }             from 'react-bootstrap'
-import { connect }           from 'react-redux';
+import React, { Component, PropTypes }  from 'react'
+import { Col } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import * as actions from '../../actions/rides'
+import styles from '../../stylesheets/rides/Rides'
+import RidesNewPageForm from '../../components/rides/RidesNewPageForm'
 
-import * as actions          from '../../actions/rides';
-import styles                from '../../stylesheets/rides/Rides'
-import RidesNewPageForm       from '../../components/rides/RidesNewPageForm'
+class RidesNewPage extends Component {
+  static propTypes = {
+    ridesOptions: PropTypes.object.isRequired
+  }
 
-export default class RidesNewPage extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   componentDidMount() {
-    const { dispatch } = this.props
-    dispatch(actions.fetchRidesOptions())
+    const { fetchRidesOptions } = this.props
+    fetchRidesOptions()
   }
 
   handleSubmit(data) {
-    var body = new FormData();
+    const { createRide } = this.props
+
+    var body = new FormData()
     Object.keys(data).forEach((key) => {
       if (key == 'destination_city' || key == 'start_city') {
         body.append(key, data[key].label)
@@ -22,13 +31,13 @@ export default class RidesNewPage extends React.Component {
       } else {
         if (data[key]) { body.append(key, data[key]) }
       }
-    });
+    })
 
-    this.props.dispatch(actions.createRide(this.context.router, body))
+    createRide(this.context.router, body)
   }
 
   render() {
-    const { dispatch, ridesOptions } = this.props
+    const { ridesOptions } = this.props
     return (
       <div className='show-grid'>
         <Col xs={12}>
@@ -44,18 +53,15 @@ export default class RidesNewPage extends React.Component {
   }
 }
 
-RidesNewPage.propTypes = {
-  dispatch: PropTypes.func.isRequired
-};
-
-RidesNewPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    ridesOptions: state.ridesOptions.ridesOptions
-  };
+    ridesOptions: state.ridesOptions
+  }
 }
 
-export default connect(select)(RidesNewPage);
+const mapDispatchToProps = {
+  fetchRidesOptions: actions.fetchRidesOptions,
+  createRide: actions.createRide,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RidesNewPage)

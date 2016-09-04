@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes'
 
 const initialState = {
   isFetching: false,
-  rides: [],
+  items: [],
   pagination: []
 }
 
@@ -15,7 +15,7 @@ export default function ridesDriver(state = initialState, action) {
   case types.RIDES_DRIVER_SUCCESS:
     return Object.assign({}, state, {
       isFetching: false,
-      rides: action.rides,
+      items: action.items,
       pagination: action.pagination
     });
   default:

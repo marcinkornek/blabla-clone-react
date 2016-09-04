@@ -28,7 +28,7 @@ const styles = {
   }
 };
 
-export default class AppNavDrawer extends React.Component {
+export default class AppNavDrawer extends Component {
   static propTypes = {
     docked: PropTypes.bool.isRequired,
     location: PropTypes.object.isRequired,

@@ -1,15 +1,17 @@
-import React, { PropTypes }  from 'react';
-import Bootstrap             from 'react-bootstrap'
-import styles                from '../../stylesheets/session/Login'
+import React, { Component, PropTypes } from 'react'
 
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments) } }
 var data = {}
 
-export default class LoginFbPage extends React.Component {
+export default class LoginFbPage extends Component {
   constructor (props, context) {
     super(props, context)
     this.statusChangeCallback = this.statusChangeCallback.bind(this)
     this.loginWithFacebook = this.loginWithFacebook.bind(this)
+  }
+
+  static propTypes = {
+    onDataReceive: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -84,7 +86,3 @@ export default class LoginFbPage extends React.Component {
     )
   }
 }
-
-LoginFbPage.propTypes = {
-  onDataReceive: PropTypes.func.isRequired
-};

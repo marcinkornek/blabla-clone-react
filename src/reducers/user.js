@@ -2,9 +2,8 @@ import * as types from '../constants/ActionTypes'
 
 const initialState = {
   errors: [],
-  isSaving:   false,
-  isFetching: false,
-  user: {},
+  isSaving: false,
+  isFetching: false
 }
 
 export default function user(state = initialState, action) {
@@ -15,10 +14,10 @@ export default function user(state = initialState, action) {
       isFetching: true
     });
   case types.USER_SUCCESS:
-    action.user.date_of_birth = new Date(action.user.date_of_birth)
+    action.item.date_of_birth = new Date(action.item.date_of_birth)
     return Object.assign({}, state, {
       isFetching: false,
-      user: action.user
+      ...action.item
     });
   case types.USER_UPDATE_REQUEST:
     return Object.assign({}, state, {
@@ -27,7 +26,7 @@ export default function user(state = initialState, action) {
   case types.USER_UPDATE_SUCCESS:
     return Object.assign({}, state, {
       isSaving: false,
-      user: action.user,
+      ...action.item,
       errors: []
     });
   case types.USER_UPDATE_FAILURE:

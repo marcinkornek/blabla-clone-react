@@ -11,7 +11,7 @@ function status(response) {
 
 export function fetchCars(userId, page = 1, per = 10) {
   return dispatch => {
-    dispatch(carsRequest());
+    dispatch(carsRequest())
     return fetch(cons.APIEndpoints.USERS + '/' + userId + '/cars?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
@@ -23,12 +23,12 @@ export function fetchCars(userId, page = 1, per = 10) {
     .then(req => req.json())
     .then(json => dispatch(carsSuccess(json)))
     .catch(errors => dispatch(carsFailure(errors)))
-  };
+  }
 }
 
 export function fetchCar(carId) {
   return dispatch => {
-    dispatch(carRequest());
+    dispatch(carRequest())
     return fetch(cons.APIEndpoints.CARS + '/' + carId, {
       method: 'get',
       headers: {
@@ -40,12 +40,12 @@ export function fetchCar(carId) {
     .then(req => req.json())
     .then(json => dispatch(carSuccess(json)))
     .catch(errors => dispatch(carFailure(errors)))
-  };
+  }
 }
 
 export function fetchCarsOptions() {
   return dispatch => {
-    dispatch(carsOptionsRequest());
+    dispatch(carsOptionsRequest())
     return fetch(cons.APIEndpoints.CARS + '/options', {
       method: 'get',
       headers: {
@@ -57,19 +57,19 @@ export function fetchCarsOptions() {
     .then(req => req.json())
     .then(json => dispatch(carsOptionsSuccess(json)))
     .catch(errors => dispatch(carsOptionsFailure(errors)))
-  };
+  }
 }
 
 export function createCar(router, body) {
   return (dispatch, getState) => {
     const { session } = getState()
-    dispatch(carCreateRequest());
+    dispatch(carCreateRequest())
     return fetch(cons.APIEndpoints.CARS, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'X-User-Email': session.user.email,
-        'X-User-Token': session.user.access_token
+        'X-User-Email': session.email,
+        'X-User-Token': session.access_token
       },
       body: body
     })
@@ -77,19 +77,19 @@ export function createCar(router, body) {
     .then(req => req.json())
     .then(json => dispatch(carCreateSuccess(router, json)))
     .catch(errors => dispatch(carCreateFailure(errors)))
-  };
+  }
 }
 
 export function updateCar(router, body, id) {
   return (dispatch, getState) => {
     const { session } = getState()
-    dispatch(carUpdateRequest());
+    dispatch(carUpdateRequest())
     return fetch(cons.APIEndpoints.CARS + '/' + id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'X-User-Email': session.user.email,
-        'X-User-Token': session.user.access_token
+        'X-User-Email': session.email,
+        'X-User-Token': session.access_token
       },
       body: body
     })
@@ -97,19 +97,19 @@ export function updateCar(router, body, id) {
     .then(req => req.json())
     .then(json => dispatch(carUpdateSuccess(router, json)))
     .catch(errors => dispatch(carUpdateFailure(errors)))
-  };
+  }
 }
 
 export function carsRequest() {
   return {
-    type: types.CARS_REQUEST,
-  };
+    type: types.CARS_REQUEST
+  }
 }
 
 export function carsSuccess(json) {
   return {
     type: types.CARS_SUCCESS,
-    cars: json.cars,
+    items: json.items,
     pagination: json.meta
   }
 }
@@ -123,14 +123,14 @@ export function carsFailure(errors) {
 
 export function carRequest() {
   return {
-    type: types.CAR_REQUEST,
-  };
+    type: types.CAR_REQUEST
+  }
 }
 
 export function carSuccess(json) {
   return {
     type: types.CAR_SUCCESS,
-    car: json
+    item: json
   }
 }
 
@@ -143,14 +143,14 @@ export function carFailure(errors) {
 
 export function carsOptionsRequest() {
   return {
-    type: types.CARS_OPTIONS_REQUEST,
-  };
+    type: types.CARS_OPTIONS_REQUEST
+  }
 }
 
 export function carsOptionsSuccess(json) {
   return {
     type: types.CARS_OPTIONS_SUCCESS,
-    carsOptions: json
+    item: json
   }
 }
 
@@ -163,18 +163,18 @@ export function carsOptionsFailure(errors) {
 
 export function carCreateRequest() {
   return {
-    type: types.CAR_CREATE_REQUEST,
-  };
+    type: types.CAR_CREATE_REQUEST
+  }
 }
 
 export function carCreateSuccess(router, json) {
   return (dispatch, getState) => {
     dispatch({
       type: types.CAR_CREATE_SUCCESS,
-      car: json
-    });
+      item: json
+    })
     router.replace('/account/cars')
-  };
+  }
 }
 
 export function carCreateFailure(errors) {
@@ -186,18 +186,18 @@ export function carCreateFailure(errors) {
 
 export function carUpdateRequest() {
   return {
-    type: types.CAR_UPDATE_REQUEST,
-  };
+    type: types.CAR_UPDATE_REQUEST
+  }
 }
 
 export function carUpdateSuccess(router, json) {
   return (dispatch, getState) => {
     dispatch({
       type: types.CAR_UPDATE_SUCCESS,
-      car: json
-    });
+      item: json
+    })
     router.replace('/account/cars')
-  };
+  }
 }
 
 export function carUpdateFailure(errors) {

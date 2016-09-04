@@ -1,33 +1,32 @@
-import React, { PropTypes }  from 'react'
-import Router, { Link }      from 'react-router'
-import { Button, Col }       from 'react-bootstrap'
-import { connect }           from 'react-redux';
-import Icon                  from 'react-fa'
-import ReactPaginate         from 'react-paginate'
-
-import * as actions          from '../../actions/rides';
-import styles                from '../../stylesheets/rides/Rides'
-import sharedStyles          from '../../stylesheets/shared/Shared'
-import RidesItem             from '../../components/rides/RidesIndexSimplePageItem'
+import React, { Component, PropTypes } from 'react'
+import Router, { Link } from 'react-router'
+import { Button, Col } from 'react-bootstrap'
+import { connect } from 'react-redux';
+import Icon from 'react-fa'
+import ReactPaginate from 'react-paginate'
+import * as actions from '../../actions/rides';
+import styles from '../../stylesheets/rides/Rides'
+import sharedStyles from '../../stylesheets/shared/Shared'
+import RidesItem from '../../components/rides/RidesIndexSimplePageItem'
 
 const per = 10
 
-export default class RidesDriverIndexPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+class RidesDriverIndexPage extends Component {
+  static PropTypes = {
+    rides: PropTypes.array.isRequired
   }
 
   componentDidMount() {
-    const { dispatch, currentUserId } = this.props;
+    const { fetchRidesAsDriver, currentUserId } = this.props
     if (currentUserId) {
-      dispatch(actions.fetchRidesAsDriver(currentUserId, 1, per))
+      fetchRidesAsDriver(currentUserId, 1, per)
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { dispatch, currentUserId } = this.props;
+    const { fetchRidesAsDriver, currentUserId } = this.props
     if (nextProps.currentUserId && currentUserId === undefined) {
-      dispatch(actions.fetchRidesAsDriver(nextProps.currentUserId, 1, per))
+      fetchRidesAsDriver(nextProps.currentUserId, 1, per)
     }
   }
 
@@ -98,17 +97,17 @@ export default class RidesDriverIndexPage extends React.Component {
   }
 }
 
-RidesDriverIndexPage.PropTypes = {
-  rides: PropTypes.array.isRequired
-}
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    isFetching:     state.ridesDriver.isFetching,
-    rides:          state.ridesDriver.rides,
-    pagination:     state.ridesDriver.pagination,
-    currentUserId:  state.session.user.id
-  };
+    isFetching: state.ridesDriver.isFetching,
+    rides: state.ridesDriver.items,
+    pagination: state.ridesDriver.pagination,
+    currentUserId: state.session.id
+  }
 }
 
-export default connect(select)(RidesDriverIndexPage);
+const mapDispatchToProps = {
+  fetchRidesAsDriver: actions.fetchRidesAsDriver
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RidesDriverIndexPage)

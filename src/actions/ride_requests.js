@@ -12,38 +12,38 @@ function status(response) {
 export function createRideRequest(rideId, places) {
   return (dispatch, getState) => {
     const { session } = getState()
-    dispatch(rideRequestCreateRequest());
+    dispatch(rideRequestCreateRequest())
     return fetch(cons.APIEndpoints.RIDE_REQUESTS, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': session.user.email,
-        'X-User-Token': session.user.access_token
+        'X-User-Email': session.email,
+        'X-User-Token': session.access_token
       },
       body: JSON.stringify({
         'ride_id': rideId,
-        'places':  places,
+        'places':  places
       })
     })
     .then(status)
     .then(req => req.json())
     .then(json => dispatch(rideRequestCreateSuccess(json)))
     .catch(errors => dispatch(rideRequestCreateFailure(errors)))
-  };
+  }
 }
 
 export function changeRideRequest(rideRequestId, status) {
   return (dispatch, getState) => {
     const { session } = getState()
-    dispatch(rideRequestChangeRequest());
+    dispatch(rideRequestChangeRequest())
     return fetch(cons.APIEndpoints.RIDE_REQUESTS + '/' + rideRequestId, {
       method: 'put',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': session.user.email,
-        'X-User-Token': session.user.access_token
+        'X-User-Email': session.email,
+        'X-User-Token': session.access_token
       },
       body: JSON.stringify({
         'status': status
@@ -53,20 +53,20 @@ export function changeRideRequest(rideRequestId, status) {
     .then(req => req.json())
     .then(json => dispatch(rideRequestChangeSuccess(json)))
     .catch(errors => dispatch(rideRequestChangeFailure(errors)))
-  };
+  }
 }
 
 export function rideRequestCreateRequest() {
   return {
-    type: types.RIDE_REQUEST_CREATE_REQUEST,
-  };
+    type: types.RIDE_REQUEST_CREATE_REQUEST
+  }
 }
 
-export function rideRequestCreateSuccess(ride) {
+export function rideRequestCreateSuccess(json) {
   return {
     type: types.RIDE_REQUEST_CREATE_SUCCESS,
-    places: ride.free_places_count,
-    ride: ride
+    places: json.free_places_count,
+    item: json
   }
 }
 
@@ -79,14 +79,14 @@ export function rideRequestCreateFailure(errors) {
 
 export function rideRequestChangeRequest() {
   return {
-    type: types.RIDE_REQUEST_CHANGE_REQUEST,
-  };
+    type: types.RIDE_REQUEST_CHANGE_REQUEST
+  }
 }
 
-export function rideRequestChangeSuccess(ride) {
+export function rideRequestChangeSuccess(json) {
   return {
     type: types.RIDE_REQUEST_CHANGE_SUCCESS,
-    ride: ride
+    item: json
   }
 }
 

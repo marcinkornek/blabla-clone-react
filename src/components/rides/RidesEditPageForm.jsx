@@ -1,29 +1,29 @@
-import React, { PropTypes }   from 'react'
-import { connect }            from 'react-redux';
-import { reduxForm, Field }   from 'redux-form'
-import { renderTextField }    from '../shared/RenderTextField'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { reduxForm, Field } from 'redux-form'
+import { renderTextField } from '../shared/RenderTextField'
 import { renderGeoTextField } from '../shared/RenderGeoTextField'
-import { renderSelectField }  from '../shared/RenderSelectField'
-import DatePicker             from '../inputs/DatePicker'
-import RideValidator          from './RideValidator'
-import MenuItem               from 'material-ui/MenuItem'
+import { renderSelectField } from '../shared/RenderSelectField'
+import MenuItem from 'material-ui/MenuItem'
+import DatePicker from '../inputs/DatePicker'
+import RideValidator from './RideValidator'
 
-class RidesEditPageForm extends React.Component {
+class RidesEditPageForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
-  };
+  }
 
   render() {
-    const { handleSubmit, submitting, ridesOptions } = this.props
+    const { handleSubmit, ridesOptions } = this.props
 
     var currencies = []
     var cars = []
     if (ridesOptions) {
       for (var i = 0; i < ridesOptions.currencies.length; i++) {
-        currencies.push(<MenuItem value={ridesOptions.currencies[i]} key={'option-' + i} primaryText={ridesOptions.currencies[i]}/>);
+        currencies.push(<MenuItem value={ridesOptions.currencies[i]} key={'option-' + i} primaryText={ridesOptions.currencies[i]}/>)
       }
       for (var i = 0; i < ridesOptions.cars.length; i++) {
-        cars.push(<MenuItem value={ridesOptions.cars[i].id} key={'car-' + i} primaryText={ridesOptions.cars[i].name}/>);
+        cars.push(<MenuItem value={ridesOptions.cars[i].id} key={'car-' + i} primaryText={ridesOptions.cars[i].name}/>)
       }
     }
 
@@ -46,7 +46,7 @@ class RidesEditPageForm extends React.Component {
         </Field>
         <button type="submit" className="btn btn-default form-submit">Submit</button>
       </form>
-    );
+    )
   }
 }
 
@@ -57,7 +57,7 @@ RidesEditPageForm = reduxForm({
 
 RidesEditPageForm = connect(
   state => ({
-    initialValues: state.ride.ride
+    initialValues: state.ride
   })
 )(RidesEditPageForm)
 

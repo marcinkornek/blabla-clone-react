@@ -1,25 +1,36 @@
-import React, { PropTypes }  from "react";
-import { Col, Alert }        from "react-bootstrap"
-import { connect }           from "react-redux";
-import Router, { Link }      from "react-router"
+import React, { Component, PropTypes } from "react";
+import { Col, Alert } from "react-bootstrap"
+import { connect } from "react-redux";
+import Router, { Link } from "react-router"
+import LoginFbPage from "../../components/session/LoginFbPage"
+import LoginEmailPage from "../../components/session/LoginEmailPage"
+import styles from "../../stylesheets/session/Login"
+import * as actions from "../../actions/session";
 
-import LoginFbPage           from "../../components/session/LoginFbPage"
-import LoginEmailPage        from "../../components/session/LoginEmailPage"
-import styles                from "../../stylesheets/session/Login"
-import * as actions          from "../../actions/session";
+class LoginPage extends Component {
+  static propTypes = {
+    errors: PropTypes.array,
+    isFetching: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired
+  }
 
-export default class LoginPage extends React.Component {
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   handleSubmit(data) {
+    const { logInEmailBackend } = this.props
     var body = new FormData();
     Object.keys(data).forEach((key) => {
       body.append(key, data[key])
     });
 
-    this.props.dispatch(actions.logInEmailBackend(this.context.router, body))
+    logInEmailBackend(this.context.router, body)
   }
 
   render() {
-    const { dispatch, errors } = this.props;
+    const { logInFbBackend, errors } = this.props;
 
     var formErrors
     if (!_.isEmpty(errors)) {
@@ -45,7 +56,7 @@ export default class LoginPage extends React.Component {
               <h3 className="login-form__title">Login</h3>
               <LoginFbPage
                 onDataReceive={text =>
-                  dispatch(actions.logInFbBackend(this.context.router, text))
+                  logInFbBackend(this.context.router, text)
                 } />
               <div className="login-button__separator">or</div>
               <LoginEmailPage
@@ -63,21 +74,18 @@ export default class LoginPage extends React.Component {
   }
 }
 
-LoginPage.propTypes = {
-  dispatch: PropTypes.func.isRequired
-};
-
-LoginPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    errors:     state.session.errors,
+    errors: state.session.errors,
     isFetching: state.session.isFetching,
     isLoggedIn: state.session.isLoggedIn,
-    user:       state.session.user
-  };
+    user: state.session
+  }
 }
 
-export default connect(select)(LoginPage);
+const mapDispatchToProps = {
+  logInEmailBackend: actions.logInEmailBackend,
+  logInFbBackend: actions.logInFbBackend
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)

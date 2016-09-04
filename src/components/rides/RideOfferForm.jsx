@@ -1,40 +1,42 @@
-import React, { PropTypes }   from 'react'
-import { Input, ButtonInput } from 'react-bootstrap'
-import styles                 from '../../stylesheets/rides/Rides'
-import FormTooltip            from '../shared/FormTooltip'
-import pluralize              from 'pluralize'
+import React, { Component, PropTypes } from 'react'
+import { reduxForm, Field } from 'redux-form'
+import { renderSelectField } from '../shared/RenderSelectField'
+import MenuItem from 'material-ui/MenuItem'
+import pluralize from 'pluralize'
 
-export default class RideOfferForm extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+class RideOfferForm extends Component {
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired
   }
 
   isNotAuthor() {
-    if (this.props.currentUserId != this.props.ride.driver.id) {
+    const { currentUserId, ride } = this.props
+    if (currentUserId != ride.driver.id) {
       return true
     }
   }
 
   render() {
+    const { handleSubmit, currentUserId, ride } = this.props
     var places = []
-    for (var i = 0; i < parseInt(this.props.ride.places, 10); i++) {
-      places.push(<option key={i} value={i + 1}> {pluralize('place', i + 1, true)} </option>);
+    for (var i = 0; i < parseInt(ride.places, 10); i++) {
+      places.push(<MenuItem key={i} value={i + 1} primaryText={pluralize('place', i + 1, true)} />)
     }
 
     var rideOfferForm
-    if (this.props.currentUserId && parseInt(this.props.ride.places, 10) > 0 && this.isNotAuthor()) {
+    if (currentUserId && parseInt(ride.places, 10) > 0 && this.isNotAuthor()) {
       rideOfferForm =
         <div className='book-ride'>
-          click to book place:
-          <form className='book-ride-form' onSubmit={this.handleSubmitForm.bind(this)}>
-            <Input type='select' name='book_places' ref='book_places' groupClassName='book-ride-form__select' standalone>
-              {places}
-            </Input>
-            <ButtonInput type='submit' value='Book' groupClassName='book-ride-form__submit' standalone />
+          <form className='book-ride-form' onSubmit={handleSubmit}>
+            <Field name="places" component={renderSelectField} label="Click to book place:">
+              {_.map(places, (n) => n)}
+            </Field>
+
+            <button type="submit" className="btn btn-default form-submit">Submit</button>
           </form>
         </div>
     } else {
-      if (this.props.currentUserId && parseInt(this.props.ride.places, 10) > 0 && this.isNotAuthor()) {
+      if (this.props.currentUserId && parseInt(ride.places, 10) > 0 && this.isNotAuthor()) {
           rideOfferForm =
             <div className='book-ride'>
               No places
@@ -48,13 +50,8 @@ export default class RideOfferForm extends React.Component {
       </div>
     )
   }
-
-  handleSubmitForm(e) {
-    e.preventDefault()
-    this.props.onAddClick(this.refs.book_places.getValue())
-  }
 }
 
-RideOfferForm.propTypes = {
-  onAddClick: PropTypes.func.isRequired
-};
+export default reduxForm({
+  form: 'RideOfferForm'
+})(RideOfferForm)

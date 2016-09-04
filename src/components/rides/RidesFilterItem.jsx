@@ -1,15 +1,16 @@
-import React, { PropTypes }   from 'react'
-import { connect }            from 'react-redux'
-import { reduxForm, Field }   from 'redux-form'
-import Checkbox               from '../inputs/Checkbox'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { reduxForm, Field } from 'redux-form'
+import Checkbox from '../inputs/Checkbox'
 
-class RidesFilterItem extends React.Component {
+class RidesFilterItem extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }
 
   render() {
-    const {handleSubmit, filters} = this.props
+    const { handleSubmit, filters } = this.props
+
     return (
       <form onSubmit={handleSubmit}>
         <div>

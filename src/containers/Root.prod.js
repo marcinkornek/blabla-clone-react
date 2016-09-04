@@ -1,13 +1,18 @@
 import React, { Component, PropTypes } from 'react'
-import { Provider }                    from 'react-redux'
-import { Router, browserHistory }      from 'react-router'
-import { createRoutes }                from '../routes'
-import MuiThemeProvider                from 'material-ui/styles/MuiThemeProvider'
+import { Provider } from 'react-redux'
+import { Router, browserHistory } from 'react-router'
+import { createRoutes } from '../routes'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 export default class Root extends Component {
+  static propTypes = {
+    store: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  }
+
   render() {
     const { store, history } = this.props
-    const routes = createRoutes(store);
+    const routes = createRoutes(store)
 
     return (
       <MuiThemeProvider>
@@ -17,9 +22,4 @@ export default class Root extends Component {
       </MuiThemeProvider>
     )
   }
-}
-
-Root.propTypes = {
-  store: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
 }

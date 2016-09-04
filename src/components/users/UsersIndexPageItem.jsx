@@ -1,20 +1,21 @@
-import React, { PropTypes }  from 'react'
-import { Link }              from 'react-router';
-import { Panel }             from 'react-bootstrap'
-import styles                from '../../stylesheets/users/Users'
+import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
+import { Panel } from 'react-bootstrap'
 
-export default class UsersIndexPageItem extends React.Component {
+export default class UsersIndexPageItem extends Component {
   render() {
+    const { user } = this.props
+
     return (
-      <Link to={`/users/${this.props.user.id}`}>
+      <Link to={`/users/${user.id}`}>
         <Panel className='user'>
           <div className='user-details'>
-            <div className='user-details__name'>{this.props.user.full_name}</div>
-            <div className='user-details__email'>{this.props.user.email}</div>
-            <div className='user-details__timestamp'>{this.props.user.created_at}</div>
+            <div className='user-details__name'>{user.full_name}</div>
+            <div className='user-details__email'>{user.email}</div>
+            <div className='user-details__timestamp'>{user.created_at}</div>
           </div>
           <div className='user-avatar'>
-            <img src={this.props.user.avatar}/>
+            <img src={user.avatar}/>
           </div>
         </Panel>
       </Link>

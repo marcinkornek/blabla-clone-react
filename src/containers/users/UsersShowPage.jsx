@@ -1,23 +1,23 @@
-import React, { PropTypes }  from 'react'
-import { connect }           from 'react-redux';
-import { Col }             from 'react-bootstrap'
-import Timestamp             from 'react-time'
-import Icon                  from 'react-fa'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux';
+import { Col } from 'react-bootstrap'
+import Timestamp from 'react-time'
+import Icon from 'react-fa'
+import * as actions from '../../actions/users';
+import styles from '../../stylesheets/users/Users'
+import CarsItem from '../../components/cars/CarsIndexPageItem'
+import RidesItem from '../../components/rides/RidesIndexSimplePageItem'
 
-import * as actions          from '../../actions/users';
-import styles                from '../../stylesheets/users/Users'
-import CarsItem              from '../../components/cars/CarsIndexPageItem'
-import RidesItem             from '../../components/rides/RidesIndexSimplePageItem'
-
-export default class UsersShowPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+class UsersShowPage extends Component {
+  static PropTypes = {
+    isFetching: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired,
+    currentUserId: PropTypes.number.isRequired
   }
 
   componentDidMount() {
-    var userId = this.props.params.userId
-    const { dispatch } = this.props;
-    dispatch(actions.fetchUser(userId));
+    const { fetchUser, params: { userId } } = this.props
+    fetchUser(userId)
   }
 
   render() {
@@ -25,7 +25,7 @@ export default class UsersShowPage extends React.Component {
 
     var ridesList
     if (user.rides_as_driver) {
-      ridesList = user.rides_as_driver.map((ride, i) =>
+      ridesList = user.rides_as_driver.items.map((ride, i) =>
         <RidesItem ride={ride} key={i} />
       )
     } else {
@@ -59,7 +59,7 @@ export default class UsersShowPage extends React.Component {
 
     var carsList
     if (user.cars) {
-      carsList = user.cars.map((car, i) =>
+      carsList = user.cars.items.map((car, i) =>
         <CarsItem car={car} currentUserId={currentUserId} key={i} />
       )
     } else {
@@ -111,16 +111,16 @@ export default class UsersShowPage extends React.Component {
   }
 }
 
-UsersShowPage.PropTypes = {
-  user: PropTypes.array.isRequired
-}
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    isFetching:    state.user.isFetching,
-    user:          state.user.user,
-    currentUserId: state.session.user.id
-  };
+    isFetching: state.user.isFetching,
+    user: state.user,
+    currentUserId: state.session.id
+  }
 }
 
-export default connect(select)(UsersShowPage);
+const mapDispatchToProps = {
+  fetchUser: actions.fetchUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersShowPage)

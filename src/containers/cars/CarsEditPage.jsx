@@ -1,31 +1,34 @@
-import React, { PropTypes }  from 'react';
-import Router, { Link }      from 'react-router'
-import { Col }               from 'react-bootstrap'
-import { connect }           from 'react-redux';
-import _                     from 'underscore';
+import React, { Component, PropTypes } from 'react'
+import Router, { Link } from 'react-router'
+import { Col } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import _ from 'underscore'
+import * as actions from '../../actions/cars'
+import styles from '../../stylesheets/users/Users'
+import CarsEditPageForm from '../../components/cars/CarsEditPageForm'
 
-import * as actions          from '../../actions/cars';
-import styles                from '../../stylesheets/users/Users'
-import CarsEditPageForm      from '../../components/cars/CarsEditPageForm'
+class CarsEditPage extends Component {
+  static PropTypes = {
+    currentUserId: PropTypes.number.isRequired,
+    carsOptions: PropTypes.object.isRequired
+  }
 
-export default class CarsEditPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+  static contextTypes = {
+    router: PropTypes.object.isRequired
   }
 
   componentDidMount() {
-    var carId = this.props.params.carId
-    const { dispatch } = this.props;
-    dispatch(actions.fetchCarsOptions());
+    const { fetchCar, fetchCarsOptions, params: { carId } } = this.props
+    fetchCarsOptions()
     if (carId) {
-      dispatch(actions.fetchCar(carId))
+      fetchCar(carId)
     }
   }
 
   handleSubmit(data) {
-    var body = new FormData();
+    const { updateCar, car } = this.props
+    var body = new FormData()
     Object.keys(data).forEach((key) => {
-      console.log(key, data[key]);
       if (key == 'car_photo') {
         if (_.isObject(data[key])) { body.append(key, data[key][0]) }
       } else {
@@ -33,11 +36,11 @@ export default class CarsEditPage extends React.Component {
       }
     })
 
-    this.props.dispatch(actions.updateCar(this.context.router, body, this.props.car.id))
+    actions.updateCar(this.context.router, body, car.id)
   }
 
   render() {
-    const { dispatch, car, carsOptions, isSaving, userCars } = this.props;
+    const { carsOptions } = this.props
 
     return (
       <div className='show-grid'>
@@ -46,7 +49,6 @@ export default class CarsEditPage extends React.Component {
             <div className='heading-title'>Edit car</div>
           </div>
           <CarsEditPageForm
-            carsOptions={carsOptions}
             onSubmit={this.handleSubmit.bind(this)} />
         </Col>
       </div>
@@ -54,22 +56,17 @@ export default class CarsEditPage extends React.Component {
   }
 }
 
-CarsEditPage.PropTypes = {
-  car: PropTypes.array.isRequired
-};
-
-CarsEditPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    isSaving:      state.car.isSaving,
-    currentUserId: state.session.user.id,
-    userCars:      state.cars.cars,
-    car:           state.car.car,
-    carsOptions:   state.carsOptions.carsOptions
+    currentUserId: state.session.id,
+    carsOptions: state.carsOptions
   }
 }
 
-export default connect(select)(CarsEditPage);
+const mapDispatchToProps = {
+  fetchCarsOptions: actions.fetchCarsOptions,
+  fetchCar: actions.fetchCar,
+  updateCar: actions.updateCar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarsEditPage)

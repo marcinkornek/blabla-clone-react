@@ -81,12 +81,12 @@ export function updateUser(body) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(userUpdateRequest());
-    return fetch(cons.APIEndpoints.USERS + '/' + session.user.id, {
+    return fetch(cons.APIEndpoints.USERS + '/' + session.id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
-        'X-User-Email': session.user.email,
-        'X-User-Token': session.user.access_token
+        'X-User-Email': session.email,
+        'X-User-Token': session.access_token
       },
       body: body
     })
@@ -110,8 +110,8 @@ export function checkUserEmailUniqueness(email) {
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
-        'X-User-Email': session.user.email,
-        'X-User-Token': session.user.access_token
+        'X-User-Email': session.email,
+        'X-User-Token': session.access_token
       }
     })
     .then(status)
@@ -128,7 +128,7 @@ export function usersRequest() {
 export function usersSuccess(json) {
   return {
     type: types.USERS_SUCCESS,
-    users: json.users,
+    items: json.items,
     pagination: json.meta
   }
 }
@@ -147,9 +147,10 @@ export function userRequest() {
 }
 
 export function userSuccess(json) {
+  console.log(json);
   return {
     type: types.USER_SUCCESS,
-    user: json
+    item: json
   }
 }
 
@@ -169,7 +170,7 @@ export function userCreateRequest() {
 export function userCreateSuccess(json) {
   return {
     type: types.USER_CREATE_SUCCESS,
-    user: json
+    item: json
   }
 }
 
@@ -189,7 +190,7 @@ export function userUpdateRequest() {
 export function userUpdateSuccess(json, session) {
   return {
     type: types.USER_UPDATE_SUCCESS,
-    user: json,
+    item: json,
     session: session
   }
 }

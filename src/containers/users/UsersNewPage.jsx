@@ -1,16 +1,16 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Router, { Link } from 'react-router'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import Icon from 'react-fa'
 import _ from 'lodash'
-
 import * as actions from '../../actions/users';
 import styles from '../../stylesheets/users/Users'
 import UsersNewPageForm from '../../components/users/UsersNewPageForm'
 
-export default class UsersNewPage extends React.Component {
+class UsersNewPage extends Component {
   handleSubmit(data) {
+    const { createUser } = this.props
     var body = new FormData();
     Object.keys(data).forEach(( key ) => {
       if (key == 'avatar') {
@@ -20,12 +20,10 @@ export default class UsersNewPage extends React.Component {
       }
     })
 
-    this.props.dispatch(actions.createUser(body))
+    createUser(body)
   }
 
   render() {
-    const { dispatch } = this.props;
-
     return (
       <div className='show-grid'>
         <Col xs={12}>
@@ -39,12 +37,12 @@ export default class UsersNewPage extends React.Component {
   }
 }
 
-UsersNewPage.PropTypes = {
-  user: PropTypes.array.isRequired
+const mapStateToProps = (state) => {
+  return {}
 }
 
-function select(state) {
-  return {};
+const mapDispatchToProps = {
+  createUser: actions.createUser
 }
 
-export default connect(select)(UsersNewPage);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersNewPage)

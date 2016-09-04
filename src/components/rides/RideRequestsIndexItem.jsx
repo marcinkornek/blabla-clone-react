@@ -1,45 +1,43 @@
-import React, { PropTypes }   from 'react'
-import { Input, ButtonInput } from 'react-bootstrap'
-import styles                 from '../../stylesheets/ride-requests/RideRequests'
-import FormTooltip            from '../shared/FormTooltip'
-import pluralize              from 'pluralize'
-import TimeAgo                from 'react-timeago'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { reduxForm, Field } from 'redux-form'
+import { renderSelectField }  from '../shared/RenderSelectField'
+import MenuItem from 'material-ui/MenuItem'
+import pluralize from 'pluralize'
+import TimeAgo from 'react-timeago'
+import styles from '../../stylesheets/ride-requests/RideRequests'
 
-export default class RideRequestsIndexItem extends React.Component {
-  constructor (props, context) {
-    super(props, context)
-    this.state = {ride_request: props.ride_request}
-  }
-
-  handleChange(e) {
-    var ride_request = _.cloneDeep(this.state.ride_request)
-    ride_request[e.target.name] = e.target.value
-    this.setState({ride_request: ride_request})
+class RideRequestsIndexItem extends Component {
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired
   }
 
   render() {
+    const { ride_request, handleSubmit } = this.props
+
     var rideRequestsButton =
-      <form onSubmit={this.handleSubmitForm.bind(this)}>
-        <Input type='select' name='status' ref='status' groupClassName='book-ride-form__select' value={this.state.ride_request.status} onChange={this.handleChange.bind(this)} standalone>
-          <option value='accepted'> accept </option>
-          <option value='pending'> pending </option>
-          <option value='rejected'> reject </option>
-        </Input>
-        <ButtonInput type='submit' value='OK' groupClassName='book-ride-form__submit' standalone />
+      <form onSubmit={handleSubmit}>
+        <Field name="status" component={renderSelectField} label="Status">
+          <MenuItem value="accepted" key="accepted" primaryText="accept" />
+          <MenuItem value="pending" key="pending" primaryText="pending" />
+          <MenuItem value="rejected" key="rejected" primaryText="reject" />
+        </Field>
+        <Field name="id" component="input" type="text" placeholder="First Name"/>
+        <button type="submit" className="btn btn-default form-submit">Ok</button>
       </form>
 
     return (
       <div className='ride-request'>
         <div className='ride-request__status'>
-          <div className={'ride-request__status--' + this.props.ride_request.status}>{this.props.ride_request.status}</div>
+          <div className={'ride-request__status--' + ride_request.status}>{ride_request.status}</div>
         </div>
         <div className='ride-request__info'>
-          <div className='ride-request__passenger'>{this.state.ride_request.passenger.full_name}</div>
+          <div className='ride-request__passenger'>{ride_request.passenger.full_name}</div>
           <div className='ride-request__places'>
-            <div className='ride-request__places-value'>{this.state.ride_request.places}</div>
-            <div className='ride-request__places-label'>{pluralize('place', this.state.ride_request.places)}</div>
+            <div className='ride-request__places-value'>{ride_request.places}</div>
+            <div className='ride-request__places-label'>{pluralize('place', ride_request.places)}</div>
           </div>
-          <div className='ride-request__created'><TimeAgo date={this.state.ride_request.created_at} /></div>
+          <div className='ride-request__created'><TimeAgo date={ride_request.created_at} /></div>
         </div>
         <div className='ride-request__button'>
           {rideRequestsButton}
@@ -47,13 +45,16 @@ export default class RideRequestsIndexItem extends React.Component {
       </div>
     )
   }
-
-  handleSubmitForm(e) {
-    e.preventDefault()
-    this.props.onAddClick(this.state.ride_request.status)
-  }
 }
 
-RideRequestsIndexItem.propTypes = {
-  onAddClick: PropTypes.func.isRequired,
-};
+RideRequestsIndexItem = reduxForm({
+  form: 'RideRequestsIndexItem'
+})(RideRequestsIndexItem)
+
+// RideRequestsIndexItem = connect(
+//   state => {
+//     initialValues: state.car
+//   }
+// )(RideRequestsIndexItem)
+
+export default RideRequestsIndexItem

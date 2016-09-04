@@ -65,7 +65,7 @@ function isLoggedIn(store) {
 }
 
 function isAuthorized(store, permission) {
-  var userPermission = store.getState().session.user.permission
+  var userPermission = store.getState().session.role
   if (userPermission === 'admin') {
     return true;
   } else {

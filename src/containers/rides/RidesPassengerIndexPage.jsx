@@ -1,33 +1,35 @@
-import React, { PropTypes }  from 'react'
-import Router, { Link }      from 'react-router'
-import { Col }             from 'react-bootstrap'
-import { connect }           from 'react-redux';
-import Icon                  from 'react-fa'
-import ReactPaginate         from 'react-paginate'
-
-import * as actions          from '../../actions/rides';
-import styles                from '../../stylesheets/rides/Rides'
-import sharedStyles          from '../../stylesheets/shared/Shared'
-import RidesItem             from '../../components/rides/RidesIndexPageItem'
+import React, { Component, PropTypes } from 'react'
+import Router, { Link } from 'react-router'
+import { Col } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import Icon from 'react-fa'
+import ReactPaginate from 'react-paginate'
+import * as actions from '../../actions/rides'
+import styles from '../../stylesheets/rides/Rides'
+import sharedStyles from '../../stylesheets/shared/Shared'
+import RidesItem from '../../components/rides/RidesIndexPageItem'
 
 const per = 10
 
-export default class RidesPassengerIndexPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+class RidesPassengerIndexPage extends Component {
+  static PropTypes = {
+    isFetching: PropTypes.bool.isRequired,
+    rides: PropTypes.array.isRequired,
+    pagination: PropTypes.object.isRequired,
+    currentUserId: PropTypes.number.isRequired
   }
 
   componentDidMount() {
-    const { dispatch, currentUserId } = this.props;
+    const { fetchRidesAsPassenger, currentUserId } = this.props
     if (currentUserId) {
-      dispatch(actions.fetchRidesAsPassenger(currentUserId, 1, per))
+      fetchRidesAsPassenger(currentUserId, 1, per)
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { dispatch, currentUserId } = this.props;
+    const { fetchRidesAsPassenger, currentUserId } = this.props
     if (nextProps.currentUserId && currentUserId === undefined) {
-      dispatch(actions.fetchRidesAsPassenger(nextProps.currentUserId, 1, per))
+      fetchRidesAsPassenger(nextProps.currentUserId, 1, per)
     }
   }
 
@@ -84,23 +86,23 @@ export default class RidesPassengerIndexPage extends React.Component {
   }
 
   handlePageClick(e) {
-    const { dispatch, currentUserId } = this.props;
-    var page = e.selected + 1;
-    dispatch(actions.fetchRidesAsPassenger(currentUserId, page, per))
+    const { fetchRidesAsPassenger, currentUserId } = this.props
+    var page = e.selected + 1
+    fetchRidesAsPassenger(currentUserId, page, per)
   }
 }
 
-RidesPassengerIndexPage.PropTypes = {
-  rides: PropTypes.array.isRequired
-}
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    isFetching:    state.ridesPassenger.isFetching,
-    rides:         state.ridesPassenger.rides,
-    pagination:    state.ridesPassenger.pagination,
-    currentUserId: state.session.user.id
-  };
+    isFetching: state.ridesPassenger.isFetching,
+    rides: state.ridesPassenger.items,
+    pagination: state.ridesPassenger.pagination,
+    currentUserId: state.session.id
+  }
 }
 
-export default connect(select)(RidesPassengerIndexPage);
+const mapDispatchToProps = {
+  fetchRidesAsPassenger: actions.fetchRidesAsPassenger
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RidesPassengerIndexPage)

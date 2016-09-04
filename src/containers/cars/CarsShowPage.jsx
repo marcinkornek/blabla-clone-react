@@ -1,28 +1,27 @@
-import React, { PropTypes }  from 'react'
-import { connect }           from 'react-redux';
-import { Grid }              from 'react-bootstrap'
-import { Link }              from 'react-router';
-import Timestamp             from 'react-time'
-import Icon                  from 'react-fa'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux';
+import { Grid } from 'react-bootstrap'
+import { Link } from 'react-router';
+import Timestamp from 'react-time'
+import Icon from 'react-fa'
+import * as actions from '../../actions/cars';
+import styles from '../../stylesheets/users/Users'
+import CarsActions from '../../components/cars/CarsActions'
+import Stars from '../../components/shared/Stars'
 
-import * as actions          from '../../actions/cars';
-import styles                from '../../stylesheets/users/Users'
-import CarsActions           from '../../components/cars/CarsActions'
-import Stars                 from '../../components/shared/Stars'
-
-export default class CarsShowPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+class CarsShowPage extends Component {
+  static PropTypes = {
+    car: PropTypes.array.isRequired,
+    currentUserId: PropTypes.number
   }
 
   componentDidMount() {
-    var carId = this.props.params.carId
-    const { dispatch } = this.props;
-    dispatch(actions.fetchCar(carId));
+    const { fetchCar, params: { carId } } = this.props
+    fetchCar(carId)
   }
 
   render() {
-    const { isFetching, car, currentUserId } = this.props
+    const { car, currentUserId } = this.props
 
     var carPhoto =
       <div className='main-info__photo'>
@@ -54,16 +53,15 @@ export default class CarsShowPage extends React.Component {
   }
 }
 
-CarsShowPage.PropTypes = {
-  car: PropTypes.array.isRequired
-}
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    isFetching:    state.car.isFetching,
-    car:           state.car.car,
-    currentUserId: state.session.user.id
-  };
+    car: state.car,
+    currentUserId: state.session.id
+  }
 }
 
-export default connect(select)(CarsShowPage);
+const mapDispatchToProps = {
+  fetchCar: actions.fetchCar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarsShowPage)

@@ -1,21 +1,22 @@
-import React, { PropTypes }   from 'react'
-import { connect }            from 'react-redux'
-import { reduxForm, Field }   from 'redux-form'
-import { renderTextField }    from '../shared/RenderTextField'
-import { renderRadioGroup }   from '../shared/RenderRadioGroup'
-import Dropzone               from 'react-dropzone';
-import UserValidator          from './UserValidator'
-import asyncValidate          from './asyncEmailValidate'
-import { RadioButton }        from 'material-ui/RadioButton'
-import DatePicker             from '../inputs/DatePicker'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { reduxForm, Field } from 'redux-form'
+import { renderTextField } from '../shared/RenderTextField'
+import { renderRadioGroup } from '../shared/RenderRadioGroup'
+import { RadioButton } from 'material-ui/RadioButton'
+import DatePicker from '../inputs/DatePicker'
+import Dropzone from 'react-dropzone'
+import UserValidator from './UserValidator'
+import asyncValidate from './asyncEmailValidate'
 
-class UsersEditPageForm extends React.Component {
+class UsersEditPageForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }
 
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { handleSubmit } = this.props;
+
     return (
       <form onSubmit={handleSubmit}>
         <Field name="first_name" type="text" component={renderTextField} label="First name *"/>
@@ -74,7 +75,7 @@ UsersEditPageForm = reduxForm({
 
 UsersEditPageForm = connect(
   state => ({
-    initialValues: state.user.user
+    initialValues: state.user
   })
 )(UsersEditPageForm)
 

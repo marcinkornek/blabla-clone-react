@@ -1,10 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import Router, { Link }     from 'react-router'
-import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-
 import AppBar from 'material-ui/AppBar'
-import IconButton from 'material-ui/IconButton'
 import AppNavDrawer from './AppNavDrawer'
 
 export default class HeaderNew extends Component {
@@ -32,7 +27,7 @@ export default class HeaderNew extends Component {
   }
 
   handleChangeList = (event, value) => {
-    this.context.router.push(value);
+    this.context.router.push(value)
     this.setState({
       navDrawerOpen: false,
     })
@@ -47,7 +42,7 @@ export default class HeaderNew extends Component {
   }
 
   render() {
-    const { containerWidth, currentUser } = this.props;
+    const { containerWidth, currentUser } = this.props
     const title = 'Blabla clone'
     let docked = false
     let showMenuIconButton = true

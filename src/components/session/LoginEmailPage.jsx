@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { renderTextField } from '../shared/RenderTextField'
 import LoginValidator from './LoginValidator'
 
-export default class LoginEmailPage extends React.Component {
+class LoginEmailPage extends Component {
   constructor (props, context) {
     super(props, context)
 
@@ -12,17 +12,19 @@ export default class LoginEmailPage extends React.Component {
     }
   }
 
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired
+  }
+
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { handleSubmit } = this.props
 
     if (this.state.showLoginForm) {
       var LoginForm =
         <form onSubmit={handleSubmit} className='login-email-form'>
           <Field name="email" type="text" component={renderTextField} label="Email"/>
           <Field name="password" type="password" component={renderTextField} label="Password"/>
-          <button type="submit" className="btn btn-default form-submit" disabled={submitting}>
-            {submitting ? <i/> : <i/>} Submit
-          </button>
+          <button type="submit" className="btn btn-default form-submit">Submit</button>
         </form>
     }
 
@@ -42,10 +44,6 @@ export default class LoginEmailPage extends React.Component {
       this.setState({showLoginForm: false})
     }
   }
-}
-
-LoginEmailPage.propTypes = {
-  handleSubmit: PropTypes.func.isRequired
 }
 
 export default reduxForm({

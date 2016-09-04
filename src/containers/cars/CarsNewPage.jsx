@@ -1,36 +1,40 @@
-import React, { PropTypes }  from 'react';
-import { Col }               from 'react-bootstrap'
-import { connect }           from 'react-redux';
+import React, { Component, PropTypes } from 'react'
+import { Col } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import * as actions from '../../actions/cars'
+import styles from '../../stylesheets/users/Users'
+import CarsNewPageForm from '../../components/cars/CarsNewPageForm'
 
-import * as actions          from '../../actions/cars';
-import styles                from '../../stylesheets/users/Users'
-import CarsNewPageForm       from '../../components/cars/CarsNewPageForm'
+class CarsNewPage extends Component {
+  static propTypes = {
+    carsOptions: PropTypes.object.isRequired
+  }
 
-export default class CarsNewPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(actions.fetchCarsOptions());
+    const { fetchCarsOptions } = this.props
+    fetchCarsOptions()
   }
 
   handleSubmit(data) {
-    var body = new FormData();
+    const { createCar } = this.props
+    var body = new FormData()
     Object.keys(data).forEach((key) => {
       if (key == 'car_photo') {
         if (_.isObject(data[key])) { body.append(key, data[key][0]) }
       } else {
         if (!_.isEmpty(data[key])) { body.append(key, data[key]) }
       }
-    });
+    })
 
-    this.props.dispatch(actions.createCar(this.context.router, body))
+    createCar(this.context.router, body)
   }
 
   render() {
-    const { dispatch, carsOptions } = this.props;
+    const { carsOptions } = this.props
     return (
       <div className='show-grid'>
         <Col xs={12}>
@@ -46,18 +50,15 @@ export default class CarsNewPage extends React.Component {
   }
 }
 
-CarsNewPage.propTypes = {
-  dispatch: PropTypes.func.isRequired
-};
-
-CarsNewPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    carsOptions: state.carsOptions.carsOptions
-  };
+    carsOptions: state.carsOptions
+  }
 }
 
-export default connect(select)(CarsNewPage);
+const mapDispatchToProps = {
+  fetchCarsOptions: actions.fetchCarsOptions,
+  createCar: actions.createCar
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CarsNewPage)

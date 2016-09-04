@@ -1,9 +1,9 @@
-import React, { PropTypes }   from 'react'
-import { connect }            from 'react-redux'
-import { reduxForm, Field }   from 'redux-form'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { reduxForm, Field } from 'redux-form'
 import { renderGeoTextField } from '../shared/RenderGeoTextField'
-import DatePicker             from '../inputs/DatePicker'
-import classNames             from 'classnames'
+import DatePicker from '../inputs/DatePicker'
+import classNames from 'classnames'
 
 class RidesSearchItem extends React.Component {
   static propTypes = {
@@ -11,7 +11,8 @@ class RidesSearchItem extends React.Component {
   }
 
   render() {
-    const {handleSubmit} = this.props
+    const { handleSubmit } = this.props
+
     return (
       <form onSubmit={handleSubmit}>
         <Field name="start_city" type="text" component={renderGeoTextField} label="Start city"/>

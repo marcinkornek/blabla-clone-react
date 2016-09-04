@@ -1,20 +1,21 @@
-import React, { PropTypes }   from 'react'
-import { reduxForm, Field }   from 'redux-form'
-import { renderTextField }    from '../shared/RenderTextField'
-import { renderRadioGroup }   from '../shared/RenderRadioGroup'
-import { RadioButton }        from 'material-ui/RadioButton'
-import DatePicker             from '../inputs/DatePicker'
-import Dropzone               from 'react-dropzone';
-import UserNewValidator       from './UserNewValidator'
-import asyncValidate          from './asyncEmailValidate'
+import React, { Component, PropTypes }   from 'react'
+import { reduxForm, Field } from 'redux-form'
+import { renderTextField } from '../shared/RenderTextField'
+import { renderRadioGroup } from '../shared/RenderRadioGroup'
+import { RadioButton } from 'material-ui/RadioButton'
+import DatePicker from '../inputs/DatePicker'
+import Dropzone from 'react-dropzone';
+import UserNewValidator from './UserNewValidator'
+import asyncValidate from './asyncEmailValidate'
 
-class UsersNewPageForm extends React.Component {
+class UsersNewPageForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
-  };
+  }
 
   render() {
-    const { handleSubmit, submitting } = this.props;
+    const { handleSubmit } = this.props;
+
     return (
       <form onSubmit={handleSubmit}>
         <Field name="first_name" type="text" component={renderTextField} label="First name"/>

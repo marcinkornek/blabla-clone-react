@@ -1,32 +1,45 @@
-import React, { PropTypes }  from 'react'
-import Router, { Link }      from 'react-router'
-import Button                from 'react-bootstrap/lib/Button'
-import Row                   from 'react-bootstrap/lib/Row'
-import Col                   from 'react-bootstrap/lib/Col'
-import { connect }           from 'react-redux';
-import Icon                  from 'react-fa'
-import ReactPaginate         from 'react-paginate'
-
-import * as actions          from '../../actions/rides';
-import styles                from '../../stylesheets/rides/Rides'
-import sharedStyles          from '../../stylesheets/shared/Shared'
-import RidesItem             from '../../components/rides/RidesIndexPageItem'
-import RidesSearchItem       from '../../components/rides/RidesSearchItem'
-import RidesFilterItem       from '../../components/rides/RidesFilterItem'
+import React, { Component, PropTypes } from 'react'
+import Router, { Link } from 'react-router'
+import Button from 'react-bootstrap/lib/Button'
+import Row from 'react-bootstrap/lib/Row'
+import Col from 'react-bootstrap/lib/Col'
+import { connect } from 'react-redux'
+import Icon from 'react-fa'
+import ReactPaginate from 'react-paginate'
+import * as actions from '../../actions/rides'
+import styles from '../../stylesheets/rides/Rides'
+import sharedStyles from '../../stylesheets/shared/Shared'
+import RidesItem from '../../components/rides/RidesIndexPageItem'
+import RidesSearchItem from '../../components/rides/RidesSearchItem'
+import RidesFilterItem from '../../components/rides/RidesFilterItem'
 
 const per = 10
 
-class RidesIndexPage extends React.Component {
+class RidesIndexPage extends Component {
+  static PropTypes = {
+    isFetching: PropTypes.bool.isRequired,
+    rides: PropTypes.array.isRequired,
+    pagination: PropTypes.object.isRequired,
+    filters: PropTypes.object.isRequired,
+    currentUserId: PropTypes.number.isRequired
+  }
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  }
+
   componentDidMount() {
-    const { dispatch, currentUserId } = this.props;
+    const { loadSearchFormData, fetchRides, currentUserId } = this.props
     let { query } = this.props.location
     var page = query.page || 1
     query.hide_full = query.hide_full || false
-    dispatch(actions.loadSearchFormData(query))
-    dispatch(actions.fetchRides(this.context.router, page, per, query))
+    loadSearchFormData(query)
+    fetchRides(this.context.router, page, per, query)
   }
 
   handleSubmit(data) {
+    const { loadSearchFormData, fetchRides } = this.props
+
     var query = {}
     Object.keys(data).forEach((key) => {
       if (data[key] != undefined) {
@@ -36,17 +49,16 @@ class RidesIndexPage extends React.Component {
           _.merge(query, { [key]: data[key] })
         }
       }
-    });
-    const { dispatch } = this.props;
+    })
     var query_from_location = this.props.location.query
     var page = 1
     var extended = _.extend(query_from_location, query)
-    dispatch(actions.loadSearchFormData(extended))
-    dispatch(actions.fetchRides(this.context.router, page, per, extended))
+    loadSearchFormData(extended)
+    fetchRides(this.context.router, page, per, extended)
   }
 
   render() {
-    const { isFetching, rides, pagination, filters, currentUserId, dispatch } = this.props
+    const { isFetching, rides, pagination, filters, currentUserId } = this.props
     var ridesMain, ridesFilter, ridesList, headingButton, ridesPagination
     let { query } = this.props.location
     var page = (parseInt(query.page, 10) || 1) - 1
@@ -115,29 +127,26 @@ class RidesIndexPage extends React.Component {
   }
 
   handlePageClick(e) {
-    const { dispatch } = this.props;
+    const { fetchRides } = this.props
     let { query } = this.props.location
     var page = query.page || 1
-    dispatch(actions.fetchRides(this.context.router, page, per, query))
+    fetchRides(this.context.router, page, per, query)
   }
 }
 
-RidesIndexPage.PropTypes = {
-  rides: PropTypes.array.isRequired
-}
-
-RidesIndexPage.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    isFetching:     state.rides.isFetching,
-    rides:          state.rides.rides,
-    pagination:     state.rides.pagination,
-    filters:        state.rides.filters,
-    currentUserId:  state.session.user.id,
-  };
+    isFetching: state.rides.isFetching,
+    rides: state.rides.items,
+    pagination: state.rides.pagination,
+    filters: state.rides.filters,
+    currentUserId: state.session.id
+  }
 }
 
-export default connect(select)(RidesIndexPage);
+const mapDispatchToProps = {
+  loadSearchFormData: actions.loadSearchFormData,
+  fetchRides: actions.fetchRides,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RidesIndexPage)

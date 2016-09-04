@@ -1,31 +1,30 @@
-import React, { PropTypes }   from 'react'
-import { reduxForm, Field }   from 'redux-form'
-import { renderTextField }    from '../shared/RenderTextField'
-import { renderSelectField }  from '../shared/RenderSelectField'
-import CarValidator           from './CarValidator'
-import MenuItem               from 'material-ui/MenuItem'
-import Dropzone               from 'react-dropzone';
+import React, { Component, PropTypes } from 'react'
+import { reduxForm, Field } from 'redux-form'
+import { renderTextField } from '../shared/RenderTextField'
+import { renderSelectField } from '../shared/RenderSelectField'
+import MenuItem from 'material-ui/MenuItem'
+import CarValidator from './CarValidator'
+import Dropzone from 'react-dropzone'
 
-class CarsNewPageForm extends React.Component {
+class CarsNewPageForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
-  };
+  }
 
   render() {
-    const { handleSubmit, submitting, carsOptions } = this.props
-
+    const { handleSubmit, carsOptions } = this.props
     var colors = []
     var comforts = []
     var categories = []
-    if (this.props.carsOptions) {
-      for (var i = 0; i < this.props.carsOptions.colors.length; i++) {
-        colors.push(<MenuItem value={this.props.carsOptions.colors[i]} key={'color' + i} primaryText={this.props.carsOptions.colors[i]} />);
+    if (carsOptions) {
+      for (var i = 0; i < carsOptions.colors.length; i++) {
+        colors.push(<MenuItem value={carsOptions.colors[i]} key={'color' + i} primaryText={carsOptions.colors[i]} />);
       }
-      for (var i = 0; i < this.props.carsOptions.comforts.length; i++) {
-        comforts.push(<MenuItem value={this.props.carsOptions.comforts[i]} key={'comfort' + i} primaryText={this.props.carsOptions.comforts[i]} />);
+      for (var i = 0; i < carsOptions.comforts.length; i++) {
+        comforts.push(<MenuItem value={carsOptions.comforts[i]} key={'comfort' + i} primaryText={carsOptions.comforts[i]} />);
       }
-      for (var i = 0; i < this.props.carsOptions.categories.length; i++) {
-        categories.push(<MenuItem value={this.props.carsOptions.categories[i]} key={'category' + i} primaryText={this.props.carsOptions.categories[i]} />);
+      for (var i = 0; i < carsOptions.categories.length; i++) {
+        categories.push(<MenuItem value={carsOptions.categories[i]} key={'category' + i} primaryText={carsOptions.categories[i]} />);
       }
     }
 
@@ -74,11 +73,11 @@ class CarsNewPageForm extends React.Component {
 
         <button type="submit" className="btn btn-default form-submit">Submit</button>
       </form>
-    );
+    )
   }
 }
 
 export default reduxForm({
   form: 'CarsNewPageForm',
-  validate: CarValidator,
+  validate: CarValidator
 })(CarsNewPageForm)

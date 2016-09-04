@@ -1,45 +1,51 @@
-import React, { PropTypes }  from 'react'
-import { connect }           from 'react-redux';
-import { Col }             from 'react-bootstrap'
-import { Link }              from 'react-router';
-import Timestamp             from 'react-time'
-import Icon                  from 'react-fa'
-import pluralize             from 'pluralize'
-import TimeAgo               from 'react-timeago'
-
-import * as actions          from '../../actions/rides';
-import * as rrActions        from '../../actions/ride_requests';
-import styles                from '../../stylesheets/rides/Rides'
-import RidesActions          from '../../components/rides/RidesActions'
-import RideOfferForm         from '../../components/rides/RideOfferForm'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux';
+import { Col } from 'react-bootstrap'
+import { Link } from 'react-router';
+import Timestamp from 'react-time'
+import Icon from 'react-fa'
+import pluralize from 'pluralize'
+import TimeAgo from 'react-timeago'
+import * as actions from '../../actions/rides';
+import * as rrActions from '../../actions/ride_requests';
+import styles from '../../stylesheets/rides/Rides'
+import RidesActions from '../../components/rides/RidesActions'
+import RideOfferForm from '../../components/rides/RideOfferForm'
 import RideRequestsIndexItem from '../../components/rides/RideRequestsIndexItem'
 
-export default class RidesShowPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+class RidesShowPage extends React.Component {
+  static PropTypes = {
+    ride: PropTypes.object.isRequired,
+    currentUserId: PropTypes.number
   }
 
   componentDidMount() {
-    var rideId = this.props.params.rideId
-    const { dispatch, currentUserId } = this.props
-    dispatch(actions.fetchRide(rideId))
+    const { fetchRide, currentUserId, params: { rideId } } = this.props
+    fetchRide(rideId)
   }
 
   componentWillReceiveProps(nextProps) {
-    var rideId = this.props.params.rideId
-    const { dispatch, currentUserId } = this.props;
+    const { fetchRide, currentUserId, params: { rideId } } = this.props
     if (nextProps.currentUserId && currentUserId === undefined) {
-      dispatch(actions.fetchRide(rideId))
+      fetchRide(rideId)
     }
   }
 
+  handleSubmit(data) {
+    const { createRideRequest, ride } = this.props;
+    createRideRequest(ride.id, data.places)
+  }
+
+  handleSubmitRideRequest(data) {
+    const { changeRideRequest } = this.props
+    changeRideRequest(ride_request.id, data.status)
+  }
+
   render() {
-    const { dispatch, ride, currentUserId } = this.props
+    const { ride, currentUserId } = this.props
     var rideDescriptionCar, rideDriver, rideActions, rideOffer, rideDescription, places, rideRequests, rideRequestsList, rideFormOrStatus, rideStatusTimestamp
 
-    if (_.isEmpty(ride)) {
-      rideDescriptionCar = null
-    } else {
+    if (ride.car) {
       rideDescriptionCar =
         <div>
           <Link to={`/cars/${ride.car.id}`}>
@@ -55,9 +61,7 @@ export default class RidesShowPage extends React.Component {
         </div>
     }
 
-    if (_.isEmpty(ride)) {
-      rideDriver = null
-    } else {
+    if (ride.driver) {
       if (currentUserId != ride.driver.id) {
         rideDriver =
           <div className='ride-show-driver'>
@@ -83,24 +87,17 @@ export default class RidesShowPage extends React.Component {
       }
     }
 
-    if (_.isEmpty(ride)) {
-      rideActions = null
-    } else {
+    if (ride.driver) {
       rideActions =
         <RidesActions rideId={ride.id} rideOwner={ride.driver.id} currentUserId={currentUserId} />
     }
 
-    if (ride.ride_requests && ride.ride_requests.length > 0) {
+    if (ride.ride_requests && ride.ride_requests.items.length > 0) {
       rideRequestsList =
-        ride.ride_requests.map((ride_request, i) =>
+        ride.ride_requests.items.map((ride_request, i) =>
           <RideRequestsIndexItem
             ride_request={ride_request} key={i}
-            onAddClick={(status) =>
-              dispatch(rrActions.changeRideRequest(ride_request.id, status))
-            }
-            onAcceptRideRequest={(rideRequestId, status) =>
-              dispatch(rrActions.acceptRideRequest(rideRequestId, status))
-            } />
+            onSubmit={this.handleSubmitRideRequest.bind(this)}/>
       )
     }
 
@@ -151,9 +148,7 @@ export default class RidesShowPage extends React.Component {
         <RideOfferForm
           ride={ride}
           currentUserId={currentUserId}
-          onAddClick={(places) =>
-            dispatch(rrActions.createRideRequest(ride.id, places))
-          } />
+          onSubmit={this.handleSubmit.bind(this)} />
     }
 
     rideOffer =
@@ -224,15 +219,17 @@ export default class RidesShowPage extends React.Component {
   }
 }
 
-RidesShowPage.PropTypes = {
-  ride: PropTypes.array.isRequired
-}
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
-    ride:          state.ride.ride,
-    currentUserId: state.session.user.id,
-  };
+    ride: state.ride,
+    currentUserId: state.session.id,
+  }
 }
 
-export default connect(select)(RidesShowPage);
+const mapDispatchToProps = {
+  fetchRide: actions.fetchRide,
+  createRideRequest: rrActions.createRideRequest,
+  changeRideRequest: rrActions.changeRideRequest
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RidesShowPage)

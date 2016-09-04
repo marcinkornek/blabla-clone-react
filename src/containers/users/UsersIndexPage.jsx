@@ -1,22 +1,22 @@
-import React, { PropTypes }  from 'react'
-import { connect }           from 'react-redux';
-import Bootstrap             from 'react-bootstrap'
-import ReactPaginate         from 'react-paginate'
-
-import * as actions          from '../../actions/users';
-import styles                from '../../stylesheets/users/Users'
-import UsersItem             from '../../components/users/UsersIndexPageItem'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux';
+import ReactPaginate from 'react-paginate'
+import * as actions from '../../actions/users';
+import styles from '../../stylesheets/users/Users'
+import UsersItem from '../../components/users/UsersIndexPageItem'
 
 const per = 10
 
-export default class UsersIndexPage extends React.Component {
-  constructor (props, context) {
-    super(props, context)
+class UsersIndexPage extends Component {
+  static PropTypes = {
+    isFetching: PropTypes.bool.isRequired,
+    users: PropTypes.array.isRequired,
+    pagination: PropTypes.object.isRequired
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(actions.fetchUsers(1, per));
+    const { fetchUsers } = this.props;
+    fetchUsers(1, per)
   }
 
   render() {
@@ -60,16 +60,16 @@ export default class UsersIndexPage extends React.Component {
   }
 }
 
-UsersIndexPage.PropTypes = {
-  users: PropTypes.array.isRequired
-}
-
-function select(state) {
+const mapStateToProps = (state) => {
   return {
     isFetching: state.users.isFetching,
-    users:      state.users.users,
+    users: state.users.items,
     pagination: state.users.pagination
-  };
+  }
 }
 
-export default connect(select)(UsersIndexPage);
+const mapDispatchToProps = {
+  fetchUsers: actions.fetchUsers
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UsersIndexPage)
