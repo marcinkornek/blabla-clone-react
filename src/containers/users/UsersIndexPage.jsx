@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate'
 import * as actions from '../../actions/users';
 import styles from '../../stylesheets/users/Users'
 import UsersItem from '../../components/users/UsersIndexPageItem'
+import List from 'material-ui/List/List'
 
 const per = 10
 
@@ -46,15 +47,15 @@ class UsersIndexPage extends Component {
     }
 
     return (
-      <div className='users'>
+      <List className='users'>
         {usersList}
         <div>{ridesPagination}</div>
-      </div>
+      </List>
     )
   }
 
   handlePageClick(e) {
-    const { fetchUsers } = this.props;
+    const { fetchUsers } = this.props
     var page = e.selected + 1
     fetchUsers(page, per)
   }
