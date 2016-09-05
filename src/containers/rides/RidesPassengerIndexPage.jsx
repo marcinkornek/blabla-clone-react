@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import Router, { Link } from 'react-router'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import Icon from 'react-fa'
 import ReactPaginate from 'react-paginate'
 import * as actions from '../../actions/rides'
 import styles from '../../stylesheets/rides/Rides'
 import sharedStyles from '../../stylesheets/shared/Shared'
 import RidesItem from '../../components/rides/RidesIndexPageItem'
+import LoadingItem from '../../components/shared/LoadingItem'
 
 const per = 10
 
@@ -39,10 +39,7 @@ class RidesPassengerIndexPage extends Component {
 
     if (isFetching || currentUserId === undefined) {
       ridesList =
-        <div>
-          <Icon spin name="spinner" />
-          Fetching..
-        </div>
+        <LoadingItem />
     } else {
       if (_.isEmpty(rides)) {
         ridesList = 'No rides'

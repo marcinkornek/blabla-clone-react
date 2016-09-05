@@ -2,11 +2,11 @@ import React, { Component, PropTypes } from 'react'
 import Router, { Link } from 'react-router'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import Icon from 'react-fa'
 import _ from 'lodash'
 import * as actions from '../../actions/users'
 import styles from '../../stylesheets/users/Users'
 import UsersEditPageForm from '../../components/users/UsersEditPageForm'
+import LoadingItem from '../../components/shared/LoadingItem'
 
 class UsersEditPage extends Component {
   static PropTypes = {
@@ -42,10 +42,7 @@ class UsersEditPage extends Component {
 
     if (isFetching || currentUserId === undefined) {
       userEditForm =
-        <div>
-          <Icon spin name="spinner" />
-          Fetching..
-        </div>
+        <LoadingItem />
     } else {
       userEditForm =
         <div>

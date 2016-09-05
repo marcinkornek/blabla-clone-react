@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/lib/Button'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import { connect } from 'react-redux'
-import Icon from 'react-fa'
 import ReactPaginate from 'react-paginate'
 import * as actions from '../../actions/rides'
 import styles from '../../stylesheets/rides/Rides'
@@ -12,6 +11,7 @@ import sharedStyles from '../../stylesheets/shared/Shared'
 import RidesItem from '../../components/rides/RidesIndexPageItem'
 import RidesSearchItem from '../../components/rides/RidesSearchItem'
 import RidesFilterItem from '../../components/rides/RidesFilterItem'
+import LoadingItem from '../../components/shared/LoadingItem'
 
 const per = 10
 
@@ -65,10 +65,7 @@ class RidesIndexPage extends Component {
 
     if (isFetching) {
       ridesList =
-        <div>
-          <Icon spin name="spinner" />
-          Fetching..
-        </div>
+        <LoadingItem />
     } else {
       if (_.isEmpty(rides)) {
         ridesList = 'No rides'
