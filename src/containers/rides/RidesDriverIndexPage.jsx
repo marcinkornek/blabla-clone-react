@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import Router, { Link } from 'react-router'
 import { Button, Col } from 'react-bootstrap'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
-import * as actions from '../../actions/rides';
+import * as actions from '../../actions/rides'
 import styles from '../../stylesheets/rides/Rides'
 import sharedStyles from '../../stylesheets/shared/Shared'
 import RidesItem from '../../components/rides/RidesIndexSimplePageItem'
@@ -88,9 +88,9 @@ class RidesDriverIndexPage extends Component {
   }
 
   handlePageClick(e) {
-    const { dispatch, currentUserId } = this.props;
-    var page = e.selected + 1;
-    dispatch(actions.fetchRidesAsDriver(currentUserId, page, per))
+    const { fetchRidesAsDriver, currentUserId } = this.props
+    var page = e.selected + 1
+    fetchRidesAsDriver(currentUserId, page, per)
   }
 }
 

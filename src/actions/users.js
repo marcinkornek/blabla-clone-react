@@ -147,7 +147,6 @@ export function userRequest() {
 }
 
 export function userSuccess(json) {
-  console.log(json);
   return {
     type: types.USER_SUCCESS,
     item: json

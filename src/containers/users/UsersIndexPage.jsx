@@ -54,9 +54,9 @@ class UsersIndexPage extends Component {
   }
 
   handlePageClick(e) {
-    const { dispatch } = this.props;
-    var page = e.selected + 1;
-    dispatch(actions.fetchUsers(page, per))
+    const { fetchUsers } = this.props;
+    var page = e.selected + 1
+    fetchUsers(page, per)
   }
 }
 
