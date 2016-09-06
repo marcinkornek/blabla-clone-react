@@ -53,9 +53,37 @@
 }
 
 .rides-search {
-  .form-group {
+  .geosuggest {
     display: inline-block;
-    margin-right: 10px;
+    width: calc(33% - 23px);
+  }
+
+  .geosuggest__input-wrapper {
+    display: inline-block;
+    width: 100%;
+    padding-right: 10px;
+  }
+
+  .date-input {
+    display: inline-block;
+    width: calc(33% - 23px);
+    height: 40px;
+    padding-right: 10px;
+    vertical-align: middle;
+
+    > div {
+      display: inline-block !important;
+      width: 100% !important;
+      height: 45px !important;
+
+      label {
+        top: 10px !important;
+      }
+
+      input {
+        margin-top: 2px !important;
+      }
+    }
   }
 }
 

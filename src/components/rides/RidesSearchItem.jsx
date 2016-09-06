@@ -4,6 +4,8 @@ import { reduxForm, Field } from 'redux-form'
 import { renderGeoTextField } from '../shared/RenderGeoTextField'
 import DatePicker from '../inputs/DatePicker'
 import classNames from 'classnames'
+import styles from '../../stylesheets/rides/Rides'
+import formsStyles from '../../stylesheets/shared/Forms'
 
 class RidesSearchItem extends React.Component {
   static propTypes = {
@@ -14,7 +16,7 @@ class RidesSearchItem extends React.Component {
     const { handleSubmit } = this.props
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='rides-search'>
         <Field name="start_city" type="text" component={renderGeoTextField} label="Start city"/>
         <Field name="destination_city" type="text" component={renderGeoTextField} label="Destination city"/>
         <Field name="start_date"
