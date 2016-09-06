@@ -13,18 +13,21 @@ class CarsEditPageForm extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props
-    var colorsArray = []
-    var comfortsArray = []
-    var categoriesArray = []
-    for (var i = 0; i < colors.length; i++) {
-      colorsArray.push(<MenuItem value={colors[i]} key={'color' + i} primaryText={colors[i]} />)
-    }
-    for (var i = 0; i < comforts.length; i++) {
-      comfortsArray.push(<MenuItem value={comforts[i]} key={'comfort' + i} primaryText={comforts[i]} />)
-    }
-    for (var i = 0; i < categories.length; i++) {
-      categoriesArray.push(<MenuItem value={categories[i]} key={'category' + i} primaryText={categories[i]} />)
+    const { handleSubmit, carsOptions } = this.props
+    var colors = []
+    var comforts = []
+    var categories = []
+
+    if (carsOptions) {
+      for (var i = 0; i < carsOptions.colors.length; i++) {
+        colors.push(<MenuItem value={carsOptions.colors[i]} key={'color' + i} primaryText={carsOptions.colors[i]} />)
+      }
+      for (var i = 0; i < carsOptions.comforts.length; i++) {
+        comforts.push(<MenuItem value={carsOptions.comforts[i]} key={'comfort' + i} primaryText={carsOptions.comforts[i]} />)
+      }
+      for (var i = 0; i < carsOptions.categories.length; i++) {
+        categories.push(<MenuItem value={carsOptions.categories[i]} key={'category' + i} primaryText={carsOptions.categories[i]} />)
+      }
     }
 
     return (
@@ -35,13 +38,13 @@ class CarsEditPageForm extends Component {
         <Field name="production_year" type="text" component={renderTextField} label="Production year"/>
 
         <Field name="color" component={renderSelectField} label="Color">
-          {_.map(colorsArray, (n) => n)}
+          {_.map(colors, (n) => n)}
         </Field>
         <Field name="comfort" component={renderSelectField} label="Comfort">
-          {_.map(comfortsArray, (n) => n)}
+          {_.map(comforts, (n) => n)}
         </Field>
         <Field name="category" component={renderSelectField} label="Category">
-          {_.map(categoriesArray, (n) => n)}
+          {_.map(categories, (n) => n)}
         </Field>
         <div className='file-input'>
           <label>Car photo</label>
@@ -82,9 +85,9 @@ CarsEditPageForm = reduxForm({
 })(CarsEditPageForm)
 
 CarsEditPageForm = connect(
-  state => {
+  state => ({
     initialValues: state.car
-  }
+  })
 )(CarsEditPageForm)
 
 export default CarsEditPageForm

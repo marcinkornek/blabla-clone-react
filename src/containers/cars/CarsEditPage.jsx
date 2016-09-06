@@ -49,6 +49,7 @@ class CarsEditPage extends Component {
             <div className='heading-title'>Edit car</div>
           </div>
           <CarsEditPageForm
+            carsOptions={carsOptions}
             onSubmit={this.handleSubmit.bind(this)} />
         </Col>
       </div>
