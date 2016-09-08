@@ -4,7 +4,6 @@ import { reduxForm, Field } from 'redux-form'
 import { renderGeoTextField } from '../shared/RenderGeoTextField'
 import DatePicker from '../inputs/DatePicker'
 import classNames from 'classnames'
-import styles from '../../stylesheets/rides/Rides'
 import formsStyles from '../../stylesheets/shared/Forms'
 
 class RidesSearchItem extends React.Component {

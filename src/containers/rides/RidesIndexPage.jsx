@@ -10,8 +10,9 @@ import styles from '../../stylesheets/rides/Rides'
 import sharedStyles from '../../stylesheets/shared/Shared'
 import RidesItem from '../../components/rides/RidesIndexPageItem'
 import RidesSearchItem from '../../components/rides/RidesSearchItem'
-import RidesFilterItem from '../../components/rides/RidesFilterItem'
+import RidesFiltersContainer from '../../components/rides/RidesFiltersContainer'
 import LoadingItem from '../../components/shared/LoadingItem'
+import Chip from 'material-ui/Chip'
 
 const per = 10
 
@@ -28,6 +29,20 @@ class RidesIndexPage extends Component {
     router: React.PropTypes.object.isRequired
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {chipData: []}
+    this.styles = {
+      chip: {
+        margin: 4,
+      },
+      wrapper: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      }
+    }
+  }
+
   componentDidMount() {
     const { loadSearchFormData, fetchRides, currentUserId } = this.props
     let { query } = this.props.location
@@ -37,29 +52,71 @@ class RidesIndexPage extends Component {
     fetchRides(this.context.router, page, per, query)
   }
 
-  handleSubmit(data) {
-    const { loadSearchFormData, fetchRides } = this.props
+  componentWillReceiveProps() {
+    const { location: { query } } = this.props
+    this.showChips(query)
+  }
 
-    var query = {}
+  handleSubmit(data) {
+    const { loadSearchFormData, fetchRides, location: { query } } = this.props
+
+    var newQuery = {}
     Object.keys(data).forEach((key) => {
       if (data[key] != undefined) {
         if (key == 'start_city' || key == 'destination_city') {
-          _.merge(query, { [key]: data[key].label || data[key] })
+          _.merge(newQuery, { [key]: data[key].label || data[key] })
         } else {
-          _.merge(query, { [key]: data[key] })
+          _.merge(newQuery, { [key]: data[key] })
         }
       }
     })
-    var query_from_location = this.props.location.query
     var page = 1
-    var extended = _.extend(query_from_location, query)
+    var extended = _.extend(query, newQuery)
+    this.showChips(extended)
     loadSearchFormData(extended)
     fetchRides(this.context.router, page, per, extended)
   }
 
+  handlePageClick(e) {
+    const { fetchRides } = this.props
+    let { query } = this.props.location
+    var page = query.page || 1
+    fetchRides(this.context.router, page, per, query)
+  }
+
+  showChips(query) {
+    console.log('query.hide_full', query.hide_full);
+    if (query.hide_full == "true") {
+      this.setState({chipData: [
+        {key: 'hide_full', label: 'Hide full'}
+      ]})
+    } else {
+      this.setState({chipData: []})
+    }
+  }
+
+  handleRequestDelete = (key) => {
+    const { loadSearchFormData, fetchRides, location: { query } } = this.props
+    delete query[key]
+    loadSearchFormData(query)
+    fetchRides(this.context.router, 1, per, query)
+  }
+
+  renderChip(data) {
+    return (
+      <Chip
+        key={data.key}
+        onRequestDelete={() => this.handleRequestDelete(data.key)}
+        style={this.styles.chip}
+      >
+        {data.label}
+      </Chip>
+    )
+  }
+
   render() {
     const { isFetching, rides, pagination, filters, currentUserId } = this.props
-    var ridesMain, ridesFilter, ridesList, headingButton, ridesPagination
+    var ridesMain, ridesFilter, ridesList, headingButton, ridesPagination, activeFilters
     let { query } = this.props.location
     var page = (parseInt(query.page, 10) || 1) - 1
 
@@ -98,13 +155,19 @@ class RidesIndexPage extends Component {
                        activeClassName={"active"} />
     }
 
+    activeFilters =
+      <div style={this.styles.wrapper}>
+        {this.state.chipData.map(this.renderChip, this)}
+      </div>
+
     ridesMain =
       <Row>
         <Col xs={12}>
-          <RidesFilterItem query={query} filters={filters}
+          <RidesFiltersContainer query={query} filters={filters}
             onSubmit={this.handleSubmit.bind(this)} />
           <RidesSearchItem query={query}
             onSubmit={this.handleSubmit.bind(this)} />
+          {activeFilters}
           <div className='heading'>
             <div className='heading__title'>{pagination.total_count} Rides</div>
             {headingButton}
@@ -121,13 +184,6 @@ class RidesIndexPage extends Component {
         </div>
       </div>
     )
-  }
-
-  handlePageClick(e) {
-    const { fetchRides } = this.props
-    let { query } = this.props.location
-    var page = query.page || 1
-    fetchRides(this.context.router, page, per, query)
   }
 }
 

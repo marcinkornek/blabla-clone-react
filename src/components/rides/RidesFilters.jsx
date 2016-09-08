@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
-import Checkbox from '../inputs/Checkbox'
+import Toggle from '../inputs/Toggle'
 
-class RidesFilterItem extends Component {
+class RidesFilters extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }
@@ -12,9 +12,9 @@ class RidesFilterItem extends Component {
     const { handleSubmit, filters } = this.props
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="rides-filters">
         <div>
-          <Field name="hide_full" component={Checkbox} label={`Hide full rides (${filters.full_rides})`} labelPosition="right"/>
+          <Field name="hide_full" component={Toggle} label={`Hide full rides (${filters.full_rides})`} labelPosition="left"/>
         </div>
         <button type="submit" className="btn btn-default form-submit">Submit</button>
       </form>
@@ -22,14 +22,14 @@ class RidesFilterItem extends Component {
   }
 }
 
-RidesFilterItem = reduxForm({
-  form: 'RidesFilterItem'
-})(RidesFilterItem)
+RidesFilters = reduxForm({
+  form: 'RidesFilters'
+})(RidesFilters)
 
-RidesFilterItem = connect(
+RidesFilters = connect(
   state => ({
     initialValues: state.ridesSearch.data
   })
-)(RidesFilterItem)
+)(RidesFilters)
 
-export default RidesFilterItem
+export default RidesFilters

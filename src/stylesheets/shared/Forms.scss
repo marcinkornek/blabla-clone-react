@@ -53,6 +53,9 @@
 }
 
 .rides-search {
+  display: inline-block;
+  width: calc(100% - 32px);
+
   .geosuggest {
     display: inline-block;
     width: calc(33% - 23px);
@@ -84,6 +87,47 @@
         margin-top: 2px !important;
       }
     }
+
+    @media (max-width: 1199px) {
+      width: calc(33% - 24px);
+    }
+  }
+
+  .form-submit {
+    margin: 0;
+  }
+
+  @media (max-width: 767px) {
+    > div {
+      display: block !important;
+      width: 100% !important;
+    }
+  }
+}
+
+.rides-filters {
+  display: inline-block;
+  width: 168px;
+  padding: 10px;
+
+  label {
+    font-size: 12px !important;
+  }
+}
+
+.rides-filters__button {
+  display: inline-block;
+  margin-left: - 8px;
+
+  @media (max-width: 767px) {
+    vertical-align: top;
+  }
+
+  button {
+    height: 40px !important;
+    width: 40px !important;
+    padding: 0 !important;
+    vertical-align: middle;
   }
 }
 

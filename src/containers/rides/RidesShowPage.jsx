@@ -42,7 +42,7 @@ class RidesShowPage extends React.Component {
   }
 
   render() {
-    const { ride, currentUserId } = this.props
+    const { changeRideRequest, ride, currentUserId } = this.props
     var rideDescriptionCar, rideDriver, rideActions, rideOffer, rideDescription, places, rideRequests, rideRequestsList, rideFormOrStatus, rideStatusTimestamp
 
     if (ride.car) {
@@ -97,7 +97,9 @@ class RidesShowPage extends React.Component {
         ride.ride_requests.items.map((ride_request, i) =>
           <RideRequestsIndexItem
             ride_request={ride_request} key={i}
-            onSubmit={this.handleSubmitRideRequest.bind(this)}/>
+            onAddClick={(status) =>
+              changeRideRequest(ride_request.id, status)
+            } />
       )
     }
 
