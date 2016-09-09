@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import AppBar from 'material-ui/AppBar'
 import AppNavDrawer from './AppNavDrawer'
+import HeaderRight from './HeaderRight'
 
 export default class HeaderNew extends Component {
   static propTypes = {
@@ -61,7 +62,8 @@ export default class HeaderNew extends Component {
           title={title}
           zDepth={0}
           style={{position: 'fixed'}}
-          showMenuIconButton={showMenuIconButton} />
+          showMenuIconButton={showMenuIconButton}
+          iconElementRight={<HeaderRight />}/>
         <AppNavDrawer
           location={location}
           docked={docked}
