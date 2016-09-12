@@ -4,6 +4,7 @@ import { reducer as formReducer } from 'redux-form';
 import session             from './session';
 import users               from './users';
 import user                from './user';
+import userNotifications   from './userNotifications';
 import cars                from './cars';
 import carsOptions         from './carsOptions';
 import car                 from './car';
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   session,
   users,
   user,
+  userNotifications,
   cars,
   car,
   carsOptions,

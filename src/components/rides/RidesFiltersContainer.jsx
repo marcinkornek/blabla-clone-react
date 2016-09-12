@@ -6,21 +6,6 @@ import ContentFilter from 'material-ui/svg-icons/content/filter-list'
 import RidesFilters from './RidesFilters'
 
 export default class RideFiltersContainer extends React.Component {
-  // constructor(props) {
-  //   super(props)
-
-  //   this.state = {
-  //     valueSingle: [],
-  //   }
-  // }
-
-  // handleChange = (event, value) => {
-  //   const { query } = this.props
-  //   this.setState({
-  //     valueSingle: value
-  //   })
-  // }
-
   render() {
     const { handleSubmit, filters } = this.props
     return (

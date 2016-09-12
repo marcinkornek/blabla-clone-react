@@ -1,19 +1,19 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 import { Col } from 'react-bootstrap'
-import { Link } from 'react-router';
+import { Link } from 'react-router'
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
 import TimeAgo from 'react-timeago'
-import * as actions from '../../actions/rides';
-import * as rrActions from '../../actions/ride_requests';
+import * as actions from '../../actions/rides'
+import * as rrActions from '../../actions/ride_requests'
 import styles from '../../stylesheets/rides/Rides'
 import RidesActions from '../../components/rides/RidesActions'
 import RideOfferForm from '../../components/rides/RideOfferForm'
 import RideRequestsIndexItem from '../../components/rides/RideRequestsIndexItem'
 
-class RidesShowPage extends React.Component {
+class RidesShowPage extends Component {
   static PropTypes = {
     ride: PropTypes.object.isRequired,
     currentUserId: PropTypes.number
@@ -32,7 +32,7 @@ class RidesShowPage extends React.Component {
   }
 
   handleSubmit(data) {
-    const { createRideRequest, ride } = this.props;
+    const { createRideRequest, ride } = this.props
     createRideRequest(ride.id, data.places)
   }
 

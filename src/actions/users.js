@@ -11,7 +11,7 @@ function status(response) {
 
 export function fetchUsers(page = 1, per = 10) {
   return dispatch => {
-    dispatch(usersRequest());
+    dispatch(usersRequest())
     return fetch(cons.APIEndpoints.USERS + '?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
@@ -23,12 +23,12 @@ export function fetchUsers(page = 1, per = 10) {
     .then(req => req.json())
     .then(json => dispatch(usersSuccess(json)))
     .catch(errors => dispatch(usersFailure(errors)))
-  };
+  }
 }
 
 export function fetchUser(userId) {
   return dispatch => {
-    dispatch(userRequest());
+    dispatch(userRequest())
     return fetch(cons.APIEndpoints.USERS + '/' + userId, {
       method: 'get',
       headers: {
@@ -40,12 +40,12 @@ export function fetchUser(userId) {
     .then(req => req.json())
     .then(json => dispatch(userSuccess(json)))
     .catch(errors => dispatch(userFailure(errors)))
-  };
+  }
 }
 
 export function fetchUserProfile(userId) {
   return dispatch => {
-    dispatch(userRequest());
+    dispatch(userRequest())
     return fetch(cons.APIEndpoints.USERS + '/' + userId + '/profile', {
       method: 'get',
       headers: {
@@ -57,12 +57,32 @@ export function fetchUserProfile(userId) {
     .then(req => req.json())
     .then(json => dispatch(userSuccess(json)))
     .catch(errors => dispatch(userFailure(errors)))
-  };
+  }
+}
+
+export function fetchUserNotifications() {
+  return (dispatch, getState) => {
+    const { session } = getState()
+    dispatch(userNotificationsRequest())
+    return fetch(cons.APIEndpoints.USERS + '/notifications', {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json',
+        'X-User-Email': session.email,
+        'X-User-Token': session.access_token
+      }
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(userNotificationsSuccess(json)))
+    .catch(errors => dispatch(userNotificationsFailure(errors)))
+  }
 }
 
 export function createUser(body) {
   return dispatch => {
-    dispatch(userCreateRequest());
+    dispatch(userCreateRequest())
     return fetch(cons.APIEndpoints.USERS, {
       method: 'post',
       headers: {
@@ -74,13 +94,13 @@ export function createUser(body) {
     .then(req => req.json())
     .then(json => dispatch(userCreateSuccess(json)))
     .catch(errors => dispatch(userCreateFailure(errors)))
-  };
+  }
 }
 
 export function updateUser(body) {
   return (dispatch, getState) => {
     const { session } = getState()
-    dispatch(userUpdateRequest());
+    dispatch(userUpdateRequest())
     return fetch(cons.APIEndpoints.USERS + '/' + session.id, {
       method: 'PUT',
       headers: {
@@ -99,7 +119,7 @@ export function updateUser(body) {
       }
     })
     .catch(errors => dispatch(userUpdateFailure(JSON.parse(errors))))
-  };
+  }
 }
 
 export function checkUserEmailUniqueness(email) {
@@ -116,13 +136,13 @@ export function checkUserEmailUniqueness(email) {
     })
     .then(status)
     .then(req => req.json())
-  };
+  }
 }
 
 export function usersRequest() {
   return {
     type: types.USERS_REQUEST,
-  };
+  }
 }
 
 export function usersSuccess(json) {
@@ -143,7 +163,7 @@ export function usersFailure(errors) {
 export function userRequest() {
   return {
     type: types.USER_REQUEST,
-  };
+  }
 }
 
 export function userSuccess(json) {
@@ -163,7 +183,7 @@ export function userFailure(errors) {
 export function userCreateRequest() {
   return {
     type: types.USER_CREATE_REQUEST,
-  };
+  }
 }
 
 export function userCreateSuccess(json) {
@@ -183,7 +203,7 @@ export function userCreateFailure(errors) {
 export function userUpdateRequest() {
   return {
     type: types.USER_UPDATE_REQUEST,
-  };
+  }
 }
 
 export function userUpdateSuccess(json, session) {
@@ -197,6 +217,27 @@ export function userUpdateSuccess(json, session) {
 export function userUpdateFailure(errors) {
   return {
     type: types.USER_UPDATE_FAILURE,
+    errors: errors
+  }
+}
+
+export function userNotificationsRequest() {
+  return {
+    type: types.USER_NOTIFICATIONS_REQUEST,
+  }
+}
+
+export function userNotificationsSuccess(json) {
+  return {
+    type: types.USER_NOTIFICATIONS_SUCCESS,
+    items: json.items,
+    pagination: json.meta
+  }
+}
+
+export function userNotificationsFailure(errors) {
+  return {
+    type: types.USER_NOTIFICATIONS_FAILURE,
     errors: errors
   }
 }

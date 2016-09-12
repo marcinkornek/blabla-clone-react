@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import HeaderNew from '../components/HeaderNew'
 import * as actions from '../actions/session'
+import * as userActions from '../actions/users'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Dimensions from 'react-dimensions'
 
@@ -14,16 +15,23 @@ class Application extends Component {
     router: React.PropTypes.object.isRequired
   }
 
-  render () {
-    const { dispatch, currentUser, children } = this.props
+  componentDidMount() {
+    const { currentUser, fetchUserNotifications } = this.props
+    if (currentUser.isLoggedIn) {
+      fetchUserNotifications()
+    }
+  }
 
+  render () {
+    const { logout, currentUser, userNotifications, containerWidth, children } = this.props
     return (
       <div>
         <HeaderNew
           currentUser={currentUser}
-          containerWidth={this.props.containerWidth}
+          userNotifications={userNotifications}
+          containerWidth={containerWidth}
           onLogout={text =>
-            dispatch(actions.logout(this.context.router, currentUser))
+            logout(this.context.router, currentUser)
           } />
         <div id='main' className='container'>
           {children}
@@ -33,11 +41,17 @@ class Application extends Component {
   }
 }
 
-function select(state) {
+const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.session.isLoggedIn,
-    currentUser: state.session
+    currentUser: state.session,
+    userNotifications: state.userNotifications
   }
 }
 
-export default Dimensions()(connect(select)(Application))
+const mapDispatchToProps = {
+  logout: actions.logout,
+  fetchUserNotifications: userActions.fetchUserNotifications
+}
+
+export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(Application))

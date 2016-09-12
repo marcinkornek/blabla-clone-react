@@ -63,7 +63,7 @@ export default class HeaderNew extends Component {
           zDepth={0}
           style={{position: 'fixed'}}
           showMenuIconButton={showMenuIconButton}
-          iconElementRight={<HeaderRight />}/>
+          iconElementRight={<HeaderRight {...this.props} />}/>
         <AppNavDrawer
           location={location}
           docked={docked}
