@@ -1,5 +1,43 @@
-.header__notifications-button {
-  > div {
+.header__notifications {
+  max-width: 450px;
+
+  &__button {
     padding: 0 !important;
+    vertical-align: middle;
+  }
+
+  &__header {
+    padding: 5px;
+    background-color: #f4f3f1;
+  }
+
+  &__footer {
+    padding: 5px;
+    background-color: #f4f3f1;
+  }
+
+  .header__notification {
+    padding: 10px;
+
+    &:hover {
+      background-color: #f4f3f1;
+    }
+
+    &__body {
+      display: inline-block;
+      width: calc(100% - 40px);
+      padding-left: 10px;
+      vertical-align: middle;
+    }
+
+    &__link {
+      color: #005999;
+    }
+
+    &__timestamp {
+      display: block;
+      color: gray;
+      font-size: 12px;
+    }
   }
 }

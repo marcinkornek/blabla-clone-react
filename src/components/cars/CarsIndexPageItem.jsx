@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router';
+import { Link } from 'react-router'
 import { Panel } from 'react-bootstrap'
 import CarsActions from './CarsActions'
 import Stars from '../shared/Stars'
