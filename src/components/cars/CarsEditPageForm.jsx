@@ -17,7 +17,6 @@ class CarsEditPageForm extends Component {
     var colors = []
     var comforts = []
     var categories = []
-
     if (carsOptions) {
       for (var i = 0; i < carsOptions.colors.length; i++) {
         colors.push(<MenuItem value={carsOptions.colors[i]} key={'color' + i} primaryText={carsOptions.colors[i]} />)
