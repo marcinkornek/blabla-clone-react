@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Tooltip, OverlayTrigger } from 'react-bootstrap'
 import Icon from 'react-fa'
-import styles from '../../stylesheets/shared/Shared'
 
 export default class Stars extends Component {
   render() {

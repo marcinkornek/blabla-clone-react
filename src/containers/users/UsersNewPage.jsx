@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Icon from 'react-fa'
 import _ from 'lodash'
 import * as actions from '../../actions/users';
-import styles from '../../stylesheets/users/Users'
 import UsersNewPageForm from '../../components/users/UsersNewPageForm'
 
 class UsersNewPage extends Component {

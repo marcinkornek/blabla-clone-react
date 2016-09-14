@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { Input, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
-import styles from '../../stylesheets/ride-requests/RideRequests'
 import pluralize from 'pluralize'
 import TimeAgo from 'react-timeago'
 

@@ -4,7 +4,6 @@ import { Button, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
 import * as actions from '../../actions/cars'
-import styles from '../../stylesheets/users/Users'
 import CarsItem from '../../components/cars/CarsIndexPageItem'
 import LoadingItem from '../../components/shared/LoadingItem'
 

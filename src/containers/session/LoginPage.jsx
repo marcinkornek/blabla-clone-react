@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import Router, { Link } from "react-router"
 import LoginFbPage from "../../components/session/LoginFbPage"
 import LoginEmailPage from "../../components/session/LoginEmailPage"
-import styles from "../../stylesheets/session/Login"
 import * as actions from "../../actions/session";
 
 class LoginPage extends Component {

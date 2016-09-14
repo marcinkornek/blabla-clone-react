@@ -6,7 +6,6 @@ import FlatButton from 'material-ui/FlatButton'
 import ContentAddBox from 'material-ui/svg-icons/content/add-box'
 import IconButton from 'material-ui/IconButton'
 import ActionSearch from 'material-ui/svg-icons/action/search'
-import headerStyles from '../stylesheets/shared/Header'
 import HeaderNotifications from './HeaderNotifications'
 
 const styles = {

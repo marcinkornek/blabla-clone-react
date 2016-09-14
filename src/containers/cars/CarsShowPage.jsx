@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import * as actions from '../../actions/cars';
-import styles from '../../stylesheets/users/Users'
 import CarsActions from '../../components/cars/CarsActions'
 import Stars from '../../components/shared/Stars'
 

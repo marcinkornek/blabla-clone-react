@@ -4,7 +4,6 @@ import { Col } from 'react-bootstrap'
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import * as actions from '../../actions/users';
-import styles from '../../stylesheets/users/Users'
 import CarsItem from '../../components/cars/CarsIndexPageItem'
 import RidesItem from '../../components/rides/RidesIndexSimplePageItem'
 

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/cars'
-import styles from '../../stylesheets/users/Users'
 import CarsNewPageForm from '../../components/cars/CarsNewPageForm'
 
 class CarsNewPage extends Component {

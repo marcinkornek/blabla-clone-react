@@ -4,8 +4,6 @@ import { Button, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
 import * as actions from '../../actions/rides'
-import styles from '../../stylesheets/rides/Rides'
-import sharedStyles from '../../stylesheets/shared/Shared'
 import RidesItem from '../../components/rides/RidesIndexSimplePageItem'
 import LoadingItem from '../../components/shared/LoadingItem'
 

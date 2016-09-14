@@ -6,7 +6,6 @@ import { renderSelectField } from '../shared/RenderSelectField'
 import MenuItem from 'material-ui/MenuItem'
 import DatePicker from '../inputs/DatePicker'
 import RideValidator from './RideValidator'
-import styles from '../../stylesheets/shared/Forms'
 
 class RidesNewPageForm extends Component {
   static propTypes = {

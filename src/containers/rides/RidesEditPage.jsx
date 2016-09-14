@@ -2,7 +2,6 @@ import React, { Component, PropTypes }  from 'react'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/rides'
-import styles from '../../stylesheets/rides/Rides'
 import RidesEditPageForm from '../../components/rides/RidesEditPageForm'
 
 class RidesEditPage extends Component {

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate'
 import * as actions from '../../actions/users';
-import styles from '../../stylesheets/users/Users'
 import UsersItem from '../../components/users/UsersIndexPageItem'
 import List from 'material-ui/List/List'
 

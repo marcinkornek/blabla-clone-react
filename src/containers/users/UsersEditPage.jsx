@@ -4,7 +4,6 @@ import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import * as actions from '../../actions/users'
-import styles from '../../stylesheets/users/Users'
 import UsersEditPageForm from '../../components/users/UsersEditPageForm'
 import LoadingItem from '../../components/shared/LoadingItem'
 

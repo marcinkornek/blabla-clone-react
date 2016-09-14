@@ -4,7 +4,6 @@ import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import _ from 'underscore'
 import * as actions from '../../actions/cars'
-import styles from '../../stylesheets/users/Users'
 import CarsEditPageForm from '../../components/cars/CarsEditPageForm'
 
 class CarsEditPage extends Component {
