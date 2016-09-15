@@ -9,6 +9,7 @@ module.exports = {
   APIEndpoints: {
     USERS:         APIRoot + '/api/users',
     CARS:          APIRoot + '/api/cars',
+    NOTIFICATIONS: APIRoot + '/api/notifications',
     RIDES:         APIRoot + '/api/rides',
     RIDE_REQUESTS: APIRoot + '/api/ride_requests',
     SESSIONS:      APIRoot + '/api/sessions',

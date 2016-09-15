@@ -64,7 +64,7 @@ export function fetchUserNotifications() {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(userNotificationsRequest())
-    return fetch(cons.APIEndpoints.USERS + '/notifications', {
+    return fetch(cons.APIEndpoints.NOTIFICATIONS, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
