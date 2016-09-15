@@ -3,6 +3,7 @@ import { routerReducer }   from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 import session             from './session';
 import users               from './users';
+import currentUser         from './currentUser';
 import user                from './user';
 import userNotifications   from './userNotifications';
 import cars                from './cars';
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   session,
   users,
   user,
+  currentUser,
   userNotifications,
   cars,
   car,

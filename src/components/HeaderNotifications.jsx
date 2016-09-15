@@ -14,8 +14,16 @@ const styles = {
     top: -5,
     right: -5
   },
-  iconStyle: {
+  iconButtonStyle: {
     color: 'white',
+  },
+  fullIconStyle: {
+    color: 'white',
+    verticalAlign: 'middle'
+  },
+  emptyIconStyle: {
+    color: 'white',
+    verticalAlign: 'middle'
   }
 }
 
@@ -41,37 +49,55 @@ export default class RidesShowPage extends React.Component {
   handleRequestClose = () => {
     this.setState({
       open: false,
-    });
-  };
+    })
+  }
+
+  renderNotificationBadge() {
+    const { userNotifications } = this.props
+    if (userNotifications.pagination.total_count > 0) {
+      return(
+        <Badge
+          className="header__notifications__button"
+          badgeContent={userNotifications.pagination.total_count || 0}
+          primary={true}
+          badgeStyle={styles.badgeStyle}
+        >
+          <IconButton
+            tooltip="Notifications"
+            iconStyle={styles.iconButtonStyle}
+            onTouchTap={this.handleTouchTap}
+          >
+            <NotificationsIcon style={styles.fullIconStyle} />
+            <Popover
+              open={this.state.open}
+              anchorEl={this.state.anchorEl}
+              anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+              targetOrigin={{horizontal: 'right', vertical: 'top'}}
+              onRequestClose={this.handleRequestClose}
+              animation={PopoverAnimationVertical}
+            >
+              <NotificationsList userNotifications={userNotifications} />
+            </Popover>
+          </IconButton>
+        </Badge>
+      )
+    } else {
+      return(
+       <IconButton
+          tooltip="Notifications"
+          iconStyle={styles.iconButtonStyle}
+        >
+          <NotificationsIcon style={styles.emptyIconStyle} />
+        </IconButton>
+      )
+    }
+  }
 
   render() {
-    const { userNotifications } = this.props
-
     return(
-      <Badge
-        className="header__notifications__button"
-        badgeContent={userNotifications.pagination.total_count || 0}
-        primary={true}
-        badgeStyle={styles.badgeStyle}
-      >
-        <IconButton
-          tooltip="Notifications"
-          iconStyle={styles.iconStyle}
-          onTouchTap={this.handleTouchTap}
-        >
-          <NotificationsIcon />
-          <Popover
-            open={this.state.open}
-            anchorEl={this.state.anchorEl}
-            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-            onRequestClose={this.handleRequestClose}
-            animation={PopoverAnimationVertical}
-          >
-            <NotificationsList userNotifications={userNotifications} />
-          </Popover>
-        </IconButton>
-      </Badge>
+      <span>
+       {this.renderNotificationBadge()}
+      </span>
     )
   }
 }

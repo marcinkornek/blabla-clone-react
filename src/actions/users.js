@@ -43,6 +43,25 @@ export function fetchUser(userId) {
   }
 }
 
+export function fetchCurrentUser() {
+  console.log('fet');
+  return (dispatch, getState) => {
+    const { session } = getState()
+    dispatch(currentUserRequest())
+    return fetch(cons.APIEndpoints.USERS + '/' + session.id, {
+      method: 'get',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(status)
+    .then(req => req.json())
+    .then(json => dispatch(currentUserSuccess(json)))
+    .catch(errors => dispatch(currentUserFailure(errors)))
+  }
+}
+
 export function fetchUserProfile(userId) {
   return dispatch => {
     dispatch(userRequest())
@@ -176,6 +195,26 @@ export function userSuccess(json) {
 export function userFailure(errors) {
   return {
     type: types.USER_FAILURE,
+    errors: errors
+  }
+}
+
+export function currentUserRequest() {
+  return {
+    type: types.CURRENT_USER_REQUEST,
+  }
+}
+
+export function currentUserSuccess(json) {
+  return {
+    type: types.CURRENT_USER_SUCCESS,
+    item: json
+  }
+}
+
+export function currentUserFailure(errors) {
+  return {
+    type: types.CURRENT_USER_FAILURE,
     errors: errors
   }
 }

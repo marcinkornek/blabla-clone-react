@@ -14,6 +14,8 @@ import DriverIcon from './icons/DriverIcon'
 import PassengerIcon from './icons/PassengerIcon'
 import Delete from 'material-ui/svg-icons/action/delete'
 import MenuItem from 'material-ui/MenuItem'
+import Avatar from 'material-ui/Avatar'
+import { Link } from 'react-router'
 
 const SelectableList = MakeSelectable(List);
 
@@ -27,8 +29,11 @@ const styles = {
     backgroundColor: cyan500,
     paddingLeft: spacing.desktopGutter,
     marginBottom: 8,
+  },
+  avatatStyle: {
+    marginRight: 10
   }
-};
+}
 
 export default class AppNavDrawer extends Component {
   static propTypes = {
@@ -39,25 +44,45 @@ export default class AppNavDrawer extends Component {
     onRequestChangeNavDrawer: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
     style: PropTypes.object,
-  };
+  }
 
   static contextTypes = {
     muiTheme: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired,
-  };
+  }
 
   handleRequestChangeLink = (event, value) => {
-    window.location = value;
-  };
+    window.location = value
+  }
 
   handleTouchTapHeader = () => {
-    this.context.router.push('/');
-    this.props.onRequestChangeNavDrawer(false);
-  };
+    this.context.router.push('/')
+    this.props.onRequestChangeNavDrawer(false)
+  }
+
+  renderLeftHeader() {
+    const { isLoggedIn, currentUser } = this.props
+    if (isLoggedIn) {
+      return(
+        <div style={styles.logo}>
+          <Link to={`/users/${currentUser.id}`}>
+            <Avatar src={currentUser.avatar} style={styles.avatatStyle} />
+            <span>{currentUser.full_name}</span>
+          </Link>
+        </div>
+      )
+    } else {
+      return(
+        <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
+          Blabla Clone
+        </div>
+      )
+    }
+  }
 
   nestedAccountItems() {
-    const { currentUser, onLogout } = this.props
-    if (currentUser.email) {
+    const { isLoggedIn, onLogout } = this.props
+    if (isLoggedIn) {
       return (
         <ListItem
           primaryText="My account"
@@ -99,9 +124,7 @@ export default class AppNavDrawer extends Component {
         onRequestChange={onRequestChangeNavDrawer}
         containerStyle={{zIndex: zIndex.drawer - 100}}
       >
-        <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
-          Blabla Clone
-        </div>
+        {this.renderLeftHeader()}
         <SelectableList
           value={location.pathname}
           onChange={onChangeList}
@@ -122,6 +145,6 @@ export default class AppNavDrawer extends Component {
           {this.nestedAccountItems()}
         </SelectableList>
       </Drawer>
-    );
+    )
   }
 }

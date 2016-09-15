@@ -17,17 +17,19 @@ class Application extends Component {
   }
 
   componentDidMount() {
-    const { currentUser, fetchUserNotifications } = this.props
-    if (currentUser.isLoggedIn) {
+    const { isLoggedIn, fetchUserNotifications, fetchCurrentUser } = this.props
+    if (isLoggedIn) {
+      fetchCurrentUser()
       fetchUserNotifications()
     }
   }
 
   render () {
-    const { logout, currentUser, userNotifications, containerWidth, children } = this.props
+    const { logout, currentUser, userNotifications, isLoggedIn, containerWidth, children } = this.props
     return (
       <div>
         <HeaderNew
+          isLoggedIn={isLoggedIn}
           currentUser={currentUser}
           userNotifications={userNotifications}
           containerWidth={containerWidth}
@@ -45,13 +47,14 @@ class Application extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.session.isLoggedIn,
-    currentUser: state.session,
+    currentUser: state.currentUser,
     userNotifications: state.userNotifications
   }
 }
 
 const mapDispatchToProps = {
   logout: actions.logout,
+  fetchCurrentUser: userActions.fetchCurrentUser,
   fetchUserNotifications: userActions.fetchUserNotifications
 }
 

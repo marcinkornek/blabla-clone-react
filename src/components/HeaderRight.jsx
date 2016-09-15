@@ -8,9 +8,15 @@ import HeaderNotifications from './HeaderNotifications'
 
 const styles = {
   button: {
-    marginTop: 5,
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
+    verticalAlign: 'super'
+  },
+  loginButton: {
+    marginTop: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    verticalAlign: 'sub'
   },
   searchButton: {
     verticalAlign: 'middle',
@@ -23,27 +29,27 @@ const styles = {
     top: -5,
     right: -5
   },
+  iconButtonStyle: {
+    color: 'white'
+  },
   iconStyle: {
-    verticalAlign: 'middle',
-    color: 'white',
+    verticalAlign: 'middle'
   }
 }
 
 export default class HeaderRight extends Component {
-  render() {
-    const { currentUser } = this.props
-
-    var right
-    if (currentUser.isLoggedIn) {
-      right =
+  renderHeaderRight() {
+    const { isLoggedIn } = this.props
+    if (isLoggedIn) {
+      return(
         <div>
           <HeaderNotifications {...this.props} />
           <Link to="/rides">
             <IconButton
               tooltip="Search rides"
-              iconStyle={styles.iconStyle}
+              iconStyle={styles.iconButtonStyle}
             >
-                <ActionSearch />
+                <ActionSearch style={styles.iconStyle} />
             </IconButton>
           </Link>
           <RaisedButton
@@ -54,11 +60,28 @@ export default class HeaderRight extends Component {
             containerElement={<Link to="/rides/new" />}
           />
         </div>
+      )
+    } else {
+      return(
+        <div>
+          <RaisedButton
+            label="Login"
+            style={styles.loginButton}
+            containerElement={<Link to="/login" />} />
+          <RaisedButton
+            label="Register"
+            style={styles.loginButton}
+            secondary={true}
+            containerElement={<Link to="/register" />} />
+        </div>
+      )
     }
+  }
 
+  render() {
     return(
       <div>
-        {right}
+        {this.renderHeaderRight()}
       </div>
     )
   }
