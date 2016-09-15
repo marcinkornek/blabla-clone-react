@@ -12,6 +12,8 @@ import SocialGroup from 'material-ui/svg-icons/social/group'
 import MapsDirectionsCar from 'material-ui/svg-icons/maps/directions-car'
 import DriverIcon from './icons/DriverIcon'
 import PassengerIcon from './icons/PassengerIcon'
+import Delete from 'material-ui/svg-icons/action/delete'
+import MenuItem from 'material-ui/MenuItem'
 
 const SelectableList = MakeSelectable(List);
 
@@ -65,7 +67,7 @@ export default class AppNavDrawer extends Component {
             <ListItem primaryText="My cars" value="/account/cars" key="my-cars" leftIcon={<MapsDirectionsCar />} />,
             <ListItem primaryText="My rides as driver" value="/account/rides_as_driver" key="my-rides-driver" leftIcon={<DriverIcon />}/>,
             <ListItem primaryText="My rides as passenger" value="/account/rides_as_passenger" key="my-rides-passenger" leftIcon={<PassengerIcon />}/>,
-            <RaisedButton label="Logout" fullWidth={true} onTouchTap={onLogout} key="logout" />
+            <MenuItem onTouchTap={onLogout} primaryText="Logout" key="logout" leftIcon={<Delete />} />
           ]}/>
       )
     } else {
