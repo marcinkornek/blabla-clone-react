@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Col } from 'react-bootstrap'
 import { Link } from 'react-router'
-import Timestamp from 'react-time'
+import Time from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
 import TimeAgo from 'react-timeago'
@@ -11,6 +11,14 @@ import * as rrActions from '../../actions/ride_requests'
 import RidesActions from '../../components/rides/RidesActions'
 import RideOfferForm from '../../components/rides/RideOfferForm'
 import RideRequestsIndexItem from '../../components/rides/RideRequestsIndexItem'
+import Paper from 'material-ui/Paper'
+import Avatar from 'material-ui/Avatar'
+
+const styles = {
+  avatarStyle: {
+    margin: 10
+  }
+}
 
 class RidesShowPage extends Component {
   static PropTypes = {
@@ -28,22 +36,20 @@ class RidesShowPage extends Component {
     createRideRequest(ride.id, data.places)
   }
 
-  handleSubmitRideRequest(data) {
+  handleRideRequestChange(rideRequestId, status) {
     const { changeRideRequest } = this.props
-    changeRideRequest(ride_request.id, data.status)
+    changeRideRequest(rideRequestId, status)
   }
 
   renderRideDescription() {
     const { ride } = this.props
     return(
-      <div className='ride-show-description'>
+      <Paper>
         <div className='ride-show-description__heading'>
-          <div className='ride-show-description__start-city'>{ride.start_city}</div>
+          {ride.start_city}
           <Icon name="long-arrow-right" className='ride-show-description__arrow'/>
-          <div className='ride-show-description__destination-city'>{ride.destination_city}</div>
-          <div className='ride-show-description__actions'>
-            {this.renderRideActions()}
-          </div>
+          {ride.destination_city}
+          {this.renderRideActions()}
         </div>
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Start city</div>
@@ -56,26 +62,26 @@ class RidesShowPage extends Component {
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Date</div>
           <div className='ride-show-description__details-value'>
-            <Timestamp value={ride.start_date} format="dddd D MMMM YYYY" />
+            <Time value={ride.start_date || Date.now()} format="dddd D MMMM YYYY" />
           </div>
         </div>
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Time</div>
           <div className='ride-show-description__details-value'>
-            <Timestamp value={ride.start_date} format="H:mm" />
+            <Time value={ride.start_date || Date.now()} format="H:mm" />
           </div>
         </div>
         {this.renderRideDescriptionCar()}
-      </div>
+      </Paper>
     )
   }
 
   renderRideOffer() {
     const { ride } = this.props
     return(
-      <div className='ride-show-offer'>
+      <Paper className='ride-show-offer'>
         <div className='ride-show-offer__heading'>
-          Offer
+          Book seats
         </div>
         <div className='ride-show-offer__details-price'>
           <div className='ride-show-offer__details-price-value'>{ride.price}</div>
@@ -83,14 +89,14 @@ class RidesShowPage extends Component {
           <div className='ride-show-offer__details-price-label'>for person</div>
         </div>
         <div className='ride-show-offer__details-places'>
-          <div className='ride-show-offer__details-places-value'>{ride.free_places_count} / {ride.places} {pluralize('place', this.props.ride.free_places_count)} </div>
+          <div className='ride-show-offer__details-places-value'>{ride.free_places_count} / {ride.places} {pluralize('seat', this.props.ride.free_places_count)} free </div>
         </div>
         <div className='ride-show-offer__details-book'>
           <div className='ride-show-offer__details-book-info'>
             {this.renderRideFormOrStatus()}
           </div>
         </div>
-      </div>
+      </Paper>
     )
   }
 
@@ -98,7 +104,7 @@ class RidesShowPage extends Component {
     const { ride, currentUserId } = this.props
     if (ride.requested) {
       return(
-        <div className='ride-request'>
+        <Paper className='ride-request'>
           <div className='ride-request__status'>
             <div className={'ride-request__status--' + ride.user_ride_request.status}>{ride.user_ride_request.status}</div>
           </div>
@@ -108,11 +114,11 @@ class RidesShowPage extends Component {
               <div className='ride-request__places-label'>{pluralize('place', ride.user_ride_request.places)}</div>
             </div>
             <div className='ride-request__created'>
-              <div>Requested: <TimeAgo date={ride.user_ride_request.created_at} /></div>
-              {this.renderRideStatusTimestamp()}
+              <div>Requested: <TimeAgo date={ride.user_ride_request.created_at || Date.now()} /></div>
+              {this.renderRideStatusTime()}
             </div>
           </div>
-        </div>
+        </Paper>
       )
     } else {
       return(
@@ -124,13 +130,13 @@ class RidesShowPage extends Component {
     }
   }
 
-  renderRideStatusTimestamp() {
+  renderRideStatusTime() {
     const { ride } = this.props
     if (ride.requested && ride.user_ride_request.status != 'pending' ) {
        return(
         <div>
           <div className='ride-request__status-capitalized'>{ride.user_ride_request.status}:</div>
-          <TimeAgo date={ride.user_ride_request.updated_at} />
+          <TimeAgo date={ride.user_ride_request.updated_at || Date.now()} />
         </div>
       )
     }
@@ -140,7 +146,7 @@ class RidesShowPage extends Component {
     const { ride } = this.props
     if (ride.ride_requests) {
       return(
-        <div className='ride-show-requests'>
+        <Paper className='ride-show-requests'>
           <div className='ride-show-requests__heading'>
             Requests
           </div>
@@ -152,7 +158,7 @@ class RidesShowPage extends Component {
               {this.renderRideRequestsList()}
             </div>
           </div>
-        </div>
+        </Paper>
       )
     }
   }
@@ -164,8 +170,7 @@ class RidesShowPage extends Component {
         ride.ride_requests.items.map((ride_request, i) =>
           <RideRequestsIndexItem
             ride_request={ride_request} key={i}
-            onAddClick={(status) =>
-              changeRideRequest(ride_request.id, status)} />
+            handleOnClick={this.handleRideRequestChange.bind(this)} />
         )
       )
     }
@@ -175,10 +180,12 @@ class RidesShowPage extends Component {
     const { ride, currentUserId } = this.props
     if (ride.driver) {
       return(
-        <RidesActions
-          rideId={ride.id}
-          rideOwner={ride.driver.id}
-          currentUserId={currentUserId} />
+        <span className='ride-show-description__actions'>
+          <RidesActions
+            rideId={ride.id}
+            rideOwner={ride.driver.id}
+            currentUserId={currentUserId} />
+        </span>
       )
     }
   }
@@ -187,26 +194,26 @@ class RidesShowPage extends Component {
     const { ride, currentUserId } = this.props
     if (ride.driver && currentUserId != ride.driver.id) {
       return(
-        <div className='ride-show-driver'>
+        <Paper className='ride-show-driver'>
           <div className='ride-show-driver__heading'>
-            User
+            Driver
           </div>
           <Link to={`/users/${ride.driver.id}`}>
             <div>
-              <div className='ride-show-driver__details-avatar'><img src={ride.driver.avatar} /></div>
+              <Avatar src={ride.driver.avatar} style={styles.avatarStyle}/>
               <div className='ride-show-driver__details-info'>
                 <div className='ride-show-driver__details-name'>{ride.driver.full_name}</div>
                 <div className='ride-show-driver__details-age'>({ride.driver.age} years)</div>
                 <div className='ride-show-driver__details-join'>
                   <div className='ride-show-driver__details-join-label'>joined:</div>
                   <div className='ride-show-driver__details-join-value'>
-                    <Timestamp value={ride.driver.created_at} format="D MMMM YYYY" />
+                    <Time value={ride.driver.created_at || Date.now()} format="D MMMM YYYY" />
                   </div>
                 </div>
               </div>
             </div>
           </Link>
-        </div>
+        </Paper>
       )
     }
   }
@@ -217,12 +224,10 @@ class RidesShowPage extends Component {
       return(
         <Link to={`/cars/${ride.car.id}`}>
           <div className='ride-show-description__details'>
-            <div className='ride-show-description__details-label'>Car name</div>
-            <div className='ride-show-description__details-value'>{ride.car.full_name}</div>
-          </div>
-          <div className='ride-show-description__details'>
-            <div className='ride-show-description__details-label'>Car photo</div>
-            <div className='ride-show-description__details-value'><img src={ride.car.car_photo} /></div>
+            <div className='ride-show-description__details-label'>Car</div>
+            <div className='ride-show-description__details-value'>
+              <img src={ride.car.car_photo} />{ride.car.full_name}
+            </div>
           </div>
         </Link>
       )
@@ -234,10 +239,10 @@ class RidesShowPage extends Component {
 
     return(
       <div className='show-grid'>
-        <Col xs={8}>
+        <Col xs={12} sm={7} md={8}>
           {this.renderRideDescription()}
         </Col>
-        <Col xs={4}>
+        <Col xs={12} sm={5} md={4}>
           {this.renderRideOffer()}
           {this.renderRideRequests()}
           {this.renderRideDriver()}
