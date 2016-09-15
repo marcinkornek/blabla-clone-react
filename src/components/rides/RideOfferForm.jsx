@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { renderSelectField } from '../shared/RenderSelectField'
+import SelectField from '../inputs/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import pluralize from 'pluralize'
 
@@ -28,11 +29,11 @@ class RideOfferForm extends Component {
       rideOfferForm =
         <div className='book-ride'>
           <form className='book-ride-form' onSubmit={handleSubmit}>
-            <Field name="places" component={renderSelectField} label="Click to book place:">
+            <Field name="places" component={SelectField} hintText="Click to book seats">
               {_.map(places, (n) => n)}
             </Field>
 
-            <button type="submit" className="btn btn-default form-submit">Submit</button>
+            <button type="submit" className="btn btn-default">Submit</button>
           </form>
         </div>
     } else {

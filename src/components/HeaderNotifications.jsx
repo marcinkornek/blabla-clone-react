@@ -50,7 +50,7 @@ export default class RidesShowPage extends React.Component {
     return(
       <Badge
         className="header__notifications__button"
-        badgeContent={userNotifications.pagination.total_count}
+        badgeContent={userNotifications.pagination.total_count || 0}
         primary={true}
         badgeStyle={styles.badgeStyle}
       >

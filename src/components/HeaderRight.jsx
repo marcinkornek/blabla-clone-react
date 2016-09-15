@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import RaisedButton from 'material-ui/RaisedButton'
-import Badge from 'material-ui/Badge'
-import FlatButton from 'material-ui/FlatButton'
 import ContentAddBox from 'material-ui/svg-icons/content/add-box'
 import IconButton from 'material-ui/IconButton'
 import ActionSearch from 'material-ui/svg-icons/action/search'

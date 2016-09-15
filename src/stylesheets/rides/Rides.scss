@@ -97,36 +97,36 @@
   padding-left: 5px;
   padding-right: 5px;
   vertical-align: top;
-}
 
-.ride-offer__price-value {
-  font-weight: bold;
-  margin-bottom: -5px;
-  font-size: 28px;
-  display: inline-block;
-  margin-right: 5px;
-}
+  &__price-value {
+    font-weight: bold;
+    margin-bottom: -5px;
+    font-size: 28px;
+    display: inline-block;
+    margin-right: 5px;
+  }
 
-.ride-offer__price-currency {
-  margin-bottom: -5px;
-  font-size: 22px;
-  text-transform: uppercase;
-  display: inline-block;
-}
+  &__price-currency {
+    margin-bottom: -5px;
+    font-size: 22px;
+    text-transform: uppercase;
+    display: inline-block;
+  }
 
-.ride-offer__price-label {
-  font-size: 18px;
-}
+  &__price-label {
+    font-size: 18px;
+  }
 
-.ride-offer__places-free {
-  font-weight: bold;
-  font-size: 25px;
-  display: inline-block;
-  margin-right: 5px;
-}
+  &__places-free {
+    font-weight: bold;
+    font-size: 25px;
+    display: inline-block;
+    margin-right: 5px;
+  }
 
-.ride-offer__places-label {
-  display: inline-block;
+  &__places-label {
+    display: inline-block;
+  }
 }
 
 // SHOW
@@ -139,44 +139,43 @@
   margin-bottom: 20px;
 }
 
-.ride-show-description__heading {
-  border-bottom: 1px solid #ddd;
-  padding: 10px;
-  font-weight: bold;
-  font-size: 22px;
-  background-color: #fafafa;
-}
+.ride-show-description {
+  &__heading {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 22px;
+    background-color: #fafafa;
+  }
 
-.ride-show-description__start-city,
-.ride-show-description__destination-city {
-  display: inline-block;
-  color: #484C4B;
-}
+  &__actions {
+    float: right;
+  }
 
-.ride-show-description__actions {
-  float: right;
-}
+  &__arrow {
+    display: inline-block;
+    color: #484C4B;
+    margin-right: 5px;
+    margin-left: 5px;
+  }
 
-.ride-show-description__arrow {
-  display: inline-block;
-  color: #484C4B;
-  margin-right: 5px;
-  margin-left: 5px;
-}
+  &__details {
+    padding: 10px;
+  }
 
-.ride-show-description__details {
-  border-bottom: 1px solid #ddd;
-  padding: 10px;
-}
+  &__details-label {
+    display: inline-block;
+    width: 180px;
+    float: left;
 
-.ride-show-description__details-label {
-  display: inline-block;
-  width: 180px;
-  float: left;
-}
+    @media (max-width: 767px) {
+      width: 50%;
+    }
+  }
 
-.ride-show-description__details-value {
-  display: inline-block;
+  &__details-value {
+    display: inline-block;
+  }
 }
 
 .ride-show-driver__heading,
@@ -190,63 +189,65 @@
   background-color: #fafafa;
 }
 
-.ride-show-driver__details {
-  padding: 5px;
-}
+.ride-show-driver {
+  &__details {
+    padding: 5px;
+  }
 
-.ride-show-driver__details-avatar {
-  display: inline-block;
-  margin: 10px;
-}
+  &__details-info {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px;
+  }
 
-.ride-show-driver__details-info {
-  display: inline-block;
-  vertical-align: top;
-  margin: 10px;
-}
+  &__details-name {
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 5px;
+  }
 
-.ride-show-driver__details-name {
-  font-size: 18px;
-  font-weight: bold;
-  display: inline-block;
-  margin-right: 5px;
-}
+  &__details-age {
+    display: inline-block;
+  }
 
-.ride-show-driver__details-age {
-  display: inline-block;
-}
+  &__details-join-label {
+    display: inline-block;
+    margin-right: 5px;
+  }
 
-.ride-show-driver__details-join-label {
-  display: inline-block;
-  margin-right: 5px;
-}
-
-.ride-show-driver__details-join-value {
-  display: inline-block;
+  &__details-join-value {
+    display: inline-block;
+  }
 }
 
 .ride-show-offer__details-places,
 .ride-show-requests__details-places,
 .ride-show-offer__details-price {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
 }
 
-.ride-show-offer__details-price-value {
-  font-size: 25px;
-  display: inline-block;
-  margin-right: 5px;
-}
+.ride-show-offer {
+  @media (max-width: 767px) {
+    margin-top: 20px;
+  }
 
-.ride-show-offer__details-price-currency {
-  font-size: 22px;
-  display: inline-block;
-  text-transform: uppercase;
-  margin-right: 5px;
-}
+  &__details-price-value {
+    font-size: 25px;
+    display: inline-block;
+    margin-right: 5px;
+  }
 
-.ride-show-offer__details-price-label {
-  display: inline-block;
+  &__details-price-currency {
+    font-size: 22px;
+    display: inline-block;
+    text-transform: uppercase;
+    margin-right: 5px;
+  }
+
+  &__details-price-label {
+    display: inline-block;
+  }
 }
 
 .ride-status {
@@ -255,34 +256,32 @@
   width: 30px;
   height: 90px;
   padding: 5px;
-}
 
-.ride-status__label {
-  text-align: left;
-  text-transform: uppercase;
-  font-weight: bold;
-  height: 110px;
-  margin-top: 20px;
-  margin-left: 50px;
-  -webkit-transform: rotate(270deg); /* Safari and Chrome */
-  -moz-transform: rotate(270deg);   /* Firefox */
-  -ms-transform: rotate(270deg);   /* IE 9 */
-  -o-transform: rotate(270deg);   /* Opera */
-  transform: rotate(270deg);
+  &__label {
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+    height: 110px;
+    margin-top: 20px;
+    margin-left: 50px;
+    -webkit-transform: rotate(270deg); /* Safari and Chrome */
+    -moz-transform: rotate(270deg);   /* Firefox */
+    -ms-transform: rotate(270deg);   /* IE 9 */
+    -o-transform: rotate(270deg);   /* Opera */
+    transform: rotate(270deg);
+  }
 }
 
 .book-ride {
   padding: 10px;
 }
 
-.book-ride-form__select {
-  display: inline-block;
-  width: 100px;
-  margin-right: 5px;
-}
+.book-ride-form {
+  margin-top: -10px;
 
-.book-ride-form__submit {
-  display: inline-block;
+  > div {
+    width: 100% !important;
+  }
 }
 
 .cities-search-form {
