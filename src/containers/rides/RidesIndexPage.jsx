@@ -83,7 +83,6 @@ class RidesIndexPage extends Component {
   }
 
   showChips(query) {
-    console.log('query.hide_full', query.hide_full);
     if (query.hide_full == "true") {
       this.setState({chipData: [
         {key: 'hide_full', label: 'Hide full'}

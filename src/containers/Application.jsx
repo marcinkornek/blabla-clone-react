@@ -24,6 +24,11 @@ class Application extends Component {
     }
   }
 
+  markAsSeen(notificationId) {
+    const { markNotificationAsSeen } = this.props
+    markNotificationAsSeen(notificationId)
+  }
+
   render () {
     const { logout, currentUser, userNotifications, isLoggedIn, containerWidth, children } = this.props
     return (
@@ -33,6 +38,7 @@ class Application extends Component {
           currentUser={currentUser}
           userNotifications={userNotifications}
           containerWidth={containerWidth}
+          handleOnHover={this.markAsSeen.bind(this)}
           onLogout={text =>
             logout(this.context.router, currentUser)
           } />
@@ -55,7 +61,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   logout: actions.logout,
   fetchCurrentUser: userActions.fetchCurrentUser,
-  fetchUserNotifications: userActions.fetchUserNotifications
+  fetchUserNotifications: userActions.fetchUserNotifications,
+  markNotificationAsSeen: userActions.markNotificationAsSeen
 }
 
 export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(Application))

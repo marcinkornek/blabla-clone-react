@@ -23,6 +23,10 @@
       background-color: #f4f3f1;
     }
 
+    &.header__notification--seen {
+      background-color: #f4f3f1;
+    }
+
     &__body {
       display: inline-block;
       width: calc(100% - 40px);

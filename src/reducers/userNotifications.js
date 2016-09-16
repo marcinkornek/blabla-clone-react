@@ -18,6 +18,13 @@ export default function notifications(state = initialState, action) {
       items: action.items,
       pagination: action.pagination
     });
+  case types.USER_NOTIFICATION_UPDATE_SUCCESS:
+    var match = _.find(state.items, function(item) { return item.id === action.item.id })
+    if (match) { match.seen_at = action.item.seen_at }
+    return Object.assign({}, state, {
+      isFetching: false,
+      items: state.items
+    });
   default:
     return state;
   }

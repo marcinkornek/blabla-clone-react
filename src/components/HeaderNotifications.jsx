@@ -76,7 +76,7 @@ export default class RidesShowPage extends React.Component {
               onRequestClose={this.handleRequestClose}
               animation={PopoverAnimationVertical}
             >
-              <NotificationsList userNotifications={userNotifications} />
+              <NotificationsList {...this.props} />
             </Popover>
           </IconButton>
         </Badge>

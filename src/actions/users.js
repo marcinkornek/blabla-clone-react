@@ -44,7 +44,6 @@ export function fetchUser(userId) {
 }
 
 export function fetchCurrentUser() {
-  console.log('fet');
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(currentUserRequest())
@@ -138,6 +137,30 @@ export function updateUser(body) {
       }
     })
     .catch(errors => dispatch(userUpdateFailure(JSON.parse(errors))))
+  }
+}
+
+export function markNotificationAsSeen(notificationId) {
+  return (dispatch, getState) => {
+    const { session } = getState()
+    dispatch(userNotificationUpdateRequest())
+    return fetch(cons.APIEndpoints.NOTIFICATIONS + '/' + notificationId + '/mark_as_seen', {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/vnd.blabla-clone-v1+json',
+        'X-User-Email': session.email,
+        'X-User-Token': session.access_token
+      }
+    })
+    .then(response => response.text().then(text => ({ text, response })))
+    .then(({ text, response }) => {
+      if (response.ok) {
+        dispatch(userNotificationUpdateSuccess(JSON.parse(text)))
+      } else {
+        return Promise.reject(text)
+      }
+    })
+    .catch(errors => dispatch(userNotificationUpdateFailure(JSON.parse(errors))))
   }
 }
 
@@ -277,6 +300,26 @@ export function userNotificationsSuccess(json) {
 export function userNotificationsFailure(errors) {
   return {
     type: types.USER_NOTIFICATIONS_FAILURE,
+    errors: errors
+  }
+}
+
+export function userNotificationUpdateRequest() {
+  return {
+    type: types.USER_NOTIFICATION_UPDATE_REQUEST,
+  }
+}
+
+export function userNotificationUpdateSuccess(json) {
+  return {
+    type: types.USER_NOTIFICATION_UPDATE_SUCCESS,
+    item: json
+  }
+}
+
+export function userNotificationUpdateFailure(errors) {
+  return {
+    type: types.USER_NOTIFICATION_UPDATE_FAILURE,
     errors: errors
   }
 }

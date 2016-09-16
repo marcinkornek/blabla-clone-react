@@ -4,6 +4,7 @@ import Avatar from 'material-ui/Avatar'
 import { Link } from 'react-router'
 import Timestamp from 'react-time'
 import TimeAgo from 'react-timeago'
+import classNames from 'classnames'
 
 export default class NotificationsItem extends React.Component {
   renderNotification(notification) {
@@ -14,6 +15,13 @@ export default class NotificationsItem extends React.Component {
       return this.rideRequestAccepted(notification)
     case "ride_request_rejected":
       return this.rideRequestRejected(notification)
+    }
+  }
+
+  onMouseOverAction() {
+    const { markAsRead, notification } = this.props
+    if (!notification.seen_at) {
+      markAsRead(notification.id)
     }
   }
 
@@ -68,7 +76,7 @@ export default class NotificationsItem extends React.Component {
   render() {
     const { notification } = this.props
     return(
-      <div className='header__notification'>
+      <div className={classNames('header__notification', {'header__notification--seen' : notification.seen_at})} onMouseOver={this.onMouseOverAction.bind(this)}>
         <Link to={`/users/${notification.sender.id}`}>
           <Avatar src={notification.sender.avatar} />
         </Link>
