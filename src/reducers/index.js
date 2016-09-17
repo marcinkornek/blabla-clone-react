@@ -5,7 +5,7 @@ import session             from './session';
 import users               from './users';
 import currentUser         from './currentUser';
 import user                from './user';
-import userNotifications   from './userNotifications';
+import notifications       from './notifications';
 import cars                from './cars';
 import carsOptions         from './carsOptions';
 import car                 from './car';
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
   users,
   user,
   currentUser,
-  userNotifications,
+  notifications,
   cars,
   car,
   carsOptions,

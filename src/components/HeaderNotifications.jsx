@@ -14,6 +14,9 @@ const styles = {
     top: -5,
     right: -5
   },
+  badgeEmptyStyle: {
+    display: 'none',
+  },
   iconButtonStyle: {
     color: 'white',
   },
@@ -53,44 +56,33 @@ export default class RidesShowPage extends React.Component {
   }
 
   renderNotificationBadge() {
-    const { userNotifications } = this.props
-    if (userNotifications.pagination.total_count > 0) {
-      return(
-        <Badge
-          className="header__notifications__button"
-          badgeContent={userNotifications.pagination.total_count || 0}
-          primary={true}
-          badgeStyle={styles.badgeStyle}
-        >
-          <IconButton
-            tooltip="Notifications"
-            iconStyle={styles.iconButtonStyle}
-            onTouchTap={this.handleTouchTap}
-          >
-            <NotificationsIcon style={styles.fullIconStyle} />
-            <Popover
-              open={this.state.open}
-              anchorEl={this.state.anchorEl}
-              anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-              targetOrigin={{horizontal: 'right', vertical: 'top'}}
-              onRequestClose={this.handleRequestClose}
-              animation={PopoverAnimationVertical}
-            >
-              <NotificationsList {...this.props} />
-            </Popover>
-          </IconButton>
-        </Badge>
-      )
-    } else {
-      return(
-       <IconButton
+    const { notifications } = this.props
+    return(
+      <Badge
+        className="header__notifications__button"
+        badgeContent={notifications.pagination.unread_count || 0}
+        primary={true}
+        badgeStyle={notifications.pagination.unread_count > 0 ? styles.badgeStyle : styles.badgeEmptyStyle}
+      >
+        <IconButton
           tooltip="Notifications"
           iconStyle={styles.iconButtonStyle}
+          onTouchTap={this.handleTouchTap}
         >
-          <NotificationsIcon style={styles.emptyIconStyle} />
+          <NotificationsIcon style={styles.fullIconStyle} />
+          <Popover
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+            targetOrigin={{horizontal: 'right', vertical: 'top'}}
+            onRequestClose={this.handleRequestClose}
+            animation={PopoverAnimationVertical}
+          >
+            <NotificationsList {...this.props} />
+          </Popover>
         </IconButton>
-      )
-    }
+      </Badge>
+    )
   }
 
   render() {

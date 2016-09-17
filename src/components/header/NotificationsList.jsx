@@ -5,14 +5,35 @@ import { Link } from 'react-router'
 
 export default class NotificationsList extends React.Component {
   renderNotificationsItems() {
-    const { userNotifications, handleOnHover } = this.props
-    return(
-      userNotifications.items.map((notification, i) =>
-        <NotificationsItem
-          notification={notification}
-          key={i}
-          markAsRead={handleOnHover} />)
-    )
+    const { notifications, handleOnHover } = this.props
+    if (notifications.pagination.total_count > 0) {
+      return(
+        notifications.items.map((notification, i) =>
+          <NotificationsItem
+            notification={notification}
+            key={i}
+            markAsRead={handleOnHover} />)
+      )
+    } else {
+      return(
+        <div className='header__notifications__empty'>
+          no new notifications
+        </div>
+      )
+    }
+  }
+
+  renderNotificationsFooter() {
+    const { notifications } = this.props
+    if (notifications.pagination.total_count > 0) {
+      return(
+        <Link to="/notifications">
+          <div className='header__notifications__footer'>
+            See all
+          </div>
+        </Link>
+      )
+    }
   }
 
   render() {
@@ -22,12 +43,7 @@ export default class NotificationsList extends React.Component {
           Notifications
         </div>
         {this.renderNotificationsItems()}
-
-        <Link to="/notifications">
-          <div className='header__notifications__footer'>
-            See all
-          </div>
-        </Link>
+        {this.renderNotificationsFooter()}
       </div>
     )
   }

@@ -30,13 +30,13 @@ class Application extends Component {
   }
 
   render () {
-    const { logout, currentUser, userNotifications, isLoggedIn, containerWidth, children } = this.props
+    const { logout, currentUser, notifications, isLoggedIn, containerWidth, children } = this.props
     return (
       <div>
         <HeaderNew
           isLoggedIn={isLoggedIn}
           currentUser={currentUser}
-          userNotifications={userNotifications}
+          notifications={notifications}
           containerWidth={containerWidth}
           handleOnHover={this.markAsSeen.bind(this)}
           onLogout={text =>
@@ -54,7 +54,7 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.session.isLoggedIn,
     currentUser: state.currentUser,
-    userNotifications: state.userNotifications
+    notifications: state.notifications
   }
 }
 
