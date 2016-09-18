@@ -25,7 +25,7 @@ class CarsEditPage extends Component {
   }
 
   handleSubmit(data) {
-    const { updateCar, car } = this.props
+    const { updateCar } = this.props
     var body = new FormData()
     Object.keys(data).forEach((key) => {
       if (key == 'car_photo') {
@@ -35,7 +35,7 @@ class CarsEditPage extends Component {
       }
     })
 
-    actions.updateCar(this.context.router, body, car.id)
+    updateCar(this.context.router, body, data.id)
   }
 
   render() {
