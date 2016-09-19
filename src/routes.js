@@ -29,6 +29,8 @@ const {
   RidesPassengerIndexPage,
   RidesShowPage,
   RidesEditPage,
+
+  NotificationsIndexPage,
 } = components
 
 function checkPermission(store, permission) {
@@ -88,6 +90,8 @@ export const createRoutes = (store) => {
         <Route name='ridesPassengerIndex' path='/account/rides_as_passenger' component={RidesPassengerIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
         <Route name='ridesDriverIndex' path='/account/rides_as_driver/:rideId/edit' component={RidesEditPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
         <Route name='carsNew' path='/rides/new' component={RidesNewPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
+
+        <Route name='notificationsIndex' path='/notifications' component={NotificationsIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
       </Route>
 
       <Route name='home' path='/' component={Home} />

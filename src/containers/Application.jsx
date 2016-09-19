@@ -18,10 +18,10 @@ class Application extends Component {
   }
 
   componentDidMount() {
-    const { isLoggedIn, fetchUserNotifications, fetchCurrentUser } = this.props
+    const { isLoggedIn, fetchNotifications, fetchCurrentUser } = this.props
     if (isLoggedIn) {
       fetchCurrentUser()
-      fetchUserNotifications()
+      fetchNotifications()
     }
   }
 
@@ -62,7 +62,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   logout: actions.logout,
   fetchCurrentUser: userActions.fetchCurrentUser,
-  fetchUserNotifications: notificationActions.fetchUserNotifications,
+  fetchNotifications: notificationActions.fetchNotifications,
   markNotificationAsSeen: notificationActions.markNotificationAsSeen
 }
 

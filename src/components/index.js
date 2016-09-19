@@ -19,3 +19,5 @@ export { default as RidesDriverIndexPage }    from '../containers/rides/RidesDri
 export { default as RidesPassengerIndexPage } from '../containers/rides/RidesPassengerIndexPage'
 export { default as RidesShowPage }    from '../containers/rides/RidesShowPage'
 export { default as RidesEditPage }    from '../containers/rides/RidesEditPage'
+
+export { default as NotificationsIndexPage } from '../containers/notifications/NotificationsIndexPage'

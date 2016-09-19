@@ -5,7 +5,7 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications'
 import { Popover, PopoverAnimationVertical } from 'material-ui/Popover';
 import MenuItem from 'material-ui/MenuItem'
 import Menu from 'material-ui/Menu'
-import NotificationsList from './header/NotificationsList'
+import NotificationsList from './notifications/NotificationsList'
 
 const styles = {
   badgeStyle: {

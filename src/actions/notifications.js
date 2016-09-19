@@ -9,11 +9,11 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchUserNotifications() {
+export function fetchNotifications(page = 1, per = 10) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(userNotificationsRequest())
-    return fetch(cons.APIEndpoints.NOTIFICATIONS, {
+    return fetch(cons.APIEndpoints.NOTIFICATIONS + '?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',

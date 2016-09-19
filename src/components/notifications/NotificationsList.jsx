@@ -6,7 +6,7 @@ import { Link } from 'react-router'
 export default class NotificationsList extends React.Component {
   static PropTypes = {
     notifications: PropTypes.array.isRequired,
-    handleOnHover: PropTypes.function.isRequired
+    handleOnHover: PropTypes.func.isRequired
   }
 
   renderNotificationsItems() {

@@ -9,7 +9,7 @@ import classNames from 'classnames'
 export default class NotificationsItem extends React.Component {
   static PropTypes = {
     notification: PropTypes.object.isRequired,
-    handleOnHover: PropTypes.function.isRequired
+    handleOnHover: PropTypes.func.isRequired
   }
 
   renderNotification(notification) {
