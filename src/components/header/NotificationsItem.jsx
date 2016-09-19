@@ -7,6 +7,11 @@ import TimeAgo from 'react-timeago'
 import classNames from 'classnames'
 
 export default class NotificationsItem extends React.Component {
+  static PropTypes = {
+    notification: PropTypes.object.isRequired,
+    handleOnHover: PropTypes.function.isRequired
+  }
+
   renderNotification(notification) {
     switch (notification.notification_type) {
     case "ride_request_created":

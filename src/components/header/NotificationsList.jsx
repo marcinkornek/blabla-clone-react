@@ -4,6 +4,11 @@ import List from 'material-ui/List/List'
 import { Link } from 'react-router'
 
 export default class NotificationsList extends React.Component {
+  static PropTypes = {
+    notifications: PropTypes.array.isRequired,
+    handleOnHover: PropTypes.function.isRequired
+  }
+
   renderNotificationsItems() {
     const { notifications, handleOnHover } = this.props
     if (notifications.pagination.total_count > 0) {
