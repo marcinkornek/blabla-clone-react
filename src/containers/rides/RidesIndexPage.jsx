@@ -14,6 +14,16 @@ import Chip from 'material-ui/Chip'
 
 const per = 10
 
+const styles = {
+  chip: {
+    margin: 4,
+  },
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  }
+}
+
 class RidesIndexPage extends Component {
   static PropTypes = {
     isFetching: PropTypes.bool.isRequired,
@@ -30,21 +40,12 @@ class RidesIndexPage extends Component {
   constructor(props) {
     super(props)
     this.state = {chipData: []}
-    this.styles = {
-      chip: {
-        margin: 4,
-      },
-      wrapper: {
-        display: 'flex',
-        flexWrap: 'wrap',
-      }
-    }
   }
 
   componentDidMount() {
-    const { loadSearchFormData, fetchRides, currentUserId } = this.props
-    let { query } = this.props.location
+    const { loadSearchFormData, fetchRides, location: { query } } = this.props
     var page = query.page || 1
+
     query.hide_full = query.hide_full || false
     loadSearchFormData(query)
     fetchRides(this.context.router, page, per, query)
@@ -52,13 +53,15 @@ class RidesIndexPage extends Component {
 
   componentWillReceiveProps() {
     const { location: { query } } = this.props
+
     this.showChips(query)
   }
 
   handleSubmit(data) {
     const { loadSearchFormData, fetchRides, location: { query } } = this.props
-
     var newQuery = {}
+    var page = 1
+
     Object.keys(data).forEach((key) => {
       if (data[key] != undefined) {
         if (key == 'start_city' || key == 'destination_city') {
@@ -68,7 +71,6 @@ class RidesIndexPage extends Component {
         }
       }
     })
-    var page = 1
     var extended = _.extend(query, newQuery)
     this.showChips(extended)
     loadSearchFormData(extended)
@@ -76,9 +78,9 @@ class RidesIndexPage extends Component {
   }
 
   handlePageClick(e) {
-    const { fetchRides } = this.props
-    let { query } = this.props.location
+    const { fetchRides, location: { query } } = this.props
     var page = query.page || 1
+
     fetchRides(this.context.router, page, per, query)
   }
 
@@ -94,6 +96,7 @@ class RidesIndexPage extends Component {
 
   handleRequestDelete = (key) => {
     const { loadSearchFormData, fetchRides, location: { query } } = this.props
+
     delete query[key]
     loadSearchFormData(query)
     fetchRides(this.context.router, 1, per, query)
@@ -104,80 +107,107 @@ class RidesIndexPage extends Component {
       <Chip
         key={data.key}
         onRequestDelete={() => this.handleRequestDelete(data.key)}
-        style={this.styles.chip}
+        style={styles.chip}
       >
         {data.label}
       </Chip>
     )
   }
 
-  render() {
-    const { isFetching, rides, pagination, filters, currentUserId } = this.props
-    var ridesMain, ridesFilter, ridesList, headingButton, ridesPagination, activeFilters
-    let { query } = this.props.location
-    var page = (parseInt(query.page, 10) || 1) - 1
+  renderRidesList() {
+    const { rides, isFetching } = this.props
 
     if (isFetching) {
-      ridesList =
-        <LoadingItem />
+      return(<LoadingItem />)
+    } else  if (_.isEmpty(rides)) {
+      return('No rides')
     } else {
-      if (_.isEmpty(rides)) {
-        ridesList = 'No rides'
-      } else {
-        ridesList = rides.map((ride, i) =>
-          <RidesItem ride={ride} key={i} />
+      return(
+         rides.map((ride, i) =>
+          <RidesItem
+            key={i}
+            ride={ride}
+          />
         )
-      }
+      )
     }
+  }
+
+  renderHeadingButton() {
+    const { currentUserId } = this.props
 
     if (currentUserId) {
-      headingButton =
+      return(
         <div className='heading__button'>
           <Link to='/rides/new'><Button bsStyle='primary'>New ride</Button></Link>
         </div>
+      )
     }
+  }
 
-    if (pagination.total_pages > 1) {
-      ridesPagination =
-        <ReactPaginate previousLabel={"previous"}
-                       nextLabel={"next"}
-                       breakLabel={<a href="">...</a>}
-                       pageNum={pagination.total_pages}
-                       initialSelected={page}
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={5}
-                       clickCallback={this.handlePageClick.bind(this)}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       activeClassName={"active"} />
-    }
-
-    activeFilters =
-      <div style={this.styles.wrapper}>
+  renderActiveFilters() {
+    return(
+      <div style={styles.wrapper}>
         {this.state.chipData.map(this.renderChip, this)}
       </div>
+    )
+  }
 
-    ridesMain =
+  renderRidesMain() {
+    const { filters, pagination, location: { query } } = this.props
+
+    return(
       <Row>
         <Col xs={12}>
-          <RidesFiltersContainer query={query} filters={filters}
-            onSubmit={this.handleSubmit.bind(this)} />
-          <RidesSearchItem query={query}
-            onSubmit={this.handleSubmit.bind(this)} />
-          {activeFilters}
+          <RidesFiltersContainer
+            query={query}
+            filters={filters}
+            onSubmit={this.handleSubmit.bind(this)}
+          />
+          <RidesSearchItem
+            query={query}
+            onSubmit={this.handleSubmit.bind(this)}
+          />
+          {this.renderActiveFilters()}
           <div className='heading'>
             <div className='heading__title'>{pagination.total_count} Rides</div>
-            {headingButton}
+            {this.renderHeadingButton()}
           </div>
-          {ridesList}
+          {this.renderRidesList()}
         </Col>
       </Row>
+    )
+  }
 
+  renderRidesPagination() {
+    const { pagination, location: { query } } = this.props
+
+    if (pagination.total_pages > 1) {
+      return(
+        <div>
+          <ReactPaginate previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={<a href="">...</a>}
+            pageNum={pagination.total_pages}
+            initialSelected={(query.page || 1) - 1}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            clickCallback={this.handlePageClick.bind(this)}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
+        </div>
+      )
+    }
+  }
+
+  render() {
     return (
       <div className='show-grid'>
         <div className='rides'>
-          {ridesMain}
-          {ridesPagination}
+          {this.renderRidesMain()}
+          {this.renderRidesPagination()}
         </div>
       </div>
     )

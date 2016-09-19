@@ -15,6 +15,7 @@ class UsersEditPage extends Component {
 
   componentDidMount() {
     const { fetchUserProfile, currentUserId } = this.props
+
     if (currentUserId) {
       fetchUserProfile(currentUserId)
     }
@@ -22,8 +23,8 @@ class UsersEditPage extends Component {
 
   handleSubmit(data) {
     const { updateUser } = this.props
-
     var body = new FormData()
+
     Object.keys(data).forEach(( key ) => {
       if (key == 'avatar') {
         if (_.isObject(data[key])) { body.append(key, data[key][0]) }
@@ -31,35 +32,28 @@ class UsersEditPage extends Component {
         if (data[key]) { body.append(key, data[key]) }
       }
     })
-
     updateUser(body)
   }
 
-  render() {
-    const { isFetching, currentUserId } = this.props
-    var userEdit, userEditForm
+  renderUserEditForm() {
+    const { isFetching } = this.props
 
-    if (isFetching || currentUserId === undefined) {
-      userEditForm =
-        <LoadingItem />
+    if (isFetching) {
+      return(<LoadingItem />)
     } else {
-      userEditForm =
-        <div>
-          <UsersEditPageForm onSubmit={this.handleSubmit.bind(this)} />
-        </div>
+      return(<UsersEditPageForm onSubmit={this.handleSubmit.bind(this)} />)
     }
+  }
 
-    userEdit =
-      <Col xs={12}>
-        <div className='heading'>
-          <div className='heading-title'>My profile</div>
-        </div>
-        {userEditForm}
-      </Col>
-
+  render() {
     return (
       <div className='show-grid'>
-        {userEdit}
+        <Col xs={12}>
+          <div className='heading'>
+            <div className='heading-title'>My profile</div>
+          </div>
+          {this.renderUserEditForm()}
+        </Col>
       </div>
     )
   }

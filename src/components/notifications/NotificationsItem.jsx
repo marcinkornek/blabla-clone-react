@@ -9,7 +9,7 @@ import classNames from 'classnames'
 export default class NotificationsItem extends React.Component {
   static PropTypes = {
     notification: PropTypes.object.isRequired,
-    handleOnHover: PropTypes.func.isRequired
+    markAsSeen: PropTypes.func.isRequired
   }
 
   renderNotification(notification) {
@@ -24,9 +24,10 @@ export default class NotificationsItem extends React.Component {
   }
 
   onMouseOverAction() {
-    const { markAsRead, notification } = this.props
+    const { markAsSeen, notification } = this.props
+
     if (!notification.seen_at) {
-      markAsRead(notification.id)
+      markAsSeen(notification.id)
     }
   }
 

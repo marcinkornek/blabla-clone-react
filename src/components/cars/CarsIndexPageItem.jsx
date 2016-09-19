@@ -5,12 +5,15 @@ import CarsActions from './CarsActions'
 import Stars from '../shared/Stars'
 
 export default class CarsIndexPageItem extends Component {
-  render() {
+  renderCarsActions() {
     const { car, currentUserId } = this.props
-    var carsActions
     if (car.owner_id === currentUserId) {
-      carsActions = <CarsActions carId={car.id} />
+      return(<CarsActions carId={car.id} />)
     }
+  }
+
+  render() {
+    const { car } = this.props
 
     return (
       <Panel className='car'>
@@ -20,7 +23,7 @@ export default class CarsIndexPageItem extends Component {
           </Link>
           <div className='car-details__places'>{car.places_full}</div>
           <Stars stars={car.comfort_stars} label={car.comfort} />
-          {carsActions}
+          {this.renderCarsActions()}
         </div>
         <Link to={`/cars/${car.id}`}>
           <div className='car-photo'>

@@ -11,6 +11,7 @@ class UsersNewPage extends Component {
   handleSubmit(data) {
     const { createUser } = this.props
     var body = new FormData();
+
     Object.keys(data).forEach(( key ) => {
       if (key == 'avatar') {
         if (_.isObject(data[key])) { body.append(key, data[key][0]) }
@@ -18,7 +19,6 @@ class UsersNewPage extends Component {
         if (data[key]) { body.append(key, data[key]) }
       }
     })
-
     createUser(body)
   }
 

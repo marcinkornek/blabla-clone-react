@@ -39,7 +39,7 @@ class Application extends Component {
           currentUser={currentUser}
           notifications={notifications}
           containerWidth={containerWidth}
-          handleOnHover={this.markAsSeen.bind(this)}
+          markAsSeen={this.markAsSeen.bind(this)}
           onLogout={text =>
             logout(this.context.router, currentUser)
           } />

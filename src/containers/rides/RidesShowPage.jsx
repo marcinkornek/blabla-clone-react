@@ -28,21 +28,25 @@ class RidesShowPage extends Component {
 
   componentDidMount() {
     const { fetchRide, params: { rideId } } = this.props
+
     fetchRide(rideId)
   }
 
   handleSubmit(data) {
     const { createRideRequest, ride } = this.props
+
     createRideRequest(ride.id, data.places)
   }
 
   handleRideRequestChange(rideRequestId, status) {
     const { changeRideRequest } = this.props
+
     changeRideRequest(rideRequestId, status)
   }
 
   renderRideDescription() {
     const { ride } = this.props
+
     return(
       <Paper>
         <div className='ride-show-description__heading'>
@@ -78,6 +82,7 @@ class RidesShowPage extends Component {
 
   renderRideOffer() {
     const { ride } = this.props
+
     return(
       <Paper className='ride-show-offer'>
         <div className='ride-show-offer__heading'>
@@ -102,6 +107,7 @@ class RidesShowPage extends Component {
 
   renderRideFormOrStatus() {
     const { ride, currentUserId } = this.props
+
     if (ride.requested) {
       return(
         <Paper className='ride-request'>
@@ -125,13 +131,15 @@ class RidesShowPage extends Component {
         <RideOfferForm
           ride={ride}
           currentUserId={currentUserId}
-          onSubmit={this.handleSubmit.bind(this)} />
+          onSubmit={this.handleSubmit.bind(this)}
+        />
       )
     }
   }
 
   renderRideStatusTime() {
     const { ride } = this.props
+
     if (ride.requested && ride.user_ride_request.status != 'pending' ) {
        return(
         <div>
@@ -144,6 +152,7 @@ class RidesShowPage extends Component {
 
   renderRideRequests() {
     const { ride } = this.props
+
     if (ride.ride_requests) {
       return(
         <Paper className='ride-show-requests'>
@@ -165,12 +174,15 @@ class RidesShowPage extends Component {
 
   renderRideRequestsList() {
     const { ride, changeRideRequest } = this.props
+
     if (ride.ride_requests && ride.ride_requests.items.length > 0) {
       return(
         ride.ride_requests.items.map((ride_request, i) =>
           <RideRequestsIndexItem
-            ride_request={ride_request} key={i}
-            handleOnClick={this.handleRideRequestChange.bind(this)} />
+            key={i}
+            ride_request={ride_request}
+            handleOnClick={this.handleRideRequestChange.bind(this)}
+          />
         )
       )
     }
@@ -178,13 +190,15 @@ class RidesShowPage extends Component {
 
   renderRideActions() {
     const { ride, currentUserId } = this.props
+
     if (ride.driver) {
       return(
         <span className='ride-show-description__actions'>
           <RidesActions
             rideId={ride.id}
             rideOwner={ride.driver.id}
-            currentUserId={currentUserId} />
+            currentUserId={currentUserId}
+          />
         </span>
       )
     }
@@ -192,6 +206,7 @@ class RidesShowPage extends Component {
 
   renderRideDriver() {
     const { ride, currentUserId } = this.props
+
     if (ride.driver && currentUserId != ride.driver.id) {
       return(
         <Paper className='ride-show-driver'>
@@ -220,6 +235,7 @@ class RidesShowPage extends Component {
 
   renderRideDescriptionCar() {
     const { ride } = this.props
+
     if (ride.car) {
       return(
         <Link to={`/cars/${ride.car.id}`}>

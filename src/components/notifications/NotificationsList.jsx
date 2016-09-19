@@ -6,18 +6,20 @@ import { Link } from 'react-router'
 export default class NotificationsList extends React.Component {
   static PropTypes = {
     notifications: PropTypes.array.isRequired,
-    handleOnHover: PropTypes.func.isRequired
+    markAsSeen: PropTypes.func.isRequired
   }
 
   renderNotificationsItems() {
-    const { notifications, handleOnHover } = this.props
+    const { notifications, markAsSeen } = this.props
     if (notifications.pagination.total_count > 0) {
       return(
         notifications.items.map((notification, i) =>
           <NotificationsItem
-            notification={notification}
             key={i}
-            markAsRead={handleOnHover} />)
+            notification={notification}
+            markAsSeen={markAsSeen}
+          />
+        )
       )
     } else {
       return(

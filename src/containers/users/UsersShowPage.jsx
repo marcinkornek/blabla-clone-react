@@ -17,11 +17,13 @@ class UsersShowPage extends Component {
 
   componentDidMount() {
     const { fetchUser, params: { userId } } = this.props
+
     fetchUser(userId)
   }
 
   renderUserAge() {
     const { user } = this.props
+
     if (user.age) {
       return(<div className='main-info__details-age'>({user.age} years)</div>)
     }
@@ -29,6 +31,7 @@ class UsersShowPage extends Component {
 
   renderUserInfo() {
     const { user } = this.props
+
     return(
       <div className='user-show'>
         <div className='user-show__heading--info'>
@@ -61,10 +64,15 @@ class UsersShowPage extends Component {
 
   renderCarsList() {
     const { user, currentUserId } = this.props
+
     if (user.cars) {
       return(
         user.cars.items.map((car, i) =>
-          <CarsItem car={car} currentUserId={currentUserId} key={i} />
+          <CarsItem
+            key={i}
+            car={car}
+            currentUserId={currentUserId}
+          />
         )
       )
     } else {
@@ -74,6 +82,7 @@ class UsersShowPage extends Component {
 
   renderUserActivity() {
     const { user } = this.props
+
     return(
       <div className='user-show'>
         <div className='user-show__heading--activity'>
@@ -106,10 +115,14 @@ class UsersShowPage extends Component {
 
   renderRidesList() {
     const { user } = this.props
+
     if (user.rides_as_driver) {
       return(
         user.rides_as_driver.items.map((ride, i) =>
-          <RidesItem ride={ride} key={i} />
+          <RidesItem
+            ride={ride}
+            key={i}
+          />
         )
       )
     } else {

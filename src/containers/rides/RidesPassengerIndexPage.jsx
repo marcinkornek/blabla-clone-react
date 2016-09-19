@@ -19,71 +19,80 @@ class RidesPassengerIndexPage extends Component {
 
   componentDidMount() {
     const { fetchRidesAsPassenger, currentUserId } = this.props
+
     if (currentUserId) {
       fetchRidesAsPassenger(currentUserId, 1, per)
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  handlePageClick(e) {
     const { fetchRidesAsPassenger, currentUserId } = this.props
-    if (nextProps.currentUserId && currentUserId === undefined) {
-      fetchRidesAsPassenger(nextProps.currentUserId, 1, per)
-    }
+    var page = e.selected + 1
+
+    fetchRidesAsPassenger(currentUserId, page, per)
   }
 
-  render() {
-    const { isFetching, rides, pagination, currentUserId } = this.props
-    var ridesMain, ridesList, ridesPagination
-
-    if (isFetching || currentUserId === undefined) {
-      ridesList =
-        <LoadingItem />
-    } else {
-      if (_.isEmpty(rides)) {
-        ridesList = 'No rides'
-      } else {
-        ridesList = rides.map((ride, i) =>
-          <RidesItem ride={ride} key={i} />
-        )
-      }
-    }
-
-    ridesMain =
+  renderRidesMain() {
+    return(
       <Col xs={12}>
         <div className='heading'>
           <div className='heading-title'>My rides as passenger</div>
         </div>
-        {ridesList}
+        {this.renderRidesList()}
       </Col>
-
-    if (pagination.total_pages > 1) {
-      ridesPagination =
-        <ReactPaginate previousLabel={"previous"}
-                       nextLabel={"next"}
-                       breakLabel={<a href="">...</a>}
-                       pageNum={pagination.total_pages}
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={5}
-                       clickCallback={this.handlePageClick.bind(this)}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       activeClassName={"active"} />
-    }
-
-    return (
-      <div className='show-grid'>
-        <div className='rides'>
-          {ridesMain}
-          {ridesPagination}
-        </div>
-      </div>
     )
   }
 
-  handlePageClick(e) {
-    const { fetchRidesAsPassenger, currentUserId } = this.props
-    var page = e.selected + 1
-    fetchRidesAsPassenger(currentUserId, page, per)
+  renderRidesList() {
+    const { isFetching, rides, currentUserId } = this.props
+
+    if (isFetching || currentUserId === undefined) {
+      return(<LoadingItem />)
+    } else if (_.isEmpty(rides)) {
+      return('No rides')
+    } else {
+      return(
+        rides.map((ride, i) =>
+          <RidesItem
+            key={i}
+            ride={ride}
+          />
+        )
+      )
+    }
+  }
+
+  renderRidesPagination() {
+    const { pagination } = this.props
+
+    if (pagination.total_pages > 1) {
+      return(
+        <div>
+          <ReactPaginate previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={<a href="">...</a>}
+            pageNum={pagination.total_pages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            clickCallback={this.handlePageClick.bind(this)}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
+        </div>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <div className='show-grid'>
+        <div className='rides'>
+          {this.renderRidesMain()}
+          {this.renderRidesPagination()}
+        </div>
+      </div>
+    )
   }
 }
 

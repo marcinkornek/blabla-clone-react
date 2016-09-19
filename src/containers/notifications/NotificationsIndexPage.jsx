@@ -18,6 +18,7 @@ class NotificationsIndexPage extends Component {
 
   componentDidMount() {
     const { isLoggedIn, fetchNotifications } = this.props
+
     if (isLoggedIn) {
       fetchNotifications()
     }
@@ -26,11 +27,13 @@ class NotificationsIndexPage extends Component {
   handlePageClick(e) {
     const { fetchNotifications } = this.props
     var page = e.selected + 1
+
     fetchNotifications(page, per)
   }
 
   markAsSeen(notificationId) {
     const { markNotificationAsSeen } = this.props
+
     markNotificationAsSeen(notificationId)
   }
 
@@ -47,6 +50,7 @@ class NotificationsIndexPage extends Component {
 
   renderNotificationsList() {
     const { isFetching, notifications } = this.props
+
     if (isFetching) {
       return(<LoadingItem />)
     } else if (_.isEmpty(notifications)) {
@@ -55,9 +59,9 @@ class NotificationsIndexPage extends Component {
       return(
         notifications.map((notification, i) =>
           <NotificationsItem
-            notification={notification}
             key={i}
-            handleOnHover={this.markAsSeen.bind(this)}
+            notification={notification}
+            markAsSeen={this.markAsSeen.bind(this)}
           />
         )
       )
@@ -66,20 +70,23 @@ class NotificationsIndexPage extends Component {
 
   renderNotificationsPagination() {
     const { pagination } = this.props
+
     if (pagination.total_pages > 1) {
       return(
-        <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
-          breakLabel={<a href="">...</a>}
-          pageNum={pagination.total_pages}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          clickCallback={this.handlePageClick.bind(this)}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"}
-        />
+        <div>
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={<a href="">...</a>}
+            pageNum={pagination.total_pages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            clickCallback={this.handlePageClick.bind(this)}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
+        </div>
       )
     }
   }

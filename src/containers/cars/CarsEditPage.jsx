@@ -18,6 +18,7 @@ class CarsEditPage extends Component {
 
   componentDidMount() {
     const { fetchCar, fetchCarsOptions, params: { carId } } = this.props
+
     fetchCarsOptions()
     if (carId) {
       fetchCar(carId)
@@ -27,6 +28,7 @@ class CarsEditPage extends Component {
   handleSubmit(data) {
     const { updateCar } = this.props
     var body = new FormData()
+
     Object.keys(data).forEach((key) => {
       if (key == 'car_photo') {
         if (_.isObject(data[key])) { body.append(key, data[key][0]) }
@@ -34,7 +36,6 @@ class CarsEditPage extends Component {
         if (data[key]) { body.append(key, data[key]) }
       }
     })
-
     updateCar(this.context.router, body, data.id)
   }
 
@@ -49,7 +50,8 @@ class CarsEditPage extends Component {
           </div>
           <CarsEditPageForm
             carsOptions={carsOptions}
-            onSubmit={this.handleSubmit.bind(this)} />
+            onSubmit={this.handleSubmit.bind(this)}
+          />
         </Col>
       </div>
     )

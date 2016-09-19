@@ -15,12 +15,14 @@ class CarsNewPage extends Component {
 
   componentDidMount() {
     const { fetchCarsOptions } = this.props
+
     fetchCarsOptions()
   }
 
   handleSubmit(data) {
     const { createCar } = this.props
     var body = new FormData()
+
     Object.keys(data).forEach((key) => {
       if (key == 'car_photo') {
         if (_.isObject(data[key])) { body.append(key, data[key][0]) }
@@ -28,12 +30,12 @@ class CarsNewPage extends Component {
         if (!_.isEmpty(data[key])) { body.append(key, data[key]) }
       }
     })
-
     createCar(this.context.router, body)
   }
 
   render() {
     const { carsOptions } = this.props
+
     return (
       <div className='show-grid'>
         <Col xs={12}>
@@ -42,7 +44,8 @@ class CarsNewPage extends Component {
           </div>
           <CarsNewPageForm
             carsOptions={carsOptions}
-            onSubmit={this.handleSubmit.bind(this)} />
+            onSubmit={this.handleSubmit.bind(this)}
+          />
         </Col>
       </div>
     )

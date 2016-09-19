@@ -17,16 +17,14 @@ class RideOfferForm extends Component {
     }
   }
 
-  render() {
+  renderRideOfferForm() {
     const { handleSubmit, currentUserId, ride } = this.props
     var places = []
-    for (var i = 0; i < parseInt(ride.places, 10); i++) {
+    for (var i = 0; i < ride.places; i++) {
       places.push(<MenuItem key={i} value={i + 1} primaryText={pluralize('place', i + 1, true)} />)
     }
-
-    var rideOfferForm
-    if (currentUserId && parseInt(ride.places, 10) > 0 && this.isNotAuthor()) {
-      rideOfferForm =
+    if (currentUserId && ride.places > 0 && this.isNotAuthor()) {
+      return(
         <div className='book-ride'>
           <form className='book-ride-form' onSubmit={handleSubmit}>
             <Field name="places" component={SelectField} hintText="Click to book seats">
@@ -36,18 +34,20 @@ class RideOfferForm extends Component {
             <button type="submit" className="btn btn-default">Submit</button>
           </form>
         </div>
-    } else {
-      if (this.props.currentUserId && parseInt(ride.places, 10) > 0 && this.isNotAuthor()) {
-          rideOfferForm =
-            <div className='book-ride'>
-              No places
-            </div>
-        }
+      )
+    } else if (currentUserId && ride.places > 0 && this.isNotAuthor()) {
+      return(
+        <div className='book-ride'>
+          No places
+        </div>
+      )
     }
+  }
 
+  render() {
     return(
       <div>
-        {rideOfferForm}
+        {this.renderRideOfferForm()}
       </div>
     )
   }

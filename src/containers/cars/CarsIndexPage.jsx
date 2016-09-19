@@ -19,36 +19,21 @@ class CarsIndexPage extends Component {
 
   componentDidMount() {
     const { fetchCars, currentUserId } = this.props
+
     if (currentUserId) {
       fetchCars(currentUserId, 1, per)
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  handlePageClick(e) {
     const { fetchCars, currentUserId } = this.props
-    if (nextProps.currentUserId && currentUserId === undefined) {
-      fetchCars(nextProps.currentUserId, 1, per)
-    }
+    var page = e.selected + 1
+
+    fetchCars(currentUserId, page, per)
   }
 
-  render() {
-    const { isFetching, cars, currentUserId, pagination } = this.props
-
-    var carsList, carsPagination
-    if (isFetching || currentUserId === undefined) {
-      carsList =
-        <LoadingItem />
-    } else {
-      if (_.isEmpty(cars)) {
-        carsList = 'No cars'
-      } else {
-        carsList = cars.map((car, i) =>
-          <CarsItem car={car} currentUserId={currentUserId} key={i} />
-        )
-      }
-    }
-
-    var carsMain =
+  renderCarsMain() {
+    return(
       <Col xs={12}>
         <div className='heading'>
           <div className='heading-title'>My cars</div>
@@ -56,37 +41,62 @@ class CarsIndexPage extends Component {
             <Link to='/cars/new'><Button bsStyle='primary' bsSize='small'>New car</Button></Link>
           </div>
         </div>
-        {carsList}
+        {this.renderCarsList()}
       </Col>
-
-    if (pagination.total_pages > 1) {
-      carsPagination =
-        <ReactPaginate previousLabel={"previous"}
-                       nextLabel={"next"}
-                       breakLabel={<a href="">...</a>}
-                       pageNum={pagination.total_pages}
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={5}
-                       clickCallback={this.handlePageClick.bind(this)}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       activeClassName={"active"} />
-    }
-
-    return (
-      <div className='show-grid'>
-        <div className='cars'>
-          {carsMain}
-          {carsPagination}
-        </div>
-      </div>
     )
   }
 
-  handlePageClick(e) {
-    const { fetchCars, currentUserId } = this.props
-    var page = e.selected + 1
-    fetchCars(currentUserId, page, per)
+  renderCarsList() {
+    const { isFetching, cars, currentUserId } = this.props
+
+    if (isFetching) {
+      return(<LoadingItem />)
+    } else if (_.isEmpty(cars)) {
+      return('No cars')
+    } else {
+      return(
+        cars.map((car, i) =>
+          <CarsItem
+            key={i}
+            car={car}
+            currentUserId={currentUserId}
+          />
+        )
+      )
+    }
+  }
+
+  renderCarsPagination() {
+    const { pagination } = this.props
+
+    if (pagination.total_pages > 1) {
+      return(
+        <div>
+          <ReactPaginate previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={<a href="">...</a>}
+            pageNum={pagination.total_pages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            clickCallback={this.handlePageClick.bind(this)}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
+        </div>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <div className='show-grid'>
+        <div className='cars'>
+          {this.renderCarsMain()}
+          {this.renderCarsPagination()}
+        </div>
+      </div>
+    )
   }
 }
 

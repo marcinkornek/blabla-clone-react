@@ -16,23 +16,32 @@ class CarsShowPage extends Component {
 
   componentDidMount() {
     const { fetchCar, params: { carId } } = this.props
+
     fetchCar(carId)
   }
 
-  render() {
-    const { car, currentUserId } = this.props
+  renderCarPhoto() {
+    const { car } = this.props
 
-    var carPhoto =
+    return(
       <div className='main-info__photo'>
         <img src={car.car_photo} />
       </div>
+    )
+  }
 
-    var carsActions
+  renderCarsActions() {
+    const { car, currentUserId } = this.props
+
     if (car.owner_id === currentUserId) {
-      carsActions = <CarsActions carId={this.props.car.id} />
+      return(<CarsActions carId={this.props.car.id} />)
     }
+  }
 
-    var carDetails =
+  renderCarDetails() {
+    const { car } = this.props
+
+    return(
       <div className='car-details'>
         <div className='car-details__name'>{car.full_name}</div>
         <div className='car-details__places'>{this.props.car.places_full}</div>
@@ -40,13 +49,16 @@ class CarsShowPage extends Component {
         <div className='car-details__year'>{car.production_year}</div>
         <div className='car-details__color'>{car.color}</div>
         <div className='car-details__category'>{car.category}</div>
-        {carsActions}
+        {this.renderCarsActions()}
       </div>
+    )
+  }
 
+  render() {
     return (
       <Grid className='car'>
-        {carPhoto}
-        {carDetails}
+        {this.renderCarPhoto()}
+        {this.renderCarDetails()}
       </Grid>
     )
   }

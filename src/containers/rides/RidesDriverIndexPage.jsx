@@ -16,79 +16,93 @@ class RidesDriverIndexPage extends Component {
 
   componentDidMount() {
     const { fetchRidesAsDriver, currentUserId } = this.props
+
     if (currentUserId) {
       fetchRidesAsDriver(currentUserId, 1, per)
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  handlePageClick(e) {
     const { fetchRidesAsDriver, currentUserId } = this.props
-    if (nextProps.currentUserId && currentUserId === undefined) {
-      fetchRidesAsDriver(nextProps.currentUserId, 1, per)
+    var page = e.selected + 1
+
+    fetchRidesAsDriver(currentUserId, page, per)
+  }
+
+  renderRidesMain() {
+    return(
+      <Col xs={12}>
+        <div className='heading'>
+          <div className='heading-title'>My rides as driver</div>
+          {this.renderHeadingButton()}
+        </div>
+        {this.renderRidesList()}
+      </Col>
+    )
+  }
+
+  renderRidesList() {
+    const { isFetching, rides, currentUserId } = this.props
+
+    if (isFetching || currentUserId === undefined) {
+      return(<LoadingItem />)
+    } else if (_.isEmpty(rides)) {
+      return('No rides')
+    } else {
+      return(
+        rides.map((ride, i) =>
+          <RidesItem
+            key={i}
+            ride={ride}
+          />
+        )
+      )
+    }
+  }
+
+  renderHeadingButton() {
+    const { currentUserId } = this.props
+
+    if (currentUserId) {
+      return(
+        <div className='heading-button'>
+          <Link to='/rides/new'><Button bsStyle='primary' bsSize='small'>New ride</Button></Link>
+        </div>
+      )
+    }
+  }
+
+  renderRidesPagination() {
+    const { pagination } = this.props
+
+    if (pagination.total_pages > 1) {
+      return(
+        <div>
+          <ReactPaginate previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={<a href="">...</a>}
+            pageNum={pagination.total_pages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            clickCallback={this.handlePageClick.bind(this)}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
+        </div>
+      )
     }
   }
 
   render() {
-    const { isFetching, rides, pagination, currentUserId } = this.props
-    var ridesMain, ridesList, headingButton, ridesPagination
-
-    if (isFetching || currentUserId === undefined) {
-      ridesList =
-        <LoadingItem />
-    } else {
-      if (_.isEmpty(rides)) {
-        ridesList = 'No rides'
-      } else {
-        ridesList = rides.map((ride, i) =>
-          <RidesItem ride={ride} key={i} />
-        )
-      }
-    }
-
-    if (currentUserId) {
-      headingButton =
-        <div className='heading-button'>
-          <Link to='/rides/new'><Button bsStyle='primary' bsSize='small'>New ride</Button></Link>
-        </div>
-    }
-
-    ridesMain =
-      <Col xs={12}>
-        <div className='heading'>
-          <div className='heading-title'>My rides as driver</div>
-          {headingButton}
-        </div>
-        {ridesList}
-      </Col>
-
-    if (pagination.total_pages > 1) {
-      ridesPagination =
-        <ReactPaginate previousLabel={"previous"}
-                       nextLabel={"next"}
-                       breakLabel={<a href="">...</a>}
-                       pageNum={pagination.total_pages}
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={5}
-                       clickCallback={this.handlePageClick.bind(this)}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       activeClassName={"active"} />
-    }
-
     return (
       <div className='show-grid'>
         <div className='rides'>
-          {ridesMain}
-          {ridesPagination}
+          {this.renderRidesMain()}
+          {this.renderRidesPagination()}
         </div>
       </div>
     )
-  }
-
-  handlePageClick(e) {
-    const { fetchRidesAsDriver, currentUserId } = this.props
-    var page = e.selected + 1
-    fetchRidesAsDriver(currentUserId, page, per)
   }
 }
 

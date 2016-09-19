@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate'
 import * as actions from '../../actions/users';
 import UsersItem from '../../components/users/UsersIndexPageItem'
 import List from 'material-ui/List/List'
+import LoadingItem from '../../components/shared/LoadingItem'
 
 const per = 10
 
@@ -16,47 +17,65 @@ class UsersIndexPage extends Component {
 
   componentDidMount() {
     const { fetchUsers } = this.props;
+
     fetchUsers(1, per)
-  }
-
-  render() {
-    const { isFetching, users, pagination } = this.props
-
-    var usersList, ridesPagination
-    if (users) {
-      usersList = users.map((user, i) =>
-        <UsersItem user={user} key={i} />
-      )
-    } else {
-      usersList = 'No users'
-    }
-
-    if (pagination.total_pages > 1) {
-      ridesPagination =
-        <ReactPaginate previousLabel={"previous"}
-                       nextLabel={"next"}
-                       breakLabel={<a href="">...</a>}
-                       pageNum={pagination.total_pages}
-                       marginPagesDisplayed={2}
-                       pageRangeDisplayed={5}
-                       clickCallback={this.handlePageClick.bind(this)}
-                       containerClassName={"pagination"}
-                       subContainerClassName={"pages pagination"}
-                       activeClassName={"active"} />
-    }
-
-    return (
-      <List className='users'>
-        {usersList}
-        <div>{ridesPagination}</div>
-      </List>
-    )
   }
 
   handlePageClick(e) {
     const { fetchUsers } = this.props
     var page = e.selected + 1
+
     fetchUsers(page, per)
+  }
+
+  renderUsersList() {
+    const { isFetching, users } = this.props
+
+    if (isFetching) {
+      return(<LoadingItem />)
+    } else if (_.isEmpty(users)) {
+      return('No users')
+    } else {
+      return(
+        users.map((user, i) =>
+          <UsersItem
+            key={i}
+            user={user}
+          />
+        )
+      )
+    }
+  }
+
+  renderRidesPagination() {
+    const { pagination } = this.props
+
+    if (pagination.total_pages > 1) {
+      return(
+        <div>
+          <ReactPaginate previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={<a href="">...</a>}
+            pageNum={pagination.total_pages}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            clickCallback={this.handlePageClick.bind(this)}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}
+          />
+        </div>
+      )
+    }
+  }
+
+  render() {
+    return(
+      <List className='users'>
+        {this.renderUsersList()}
+        {this.renderRidesPagination()}
+      </List>
+    )
   }
 }
 

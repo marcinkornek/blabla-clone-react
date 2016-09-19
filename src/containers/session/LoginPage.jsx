@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from "react";
+import React, { Component, PropTypes } from "react"
 import { Col, Alert } from "react-bootstrap"
-import { connect } from "react-redux";
+import { connect } from "react-redux"
 import Router, { Link } from "react-router"
 import LoginFbPage from "../../components/session/LoginFbPage"
 import LoginEmailPage from "../../components/session/LoginEmailPage"
-import * as actions from "../../actions/session";
+import * as actions from "../../actions/session"
 
 class LoginPage extends Component {
   static propTypes = {
@@ -20,24 +20,28 @@ class LoginPage extends Component {
 
   handleSubmit(data) {
     const { logInEmailBackend } = this.props
-    var body = new FormData();
+    var body = new FormData()
+
     Object.keys(data).forEach((key) => {
       body.append(key, data[key])
-    });
-
+    })
     logInEmailBackend(this.context.router, body)
   }
 
-  render() {
-    const { logInFbBackend, errors } = this.props;
+  renderFormErrors() {
+    const { errors } = this.props
 
-    var formErrors
     if (!_.isEmpty(errors)) {
-      formErrors =
+      return(
         <Alert bsStyle="danger">
           <strong>{errors}</strong>
         </Alert>
+      )
     }
+  }
+
+  render() {
+    const { logInFbBackend, errors } = this.props
 
     return (
       <div className="show-grid">
@@ -45,7 +49,7 @@ class LoginPage extends Component {
 
         <div className="login-errors">
           <Col xs={12} md={8} mdOffset={2}>
-            {formErrors}
+            {this.renderFormErrors()}
           </Col>
         </div>
 
@@ -56,11 +60,13 @@ class LoginPage extends Component {
               <LoginFbPage
                 onDataReceive={text =>
                   logInFbBackend(this.context.router, text)
-                } />
+                }
+              />
               <div className="login-button__separator">or</div>
               <LoginEmailPage
                 errors={errors}
-                onSubmit={this.handleSubmit.bind(this)} />
+                onSubmit={this.handleSubmit.bind(this)}
+              />
             </div>
             <div className="register-form">
               <h3 className="login-form__title">Register</h3>

@@ -24,8 +24,8 @@ class RidesEditPage extends Component {
 
   handleSubmit(data) {
     const { updateRide, ride } = this.props
-
     var body = new FormData()
+
     Object.keys(data).forEach((key) => {
       if (key == 'destination_city' || key == 'start_city') {
         body.append(key, data[key].label)
@@ -37,12 +37,12 @@ class RidesEditPage extends Component {
         if (data[key]) { body.append(key, data[key]) }
       }
     })
-
     updateRide(this.context.router, body, ride.id)
   }
 
   render() {
-    const { ridesOptions, ride } = this.props
+    const { ridesOptions } = this.props
+
     return (
       <div className='show-grid'>
         <Col xs={12}>
@@ -51,7 +51,8 @@ class RidesEditPage extends Component {
           </div>
           <RidesEditPageForm
             ridesOptions={ridesOptions}
-            onSubmit={this.handleSubmit.bind(this)} />
+            onSubmit={this.handleSubmit.bind(this)}
+          />
         </Col>
       </div>
     )

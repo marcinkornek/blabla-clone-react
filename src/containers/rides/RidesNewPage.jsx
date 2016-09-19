@@ -15,13 +15,14 @@ class RidesNewPage extends Component {
 
   componentDidMount() {
     const { fetchRidesOptions } = this.props
+
     fetchRidesOptions()
   }
 
   handleSubmit(data) {
     const { createRide } = this.props
-
     var body = new FormData()
+
     Object.keys(data).forEach((key) => {
       if (key == 'destination_city' || key == 'start_city') {
         body.append(key, data[key].label)
@@ -31,12 +32,12 @@ class RidesNewPage extends Component {
         if (data[key]) { body.append(key, data[key]) }
       }
     })
-
     createRide(this.context.router, body)
   }
 
   render() {
     const { ridesOptions } = this.props
+
     return (
       <div className='show-grid'>
         <Col xs={12}>
@@ -45,7 +46,8 @@ class RidesNewPage extends Component {
           </div>
           <RidesNewPageForm
             ridesOptions={ridesOptions}
-            onSubmit={this.handleSubmit.bind(this)} />
+            onSubmit={this.handleSubmit.bind(this)}
+          />
         </Col>
       </div>
     )
