@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import HeaderNew from '../components/HeaderNew'
 import * as actions from '../actions/session'
+import * as notificationActions from '../actions/notifications'
 import * as userActions from '../actions/users'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Dimensions from 'react-dimensions'
@@ -61,8 +62,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   logout: actions.logout,
   fetchCurrentUser: userActions.fetchCurrentUser,
-  fetchUserNotifications: userActions.fetchUserNotifications,
-  markNotificationAsSeen: userActions.markNotificationAsSeen
+  fetchUserNotifications: notificationActions.fetchUserNotifications,
+  markNotificationAsSeen: notificationActions.markNotificationAsSeen
 }
 
 export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(Application))
