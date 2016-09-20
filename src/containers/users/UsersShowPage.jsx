@@ -7,6 +7,7 @@ import * as actions from '../../actions/users';
 import CarsItem from '../../components/cars/CarsIndexPageItem'
 import RidesItem from '../../components/rides/RidesIndexSimplePageItem'
 import Avatar from 'material-ui/Avatar'
+import RenderUserAge from '../../components/shared/RenderUserAge'
 
 class UsersShowPage extends Component {
   static PropTypes = {
@@ -19,14 +20,6 @@ class UsersShowPage extends Component {
     const { fetchUser, params: { userId } } = this.props
 
     fetchUser(userId)
-  }
-
-  renderUserAge() {
-    const { user } = this.props
-
-    if (user.age) {
-      return(<div className='main-info__details-age'>({user.age} years)</div>)
-    }
   }
 
   renderUserInfo() {
@@ -42,7 +35,7 @@ class UsersShowPage extends Component {
         </div>
         <div className='user-show__details-info'>
           <div className='user-show__details-name'>{user.full_name}</div>
-          <div className='user-show__details-age'>{this.renderUserAge()}</div>
+          <div className='user-show__details-age'><RenderUserAge user={user} /></div>
           <div className='user-show__details-email'>{user.email}</div>
         </div>
       </div>

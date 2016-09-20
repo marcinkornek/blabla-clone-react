@@ -5,6 +5,7 @@ import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
 import Stars from '../shared/Stars'
+import RenderUserAge from '../shared/RenderUserAge'
 
 export default class RidesIndexPageItem extends Component {
   render() {
@@ -43,7 +44,7 @@ export default class RidesIndexPageItem extends Component {
         </div>
         <div className='ride-driver__info'>
           <div className='ride-driver__name'>{ride.driver.full_name}</div>
-          <div className='ride-driver__age'>({ride.driver.age} years)</div>
+          <div className='ride-driver__age'><RenderUserAge user={ride.driver} /></div>
         </div>
       </div>
 
