@@ -44,6 +44,7 @@ export default class AppNavDrawer extends Component {
     onRequestChangeNavDrawer: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
     style: PropTypes.object,
+    isFetching: PropTypes.bool.isRequired,
   }
 
   static contextTypes = {
@@ -61,20 +62,20 @@ export default class AppNavDrawer extends Component {
   }
 
   renderLeftHeader() {
-    const { isLoggedIn, currentUser } = this.props
-    if (isLoggedIn) {
+    const { isLoggedIn, isFetching, currentUser } = this.props
+    if (isFetching || !isLoggedIn) {
+      return(
+        <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
+          Blabla Clone
+        </div>
+      )
+    } else {
       return(
         <div style={styles.logo}>
           <Link to={`/users/${currentUser.id}`}>
             <Avatar src={currentUser.avatar} style={styles.avatatStyle} />
             <span>{currentUser.full_name}</span>
           </Link>
-        </div>
-      )
-    } else {
-      return(
-        <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
-          Blabla Clone
         </div>
       )
     }
@@ -135,13 +136,15 @@ export default class AppNavDrawer extends Component {
             nestedItems={[
               <ListItem primaryText="Add ride" value="/rides/new" key="add-ride" leftIcon={<ContentAddBox />}/>,
               <ListItem primaryText="Search rides" value="/rides" key="search-rides" leftIcon={<ActionSearch />}/>,
-            ]} />
+            ]}
+          />
           <ListItem
             primaryText="Users"
             primaryTogglesNestedList={true}
             nestedItems={[
               <ListItem primaryText="Browse users" value="/users" key="browse-users" leftIcon={<SocialGroup />} />,
-            ]} />
+            ]}
+          />
           {this.nestedAccountItems()}
         </SelectableList>
       </Drawer>

@@ -31,11 +31,21 @@ class Application extends Component {
   }
 
   render () {
-    const { logout, currentUser, notifications, isLoggedIn, containerWidth, children } = this.props
+    const {
+      logout,
+      currentUser,
+      notifications,
+      isLoggedIn,
+      isFetching,
+      containerWidth,
+      children
+    } = this.props
+
     return (
       <div>
         <HeaderNew
           isLoggedIn={isLoggedIn}
+          isFetching={isFetching}
           currentUser={currentUser}
           notifications={notifications}
           containerWidth={containerWidth}
@@ -53,6 +63,7 @@ class Application extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    isFetching: state.currentUser.isFetching,
     isLoggedIn: state.session.isLoggedIn,
     currentUser: state.currentUser,
     notifications: state.notifications

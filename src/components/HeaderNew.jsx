@@ -9,6 +9,7 @@ export default class HeaderNew extends Component {
     location: PropTypes.object,
     containerWidth: PropTypes.number.isRequired,
     onLogout: PropTypes.func.isRequired,
+    isFetching: PropTypes.bool.isRequired,
   }
 
   static contextTypes = {
@@ -43,7 +44,7 @@ export default class HeaderNew extends Component {
   }
 
   render() {
-    const { containerWidth, currentUser, isLoggedIn } = this.props
+    const { containerWidth, currentUser, isLoggedIn, isFetching } = this.props
     const title = 'Blabla clone'
     let docked = false
     let showMenuIconButton = true
@@ -63,7 +64,8 @@ export default class HeaderNew extends Component {
           zDepth={0}
           style={{position: 'fixed'}}
           showMenuIconButton={showMenuIconButton}
-          iconElementRight={<HeaderRight {...this.props} />}/>
+          iconElementRight={<HeaderRight {...this.props} />}
+        />
         <AppNavDrawer
           location={location}
           docked={docked}
@@ -72,7 +74,9 @@ export default class HeaderNew extends Component {
           open={navDrawerOpen}
           currentUser={currentUser}
           isLoggedIn={isLoggedIn}
-          onLogout={this.handleLogout} />
+          isFetching={isFetching}
+          onLogout={this.handleLogout}
+        />
       </div>
     )
   }
