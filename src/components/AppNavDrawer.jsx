@@ -63,6 +63,7 @@ export default class AppNavDrawer extends Component {
 
   renderLeftHeader() {
     const { isLoggedIn, isFetching, currentUser } = this.props
+
     if (isFetching || !isLoggedIn) {
       return(
         <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>

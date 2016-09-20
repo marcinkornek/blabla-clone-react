@@ -17,14 +17,6 @@ class Application extends Component {
     router: React.PropTypes.object.isRequired
   }
 
-  componentDidMount() {
-    const { isLoggedIn, fetchNotifications, fetchCurrentUser } = this.props
-    if (isLoggedIn) {
-      fetchCurrentUser()
-      fetchNotifications()
-    }
-  }
-
   markAsSeen(notificationId) {
     const { markNotificationAsSeen } = this.props
     markNotificationAsSeen(notificationId)

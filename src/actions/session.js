@@ -1,6 +1,8 @@
 import 'whatwg-fetch'
 import * as types from '../constants/ActionTypes'
-import * as cons  from '../constants/constants'
+import * as cons from '../constants/constants'
+import * as usersActions from './users'
+import * as notificationsActions from './notifications'
 
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -108,6 +110,8 @@ export function loginSuccess(json) {
       type: types.LOGIN_SUCCESS,
       item: json
     })
+    dispatch(usersActions.fetchCurrentUser())
+    dispatch(notificationsActions.fetchNotifications())
     saveToLocalStorage(json)
   }
 }
