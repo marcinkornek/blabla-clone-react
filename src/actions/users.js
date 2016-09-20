@@ -9,9 +9,10 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
+// fetch paginated users list
 export function fetchUsers(page = 1, per = 10) {
   return dispatch => {
-    dispatch(usersRequest())
+    dispatch(fetchUsersRequest())
     return fetch(cons.APIEndpoints.USERS + '?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
@@ -21,14 +22,15 @@ export function fetchUsers(page = 1, per = 10) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(usersSuccess(json)))
-    .catch(errors => dispatch(usersFailure(errors)))
+    .then(json => dispatch(fetchUsersSuccess(json)))
+    .catch(errors => dispatch(fetchUsersFailure(errors)))
   }
 }
 
+// fetch user show profile with cars and rides_as_driver
 export function fetchUser(userId) {
   return dispatch => {
-    dispatch(userRequest())
+    dispatch(fetchUserRequest())
     return fetch(cons.APIEndpoints.USERS + '/' + userId, {
       method: 'get',
       headers: {
@@ -38,16 +40,17 @@ export function fetchUser(userId) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(userSuccess(json)))
-    .catch(errors => dispatch(userFailure(errors)))
+    .then(json => dispatch(fetchUserSuccess(json)))
+    .catch(errors => dispatch(fetchUserFailure(errors)))
   }
 }
 
+// fetch current user profile
 export function fetchCurrentUser() {
   return (dispatch, getState) => {
     const { session } = getState()
-    dispatch(currentUserRequest())
-    return fetch(cons.APIEndpoints.USERS + '/' + session.id, {
+    dispatch(fetchCurrentUserRequest())
+    return fetch(cons.APIEndpoints.USERS + '/' + session.id + '/profile', {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -56,28 +59,12 @@ export function fetchCurrentUser() {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(currentUserSuccess(json)))
-    .catch(errors => dispatch(currentUserFailure(errors)))
+    .then(json => dispatch(fetchCurrentUserSuccess(json)))
+    .catch(errors => dispatch(fetchCurrentUserFailure(errors)))
   }
 }
 
-export function fetchUserProfile(userId) {
-  return dispatch => {
-    dispatch(userRequest())
-    return fetch(cons.APIEndpoints.USERS + '/' + userId + '/profile', {
-      method: 'get',
-      headers: {
-        'Accept': 'application/vnd.blabla-clone-v1+json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(status)
-    .then(req => req.json())
-    .then(json => dispatch(userSuccess(json)))
-    .catch(errors => dispatch(userFailure(errors)))
-  }
-}
-
+// create new user
 export function createUser(body) {
   return dispatch => {
     dispatch(userCreateRequest())
@@ -95,10 +82,11 @@ export function createUser(body) {
   }
 }
 
-export function updateUser(body) {
+// update current user profile
+export function updateCurrentUser(body) {
   return (dispatch, getState) => {
     const { session } = getState()
-    dispatch(userUpdateRequest())
+    dispatch(currentUserUpdateRequest())
     return fetch(cons.APIEndpoints.USERS + '/' + session.id, {
       method: 'PUT',
       headers: {
@@ -111,15 +99,16 @@ export function updateUser(body) {
     .then(response => response.text().then(text => ({ text, response })))
     .then(({ text, response }) => {
       if (response.ok) {
-        dispatch(userUpdateSuccess(JSON.parse(text), session))
+        dispatch(currentUserUpdateSuccess(JSON.parse(text), session))
       } else {
         return Promise.reject(text)
       }
     })
-    .catch(errors => dispatch(userUpdateFailure(JSON.parse(errors))))
+    .catch(errors => dispatch(currentUserUpdateFailure(JSON.parse(errors))))
   }
 }
 
+// checks email uniqueness
 export function checkUserEmailUniqueness(email) {
   return (dispatch, getState) => {
     const { session } = getState()
@@ -137,70 +126,70 @@ export function checkUserEmailUniqueness(email) {
   }
 }
 
-export function usersRequest() {
+export function fetchUsersRequest() {
   return {
-    type: types.USERS_REQUEST,
+    type: types.FETCH_USERS_REQUEST
   }
 }
 
-export function usersSuccess(json) {
+export function fetchUsersSuccess(json) {
   return {
-    type: types.USERS_SUCCESS,
+    type: types.FETCH_USERS_SUCCESS,
     items: json.items,
     pagination: json.meta
   }
 }
 
-export function usersFailure(errors) {
+export function fetchUsersFailure(errors) {
   return {
-    type: types.USERS_FAILURE,
+    type: types.FETCH_USERS_FAILURE,
     errors: errors
   }
 }
 
-export function userRequest() {
+export function fetchUserRequest() {
   return {
-    type: types.USER_REQUEST,
+    type: types.FETCH_USER_REQUEST
   }
 }
 
-export function userSuccess(json) {
+export function fetchUserSuccess(json) {
   return {
-    type: types.USER_SUCCESS,
+    type: types.FETCH_USER_SUCCESS,
     item: json
   }
 }
 
-export function userFailure(errors) {
+export function fetchUserFailure(errors) {
   return {
-    type: types.USER_FAILURE,
+    type: types.FETCH_USER_FAILURE,
     errors: errors
   }
 }
 
-export function currentUserRequest() {
+export function fetchCurrentUserRequest() {
   return {
-    type: types.CURRENT_USER_REQUEST,
+    type: types.FETCH_CURRENT_USER_REQUEST
   }
 }
 
-export function currentUserSuccess(json) {
+export function fetchCurrentUserSuccess(json) {
   return {
-    type: types.CURRENT_USER_SUCCESS,
+    type: types.FETCH_CURRENT_USER_SUCCESS,
     item: json
   }
 }
 
-export function currentUserFailure(errors) {
+export function fetchCurrentUserFailure(errors) {
   return {
-    type: types.CURRENT_USER_FAILURE,
+    type: types.FETCH_CURRENT_USER_FAILURE,
     errors: errors
   }
 }
 
 export function userCreateRequest() {
   return {
-    type: types.USER_CREATE_REQUEST,
+    type: types.USER_CREATE_REQUEST
   }
 }
 
@@ -218,23 +207,23 @@ export function userCreateFailure(errors) {
   }
 }
 
-export function userUpdateRequest() {
+export function currentUserUpdateRequest() {
   return {
-    type: types.USER_UPDATE_REQUEST,
+    type: types.CURRENT_USER_UPDATE_REQUEST
   }
 }
 
-export function userUpdateSuccess(json, session) {
+export function currentUserUpdateSuccess(json, session) {
   return {
-    type: types.USER_UPDATE_SUCCESS,
+    type: types.CURRENT_USER_UPDATE_SUCCESS,
     item: json,
     session: session
   }
 }
 
-export function userUpdateFailure(errors) {
+export function currentUserUpdateFailure(errors) {
   return {
-    type: types.USER_UPDATE_FAILURE,
+    type: types.CURRENT_USER_UPDATE_FAILURE,
     errors: errors
   }
 }

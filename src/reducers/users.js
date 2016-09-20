@@ -8,11 +8,11 @@ const initialState = {
 
 export default function users(state = initialState, action) {
   switch (action.type) {
-  case types.USERS_REQUEST:
+  case types.FETCH_FUUSERS_REQUEST:
     return Object.assign({}, state, {
       isFetching: true
     });
-  case types.USERS_SUCCESS:
+  case types.FETCH_USERS_SUCCESS:
     return Object.assign({}, state, {
       isFetching: false,
       items: action.items,

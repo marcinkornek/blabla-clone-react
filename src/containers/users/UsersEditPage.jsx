@@ -14,15 +14,13 @@ class UsersEditPage extends Component {
   }
 
   componentDidMount() {
-    const { fetchUserProfile, currentUserId } = this.props
+    const { fetchCurrentUser } = this.props
 
-    if (currentUserId) {
-      fetchUserProfile(currentUserId)
-    }
+    fetchCurrentUser()
   }
 
   handleSubmit(data) {
-    const { updateUser } = this.props
+    const { updateCurrentUser } = this.props
     var body = new FormData()
 
     Object.keys(data).forEach(( key ) => {
@@ -32,7 +30,7 @@ class UsersEditPage extends Component {
         if (data[key]) { body.append(key, data[key]) }
       }
     })
-    updateUser(body)
+    updateCurrentUser(body)
   }
 
   renderUserEditForm() {
@@ -61,14 +59,14 @@ class UsersEditPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.user.isFetching,
+    isFetching: state.currentUser.isFetching,
     currentUserId: state.session.id
   }
 }
 
 const mapDispatchToProps = {
-  fetchUserProfile: actions.fetchUserProfile,
-  updateUser: actions.updateUser
+  fetchCurrentUser: actions.fetchCurrentUser,
+  updateCurrentUser: actions.updateCurrentUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersEditPage)
