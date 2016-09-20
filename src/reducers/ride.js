@@ -6,6 +6,12 @@ const initialState = {
   places: undefined
 }
 
+const emptyRide = {
+  user_ride_request: {},
+  requested: false,
+  ride_requests: undefined
+}
+
 export default function ride(state = initialState, action) {
   switch (action.type) {
   case types.RIDE_REQUEST:
@@ -14,9 +20,9 @@ export default function ride(state = initialState, action) {
     });
   case types.RIDE_SUCCESS:
     action.item.start_date = new Date(action.item.start_date)
-    action.item.user_ride_request = action.item.user_ride_request || {}
     return Object.assign({}, state, {
       isFetching: false,
+      ...emptyRide,
       ...action.item,
       places: action.item.free_places_count
     });
