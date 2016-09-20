@@ -16,24 +16,18 @@ class LoginEmailPage extends Component {
     handleSubmit: PropTypes.func.isRequired
   }
 
-  render() {
+  renderLoginForm() {
     const { handleSubmit } = this.props
 
     if (this.state.showLoginForm) {
-      var LoginForm =
+      return(
         <form onSubmit={handleSubmit} className='login-email-form'>
           <Field name="email" type="text" component={renderTextField} label="Email"/>
           <Field name="password" type="password" component={renderTextField} label="Password"/>
           <button type="submit" className="btn btn-default form-submit">Submit</button>
         </form>
+      )
     }
-
-    return (
-      <div>
-        <button className='btn btn-default login-button' onClick={this.showFormOnClick.bind(this)}>Login with email and password</button>
-        {LoginForm}
-      </div>
-    )
   }
 
   showFormOnClick() {
@@ -43,6 +37,15 @@ class LoginEmailPage extends Component {
     } else {
       this.setState({showLoginForm: false})
     }
+  }
+
+  render() {
+    return (
+      <div>
+        <button className='btn btn-default login-button' onClick={this.showFormOnClick.bind(this)}>Login with email and password</button>
+        {this.renderLoginForm()}
+      </div>
+    )
   }
 }
 
