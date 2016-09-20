@@ -3,10 +3,11 @@ import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/rides'
 import RidesEditPageForm from '../../components/rides/RidesEditPageForm'
+import LoadingItem from '../../components/shared/LoadingItem'
 
 class RidesEditPage extends Component {
   static propTypes = {
-    ride: PropTypes.object.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     ridesOptions: PropTypes.object.isRequired
   }
 
@@ -16,6 +17,7 @@ class RidesEditPage extends Component {
 
   componentDidMount() {
     const { fetchRidesOptions, fetchRide, params: { rideId } } = this.props
+
     fetchRidesOptions()
     if (rideId) {
       fetchRide(rideId)
@@ -40,19 +42,29 @@ class RidesEditPage extends Component {
     updateRide(this.context.router, body, ride.id)
   }
 
-  render() {
-    const { ridesOptions } = this.props
+  renderRideEditForm() {
+    const { isFetching, ridesOptions } = this.props
 
+    if (isFetching) {
+      return(<LoadingItem />)
+    } else {
+      return(
+        <RidesEditPageForm
+          ridesOptions={ridesOptions}
+          onSubmit={this.handleSubmit.bind(this)}
+        />
+      )
+    }
+  }
+
+  render() {
     return (
       <div className='show-grid'>
         <Col xs={12}>
           <div className='heading'>
             <div className='heading-title'>Edit ride</div>
           </div>
-          <RidesEditPageForm
-            ridesOptions={ridesOptions}
-            onSubmit={this.handleSubmit.bind(this)}
-          />
+          {this.renderRideEditForm()}
         </Col>
       </div>
     )
@@ -61,8 +73,8 @@ class RidesEditPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ride: state.ride,
-    ridesOptions: state.ridesOptions
+    ridesOptions: state.ridesOptions,
+    isFetching: state.ride.isFetching
   }
 }
 

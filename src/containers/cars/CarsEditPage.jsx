@@ -5,10 +5,11 @@ import { connect } from 'react-redux'
 import _ from 'underscore'
 import * as actions from '../../actions/cars'
 import CarsEditPageForm from '../../components/cars/CarsEditPageForm'
+import LoadingItem from '../../components/shared/LoadingItem'
 
 class CarsEditPage extends Component {
   static PropTypes = {
-    currentUserId: PropTypes.number.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     carsOptions: PropTypes.object.isRequired
   }
 
@@ -39,19 +40,29 @@ class CarsEditPage extends Component {
     updateCar(this.context.router, body, data.id)
   }
 
-  render() {
-    const { carsOptions } = this.props
+  renderCarEditForm() {
+    const { isFetching, carsOptions } = this.props
 
+    if (isFetching) {
+      return(<LoadingItem />)
+    } else {
+      return(
+        <CarsEditPageForm
+          onSubmit={this.handleSubmit.bind(this)}
+          carsOptions={carsOptions}
+        />
+      )
+    }
+  }
+
+  render() {
     return (
       <div className='show-grid'>
         <Col xs={12}>
           <div className='heading'>
             <div className='heading-title'>Edit car</div>
           </div>
-          <CarsEditPageForm
-            carsOptions={carsOptions}
-            onSubmit={this.handleSubmit.bind(this)}
-          />
+          {this.renderCarEditForm()}
         </Col>
       </div>
     )
@@ -60,7 +71,7 @@ class CarsEditPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserId: state.session.id,
+    isFetching: state.car.isFetching,
     carsOptions: state.carsOptions
   }
 }

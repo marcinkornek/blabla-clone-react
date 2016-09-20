@@ -69,6 +69,8 @@ class UsersEditPageForm extends Component {
 UsersEditPageForm = reduxForm({
   form: 'UsersEditPageForm',
   validate: UserValidator,
+  asyncValidate,
+  asyncBlurFields: ['email']
 })(UsersEditPageForm)
 
 UsersEditPageForm = connect(
