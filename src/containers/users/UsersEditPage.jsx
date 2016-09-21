@@ -13,12 +13,6 @@ class UsersEditPage extends Component {
     currentUserId: PropTypes.number.isRequired
   }
 
-  componentDidMount() {
-    const { fetchCurrentUser } = this.props
-
-    fetchCurrentUser()
-  }
-
   handleSubmit(data) {
     const { updateCurrentUser } = this.props
     var body = new FormData()
