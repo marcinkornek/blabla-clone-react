@@ -219,7 +219,7 @@ class RidesShowPage extends Component {
               <Avatar src={ride.driver.avatar} style={styles.avatarStyle}/>
               <div className='ride-show-driver__details-info'>
                 <div className='ride-show-driver__details-name'>{ride.driver.full_name}</div>
-                <div className='ride-show-driver__details-age'><RenderUserAge user={user} /></div>
+                <div className='ride-show-driver__details-age'><RenderUserAge user={ride.driver} /></div>
                 <div className='ride-show-driver__details-join'>
                   <div className='ride-show-driver__details-join-label'>joined:</div>
                   <div className='ride-show-driver__details-join-value'>
