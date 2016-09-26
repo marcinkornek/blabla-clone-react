@@ -21,7 +21,7 @@ module.exports = {
     publicPath: '/static/'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.cjsx', '.coffee', '.scss']
+    extensions: ['', '.js', '.jsx', '.scss']
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -39,15 +39,6 @@ module.exports = {
           presets: ['react', 'es2015', 'stage-1', 'stage-0'],
           plugins: ['transform-runtime']
         }
-      },
-      {
-        test: /\.cjsx?$/,
-        loaders: ['coffee-loader', 'cjsx-loader'],
-        include: path.join(__dirname, 'src')
-      },
-      {
-        test: /\.coffee$/,
-        loader: 'coffee-loader'
       },
       {
         test: /\.(css)$/,
