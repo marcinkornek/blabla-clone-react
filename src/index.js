@@ -3,8 +3,9 @@ import * as actions from './actions/session'
 import { render } from 'react-dom'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-import Root from './containers/Root'
+import { AppContainer } from 'react-hot-loader'
 import configureStore from './store/configureStore'
+import Root from './containers/Root'
 
 function getFromLocalStorage(store) {
   var email = localStorage.getItem('email')
@@ -20,9 +21,24 @@ function getFromLocalStorage(store) {
 function renderApp(store) {
   const history = syncHistoryWithStore(browserHistory, store)
   render(
-    <Root store={store} history={history} />,
+    <AppContainer
+      component={Root}
+      props={{ store }}
+    />,
     document.getElementById('root')
   )
+
+  if (module.hot) {
+    module.hot.accept('./containers/Root', () => {
+      render(
+        <AppContainer
+          component={require('./containers/Root').default}
+          props={{ store }}
+        />,
+        document.getElementById('root')
+      )
+    })
+  }
 }
 
 const store = configureStore(browserHistory)

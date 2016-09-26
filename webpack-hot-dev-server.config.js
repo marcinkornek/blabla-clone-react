@@ -1,6 +1,5 @@
-var path    = require('path');
-var webpack = require('webpack');
-require('es6-promise').polyfill()
+var path = require('path')
+var webpack = require('webpack')
 
 module.exports = {
   devServer: {
@@ -15,6 +14,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
+    'react-hot-loader/patch',
     './src/index'
   ],
   output: {
@@ -31,31 +31,21 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx', '.cjsx', '.coffee', '.scss']
+    extensions: ['', '.js', '.jsx', '.scss']
   },
   module: {
     loaders: [
       {
-        test: /\.js$/,
-        loaders: ['react-hot', 'babel?optional[]=runtime&stage=0'],
-        include: path.join(__dirname, 'src'),
-      },
-      {
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel?optional[]=runtime&stage=0'],
-        include: path.join(__dirname, 'src')
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['react', 'es2015', 'stage-1', 'stage-0'],
+          plugins: ['react-hot-loader/babel']
+        }
       },
       {
-        test: /\.cjsx?$/,
-        loaders: ['react-hot', 'coffee-loader', 'cjsx-loader'],
-        include: path.join(__dirname, 'src')
-      },
-      {
-        test: /\.coffee$/,
-        loaders: ['react-hot', 'coffee-loader']
-      },
-      {
-        test: /\.css$/,
+        test: /\.(css)$/,
         loaders: ['style-loader', 'css-loader']
       },
       {
