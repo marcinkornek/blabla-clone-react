@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
+    "actioncable": "^5.0.0",
     "babel": "^6.0.0",
     "babel-core": "^6.0.0",
     "babel-eslint": "^7.0.0",
