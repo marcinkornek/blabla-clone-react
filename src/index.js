@@ -23,7 +23,7 @@ function renderApp(store) {
   render(
     <AppContainer
       component={Root}
-      props={{ store }}
+      props={{ store, history }}
     />,
     document.getElementById('root')
   )
@@ -33,7 +33,7 @@ function renderApp(store) {
       render(
         <AppContainer
           component={require('./containers/Root').default}
-          props={{ store }}
+          props={{ store, history }}
         />,
         document.getElementById('root')
       )
