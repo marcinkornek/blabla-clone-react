@@ -18,25 +18,23 @@ function getFromLocalStorage(store) {
   }
 }
 
-function renderApp(store) {
-  const history = syncHistoryWithStore(browserHistory, store)
+function renderRoot(Root, store, history) {
   render(
-    <AppContainer
-      component={Root}
-      props={{ store, history }}
-    />,
+    <AppContainer>
+      <Root store={store} history={history} />
+    </AppContainer>,
     document.getElementById('root')
   )
+}
+
+function renderApp(store) {
+  const history = syncHistoryWithStore(browserHistory, store)
+  renderRoot(Root, store, history)
 
   if (module.hot) {
     module.hot.accept('./containers/Root', () => {
-      render(
-        <AppContainer
-          component={require('./containers/Root').default}
-          props={{ store, history }}
-        />,
-        document.getElementById('root')
-      )
+      const Root = require('./containers/Root').default;
+      renderRoot(Root, store, history)
     })
   }
 }
