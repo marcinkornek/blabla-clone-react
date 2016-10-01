@@ -6,47 +6,57 @@ const initialState = {
   isLoggedIn: false
 }
 
+const emptySession = {
+  id: undefined,
+  access_token: undefined,
+  email: undefined,
+  role: undefined
+}
+
 export default function session(state = initialState, action) {
   switch (action.type) {
   case types.LOGIN_REQUEST:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: true,
-    });
+    };
   case types.LOGIN_SUCCESS:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       errors: [],
       isFetching: false,
       isLoggedIn: true,
       ...action.item
-    });
+    };
   case types.LOGIN_FAILURE:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       errors: [action.errors],
       isFetching: false,
       isLoggedIn: false,
       ...action.item
-    });
+    };
   case types.LOGOUT_SUCCESS:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       errors: [],
       isFetching: false,
       isLoggedIn: false,
-      id: undefined,
-      access_token: undefined,
-      email: undefined,
-      role: undefined
-    });
+      ...emptySession
+    };
   case types.USER_UPDATE_SUCCESS:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       errors: [],
       isFetching: false,
       isLoggedIn: true,
       ...action.item
-    });
+    };
     case types.USER_UPDATE_FAILURE:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       errors: action.errors
-    });
+    };
   default:
     return state;
   }

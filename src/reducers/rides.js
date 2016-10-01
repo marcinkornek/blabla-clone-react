@@ -10,16 +10,18 @@ const initialState = {
 export default function rides(state = initialState, action) {
   switch (action.type) {
   case types.RIDES_REQUEST:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: true
-    });
+    };
   case types.RIDES_SUCCESS:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: false,
       items: action.items,
       pagination: action.pagination,
       filters: action.filters
-    });
+    };
   default:
     return state;
   }

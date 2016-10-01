@@ -7,9 +7,10 @@ const initialState = {
 export default function ridesSearch(state = initialState, action) {
   switch (action.type) {
   case types.RIDES_SEARCH_FORM:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       data: action.data
-    });
+    };
   default:
     return state;
   }

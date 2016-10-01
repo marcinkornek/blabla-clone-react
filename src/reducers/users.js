@@ -9,15 +9,17 @@ const initialState = {
 export default function users(state = initialState, action) {
   switch (action.type) {
   case types.FETCH_USERS_REQUEST:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: true
-    });
+    };
   case types.FETCH_USERS_SUCCESS:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: false,
       items: action.items,
       pagination: action.pagination
-    });
+    };
   default:
     return state;
   }

@@ -8,14 +8,16 @@ const initialState = {
 export default function ridesDriver(state = initialState, action) {
   switch (action.type) {
   case types.RIDES_DRIVER_REQUEST:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: true
-    });
+    };
   case types.RIDES_DRIVER_SUCCESS:
-    return Object.assign({}, state, {
+    return {
+      ...state,
       isFetching: false,
       items: action.items
-    });
+    };
   default:
     return state;
   }
