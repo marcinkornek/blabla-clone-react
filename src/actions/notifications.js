@@ -53,6 +53,13 @@ export function markNotificationAsSeen(notificationId) {
   }
 }
 
+export function userNotificationAdd(notification) {
+  return {
+    type: types.USER_NOTIFICATION_ADD_SUCCESS,
+    item: notification
+  }
+}
+
 export function userNotificationsRequest() {
   return {
     type: types.USER_NOTIFICATIONS_REQUEST,

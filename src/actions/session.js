@@ -112,6 +112,7 @@ export function loginSuccess(json) {
     })
     dispatch(usersActions.fetchCurrentUser())
     dispatch(notificationsActions.fetchNotifications())
+    window.cable = ActionCable.createConsumer(`ws://localhost:3000/cable?email=${json.email}&token=${json.access_token}`)
     saveToLocalStorage(json)
   }
 }

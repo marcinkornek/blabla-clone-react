@@ -18,6 +18,19 @@ export default function notifications(state = initialState, action) {
       items: action.items,
       pagination: action.pagination
     });
+  case types.USER_NOTIFICATION_ADD_SUCCESS:
+    let unread_count = action.item.unread_count
+    delete action.item['unread_count']
+    console.log('unread_count', unread_count);
+    console.log('action.item', action.item);
+    return {
+      ...state,
+      items: [...state.items, action.item],
+      pagination: {
+        ...state.pagination,
+        unread_count: unread_count
+      }
+    };
   case types.USER_NOTIFICATION_UPDATE_SUCCESS:
     var match = _.find(state.items, function(item) { return item.id === action.item.id })
     if (match) { match.seen_at = action.item.seen_at }
