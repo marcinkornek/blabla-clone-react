@@ -1,4 +1,4 @@
-import * as actions from '../../actions/users'
+import * as actions from '../../../actions/users'
 
 const asyncValidate = (values, dispatch) => {
   // This is workaround (TODO change this after fixing issue in redux-form)

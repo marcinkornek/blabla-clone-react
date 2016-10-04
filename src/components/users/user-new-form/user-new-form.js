@@ -1,15 +1,14 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
+import React, { Component, PropTypes }   from 'react'
 import { reduxForm, Field } from 'redux-form'
-import { renderTextField } from '../shared/RenderTextField'
-import { renderRadioGroup } from '../shared/RenderRadioGroup'
+import { renderTextField } from '../../shared/RenderTextField'
+import { renderRadioGroup } from '../../shared/RenderRadioGroup'
 import { RadioButton } from 'material-ui/RadioButton'
-import DatePicker from '../inputs/DatePicker'
-import Dropzone from 'react-dropzone'
-import UserValidator from './UserValidator'
-import asyncValidate from './asyncEmailValidate'
+import DatePicker from '../../inputs/DatePicker'
+import Dropzone from 'react-dropzone';
+import UserNewValidator from '../user-new-validator/user-new-validator'
+import asyncValidate from '../async-email-validate/async-email-validate'
 
-class UsersEditPageForm extends Component {
+class UserNewForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }
@@ -19,9 +18,9 @@ class UsersEditPageForm extends Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        <Field name="first_name" type="text" component={renderTextField} label="First name *"/>
-        <Field name="last_name" type="text" component={renderTextField} label="Last name *"/>
-        <Field name="email" type="text" component={renderTextField} label="Email *"/>
+        <Field name="first_name" type="text" component={renderTextField} label="First name"/>
+        <Field name="last_name" type="text" component={renderTextField} label="Last name"/>
+        <Field name="email" type="text" component={renderTextField} label="Email"/>
         <div>
           <Field name="gender" component={renderRadioGroup}>
             <RadioButton value="male" label="male"/>
@@ -59,6 +58,8 @@ class UsersEditPageForm extends Component {
             </div>
           }
         </div>
+        <Field name="password" type="password" component={renderTextField} label="Password"/>
+        <Field name="password_confirmation" type="password" component={renderTextField} label="Password confirmation"/>
 
         <button type="submit" className="btn btn-default form-submit">Submit</button>
       </form>
@@ -66,17 +67,9 @@ class UsersEditPageForm extends Component {
   }
 }
 
-UsersEditPageForm = reduxForm({
-  form: 'UsersEditPageForm',
-  validate: UserValidator,
+export default reduxForm({
+  form: 'UserNewForm',
+  validate: UserNewValidator,
   asyncValidate,
   asyncBlurFields: ['email']
-})(UsersEditPageForm)
-
-UsersEditPageForm = connect(
-  state => ({
-    initialValues: state.currentUser
-  })
-)(UsersEditPageForm)
-
-export default UsersEditPageForm
+})(UserNewForm)

@@ -3,11 +3,11 @@ import Router, { Link } from 'react-router'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import * as actions from '../../actions/users'
-import UsersEditPageForm from '../../components/users/UsersEditPageForm'
-import LoadingItem from '../../components/shared/LoadingItem'
+import * as actions from '../../../actions/users'
+import UserEditForm from '../../../components/users/user-edit-form/user-edit-form'
+import LoadingItem from '../../../components/shared/LoadingItem'
 
-class UsersEditPage extends Component {
+class UserEdit extends Component {
   static PropTypes = {
     isFetching: PropTypes.bool.isRequired,
     currentUserId: PropTypes.number.isRequired
@@ -33,7 +33,7 @@ class UsersEditPage extends Component {
     if (isFetching) {
       return(<LoadingItem />)
     } else {
-      return(<UsersEditPageForm onSubmit={this.handleSubmit.bind(this)} />)
+      return(<UserEditForm onSubmit={this.handleSubmit.bind(this)} />)
     }
   }
 
@@ -63,4 +63,4 @@ const mapDispatchToProps = {
   updateCurrentUser: actions.updateCurrentUser
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersEditPage)
+export default connect(mapStateToProps, mapDispatchToProps)(UserEdit)

@@ -1,4 +1,4 @@
-export default function UserValidator(values, props) {
+export default function UserEditValidator(values, props) {
   const errors = {};
   if(!values.first_name) {
     errors.first_name = 'Required';

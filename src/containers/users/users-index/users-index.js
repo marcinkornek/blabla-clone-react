@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate'
-import * as actions from '../../actions/users';
-import UsersItem from '../../components/users/UsersIndexPageItem'
+import * as actions from '../../../actions/users';
+import UsersItem from '../../../components/users/users-index-item/users-index-item'
 import List from 'material-ui/List/List'
-import LoadingItem from '../../components/shared/LoadingItem'
+import LoadingItem from '../../../components/shared/LoadingItem'
 
 const per = 10
 
-class UsersIndexPage extends Component {
+class UsersIndex extends Component {
   static PropTypes = {
     isFetching: PropTypes.bool.isRequired,
     users: PropTypes.array.isRequired,
@@ -91,4 +91,4 @@ const mapDispatchToProps = {
   fetchUsers: actions.fetchUsers
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersIndexPage)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersIndex)

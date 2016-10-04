@@ -4,10 +4,10 @@ import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import Icon from 'react-fa'
 import _ from 'lodash'
-import * as actions from '../../actions/users';
-import UsersNewPageForm from '../../components/users/UsersNewPageForm'
+import * as actions from '../../../actions/users';
+import UserNewForm from '../../../components/users/user-new-form/user-new-form'
 
-class UsersNewPage extends Component {
+class UserNew extends Component {
   handleSubmit(data) {
     const { createUser } = this.props
     var body = new FormData();
@@ -29,7 +29,7 @@ class UsersNewPage extends Component {
           <div className='heading'>
             <div className='heading-title'>Register</div>
           </div>
-          <UsersNewPageForm onSubmit={this.handleSubmit.bind(this)} />
+          <UserNewForm onSubmit={this.handleSubmit.bind(this)} />
         </Col>
       </div>
     )
@@ -44,4 +44,4 @@ const mapDispatchToProps = {
   createUser: actions.createUser
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersNewPage)
+export default connect(mapStateToProps, mapDispatchToProps)(UserNew)

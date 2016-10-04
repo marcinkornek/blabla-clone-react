@@ -13,15 +13,15 @@ const {
   Home,
   LoginPage,
 
-  UsersNewPage,
-  UsersIndexPage,
-  UsersShowPage,
-  UsersEditPage,
+  UserNew,
+  UserShow,
+  UserEdit,
+  UsersIndex,
 
   CarNew,
-  CarsIndex,
   CarShow,
   CarEdit,
+  CarsIndex,
 
   RidesNewPage,
   RidesIndexPage,
@@ -79,8 +79,8 @@ export const createRoutes = (store) => {
   return (
     <Route name ='App' component = {Application}>
       <Route requireAuth>
-        <Route name='usersIndex' path='/users' component={UsersIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='usersEdit' path='/account/user' component={UsersEditPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='usersIndex' path='/users' component={UsersIndex} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='usersEdit' path='/account/user' component={UserEdit} onEnter={checkPermission(store, cons.Permissions.USER)} />
 
         <Route name='carsIndex' path='/account/cars' component={CarsIndex} onEnter={checkPermission(store, cons.Permissions.USER)} />
         <Route name='carsEdit' path='/account/cars/:carId/edit' component={CarEdit} onEnter={checkPermission(store, cons.Permissions.USER)} />
@@ -95,7 +95,7 @@ export const createRoutes = (store) => {
       </Route>
 
       <Route name='home' path='/' component={Home} />
-      <Route name='usersShow' path='/users/:userId' component={UsersShowPage} />
+      <Route name='usersShow' path='/users/:userId' component={UserShow} />
       <Route name='carsShow' path='/cars/:carId' component={CarShow} />
       <Route name='ridesIndex'  path='/rides' component={RidesIndexPage} />
       <Route name='ridesShow' path='/rides/:rideId' component={RidesShowPage} />
@@ -103,7 +103,7 @@ export const createRoutes = (store) => {
 
       <Route requireNoAuth>
         <Route name='login' path='/login' component={LoginPage} />
-        <Route name='register' path='/register' component={UsersNewPage} />
+        <Route name='register' path='/register' component={UserNew} />
       </Route>
     </Route>
   );

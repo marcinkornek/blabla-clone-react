@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Col } from 'react-bootstrap'
 import Time from 'react-time'
 import Icon from 'react-fa'
-import * as actions from '../../actions/users';
-import CarsItem from '../../components/cars/cars-index-item/cars-index-item'
-import RidesItem from '../../components/rides/RidesIndexSimplePageItem'
+import * as actions from '../../../actions/users';
+import CarsItem from '../../../components/cars/cars-index-item/cars-index-item'
+import RidesItem from '../../../components/rides/RidesIndexSimplePageItem'
 import Avatar from 'material-ui/Avatar'
-import RenderUserAge from '../../components/shared/RenderUserAge'
+import RenderUserAge from '../../../components/shared/RenderUserAge'
 
-class UsersShowPage extends Component {
+class UserShow extends Component {
   static PropTypes = {
     isFetching: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
@@ -151,4 +151,4 @@ const mapDispatchToProps = {
   fetchUser: actions.fetchUser
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersShowPage)
+export default connect(mapStateToProps, mapDispatchToProps)(UserShow)
