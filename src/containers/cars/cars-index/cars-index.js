@@ -3,13 +3,13 @@ import Router, { Link } from 'react-router'
 import { Button, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
-import * as actions from '../../actions/cars'
-import CarsItem from '../../components/cars/CarsIndexPageItem'
-import LoadingItem from '../../components/shared/LoadingItem'
+import * as actions from '../../../actions/cars'
+import CarsIndexItem from '../../../components/cars/cars-index-item/cars-index-item'
+import LoadingItem from '../../../components/shared/LoadingItem'
 
 const per = 10
 
-class CarsIndexPage extends Component {
+class CarsIndex extends Component {
   static PropTypes = {
     isFetching: PropTypes.bool.isRequired,
     cars: PropTypes.array.isRequired,
@@ -56,7 +56,7 @@ class CarsIndexPage extends Component {
     } else {
       return(
         cars.map((car, i) =>
-          <CarsItem
+          <CarsIndexItem
             key={i}
             car={car}
             currentUserId={currentUserId}
@@ -114,4 +114,4 @@ const mapDispatchToProps = {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarsIndexPage)
+export default connect(mapStateToProps, mapDispatchToProps)(CarsIndex)

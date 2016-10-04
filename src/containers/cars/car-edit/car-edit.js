@@ -3,11 +3,11 @@ import Router, { Link } from 'react-router'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import _ from 'underscore'
-import * as actions from '../../actions/cars'
-import CarsEditPageForm from '../../components/cars/CarsEditPageForm'
-import LoadingItem from '../../components/shared/LoadingItem'
+import * as actions from '../../../actions/cars'
+import CarEditForm from '../../../components/cars/car-edit-form/car-edit-form'
+import LoadingItem from '../../../components/shared/LoadingItem'
 
-class CarsEditPage extends Component {
+class CarEdit extends Component {
   static PropTypes = {
     isFetching: PropTypes.bool.isRequired,
     carsOptions: PropTypes.object.isRequired
@@ -47,7 +47,7 @@ class CarsEditPage extends Component {
       return(<LoadingItem />)
     } else {
       return(
-        <CarsEditPageForm
+        <CarEditForm
           onSubmit={this.handleSubmit.bind(this)}
           carsOptions={carsOptions}
         />
@@ -82,4 +82,4 @@ const mapDispatchToProps = {
   updateCar: actions.updateCar
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarsEditPage)
+export default connect(mapStateToProps, mapDispatchToProps)(CarEdit)

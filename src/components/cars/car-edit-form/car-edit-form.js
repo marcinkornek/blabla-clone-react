@@ -1,13 +1,13 @@
 import React, { Component, PropTypes }   from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
-import { renderTextField } from '../shared/RenderTextField'
-import { renderSelectField } from '../shared/RenderSelectField'
-import CarValidator from './CarValidator'
+import { renderTextField } from '../../shared/RenderTextField'
+import { renderSelectField } from '../../shared/RenderSelectField'
+import CarValidator from '../car-validator/car-validator'
 import MenuItem from 'material-ui/MenuItem'
 import Dropzone from 'react-dropzone'
 
-class CarsEditPageForm extends Component {
+class CarEditForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }
@@ -78,15 +78,15 @@ class CarsEditPageForm extends Component {
   }
 }
 
-CarsEditPageForm = reduxForm({
-  form: 'CarsEditPageForm',
+CarEditForm = reduxForm({
+  form: 'CarEditForm',
   validate: CarValidator
-})(CarsEditPageForm)
+})(CarEditForm)
 
-CarsEditPageForm = connect(
+CarEditForm = connect(
   state => ({
     initialValues: state.car
   })
-)(CarsEditPageForm)
+)(CarEditForm)
 
-export default CarsEditPageForm
+export default CarEditForm

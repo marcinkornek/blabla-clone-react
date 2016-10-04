@@ -4,7 +4,7 @@ import { Col } from 'react-bootstrap'
 import Time from 'react-time'
 import Icon from 'react-fa'
 import * as actions from '../../actions/users';
-import CarsItem from '../../components/cars/CarsIndexPageItem'
+import CarsItem from '../../components/cars/cars-index-item/cars-index-item'
 import RidesItem from '../../components/rides/RidesIndexSimplePageItem'
 import Avatar from 'material-ui/Avatar'
 import RenderUserAge from '../../components/shared/RenderUserAge'

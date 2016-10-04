@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
-import { renderTextField } from '../shared/RenderTextField'
-import { renderSelectField } from '../shared/RenderSelectField'
+import { renderTextField } from '../../shared/RenderTextField'
+import { renderSelectField } from '../../shared/RenderSelectField'
 import MenuItem from 'material-ui/MenuItem'
-import CarValidator from './CarValidator'
+import CarValidator from '../car-validator/car-validator'
 import Dropzone from 'react-dropzone'
 
-class CarsNewPageForm extends Component {
+class CarNewForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }
@@ -78,6 +78,6 @@ class CarsNewPageForm extends Component {
 }
 
 export default reduxForm({
-  form: 'CarsNewPageForm',
+  form: 'CarNewForm',
   validate: CarValidator
-})(CarsNewPageForm)
+})(CarNewForm)

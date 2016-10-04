@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import * as actions from '../../actions/cars'
-import CarsNewPageForm from '../../components/cars/CarsNewPageForm'
+import * as actions from '../../../actions/cars'
+import CarNewForm from '../../../components/cars/car-new-form/car-new-form'
 
-class CarsNewPage extends Component {
+class CarNew extends Component {
   static propTypes = {
     carsOptions: PropTypes.object.isRequired
   }
@@ -42,7 +42,7 @@ class CarsNewPage extends Component {
           <div className='heading'>
             <div className='heading-title'>New car</div>
           </div>
-          <CarsNewPageForm
+          <CarNewForm
             carsOptions={carsOptions}
             onSubmit={this.handleSubmit.bind(this)}
           />
@@ -63,4 +63,4 @@ const mapDispatchToProps = {
   createCar: actions.createCar
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarsNewPage)
+export default connect(mapStateToProps, mapDispatchToProps)(CarNew)

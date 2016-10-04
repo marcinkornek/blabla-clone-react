@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Panel } from 'react-bootstrap'
-import CarsActions from './CarsActions'
-import Stars from '../shared/Stars'
+import CarsActions from '../car-actions/car-actions'
+import Stars from '../../shared/Stars'
 
-export default class CarsIndexPageItem extends Component {
+export default class CarsIndexItem extends Component {
   renderCarsActions() {
     const { car, currentUserId } = this.props
     if (car.owner_id === currentUserId) {

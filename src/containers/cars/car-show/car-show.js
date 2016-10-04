@@ -4,11 +4,11 @@ import { Grid } from 'react-bootstrap'
 import { Link } from 'react-router';
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
-import * as actions from '../../actions/cars';
-import CarsActions from '../../components/cars/CarsActions'
-import Stars from '../../components/shared/Stars'
+import * as actions from '../../../actions/cars';
+import CarsActions from '../../../components/cars/car-actions/car-actions'
+import Stars from '../../../components/shared/Stars'
 
-class CarsShowPage extends Component {
+class CarShow extends Component {
   static PropTypes = {
     car: PropTypes.array.isRequired,
     currentUserId: PropTypes.number
@@ -75,4 +75,4 @@ const mapDispatchToProps = {
   fetchCar: actions.fetchCar
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarsShowPage)
+export default connect(mapStateToProps, mapDispatchToProps)(CarShow)

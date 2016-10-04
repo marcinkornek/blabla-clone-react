@@ -18,10 +18,10 @@ const {
   UsersShowPage,
   UsersEditPage,
 
-  CarsNewPage,
-  CarsIndexPage,
-  CarsShowPage,
-  CarsEditPage,
+  CarNew,
+  CarsIndex,
+  CarShow,
+  CarEdit,
 
   RidesNewPage,
   RidesIndexPage,
@@ -82,9 +82,9 @@ export const createRoutes = (store) => {
         <Route name='usersIndex' path='/users' component={UsersIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
         <Route name='usersEdit' path='/account/user' component={UsersEditPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
 
-        <Route name='carsIndex' path='/account/cars' component={CarsIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='carsEdit' path='/account/cars/:carId/edit' component={CarsEditPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='carsNew' path='/cars/new' component={CarsNewPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='carsIndex' path='/account/cars' component={CarsIndex} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='carsEdit' path='/account/cars/:carId/edit' component={CarEdit} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='carsNew' path='/cars/new' component={CarNew} onEnter={checkPermission(store, cons.Permissions.USER)} />
 
         <Route name='ridesDriverIndex' path='/account/rides_as_driver' component={RidesDriverIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
         <Route name='ridesPassengerIndex' path='/account/rides_as_passenger' component={RidesPassengerIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
@@ -96,7 +96,7 @@ export const createRoutes = (store) => {
 
       <Route name='home' path='/' component={Home} />
       <Route name='usersShow' path='/users/:userId' component={UsersShowPage} />
-      <Route name='carsShow' path='/cars/:carId' component={CarsShowPage} />
+      <Route name='carsShow' path='/cars/:carId' component={CarShow} />
       <Route name='ridesIndex'  path='/rides' component={RidesIndexPage} />
       <Route name='ridesShow' path='/rides/:rideId' component={RidesShowPage} />
       <Route name='notAuthorized' path='/403' component={Home} />
