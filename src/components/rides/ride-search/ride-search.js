@@ -1,11 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
-import { renderGeoTextField } from '../shared/RenderGeoTextField'
-import DatePicker from '../inputs/DatePicker'
+import { renderGeoTextField } from '../../shared/RenderGeoTextField'
+import DatePicker from '../../inputs/DatePicker'
 import classNames from 'classnames'
 
-class RidesSearchItem extends React.Component {
+class RideSearch extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }
@@ -30,14 +30,14 @@ class RidesSearchItem extends React.Component {
   }
 }
 
-RidesSearchItem = reduxForm({
-  form: 'RidesSearchItem'
-})(RidesSearchItem)
+RideSearch = reduxForm({
+  form: 'RideSearch'
+})(RideSearch)
 
-RidesSearchItem = connect(
+RideSearch = connect(
   state => ({
     initialValues: state.ridesSearch.data
   })
-)(RidesSearchItem);
+)(RideSearch);
 
-export default RidesSearchItem;
+export default RideSearch;

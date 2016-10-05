@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap'
 import Icon from 'react-fa'
 
-export default class RidesActions extends Component {
+export default class RideActions extends Component {
   render() {
     const { rideOwner, rideId, currentUserId } = this.props
     const tooltipEdit = (

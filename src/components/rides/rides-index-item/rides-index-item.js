@@ -4,10 +4,10 @@ import { Tooltip } from 'react-bootstrap'
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
-import Stars from '../shared/Stars'
-import RenderUserAge from '../shared/RenderUserAge'
+import Stars from '../../shared/Stars'
+import RenderUserAge from '../../shared/RenderUserAge'
 
-export default class RidesIndexPageItem extends Component {
+export default class RidesIndexItem extends Component {
   render() {
     const { ride } = this.props
     const tooltipComfort = (

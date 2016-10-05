@@ -1,40 +1,42 @@
 import React, { Component, PropTypes } from 'react'
 import Router, { Link } from 'react-router'
-import { Button, Col } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
-import * as actions from '../../actions/rides'
-import RidesItem from '../../components/rides/RidesIndexSimplePageItem'
-import LoadingItem from '../../components/shared/LoadingItem'
+import * as actions from '../../../actions/rides'
+import RidesItem from '../../../components/rides/rides-index-item/rides-index-item'
+import LoadingItem from '../../../components/shared/LoadingItem'
 
 const per = 10
 
-class RidesDriverIndexPage extends Component {
+class RidesIndexPassenger extends Component {
   static PropTypes = {
-    rides: PropTypes.array.isRequired
+    isFetching: PropTypes.bool.isRequired,
+    rides: PropTypes.array.isRequired,
+    pagination: PropTypes.object.isRequired,
+    currentUserId: PropTypes.number.isRequired
   }
 
   componentDidMount() {
-    const { fetchRidesAsDriver, currentUserId } = this.props
+    const { fetchRidesAsPassenger, currentUserId } = this.props
 
     if (currentUserId) {
-      fetchRidesAsDriver(currentUserId, 1, per)
+      fetchRidesAsPassenger(currentUserId, 1, per)
     }
   }
 
   handlePageClick(e) {
-    const { fetchRidesAsDriver, currentUserId } = this.props
+    const { fetchRidesAsPassenger, currentUserId } = this.props
     var page = e.selected + 1
 
-    fetchRidesAsDriver(currentUserId, page, per)
+    fetchRidesAsPassenger(currentUserId, page, per)
   }
 
   renderRidesMain() {
     return(
       <Col xs={12}>
         <div className='heading'>
-          <div className='heading-title'>My rides as driver</div>
-          {this.renderHeadingButton()}
+          <div className='heading-title'>My rides as passenger</div>
         </div>
         {this.renderRidesList()}
       </Col>
@@ -56,18 +58,6 @@ class RidesDriverIndexPage extends Component {
             ride={ride}
           />
         )
-      )
-    }
-  }
-
-  renderHeadingButton() {
-    const { currentUserId } = this.props
-
-    if (currentUserId) {
-      return(
-        <div className='heading-button'>
-          <Link to='/rides/new'><Button bsStyle='primary' bsSize='small'>New ride</Button></Link>
-        </div>
       )
     }
   }
@@ -108,15 +98,15 @@ class RidesDriverIndexPage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.ridesDriver.isFetching,
-    rides: state.ridesDriver.items,
-    pagination: state.ridesDriver.pagination,
+    isFetching: state.ridesPassenger.isFetching,
+    rides: state.ridesPassenger.items,
+    pagination: state.ridesPassenger.pagination,
     currentUserId: state.session.id
   }
 }
 
 const mapDispatchToProps = {
-  fetchRidesAsDriver: actions.fetchRidesAsDriver
+  fetchRidesAsPassenger: actions.fetchRidesAsPassenger
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RidesDriverIndexPage)
+export default connect(mapStateToProps, mapDispatchToProps)(RidesIndexPassenger)

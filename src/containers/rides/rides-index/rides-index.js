@@ -5,11 +5,11 @@ import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
 import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
-import * as actions from '../../actions/rides'
-import RidesItem from '../../components/rides/RidesIndexPageItem'
-import RidesSearchItem from '../../components/rides/RidesSearchItem'
-import RidesFiltersContainer from '../../components/rides/RidesFiltersContainer'
-import LoadingItem from '../../components/shared/LoadingItem'
+import * as actions from '../../../actions/rides'
+import RidesIndexItem from '../../../components/rides/rides-index-item/rides-index-item'
+import RideSearch from '../../../components/rides/ride-search/ride-search'
+import RideFilters from '../../../components/rides/ride-filters/ride-filters'
+import LoadingItem from '../../../components/shared/LoadingItem'
 import Chip from 'material-ui/Chip'
 
 const per = 10
@@ -24,7 +24,7 @@ const styles = {
   }
 }
 
-class RidesIndexPage extends Component {
+class RidesIndex extends Component {
   static PropTypes = {
     isFetching: PropTypes.bool.isRequired,
     rides: PropTypes.array.isRequired,
@@ -159,12 +159,12 @@ class RidesIndexPage extends Component {
     return(
       <Row>
         <Col xs={12}>
-          <RidesFiltersContainer
+          <RideFilters
             query={query}
             filters={filters}
             onSubmit={this.handleSubmit.bind(this)}
           />
-          <RidesSearchItem
+          <RideSearch
             query={query}
             onSubmit={this.handleSubmit.bind(this)}
           />
@@ -229,4 +229,4 @@ const mapDispatchToProps = {
   fetchRides: actions.fetchRides,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RidesIndexPage)
+export default connect(mapStateToProps, mapDispatchToProps)(RidesIndex)

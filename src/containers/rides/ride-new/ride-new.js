@@ -1,10 +1,10 @@
 import React, { Component, PropTypes }  from 'react'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import * as actions from '../../actions/rides'
-import RidesNewPageForm from '../../components/rides/RidesNewPageForm'
+import * as actions from '../../../actions/rides'
+import RideNewForm from '../../../components/rides/ride-new-form/ride-new-form'
 
-class RidesNewPage extends Component {
+class RideNew extends Component {
   static propTypes = {
     ridesOptions: PropTypes.object.isRequired
   }
@@ -44,7 +44,7 @@ class RidesNewPage extends Component {
           <div className='heading'>
             <div className='heading-title'>New ride</div>
           </div>
-          <RidesNewPageForm
+          <RideNewForm
             ridesOptions={ridesOptions}
             onSubmit={this.handleSubmit.bind(this)}
           />
@@ -65,4 +65,4 @@ const mapDispatchToProps = {
   createRide: actions.createRide,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RidesNewPage)
+export default connect(mapStateToProps, mapDispatchToProps)(RideNew)

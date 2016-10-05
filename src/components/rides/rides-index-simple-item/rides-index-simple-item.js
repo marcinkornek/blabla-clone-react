@@ -4,9 +4,9 @@ import { Tooltip } from 'react-bootstrap'
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
-import Stars from '../shared/Stars'
+import Stars from '../../shared/Stars'
 
-export default class RidesIndexSimplePageItem extends Component {
+export default class RidesIndexSimpleItem extends Component {
   render() {
     const { ride } = this.props
     const tooltipComfort = (

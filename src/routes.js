@@ -23,12 +23,12 @@ const {
   CarEdit,
   CarsIndex,
 
-  RidesNewPage,
-  RidesIndexPage,
-  RidesDriverIndexPage,
-  RidesPassengerIndexPage,
-  RidesShowPage,
-  RidesEditPage,
+  RideNew,
+  RideShow,
+  RideEdit,
+  RidesIndex,
+  RidesIndexDriver,
+  RidesIndexPassenger,
 
   NotificationsIndexPage,
 } = components
@@ -86,10 +86,10 @@ export const createRoutes = (store) => {
         <Route name='carsEdit' path='/account/cars/:carId/edit' component={CarEdit} onEnter={checkPermission(store, cons.Permissions.USER)} />
         <Route name='carsNew' path='/cars/new' component={CarNew} onEnter={checkPermission(store, cons.Permissions.USER)} />
 
-        <Route name='ridesDriverIndex' path='/account/rides_as_driver' component={RidesDriverIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='ridesPassengerIndex' path='/account/rides_as_passenger' component={RidesPassengerIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='ridesDriverIndex' path='/account/rides_as_driver/:rideId/edit' component={RidesEditPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='carsNew' path='/rides/new' component={RidesNewPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='ridesDriverIndex' path='/account/rides_as_driver' component={RidesIndexDriver} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='ridesPassengerIndex' path='/account/rides_as_passenger' component={RidesIndexPassenger} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='ridesDriverIndex' path='/account/rides_as_driver/:rideId/edit' component={RideEdit} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='carsNew' path='/rides/new' component={RideNew} onEnter={checkPermission(store, cons.Permissions.USER)} />
 
         <Route name='notificationsIndex' path='/notifications' component={NotificationsIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
       </Route>
@@ -97,8 +97,8 @@ export const createRoutes = (store) => {
       <Route name='home' path='/' component={Home} />
       <Route name='usersShow' path='/users/:userId' component={UserShow} />
       <Route name='carsShow' path='/cars/:carId' component={CarShow} />
-      <Route name='ridesIndex'  path='/rides' component={RidesIndexPage} />
-      <Route name='ridesShow' path='/rides/:rideId' component={RidesShowPage} />
+      <Route name='ridesIndex'  path='/rides' component={RidesIndex} />
+      <Route name='ridesShow' path='/rides/:rideId' component={RideShow} />
       <Route name='notAuthorized' path='/403' component={Home} />
 
       <Route requireNoAuth>

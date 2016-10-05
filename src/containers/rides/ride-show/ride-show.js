@@ -6,14 +6,14 @@ import Time from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
 import TimeAgo from 'react-timeago'
-import * as actions from '../../actions/rides'
-import * as rrActions from '../../actions/ride_requests'
-import RidesActions from '../../components/rides/RidesActions'
-import RideOfferForm from '../../components/rides/RideOfferForm'
-import RideRequestsIndexItem from '../../components/rides/RideRequestsIndexItem'
+import * as actions from '../../../actions/rides'
+import * as rrActions from '../../../actions/ride_requests'
+import RideActions from '../../../components/rides/ride-actions/ride-actions'
+import RideOfferForm from '../../../components/rides/ride-offer-form/ride-offer-form'
+import RideRequestsIndexItem from '../../../components/rides/ride-requests-index-item/ride-requests-index-item'
 import Paper from 'material-ui/Paper'
 import Avatar from 'material-ui/Avatar'
-import RenderUserAge from '../../components/shared/RenderUserAge'
+import RenderUserAge from '../../../components/shared/RenderUserAge'
 
 const styles = {
   avatarStyle: {
@@ -21,7 +21,7 @@ const styles = {
   }
 }
 
-class RidesShowPage extends Component {
+class RideShow extends Component {
   static PropTypes = {
     ride: PropTypes.object.isRequired,
     currentUserId: PropTypes.number
@@ -282,4 +282,4 @@ const mapDispatchToProps = {
   changeRideRequest: rrActions.changeRideRequest
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RidesShowPage)
+export default connect(mapStateToProps, mapDispatchToProps)(RideShow)

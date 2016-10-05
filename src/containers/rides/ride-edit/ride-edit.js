@@ -1,11 +1,11 @@
 import React, { Component, PropTypes }  from 'react'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import * as actions from '../../actions/rides'
-import RidesEditPageForm from '../../components/rides/RidesEditPageForm'
-import LoadingItem from '../../components/shared/LoadingItem'
+import * as actions from '../../../actions/rides'
+import RideEditForm from '../../../components/rides/ride-edit-form/ride-edit-form'
+import LoadingItem from '../../../components/shared/LoadingItem'
 
-class RidesEditPage extends Component {
+class RideEdit extends Component {
   static propTypes = {
     isFetching: PropTypes.bool.isRequired,
     ridesOptions: PropTypes.object.isRequired
@@ -49,7 +49,7 @@ class RidesEditPage extends Component {
       return(<LoadingItem />)
     } else {
       return(
-        <RidesEditPageForm
+        <RideEditForm
           ridesOptions={ridesOptions}
           onSubmit={this.handleSubmit.bind(this)}
         />
@@ -84,4 +84,4 @@ const mapDispatchToProps = {
   updateRide: actions.updateRide
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RidesEditPage)
+export default connect(mapStateToProps, mapDispatchToProps)(RideEdit)

@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
-import { renderTextField } from '../shared/RenderTextField'
-import { renderGeoTextField } from '../shared/RenderGeoTextField'
-import { renderSelectField } from '../shared/RenderSelectField'
+import { renderTextField } from '../../shared/RenderTextField'
+import { renderGeoTextField } from '../../shared/RenderGeoTextField'
+import { renderSelectField } from '../../shared/RenderSelectField'
 import MenuItem from 'material-ui/MenuItem'
-import DatePicker from '../inputs/DatePicker'
-import RideValidator from './RideValidator'
+import DatePicker from '../../inputs/DatePicker'
+import RideValidator from '../ride-validator/ride-validator'
 
-class RidesEditPageForm extends Component {
+class RideNewForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }
@@ -35,6 +34,7 @@ class RidesEditPageForm extends Component {
           component={DatePicker}
           floatingLabelText="Start date"
           className='date-input'
+          value={null} // DatePicker requires an object, and redux-form defaults to ''
           minDate={new Date()} />
         <Field name="car_id" component={renderSelectField} label="Car">
           {_.map(cars, (n) => n)}
@@ -50,15 +50,7 @@ class RidesEditPageForm extends Component {
   }
 }
 
-RidesEditPageForm = reduxForm({
-  form: 'RidesEditPageForm',
+export default reduxForm({
+  form: 'RideNewForm',
   validate: RideValidator,
-})(RidesEditPageForm)
-
-RidesEditPageForm = connect(
-  state => ({
-    initialValues: state.ride
-  })
-)(RidesEditPageForm)
-
-export default RidesEditPageForm
+})(RideNewForm)

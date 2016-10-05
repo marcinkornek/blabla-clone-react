@@ -10,7 +10,7 @@ const styles = {
   }
 }
 
-export default class RidesDriverIndexTabsPage extends Component {
+export default class RidesIndexDriverTabs extends Component {
   constructor(props) {
     super(props)
     this.state = {
