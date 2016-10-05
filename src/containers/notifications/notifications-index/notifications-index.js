@@ -3,13 +3,13 @@ import Router, { Link } from 'react-router'
 import { Button, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
-import * as actions from '../../actions/notifications'
-import NotificationsItem from '../../components/notifications/NotificationsItem'
-import LoadingItem from '../../components/shared/LoadingItem'
+import * as actions from '../../../actions/notifications'
+import NotificationsItem from '../../../components/notifications/notifications-item/notifications-item'
+import LoadingItem from '../../../components/shared/LoadingItem'
 
 const per = 10
 
-class NotificationsIndexPage extends Component {
+class NotificationsIndex extends Component {
   static PropTypes = {
     isFetching: PropTypes.bool.isRequired,
     notifications: PropTypes.array.isRequired,
@@ -118,4 +118,4 @@ const mapDispatchToProps = {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationsIndexPage)
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationsIndex)

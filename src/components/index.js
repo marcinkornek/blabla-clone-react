@@ -20,4 +20,4 @@ export { default as RidesIndex } from '../containers/rides/rides-index/rides-ind
 export { default as RidesIndexDriver } from '../containers/rides/rides-index-driver/rides-index-driver'
 export { default as RidesIndexPassenger } from '../containers/rides/rides-index-passenger/rides-index-passenger'
 
-export { default as NotificationsIndexPage } from '../containers/notifications/NotificationsIndexPage'
+export { default as NotificationsIndex } from '../containers/notifications/notifications-index/notifications-index'

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import NotificationsItem from './NotificationsItem'
+import NotificationsItem from '../notifications-item/notifications-item'
 import List from 'material-ui/List/List'
 import { Link } from 'react-router'
 
