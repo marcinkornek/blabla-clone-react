@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
-import { renderTextField } from '../shared/RenderTextField'
-import LoginValidator from './LoginValidator'
+import { renderTextField } from '../../shared/RenderTextField'
+import LoginValidator from '../login-validator/login-validator'
 
-class LoginEmailPage extends Component {
+class LoginEmail extends Component {
   constructor (props, context) {
     super(props, context)
 
@@ -50,6 +50,6 @@ class LoginEmailPage extends Component {
 }
 
 export default reduxForm({
-  form: 'LoginEmailPage',
+  form: 'LoginEmail',
   validate: LoginValidator
-})(LoginEmailPage)
+})(LoginEmail)

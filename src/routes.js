@@ -11,7 +11,7 @@ const {
   Application,
   Header,
   Home,
-  LoginPage,
+  Login,
 
   UserNew,
   UserShow,
@@ -102,7 +102,7 @@ export const createRoutes = (store) => {
       <Route name='notAuthorized' path='/403' component={Home} />
 
       <Route requireNoAuth>
-        <Route name='login' path='/login' component={LoginPage} />
+        <Route name='login' path='/login' component={Login} />
         <Route name='register' path='/register' component={UserNew} />
       </Route>
     </Route>

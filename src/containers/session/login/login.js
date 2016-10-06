@@ -2,11 +2,11 @@ import React, { Component, PropTypes } from "react"
 import { Col, Alert } from "react-bootstrap"
 import { connect } from "react-redux"
 import Router, { Link } from "react-router"
-import LoginFbPage from "../../components/session/LoginFbPage"
-import LoginEmailPage from "../../components/session/LoginEmailPage"
-import * as actions from "../../actions/session"
+import LoginFb from "../../../components/session/login-fb/login-fb"
+import LoginEmail from "../../../components/session/login-email/login-email"
+import * as actions from "../../../actions/session"
 
-class LoginPage extends Component {
+class Login extends Component {
   static propTypes = {
     errors: PropTypes.array,
     isFetching: PropTypes.bool.isRequired,
@@ -57,13 +57,13 @@ class LoginPage extends Component {
           <Col xs={12} md={8} mdOffset={2} className="display-table">
             <div className="login-form">
               <h3 className="login-form__title">Login</h3>
-              <LoginFbPage
+              <LoginFb
                 onDataReceive={text =>
                   logInFbBackend(this.context.router, text)
                 }
               />
               <div className="login-button__separator">or</div>
-              <LoginEmailPage
+              <LoginEmail
                 errors={errors}
                 onSubmit={this.handleSubmit.bind(this)}
               />
@@ -93,4 +93,4 @@ const mapDispatchToProps = {
   logInFbBackend: actions.logInFbBackend
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

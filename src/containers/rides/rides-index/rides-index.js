@@ -124,7 +124,7 @@ class RidesIndex extends Component {
     } else {
       return(
          rides.map((ride, i) =>
-          <RidesItem
+          <RidesIndexItem
             key={i}
             ride={ride}
           />

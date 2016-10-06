@@ -1,7 +1,7 @@
 export { default as Application }      from '../containers/Application'
 export { default as HeaderNew }        from './HeaderNew'
 export { default as Home }             from './Home'
-export { default as LoginPage }        from '../containers/session/LoginPage'
+export { default as Login } from '../containers/session/login/login'
 
 export { default as UserNew } from '../containers/users/user-new/user-new'
 export { default as UserShow } from '../containers/users/user-show/user-show'
