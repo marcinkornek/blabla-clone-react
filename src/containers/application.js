@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import HeaderNew from '../components/HeaderNew'
+import Header from '../components/header/header/header'
 import * as actions from '../actions/session'
 import * as notificationActions from '../actions/notifications'
 import * as userActions from '../actions/users'
@@ -48,7 +48,7 @@ class Application extends Component {
 
     return (
       <div>
-        <HeaderNew
+        <Header
           isLoggedIn={isLoggedIn}
           isFetching={isFetching}
           currentUser={currentUser}

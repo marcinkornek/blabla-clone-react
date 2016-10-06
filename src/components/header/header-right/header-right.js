@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import ContentAddBox from 'material-ui/svg-icons/content/add-box'
 import IconButton from 'material-ui/IconButton'
 import ActionSearch from 'material-ui/svg-icons/action/search'
-import HeaderNotifications from './HeaderNotifications'
+import HeaderNotifications from '../header-notifications/header-notifications'
 
 const styles = {
   button: {

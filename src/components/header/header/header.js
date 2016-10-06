@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react'
 import AppBar from 'material-ui/AppBar'
-import AppNavDrawer from './AppNavDrawer'
-import HeaderRight from './HeaderRight'
+import AppNavDrawer from '../../app-nav-drawer'
+import HeaderRight from '../header-right/header-right'
 
-export default class HeaderNew extends Component {
+export default class Header extends Component {
   static propTypes = {
     children: PropTypes.node,
     location: PropTypes.object,
