@@ -4,8 +4,8 @@ import { Tooltip } from 'react-bootstrap'
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
-import Stars from '../../shared/Stars'
-import RenderUserAge from '../../shared/RenderUserAge'
+import Stars from '../../shared/stars/stars'
+import RenderUserAge from '../../shared/render-user-age/render-user-age'
 
 export default class RidesIndexItem extends Component {
   render() {

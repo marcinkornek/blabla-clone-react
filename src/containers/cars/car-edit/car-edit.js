@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import _ from 'underscore'
 import * as actions from '../../../actions/cars'
 import CarEditForm from '../../../components/cars/car-edit-form/car-edit-form'
-import LoadingItem from '../../../components/shared/LoadingItem'
+import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
 class CarEdit extends Component {
   static PropTypes = {

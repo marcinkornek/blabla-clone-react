@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate'
 import * as actions from '../../../actions/users';
 import UsersItem from '../../../components/users/users-index-item/users-index-item'
 import List from 'material-ui/List/List'
-import LoadingItem from '../../../components/shared/LoadingItem'
+import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
 const per = 10
 

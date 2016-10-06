@@ -7,7 +7,7 @@ import * as actions from '../../../actions/users';
 import CarsItem from '../../../components/cars/cars-index-item/cars-index-item'
 import RidesItem from '../../../components/rides/rides-index-simple-item/rides-index-simple-item'
 import Avatar from 'material-ui/Avatar'
-import RenderUserAge from '../../../components/shared/RenderUserAge'
+import RenderUserAge from '../../../components/shared/render-user-age/render-user-age'
 
 class UserShow extends Component {
   static PropTypes = {

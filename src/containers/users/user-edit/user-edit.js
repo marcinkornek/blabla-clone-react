@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import * as actions from '../../../actions/users'
 import UserEditForm from '../../../components/users/user-edit-form/user-edit-form'
-import LoadingItem from '../../../components/shared/LoadingItem'
+import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
 class UserEdit extends Component {
   static PropTypes = {

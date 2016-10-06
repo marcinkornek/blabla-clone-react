@@ -3,7 +3,7 @@ import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as actions from '../../../actions/rides'
 import RideEditForm from '../../../components/rides/ride-edit-form/ride-edit-form'
-import LoadingItem from '../../../components/shared/LoadingItem'
+import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
 class RideEdit extends Component {
   static propTypes = {

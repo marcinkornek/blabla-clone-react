@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Panel } from 'react-bootstrap'
 import CarsActions from '../car-actions/car-actions'
-import Stars from '../../shared/Stars'
+import Stars from '../../shared/stars/stars'
 
 export default class CarsIndexItem extends Component {
   renderCarsActions() {

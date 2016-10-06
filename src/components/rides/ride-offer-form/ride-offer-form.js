@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
-import { renderSelectField } from '../../shared/RenderSelectField'
 import SelectField from '../../inputs/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import pluralize from 'pluralize'

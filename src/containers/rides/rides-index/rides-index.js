@@ -9,7 +9,7 @@ import * as actions from '../../../actions/rides'
 import RidesIndexItem from '../../../components/rides/rides-index-item/rides-index-item'
 import RideSearch from '../../../components/rides/ride-search/ride-search'
 import RideFilters from '../../../components/rides/ride-filters/ride-filters'
-import LoadingItem from '../../../components/shared/LoadingItem'
+import LoadingItem from '../../../components/shared/loading-item/loading-item'
 import Chip from 'material-ui/Chip'
 
 const per = 10

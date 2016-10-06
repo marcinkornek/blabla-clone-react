@@ -6,7 +6,7 @@ import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import * as actions from '../../../actions/cars';
 import CarsActions from '../../../components/cars/car-actions/car-actions'
-import Stars from '../../../components/shared/Stars'
+import Stars from '../../../components/shared/stars/stars'
 
 class CarShow extends Component {
   static PropTypes = {

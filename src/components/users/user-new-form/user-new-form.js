@@ -1,10 +1,10 @@
 import React, { Component, PropTypes }   from 'react'
 import { reduxForm, Field } from 'redux-form'
-import { renderTextField } from '../../shared/RenderTextField'
-import { renderRadioGroup } from '../../shared/RenderRadioGroup'
+import { renderTextField } from '../../shared/render-text-field/render-text-field'
+import { renderRadioGroup } from '../../shared/render-radio-group/render-radio-group'
 import { RadioButton } from 'material-ui/RadioButton'
 import DatePicker from '../../inputs/DatePicker'
-import Dropzone from 'react-dropzone';
+import Dropzone from 'react-dropzone'
 import UserNewValidator from '../user-new-validator/user-new-validator'
 import asyncValidate from '../async-email-validate/async-email-validate'
 

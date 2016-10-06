@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
 import * as actions from '../../../actions/cars'
 import CarsIndexItem from '../../../components/cars/cars-index-item/cars-index-item'
-import LoadingItem from '../../../components/shared/LoadingItem'
+import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
 const per = 10
 

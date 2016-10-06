@@ -4,7 +4,7 @@ import { Tooltip } from 'react-bootstrap'
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
-import Stars from '../../shared/Stars'
+import Stars from '../../shared/stars/stars'
 
 export default class RidesIndexSimpleItem extends Component {
   render() {

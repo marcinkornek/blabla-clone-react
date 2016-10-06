@@ -13,7 +13,7 @@ import RideOfferForm from '../../../components/rides/ride-offer-form/ride-offer-
 import RideRequestsIndexItem from '../../../components/rides/ride-requests-index-item/ride-requests-index-item'
 import Paper from 'material-ui/Paper'
 import Avatar from 'material-ui/Avatar'
-import RenderUserAge from '../../../components/shared/RenderUserAge'
+import RenderUserAge from '../../../components/shared/render-user-age/render-user-age'
 
 const styles = {
   avatarStyle: {

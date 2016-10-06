@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
-import { renderGeoTextField } from '../../shared/RenderGeoTextField'
+import { renderGeoTextField } from '../../shared/render-geo-text-field/render-geo-text-field'
 import DatePicker from '../../inputs/DatePicker'
 import classNames from 'classnames'
 

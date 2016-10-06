@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
 import * as actions from '../../../actions/notifications'
 import NotificationsItem from '../../../components/notifications/notifications-item/notifications-item'
-import LoadingItem from '../../../components/shared/LoadingItem'
+import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
 const per = 10
 

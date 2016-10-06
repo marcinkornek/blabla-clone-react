@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
-import { renderTextField } from '../../shared/RenderTextField'
+import { renderTextField } from '../../shared/render-text-field/render-text-field'
 import LoginValidator from '../login-validator/login-validator'
 
 class LoginEmail extends Component {
