@@ -6,6 +6,6 @@ const LoadingItem = () => (
     <Icon spin name="spinner" />
     Loading..
   </div>
-);
+)
 
 export default LoadingItem
