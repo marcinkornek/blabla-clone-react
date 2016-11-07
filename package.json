@@ -69,7 +69,15 @@
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.1.0",
     "redux-devtools-log-monitor": "^1.0.5",
-    "redux-logger": "^2.6.1"
+    "redux-logger": "^2.6.1",
+    "chai": "^3.5.0",
+    "chai-enzyme": "^0.5.0",
+    "chai-sorted": "0.1.0",
+    "enzyme": "^2.4.1",
+    "mocha": "^2.5.3",
+    "mocha-clean": "~1.0.0",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0"
   },
   "scripts": {
     "start": "node server.js",
