@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Drawer from 'material-ui/Drawer'
-import { List, ListItem, MakeSelectable } from 'material-ui/List'
+import { List, ListItem, makeSelectable } from 'material-ui/List'
 import Divider from 'material-ui/Divider'
 import { spacing, typography, zIndex } from 'material-ui/styles'
 import { cyan500 } from 'material-ui/styles/colors'
@@ -17,7 +17,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Avatar from 'material-ui/Avatar'
 import { Link } from 'react-router'
 
-const SelectableList = MakeSelectable(List);
+const SelectableList = makeSelectable(List);
 
 const styles = {
   logo: {
