@@ -1,5 +1,8 @@
+// utils
 import React, { PropTypes, Component } from 'react'
 import AppBar from 'material-ui/AppBar'
+
+// components
 import AppNavDrawer from '../../app-nav-drawer'
 import HeaderRight from '../header-right/header-right'
 

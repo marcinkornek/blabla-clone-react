@@ -1,10 +1,13 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import Badge from 'material-ui/Badge'
 import IconButton from 'material-ui/IconButton'
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications'
-import { Popover, PopoverAnimationVertical } from 'material-ui/Popover';
+import { Popover, PopoverAnimationVertical } from 'material-ui/Popover'
 import MenuItem from 'material-ui/MenuItem'
 import Menu from 'material-ui/Menu'
+
+// components
 import NotificationsList from '../../notifications/notifications-list/notifications-list'
 
 const styles = {
@@ -12,7 +15,7 @@ const styles = {
     padding: 0,
     color: 'white',
     top: -5,
-    right: -5
+    right: -5,
   },
   badgeEmptyStyle: {
     display: 'none',
@@ -22,12 +25,8 @@ const styles = {
   },
   fullIconStyle: {
     color: 'white',
-    verticalAlign: 'middle'
+    verticalAlign: 'middle',
   },
-  emptyIconStyle: {
-    color: 'white',
-    verticalAlign: 'middle'
-  }
 }
 
 export default class HeaderNotifications extends React.Component {
@@ -40,7 +39,6 @@ export default class HeaderNotifications extends React.Component {
   }
 
   handleTouchTap = (event) => {
-    // This prevents ghost click.
     event.preventDefault()
 
     this.setState({
@@ -59,13 +57,13 @@ export default class HeaderNotifications extends React.Component {
     const { notifications } = this.props
     return(
       <Badge
-        className="header__notifications__button"
+        className='header__notifications__button'
         badgeContent={notifications.pagination.unread_count || 0}
         primary={true}
         badgeStyle={notifications.pagination.unread_count > 0 ? styles.badgeStyle : styles.badgeEmptyStyle}
       >
         <IconButton
-          tooltip="Notifications"
+          tooltip='Notifications'
           iconStyle={styles.iconButtonStyle}
           onTouchTap={this.handleTouchTap}
         >
