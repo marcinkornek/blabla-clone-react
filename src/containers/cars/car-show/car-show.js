@@ -1,23 +1,41 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux';
 import { Grid } from 'react-bootstrap'
-import { Link } from 'react-router';
-import Timestamp from 'react-time'
-import Icon from 'react-fa'
-import * as actions from '../../../actions/cars';
+
+// actions
+import { fetchCar } from '../../../actions/cars';
+
+// components
 import CarsActions from '../../../components/cars/car-actions/car-actions'
 import Stars from '../../../components/shared/stars/stars'
+import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
 class CarShow extends Component {
   static PropTypes = {
-    car: PropTypes.array.isRequired,
+    car: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     currentUserId: PropTypes.number
   }
 
   componentDidMount() {
     const { fetchCar, params: { carId } } = this.props
-
     fetchCar(carId)
+  }
+
+  renderCarShow() {
+    const { car, isLoading } = this.props
+
+    if (!isLoading && car) {
+      return (
+        <div>
+          {this.renderCarPhoto()}
+          {this.renderCarDetails()}
+        </div>
+      )
+    } else {
+      return(<LoadingItem />)
+    }
   }
 
   renderCarPhoto() {
@@ -57,8 +75,7 @@ class CarShow extends Component {
   render() {
     return (
       <Grid className='car'>
-        {this.renderCarPhoto()}
-        {this.renderCarDetails()}
+        {this.renderCarShow()}
       </Grid>
     )
   }
@@ -66,13 +83,14 @@ class CarShow extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    car: state.car,
-    currentUserId: state.session.id
+    car: state.car.item,
+    isFetching: state.car.isFetching,
+    currentUserId: state.session.id,
   }
 }
 
 const mapDispatchToProps = {
-  fetchCar: actions.fetchCar
+  fetchCar
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarShow)

@@ -2,7 +2,8 @@ import * as types from '../constants/ActionTypes'
 
 const initialState = {
   isSaving: false,
-  isFetching: false
+  isFetching: false,
+  item: undefined,
 }
 
 export default function car(state = initialState, action) {
@@ -16,8 +17,11 @@ export default function car(state = initialState, action) {
     return {
       ...state,
       isFetching: false,
-      ...action.item
+      item: action.item
     };
+  case types.CAR_INITIALIZE:
+    console.log('initialState');
+    return initialState;
   case types.CAR_UPDATE_REQUEST:
     return {
       ...state,
@@ -27,7 +31,7 @@ export default function car(state = initialState, action) {
     return {
       ...state,
       isSaving: false,
-      ...action.item
+      item: action.item
     };
   default:
     return state;

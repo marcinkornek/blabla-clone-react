@@ -1,10 +1,14 @@
+// utils
 import React, { Component, PropTypes } from 'react'
-import Router, { Link } from 'react-router'
 import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import _ from 'underscore'
-import * as actions from '../../../actions/cars'
-import CarEditForm from '../../../components/cars/car-edit-form/car-edit-form'
+
+// actions
+import { fetchCarsOptions, fetchCar, updateCar } from '../../../actions/cars'
+
+// components
+import CarForm from '../../../components/cars/car-form/car-form'
 import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
 class CarEdit extends Component {
@@ -13,22 +17,16 @@ class CarEdit extends Component {
     carsOptions: PropTypes.object.isRequired
   }
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  }
-
   componentDidMount() {
     const { fetchCar, fetchCarsOptions, params: { carId } } = this.props
 
     fetchCarsOptions()
-    if (carId) {
-      fetchCar(carId)
-    }
+    if (carId) fetchCar(carId)
   }
 
   handleSubmit(data) {
     const { updateCar } = this.props
-    var body = new FormData()
+    let body = new FormData()
 
     Object.keys(data).forEach((key) => {
       if (key == 'car_photo') {
@@ -37,21 +35,22 @@ class CarEdit extends Component {
         if (data[key]) { body.append(key, data[key]) }
       }
     })
-    updateCar(this.context.router, body, data.id)
+    updateCar(body, data.id)
   }
 
-  renderCarEditForm() {
-    const { isFetching, carsOptions } = this.props
+  renderCarForm() {
+    const { isFetching, carsOptions, car } = this.props
 
-    if (isFetching) {
-      return(<LoadingItem />)
-    } else {
+    if (!isFetching && carsOptions) {
       return(
-        <CarEditForm
+        <CarForm
           onSubmit={this.handleSubmit.bind(this)}
           carsOptions={carsOptions}
+          car={car}
         />
       )
+    } else {
+      return(<LoadingItem />)
     }
   }
 
@@ -62,7 +61,7 @@ class CarEdit extends Component {
           <div className='heading'>
             <div className='heading-title'>Edit car</div>
           </div>
-          {this.renderCarEditForm()}
+          {this.renderCarForm()}
         </Col>
       </div>
     )
@@ -71,15 +70,16 @@ class CarEdit extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    car: state.car.item,
     isFetching: state.car.isFetching,
     carsOptions: state.carsOptions
   }
 }
 
 const mapDispatchToProps = {
-  fetchCarsOptions: actions.fetchCarsOptions,
-  fetchCar: actions.fetchCar,
-  updateCar: actions.updateCar
+  fetchCarsOptions,
+  fetchCar,
+  updateCar
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarEdit)

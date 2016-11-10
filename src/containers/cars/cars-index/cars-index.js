@@ -1,9 +1,14 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import Router, { Link } from 'react-router'
 import { Button, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
-import * as actions from '../../../actions/cars'
+
+// actions
+import { fetchCars } from '../../../actions/cars'
+
+// components
 import CarsIndexItem from '../../../components/cars/cars-index-item/cars-index-item'
 import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
@@ -20,9 +25,7 @@ class CarsIndex extends Component {
   componentDidMount() {
     const { fetchCars, currentUserId } = this.props
 
-    if (currentUserId) {
-      fetchCars(currentUserId, 1, per)
-    }
+    if (currentUserId) fetchCars(currentUserId, 1, per)
   }
 
   handlePageClick(e) {
@@ -72,16 +75,16 @@ class CarsIndex extends Component {
     if (pagination.total_pages > 1) {
       return(
         <div>
-          <ReactPaginate previousLabel={"previous"}
-            nextLabel={"next"}
-            breakLabel={<a href="">...</a>}
+          <ReactPaginate previousLabel={'previous'}
+            nextLabel={'next'}
+            breakLabel={<a href=''>...</a>}
             pageNum={pagination.total_pages}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
             clickCallback={this.handlePageClick.bind(this)}
-            containerClassName={"pagination"}
-            subContainerClassName={"pages pagination"}
-            activeClassName={"active"}
+            containerClassName={'pagination'}
+            subContainerClassName={'pages pagination'}
+            activeClassName={'active'}
           />
         </div>
       )
@@ -110,8 +113,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  fetchCars: actions.fetchCars
+  fetchCars
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarsIndex)

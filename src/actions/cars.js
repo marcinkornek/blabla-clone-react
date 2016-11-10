@@ -1,6 +1,7 @@
 import 'whatwg-fetch'
 import * as types from '../constants/ActionTypes'
 import * as cons  from '../constants/constants'
+import { push } from 'react-router-redux'
 
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -60,7 +61,7 @@ export function fetchCarsOptions() {
   }
 }
 
-export function createCar(router, body) {
+export function createCar(body) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(carCreateRequest())
@@ -75,12 +76,12 @@ export function createCar(router, body) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(carCreateSuccess(router, json)))
+    .then(json => dispatch(carCreateSuccess(json)))
     .catch(errors => dispatch(carCreateFailure(errors)))
   }
 }
 
-export function updateCar(router, body, id) {
+export function updateCar(body, id) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(carUpdateRequest())
@@ -95,8 +96,14 @@ export function updateCar(router, body, id) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(carUpdateSuccess(router, json)))
+    .then(json => dispatch(carUpdateSuccess(json)))
     .catch(errors => dispatch(carUpdateFailure(errors)))
+  }
+}
+
+export function initializeCar() {
+  return {
+    type: types.CAR_INITIALIZE
   }
 }
 
@@ -167,13 +174,13 @@ export function carCreateRequest() {
   }
 }
 
-export function carCreateSuccess(router, json) {
+export function carCreateSuccess(json) {
   return (dispatch, getState) => {
     dispatch({
       type: types.CAR_CREATE_SUCCESS,
       item: json
     })
-    router.replace('/account/cars')
+    dispatch(push('/account/cars'))
   }
 }
 
@@ -190,13 +197,13 @@ export function carUpdateRequest() {
   }
 }
 
-export function carUpdateSuccess(router, json) {
+export function carUpdateSuccess(json) {
   return (dispatch, getState) => {
     dispatch({
       type: types.CAR_UPDATE_SUCCESS,
       item: json
     })
-    router.replace('/account/cars')
+    dispatch(push('/account/cars'))
   }
 }
 

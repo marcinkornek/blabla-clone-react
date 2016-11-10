@@ -1,15 +1,21 @@
+// utils
 import React, { Component, PropTypes }   from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
-import { renderTextField } from '../../shared/render-text-field/render-text-field'
-import { renderSelectField } from '../../shared/render-select-field/render-select-field'
-import CarValidator from '../car-validator/car-validator'
 import MenuItem from 'material-ui/MenuItem'
 import Dropzone from 'react-dropzone'
 
-class CarEditForm extends Component {
+// form validator
+import CarValidator from '../car-validator/car-validator'
+
+// components
+import { renderTextField } from '../../shared/render-text-field/render-text-field'
+import { renderSelectField } from '../../shared/render-select-field/render-select-field'
+
+class CarForm extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    carsOptions: PropTypes.object.isRequired,
   }
 
   render() {
@@ -31,23 +37,23 @@ class CarEditForm extends Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        <Field name="brand" type="text" component={renderTextField} label="Brand"/>
-        <Field name="model" type="text" component={renderTextField} label="Model"/>
-        <Field name="places" type="text" component={renderTextField} label="Places"/>
-        <Field name="production_year" type="text" component={renderTextField} label="Production year"/>
+        <Field name='brand' type='text' component={renderTextField} label='Brand'/>
+        <Field name='model' type='text' component={renderTextField} label='Model'/>
+        <Field name='places' type='text' component={renderTextField} label='Places'/>
+        <Field name='production_year' type='text' component={renderTextField} label='Production year'/>
 
-        <Field name="color" component={renderSelectField} label="Color">
+        <Field name='color' component={renderSelectField} label='Color'>
           {_.map(colors, (n) => n)}
         </Field>
-        <Field name="comfort" component={renderSelectField} label="Comfort">
+        <Field name='comfort' component={renderSelectField} label='Comfort'>
           {_.map(comforts, (n) => n)}
         </Field>
-        <Field name="category" component={renderSelectField} label="Category">
+        <Field name='category' component={renderSelectField} label='Category'>
           {_.map(categories, (n) => n)}
         </Field>
         <div className='file-input'>
           <label>Car photo</label>
-          <Field name="car_photo" component={props =>
+          <Field name='car_photo' component={props =>
             <Dropzone
               {...props.input}
               multiple={false}
@@ -58,7 +64,7 @@ class CarEditForm extends Component {
             >
               <div>Try dropping a file here, or click to select file to upload.</div>
             </Dropzone>
-            } type="file" />
+            } type='file' />
           {this.files &&
             <div className='user-avatar__preview'>
               <div className='user-avatar__preview-title'>Preview</div>
@@ -72,21 +78,21 @@ class CarEditForm extends Component {
           }
         </div>
 
-        <button type="submit" className="btn btn-default form-submit">Submit</button>
+        <button type='submit' className='btn btn-default form-submit'>Submit</button>
       </form>
     )
   }
 }
 
-CarEditForm = reduxForm({
-  form: 'CarEditForm',
+CarForm = reduxForm({
+  form: 'CarForm',
   validate: CarValidator
-})(CarEditForm)
+})(CarForm)
 
-CarEditForm = connect(
-  state => ({
-    initialValues: state.car
+CarForm = connect(
+  (state, props) => ({
+    initialValues: props.car
   })
-)(CarEditForm)
+)(CarForm)
 
-export default CarEditForm
+export default CarForm
