@@ -17,13 +17,13 @@ config.devServer = {
   historyApiFallback: true,
 };
 
-config.plugins.push(
+config.plugins = [
   new WebpackNotifierPlugin(),
   new webpack.NoErrorsPlugin(),
   new webpack.DefinePlugin({
     __DEVELOPMENT__: true,
     __DEVTOOLS__: false
   })
-);
+];
 
 module.exports = config;

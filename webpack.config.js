@@ -1,6 +1,6 @@
 var webpack = require('webpack');
-var path = require('path')
-require('es6-promise').polyfill()
+var path = require('path');
+require('es6-promise').polyfill();
 
 module.exports = {
   entry: [
