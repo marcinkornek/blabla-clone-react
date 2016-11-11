@@ -58,6 +58,7 @@
     "redux-form": "^6.0.1",
     "redux-thunk": "^2.0.1",
     "sass-loader": "^4.0.2",
+    "scripty": "^1.7.0",
     "style-loader": "^0.13.1",
     "underscore": "^1.8.3",
     "url-loader": "^0.5.6",
@@ -66,27 +67,28 @@
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
-    "redux-devtools": "^3.1.1",
-    "redux-devtools-dock-monitor": "^1.1.0",
-    "redux-devtools-log-monitor": "^1.0.5",
-    "redux-logger": "^2.6.1",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.5.0",
     "chai-sorted": "0.1.0",
     "enzyme": "^2.4.1",
     "mocha": "^2.5.3",
     "mocha-clean": "~1.0.0",
+    "redux-devtools": "^3.1.1",
+    "redux-devtools-dock-monitor": "^1.1.0",
+    "redux-devtools-log-monitor": "^1.0.5",
+    "redux-logger": "^2.6.1",
     "sinon": "^1.17.4",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "webpack-notifier": "^1.4.1"
   },
   "scripts": {
-    "start": "node server.js",
-    "start-dev": "npm build && webpack-dev-server --config webpack-dev-server.config.js",
-    "start-hot-dev": "npm build && webpack-dev-server --config webpack-hot-dev-server.config.js",
-    "postinstall": "webpack --config webpack-production.config.js",
+    "start-dev": "npm build && webpack-dev-server --config webpack/dev.config.js",
+    "start-hot-dev": "npm build && webpack-dev-server --config webpack/hot-dev.config.js",
+    "postinstall": "webpack --config webpack/production.config.js",
     "build": "npm run clean && npm run lint",
     "lint": "eslint lib",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "test": "scripty"
   },
   "author": "Marcin Kornek <marcinkornek@gmail.com>",
   "license": "ISC"
