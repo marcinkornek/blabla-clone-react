@@ -9,7 +9,7 @@ import ReactPaginate from 'react-paginate'
 import { fetchCars } from '../../../actions/cars'
 
 // components
-import CarsIndexItem from '../../../components/cars/cars-index-item/cars-index-item'
+import { CarsIndexItem } from '../../../components/cars/cars-index-item/cars-index-item'
 import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
 const per = 10

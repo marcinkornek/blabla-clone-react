@@ -4,14 +4,14 @@ import { Link } from 'react-router'
 import { Panel } from 'react-bootstrap'
 
 // components
-import CarsActions from '../car-actions/car-actions'
+import CarActions from '../car-actions/car-actions'
 import Stars from '../../shared/stars/stars'
 
-export default class CarsIndexItem extends Component {
+export class CarsIndexItem extends Component {
   renderCarsActions() {
     const { car, currentUserId } = this.props
     if (car.owner_id === currentUserId) {
-      return(<CarsActions carId={car.id} />)
+      return(<CarActions carId={car.id} />)
     }
   }
 

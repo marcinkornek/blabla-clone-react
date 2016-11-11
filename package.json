@@ -68,10 +68,10 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-enzyme": "^0.5.0",
+    "chai-enzyme": "^0.6.0",
     "chai-sorted": "0.1.0",
     "enzyme": "^2.4.1",
-    "mocha": "^2.5.3",
+    "mocha": "^3.1.2",
     "mocha-clean": "~1.0.0",
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.1.0",
