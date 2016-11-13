@@ -1,5 +1,12 @@
 import 'whatwg-fetch'
-import * as types from '../constants/ActionTypes'
+import {
+  RIDE_REQUEST_CREATE_REQUEST,
+  RIDE_REQUEST_CREATE_SUCCESS,
+  RIDE_REQUEST_CREATE_FAILURE,
+  RIDE_REQUEST_CHANGE_REQUEST,
+  RIDE_REQUEST_CHANGE_SUCCESS,
+  RIDE_REQUEST_CHANGE_FAILURE,
+} from '../constants/ActionTypes'
 import * as cons  from '../constants/constants'
 
 function status(response) {
@@ -58,13 +65,13 @@ export function changeRideRequest(rideRequestId, status) {
 
 export function rideRequestCreateRequest() {
   return {
-    type: types.RIDE_REQUEST_CREATE_REQUEST
+    type: RIDE_REQUEST_CREATE_REQUEST
   }
 }
 
 export function rideRequestCreateSuccess(json) {
   return {
-    type: types.RIDE_REQUEST_CREATE_SUCCESS,
+    type: RIDE_REQUEST_CREATE_SUCCESS,
     places: json.free_places_count,
     item: json
   }
@@ -72,27 +79,27 @@ export function rideRequestCreateSuccess(json) {
 
 export function rideRequestCreateFailure(errors) {
   return {
-    type: types.RIDE_REQUEST_CREATE_FAILURE,
+    type: RIDE_REQUEST_CREATE_FAILURE,
     errors: errors
   }
 }
 
 export function rideRequestChangeRequest() {
   return {
-    type: types.RIDE_REQUEST_CHANGE_REQUEST
+    type: RIDE_REQUEST_CHANGE_REQUEST
   }
 }
 
 export function rideRequestChangeSuccess(json) {
   return {
-    type: types.RIDE_REQUEST_CHANGE_SUCCESS,
+    type: RIDE_REQUEST_CHANGE_SUCCESS,
     item: json
   }
 }
 
 export function rideRequestChangeFailure(errors) {
   return {
-    type: types.RIDE_REQUEST_CHANGE_FAILURE,
+    type: RIDE_REQUEST_CHANGE_FAILURE,
     errors: errors
   }
 }

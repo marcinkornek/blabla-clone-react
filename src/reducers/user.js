@@ -1,9 +1,11 @@
 import * as types from '../constants/ActionTypes'
 
 const initialState = {
-  errors: [],
+  item: undefined,
+  isStarted: false,
+  isFetching: false,
   isSaving: false,
-  isFetching: false
+  errors: [],
 }
 
 export default function user(state = initialState, action) {
@@ -12,14 +14,15 @@ export default function user(state = initialState, action) {
     return {
       ...state,
       errors: [],
-      isFetching: true
+      isStarted: true,
+      isFetching: true,
     };
   case types.FETCH_USER_SUCCESS:
     action.item.date_of_birth = new Date(action.item.date_of_birth)
     return {
       ...state,
       isFetching: false,
-      ...action.item
+      item: action.item,
     };
   case types.FETCH_USER_FAILURE:
     return {

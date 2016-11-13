@@ -1,10 +1,15 @@
+// utils
 import React, { Component, PropTypes } from "react"
 import { Col, Alert } from "react-bootstrap"
 import { connect } from "react-redux"
 import Router, { Link } from "react-router"
-import LoginFb from "../../../components/session/login-fb/login-fb"
+
+// actions
+import { logInEmailBackend, logInFbBackend } from "../../../actions/session"
+
+// components
+import { LoginFb } from "../../../components/session/login-fb/login-fb"
 import LoginEmail from "../../../components/session/login-email/login-email"
-import * as actions from "../../../actions/session"
 
 class Login extends Component {
   static propTypes = {
@@ -89,8 +94,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  logInEmailBackend: actions.logInEmailBackend,
-  logInFbBackend: actions.logInFbBackend
+  logInEmailBackend,
+  logInFbBackend
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

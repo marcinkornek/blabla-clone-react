@@ -1,3 +1,4 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import ListItem from 'material-ui/List/ListItem'
 import Avatar from 'material-ui/Avatar'
@@ -6,7 +7,7 @@ import Timestamp from 'react-time'
 import TimeAgo from 'react-timeago'
 import classNames from 'classnames'
 
-export default class NotificationsItem extends React.Component {
+export class NotificationsItem extends React.Component {
   static PropTypes = {
     notification: PropTypes.object.isRequired,
     markAsSeen: PropTypes.func.isRequired
@@ -26,13 +27,11 @@ export default class NotificationsItem extends React.Component {
   onMouseOverAction() {
     const { markAsSeen, notification } = this.props
 
-    if (!notification.seen_at) {
-      markAsSeen(notification.id)
-    }
+    if (!notification.seen_at) markAsSeen(notification.id)
   }
 
   rideRequestCreated(notification) {
-    return(
+    return (
       <div className='header__notification__body'>
         <Link to={`/users/${notification.sender.id}`} className='header__notification__link'>
           {notification.sender.full_name}
@@ -48,7 +47,7 @@ export default class NotificationsItem extends React.Component {
   }
 
   rideRequestAccepted(notification) {
-    return(
+    return (
       <div className='header__notification__body'>
         <Link to={`/users/${notification.sender.id}`} className='header__notification__link'>
           {notification.sender.full_name}
@@ -64,7 +63,7 @@ export default class NotificationsItem extends React.Component {
   }
 
   rideRequestRejected(notification) {
-    return(
+    return (
       <div className='header__notification__body'>
         <Link to={`/users/${notification.sender.id}`} className='header__notification__link'>
           {notification.sender.full_name}
@@ -81,8 +80,12 @@ export default class NotificationsItem extends React.Component {
 
   render() {
     const { notification } = this.props
-    return(
-      <div className={classNames('header__notification', {'header__notification--seen' : notification.seen_at})} onMouseOver={this.onMouseOverAction.bind(this)}>
+
+    return (
+      <div
+        className={classNames('header__notification', {'header__notification--seen' : notification.seen_at})}
+        onMouseOver={this.onMouseOverAction.bind(this)}
+      >
         <Link to={`/users/${notification.sender.id}`}>
           <Avatar src={notification.sender.avatar} />
         </Link>

@@ -1,18 +1,25 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux';
+import { Col } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate'
-import * as actions from '../../../actions/users';
-import UsersItem from '../../../components/users/users-index-item/users-index-item'
 import List from 'material-ui/List/List'
-import LoadingItem from '../../../components/shared/loading-item/loading-item'
+
+// actions
+import { fetchUsers } from '../../../actions/users';
+
+// components
+import { AsyncContent } from '../../../components/shared/async-content/async-content'
+import { UsersIndexItem } from '../../../components/users/users-index-item/users-index-item'
 
 const per = 10
 
 class UsersIndex extends Component {
   static PropTypes = {
-    isFetching: PropTypes.bool.isRequired,
     users: PropTypes.array.isRequired,
-    pagination: PropTypes.object.isRequired
+    isStarted: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    pagination: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -28,23 +35,34 @@ class UsersIndex extends Component {
     fetchUsers(page, per)
   }
 
-  renderUsersList() {
-    const { isFetching, users } = this.props
+  renderUsersMain() {
+    const { isStarted, isFetching } = this.props
 
-    if (isFetching) {
-      return(<LoadingItem />)
-    } else if (_.isEmpty(users)) {
-      return('No users')
-    } else {
-      return(
-        users.map((user, i) =>
-          <UsersItem
-            key={i}
-            user={user}
-          />
-        )
+    return (
+      <Col xs={12}>
+        <div className='heading'>
+          <div className='heading-title'>Users</div>
+        </div>
+        <AsyncContent
+          isFetching={isFetching || !isStarted}
+        >
+          {this.renderUsersList()}
+        </AsyncContent>
+      </Col>
+    )
+  }
+
+  renderUsersList() {
+    const { users } = this.props
+
+    return(
+      users.map((user, i) =>
+        <UsersIndexItem
+          key={i}
+          user={user}
+        />
       )
-    }
+    )
   }
 
   renderRidesPagination() {
@@ -72,7 +90,7 @@ class UsersIndex extends Component {
   render() {
     return(
       <List className='users'>
-        {this.renderUsersList()}
+        {this.renderUsersMain()}
         {this.renderRidesPagination()}
       </List>
     )
@@ -81,14 +99,15 @@ class UsersIndex extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.users.isFetching,
     users: state.users.items,
-    pagination: state.users.pagination
+    isStarted: state.users.isStarted,
+    isFetching: state.users.isFetching,
+    pagination: state.users.pagination,
   }
 }
 
 const mapDispatchToProps = {
-  fetchUsers: actions.fetchUsers
+  fetchUsers
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersIndex)

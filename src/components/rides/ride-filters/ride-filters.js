@@ -1,3 +1,4 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
@@ -5,15 +6,19 @@ import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import ContentFilter from 'material-ui/svg-icons/content/filter-list'
+
+// components
 import Toggle from '../../inputs/Toggle'
 
-class RideFilters extends Component {
+export class RideFilters extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    filters: PropTypes.object,
   }
 
   render() {
     const { handleSubmit, filters } = this.props
+
     return (
       <div className='rides-filters__button'>
         <IconMenu

@@ -1,8 +1,9 @@
 import * as types from '../constants/ActionTypes'
 
 const initialState = {
-  errors: [],
+  isStarted: false,
   isFetching: false,
+  errors: [],
   isLoggedIn: false
 }
 
@@ -18,6 +19,7 @@ export default function session(state = initialState, action) {
   case types.LOGIN_REQUEST:
     return {
       ...state,
+      isStarted: true,
       isFetching: true,
     };
   case types.LOGIN_SUCCESS:

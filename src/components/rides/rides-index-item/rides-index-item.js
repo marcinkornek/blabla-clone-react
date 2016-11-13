@@ -1,13 +1,16 @@
+// utils
 import React, { Component, PropTypes }  from 'react'
 import { Link } from 'react-router'
 import { Tooltip } from 'react-bootstrap'
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
-import Stars from '../../shared/stars/stars'
-import RenderUserAge from '../../shared/render-user-age/render-user-age'
 
-export default class RidesIndexItem extends Component {
+// components
+import { RenderUserAge } from '../../shared/render-user-age/render-user-age'
+import { Stars } from '../../shared/stars/stars'
+
+export class RidesIndexItem extends Component {
   render() {
     const { ride } = this.props
     const tooltipComfort = (
@@ -53,7 +56,7 @@ export default class RidesIndexItem extends Component {
         <div className='ride-offer__price'>
           <div className='ride-offer__price-value'>{ride.price}</div>
           <div className='ride-offer__price-currency'>{ride.currency}</div>
-          <div className='ride-offer__price-lebel'>for person</div>
+          <div className='ride-offer__price-label'>for person</div>
         </div>
         <div className='ride-offer__places'>
           <div className='ride-offer__places-free'>{ride.free_places_count}</div>

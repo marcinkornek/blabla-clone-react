@@ -1,13 +1,18 @@
+// utils
 import React, { Component, PropTypes } from 'react';
-import Router, { Link } from 'react-router'
-import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux';
-import Icon from 'react-fa'
+import Router, { Link } from 'react-router'
 import _ from 'lodash'
-import * as actions from '../../../actions/users';
+import { Col } from 'react-bootstrap'
+import Icon from 'react-fa'
+
+// actions
+import { createUser } from '../../../actions/users';
+
+// components
 import UserNewForm from '../../../components/users/user-new-form/user-new-form'
 
-class UserNew extends Component {
+export class UserNew extends Component {
   handleSubmit(data) {
     const { createUser } = this.props
     var body = new FormData();
@@ -41,7 +46,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  createUser: actions.createUser
+  createUser,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserNew)

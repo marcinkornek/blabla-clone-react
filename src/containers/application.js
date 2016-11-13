@@ -1,13 +1,20 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Header from '../components/header/header/header'
-import * as actions from '../actions/session'
-import * as notificationActions from '../actions/notifications'
-import * as userActions from '../actions/users'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Dimensions from 'react-dimensions'
-import styles from '../stylesheets/application'
 import ActionCable from 'actioncable'
+
+// actions
+import { logout } from '../actions/session'
+import { fetchNotifications, markNotificationAsSeen, userNotificationAdd } from '../actions/notifications'
+import { fetchCurrentUser } from '../actions/users'
+
+// styles
+import styles from '../stylesheets/application'
+
+// components
+import { Header } from '../components/header/header/header'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -77,11 +84,11 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  logout: actions.logout,
-  fetchCurrentUser: userActions.fetchCurrentUser,
-  fetchNotifications: notificationActions.fetchNotifications,
-  markNotificationAsSeen: notificationActions.markNotificationAsSeen,
-  userNotificationAdd: notificationActions.userNotificationAdd
+  logout,
+  fetchCurrentUser,
+  fetchNotifications,
+  markNotificationAsSeen,
+  userNotificationAdd
 }
 
 export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(Application))

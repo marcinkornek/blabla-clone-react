@@ -1,16 +1,15 @@
 // utils
 import React, { Component, PropTypes } from 'react'
-import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { Col } from 'react-bootstrap'
 
 // actions
 import { fetchCarsOptions, createCar, initializeCar } from '../../../actions/cars'
 
 // components
 import CarForm from '../../../components/cars/car-form/car-form'
-import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
-class CarNew extends Component {
+export class CarNew extends Component {
   static propTypes = {
     carsOptions: PropTypes.object.isRequired
   }
@@ -39,16 +38,12 @@ class CarNew extends Component {
   renderCarForm() {
     const { carsOptions } = this.props
 
-    if (carsOptions) {
-      return(
-        <CarForm
-          onSubmit={this.handleSubmit.bind(this)}
-          carsOptions={carsOptions}
-        />
-      )
-    } else {
-      return(<LoadingItem />)
-    }
+    return(
+      <CarForm
+        onSubmit={this.handleSubmit.bind(this)}
+        carsOptions={carsOptions}
+      />
+    )
   }
 
   render() {

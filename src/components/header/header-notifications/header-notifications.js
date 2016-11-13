@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Menu from 'material-ui/Menu'
 
 // components
-import NotificationsList from '../../notifications/notifications-list/notifications-list'
+import { NotificationsList } from '../../notifications/notifications-list/notifications-list'
 
 const styles = {
   badgeStyle: {
@@ -29,13 +29,13 @@ const styles = {
   },
 }
 
-export default class HeaderNotifications extends React.Component {
-  constructor(props) {
-    super(props);
+export class HeaderNotifications extends React.Component {
+  static propTypes = {
+    notifications: PropTypes.object.isRequired
+  }
 
-    this.state = {
-      open: false,
-    };
+  state = {
+    open: false
   }
 
   handleTouchTap = (event) => {
@@ -55,7 +55,8 @@ export default class HeaderNotifications extends React.Component {
 
   renderNotificationBadge() {
     const { notifications } = this.props
-    return(
+
+    return (
       <Badge
         className='header__notifications__button'
         badgeContent={notifications.pagination.unread_count || 0}
@@ -84,9 +85,9 @@ export default class HeaderNotifications extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <span>
-       {this.renderNotificationBadge()}
+        {this.renderNotificationBadge()}
       </span>
     )
   }

@@ -1,20 +1,22 @@
 // utils
 import React, { Component, PropTypes } from 'react'
-import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import _ from 'underscore'
+import { Col } from 'react-bootstrap'
 
 // actions
 import { fetchCarsOptions, fetchCar, updateCar } from '../../../actions/cars'
 
 // components
+import { AsyncContent } from '../../../components/shared/async-content/async-content'
 import CarForm from '../../../components/cars/car-form/car-form'
-import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
-class CarEdit extends Component {
+export class CarEdit extends Component {
   static PropTypes = {
+    car: PropTypes.object.isRequired,
+    isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    carsOptions: PropTypes.object.isRequired
+    carsOptions: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -39,29 +41,31 @@ class CarEdit extends Component {
   }
 
   renderCarForm() {
-    const { isFetching, carsOptions, car } = this.props
+    const { carsOptions, car } = this.props
 
-    if (!isFetching && carsOptions) {
-      return(
-        <CarForm
-          onSubmit={this.handleSubmit.bind(this)}
-          carsOptions={carsOptions}
-          car={car}
-        />
-      )
-    } else {
-      return(<LoadingItem />)
-    }
+    return (
+      <CarForm
+        onSubmit={this.handleSubmit.bind(this)}
+        carsOptions={carsOptions}
+        car={car}
+      />
+    )
   }
 
   render() {
+    const { isStarted, isFetching } = this.props
+
     return (
       <div className='show-grid'>
         <Col xs={12}>
           <div className='heading'>
             <div className='heading-title'>Edit car</div>
           </div>
-          {this.renderCarForm()}
+          <AsyncContent
+            isFetching={isFetching || !isStarted}
+          >
+            {this.renderCarForm()}
+          </AsyncContent>
         </Col>
       </div>
     )
@@ -71,15 +75,16 @@ class CarEdit extends Component {
 const mapStateToProps = (state) => {
   return {
     car: state.car.item,
+    isStarted: state.car.isStarted,
     isFetching: state.car.isFetching,
-    carsOptions: state.carsOptions
+    carsOptions: state.carsOptions,
   }
 }
 
 const mapDispatchToProps = {
   fetchCarsOptions,
   fetchCar,
-  updateCar
+  updateCar,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CarEdit)

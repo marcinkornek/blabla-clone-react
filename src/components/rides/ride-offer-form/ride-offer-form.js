@@ -4,7 +4,7 @@ import SelectField from '../../inputs/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import pluralize from 'pluralize'
 
-class RideOfferForm extends Component {
+export class RideOfferForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }

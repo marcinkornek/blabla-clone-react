@@ -1,9 +1,10 @@
 import * as types from '../constants/ActionTypes'
 
 const initialState = {
-  errors: [],
+  isStarted: false,
+  isFetching: false,
   isSaving: false,
-  isFetching: false
+  errors: [],
 }
 
 export default function currentUser(state = initialState, action) {
@@ -12,7 +13,8 @@ export default function currentUser(state = initialState, action) {
     return {
       ...state,
       errors: [],
-      isFetching: true
+      isStarted: true,
+      isFetching: true,
     };
   case types.FETCH_CURRENT_USER_SUCCESS:
     action.item.date_of_birth = new Date(action.item.date_of_birth)

@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes'
 
 const initialState = {
+  isStarted: false,
   isFetching: false,
   colors: [],
   comforts: [],
@@ -12,7 +13,8 @@ export default function carsOptions(state = initialState, action) {
   case types.CARS_OPTIONS_REQUEST:
     return {
       ...state,
-      isFetching: true
+      isStarted: true,
+      isFetching: true,
     };
   case types.CARS_OPTIONS_SUCCESS:
     return {

@@ -1,8 +1,9 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { Tooltip, OverlayTrigger } from 'react-bootstrap'
 import Icon from 'react-fa'
 
-export default class Stars extends Component {
+export class Stars extends Component {
   render() {
     const tooltipComfort = (
       <Tooltip id='tooltip-comfort'>{this.props.label}</Tooltip>

@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton'
 import ActionSearch from 'material-ui/svg-icons/action/search'
 
 // components
-import HeaderNotifications from '../header-notifications/header-notifications'
+import { HeaderNotifications } from '../header-notifications/header-notifications'
 
 const styles = {
   button: {
@@ -40,19 +40,19 @@ const styles = {
   },
 }
 
-export default class HeaderRight extends Component {
+export class HeaderRight extends Component {
   renderHeaderRight() {
     const { isLoggedIn } = this.props
 
     if (isLoggedIn) {
-      return(this.renderLoggedInButtons())
+      return this.renderLoggedInButtons()
     } else {
-      return(this.renderNotLoggedInButtons())
+      return this.renderNotLoggedInButtons()
     }
   }
 
   renderLoggedInButtons() {
-    return(
+    return (
       <div>
         <HeaderNotifications {...this.props} />
         <Link to="/rides">

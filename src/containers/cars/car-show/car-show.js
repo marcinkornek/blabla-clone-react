@@ -7,35 +7,26 @@ import { Grid } from 'react-bootstrap'
 import { fetchCar } from '../../../actions/cars';
 
 // components
-import CarsActions from '../../../components/cars/car-actions/car-actions'
-import Stars from '../../../components/shared/stars/stars'
-import LoadingItem from '../../../components/shared/loading-item/loading-item'
+import { AsyncContent } from '../../../components/shared/async-content/async-content'
+import { CarActions } from '../../../components/cars/car-actions/car-actions'
+import { Stars } from '../../../components/shared/stars/stars'
 
 class CarShow extends Component {
-  static PropTypes = {
+  static propTypes = {
     car: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    currentUserId: PropTypes.number
+    isStarted: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    currentUserId: PropTypes.number,
+  }
+
+  static defaultProps = {
+    car: {}
   }
 
   componentDidMount() {
     const { fetchCar, params: { carId } } = this.props
+
     fetchCar(carId)
-  }
-
-  renderCarShow() {
-    const { car, isLoading } = this.props
-
-    if (!isLoading && car) {
-      return (
-        <div>
-          {this.renderCarPhoto()}
-          {this.renderCarDetails()}
-        </div>
-      )
-    } else {
-      return(<LoadingItem />)
-    }
   }
 
   renderCarPhoto() {
@@ -52,7 +43,7 @@ class CarShow extends Component {
     const { car, currentUserId } = this.props
 
     if (car.owner_id === currentUserId) {
-      return(<CarsActions carId={this.props.car.id} />)
+      return(<CarActions carId={car.id} />)
     }
   }
 
@@ -62,8 +53,8 @@ class CarShow extends Component {
     return(
       <div className='car-details'>
         <div className='car-details__name'>{car.full_name}</div>
-        <div className='car-details__places'>{this.props.car.places_full}</div>
-        <Stars stars={this.props.car.comfort_stars} label={this.props.car.comfort} />
+        <div className='car-details__places'>{car.places_full}</div>
+        <Stars stars={car.comfort_stars} label={car.comfort} />
         <div className='car-details__year'>{car.production_year}</div>
         <div className='car-details__color'>{car.color}</div>
         <div className='car-details__category'>{car.category}</div>
@@ -73,9 +64,16 @@ class CarShow extends Component {
   }
 
   render() {
+    const { isFetching, isStarted } = this.props
+
     return (
       <Grid className='car'>
-        {this.renderCarShow()}
+        <AsyncContent
+          isFetching={isFetching || !isStarted}
+        >
+          {this.renderCarPhoto()}
+          {this.renderCarDetails()}
+        </AsyncContent>
       </Grid>
     )
   }
@@ -84,6 +82,7 @@ class CarShow extends Component {
 const mapStateToProps = (state) => {
   return {
     car: state.car.item,
+    isStarted: state.car.isStarted,
     isFetching: state.car.isFetching,
     currentUserId: state.session.id,
   }

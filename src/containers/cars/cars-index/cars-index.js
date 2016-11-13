@@ -9,17 +9,18 @@ import ReactPaginate from 'react-paginate'
 import { fetchCars } from '../../../actions/cars'
 
 // components
+import { AsyncContent } from '../../../components/shared/async-content/async-content'
 import { CarsIndexItem } from '../../../components/cars/cars-index-item/cars-index-item'
-import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
 const per = 10
 
 class CarsIndex extends Component {
   static PropTypes = {
-    isFetching: PropTypes.bool.isRequired,
     cars: PropTypes.array.isRequired,
+    isStarted: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     pagination: PropTypes.object.isRequired,
-    currentUserId: PropTypes.number
+    currentUserId: PropTypes.number,
   }
 
   componentDidMount() {
@@ -36,7 +37,9 @@ class CarsIndex extends Component {
   }
 
   renderCarsMain() {
-    return(
+    const { isStarted, isFetching } = this.props
+
+    return (
       <Col xs={12}>
         <div className='heading'>
           <div className='heading-title'>My cars</div>
@@ -44,36 +47,34 @@ class CarsIndex extends Component {
             <Link to='/cars/new'><Button bsStyle='primary' bsSize='small'>New car</Button></Link>
           </div>
         </div>
-        {this.renderCarsList()}
+        <AsyncContent
+          isFetching={isFetching || !isStarted}
+        >
+          {this.renderCarsList()}
+        </AsyncContent>
       </Col>
     )
   }
 
   renderCarsList() {
-    const { isFetching, cars, currentUserId } = this.props
+    const { cars, currentUserId } = this.props
 
-    if (isFetching) {
-      return(<LoadingItem />)
-    } else if (_.isEmpty(cars)) {
-      return('No cars')
-    } else {
-      return(
-        cars.map((car, i) =>
-          <CarsIndexItem
-            key={i}
-            car={car}
-            currentUserId={currentUserId}
-          />
-        )
+    return (
+      cars.map((car, i) =>
+        <CarsIndexItem
+          key={i}
+          car={car}
+          currentUserId={currentUserId}
+        />
       )
-    }
+    )
   }
 
   renderCarsPagination() {
     const { pagination } = this.props
 
     if (pagination.total_pages > 1) {
-      return(
+      return (
         <div>
           <ReactPaginate previousLabel={'previous'}
             nextLabel={'next'}
@@ -105,10 +106,11 @@ class CarsIndex extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.cars.isFetching,
     cars: state.cars.items,
+    isStarted: state.cars.isStarted,
+    isFetching: state.cars.isFetching,
     pagination: state.cars.pagination,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
   }
 }
 

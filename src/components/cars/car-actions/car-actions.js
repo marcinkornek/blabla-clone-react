@@ -1,5 +1,5 @@
 // utils
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import { Tooltip, OverlayTrigger } from 'react-bootstrap'
 import Icon from 'react-fa'
@@ -11,9 +11,14 @@ const tooltipDelete = (
   <Tooltip id='tooltip-delete'>Delete</Tooltip>
 )
 
-export default class CarActions extends Component {
+export class CarActions extends Component {
+  static proptypes = {
+    carId: PropTypes.number.isRequired
+  }
+
   render() {
     const { carId } = this.props
+
     return (
       <div className='car-actions'>
         <Link to={`/account/cars/${carId}/edit`}>

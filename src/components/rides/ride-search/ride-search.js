@@ -5,7 +5,7 @@ import { renderGeoTextField } from '../../shared/render-geo-text-field/render-ge
 import DatePicker from '../../inputs/DatePicker'
 import classNames from 'classnames'
 
-class RideSearch extends React.Component {
+export class RideSearch extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }

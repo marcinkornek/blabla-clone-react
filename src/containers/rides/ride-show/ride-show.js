@@ -1,3 +1,4 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Col } from 'react-bootstrap'
@@ -6,14 +7,19 @@ import Time from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
 import TimeAgo from 'react-timeago'
-import * as actions from '../../../actions/rides'
-import * as rrActions from '../../../actions/ride_requests'
-import RideActions from '../../../components/rides/ride-actions/ride-actions'
-import RideOfferForm from '../../../components/rides/ride-offer-form/ride-offer-form'
-import RideRequestsIndexItem from '../../../components/rides/ride-requests-index-item/ride-requests-index-item'
 import Paper from 'material-ui/Paper'
 import Avatar from 'material-ui/Avatar'
-import RenderUserAge from '../../../components/shared/render-user-age/render-user-age'
+
+// actions
+import { fetchRide } from '../../../actions/rides'
+import { createRideRequest, changeRideRequest } from '../../../actions/ride-requests'
+
+// components
+import { AsyncContent } from '../../../components/shared/async-content/async-content'
+import { RideRequestsIndexItem } from '../../../components/rides/ride-requests-index-item/ride-requests-index-item'
+import { RenderUserAge } from '../../../components/shared/render-user-age/render-user-age'
+import { RideActions } from '../../../components/rides/ride-actions/ride-actions'
+import RideOfferForm from '../../../components/rides/ride-offer-form/ride-offer-form'
 
 const styles = {
   avatarStyle: {
@@ -22,9 +28,19 @@ const styles = {
 }
 
 class RideShow extends Component {
-  static PropTypes = {
+  static propTypes = {
     ride: PropTypes.object.isRequired,
-    currentUserId: PropTypes.number
+    isStarted: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    currentUserId: PropTypes.number,
+  }
+
+  static defaultProps = {
+    ride: {
+      driver: {},
+      car: {},
+      user_ride_request: {},
+    }
   }
 
   componentDidMount() {
@@ -95,7 +111,9 @@ class RideShow extends Component {
           <div className='ride-show-offer__details-price-label'>for person</div>
         </div>
         <div className='ride-show-offer__details-places'>
-          <div className='ride-show-offer__details-places-value'>{ride.free_places_count} / {ride.places} {pluralize('seat', this.props.ride.free_places_count)} free </div>
+          <div className='ride-show-offer__details-places-value'>
+            {ride.free_places_count} / {ride.places} {pluralize('seat', ride.free_places_count)} free
+          </div>
         </div>
         <div className='ride-show-offer__details-book'>
           <div className='ride-show-offer__details-book-info'>
@@ -161,7 +179,9 @@ class RideShow extends Component {
             Requests
           </div>
           <div className='ride-show-requests__details-places'>
-            <div className='ride-show-requests__details-places-value'>{ride.requested_places_count} / {ride.free_places_count} {pluralize('place', ride.requested_places_count)} </div>
+            <div className='ride-show-requests__details-places-value'>
+              {ride.requested_places_count} / {ride.free_places_count} {pluralize('place', ride.requested_places_count)}
+            </div>
           </div>
           <div className='ride-show-requests__details-book'>
             <div className='ride-show-requests__details-book-info'>
@@ -174,7 +194,7 @@ class RideShow extends Component {
   }
 
   renderRideRequestsList() {
-    const { ride, changeRideRequest } = this.props
+    const { ride } = this.props
 
     if (ride.ride_requests && ride.ride_requests.items.length > 0) {
       return(
@@ -192,10 +212,10 @@ class RideShow extends Component {
   renderRideActions() {
     const { ride, currentUserId } = this.props
 
-    if (ride.driver) {
-      return(
+    if (ride.driver.id == currentUserId) {
+      return (
         <span className='ride-show-description__actions'>
-          <RidesActions
+          <RideActions
             rideId={ride.id}
             rideOwner={ride.driver.id}
             currentUserId={currentUserId}
@@ -208,7 +228,7 @@ class RideShow extends Component {
   renderRideDriver() {
     const { ride, currentUserId } = this.props
 
-    if (ride.driver && currentUserId != ride.driver.id) {
+    if (currentUserId != ride.driver.id) {
       return(
         <Paper className='ride-show-driver'>
           <div className='ride-show-driver__heading'>
@@ -237,33 +257,35 @@ class RideShow extends Component {
   renderRideDescriptionCar() {
     const { ride } = this.props
 
-    if (ride.car) {
-      return(
-        <Link to={`/cars/${ride.car.id}`}>
-          <div className='ride-show-description__details'>
-            <div className='ride-show-description__details-label'>Car</div>
-            <div className='ride-show-description__details-value'>
-              <img src={ride.car.car_photo} />{ride.car.full_name}
-            </div>
+    return(
+      <Link to={`/cars/${ride.car.id}`}>
+        <div className='ride-show-description__details'>
+          <div className='ride-show-description__details-label'>Car</div>
+          <div className='ride-show-description__details-value'>
+            <img src={ride.car.car_photo} />{ride.car.full_name}
           </div>
-        </Link>
-      )
-    }
+        </div>
+      </Link>
+    )
   }
 
   render() {
-    const { currentUserId } = this.props
+    const { isFetching, isStarted } = this.props
 
     return(
       <div className='show-grid'>
-        <Col xs={12} sm={7} md={8}>
-          {this.renderRideDescription()}
-        </Col>
-        <Col xs={12} sm={5} md={4}>
-          {this.renderRideOffer()}
-          {this.renderRideRequests()}
-          {this.renderRideDriver()}
-        </Col>
+        <AsyncContent
+          isFetching={isFetching || !isStarted}
+        >
+          <Col xs={12} sm={7} md={8}>
+            {this.renderRideDescription()}
+          </Col>
+          <Col xs={12} sm={5} md={4}>
+            {this.renderRideOffer()}
+            {this.renderRideRequests()}
+            {this.renderRideDriver()}
+          </Col>
+        </AsyncContent>
       </div>
     )
   }
@@ -271,15 +293,17 @@ class RideShow extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ride: state.ride,
+    ride: state.ride.item,
+    isStarted: state.ride.isStarted,
+    isFetching: state.ride.isFetching,
     currentUserId: state.session.id,
   }
 }
 
 const mapDispatchToProps = {
-  fetchRide: actions.fetchRide,
-  createRideRequest: rrActions.createRideRequest,
-  changeRideRequest: rrActions.changeRideRequest
+  fetchRide,
+  createRideRequest,
+  changeRideRequest
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RideShow)

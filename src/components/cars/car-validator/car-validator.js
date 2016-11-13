@@ -1,4 +1,4 @@
-export default function CarValidator(values, props) {
+export function CarValidator(values, props) {
   const errors = {};
   if (!values.brand) {
     errors.brand = 'Required';

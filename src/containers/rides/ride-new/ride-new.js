@@ -1,16 +1,17 @@
+// utils
 import React, { Component, PropTypes }  from 'react'
-import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import * as actions from '../../../actions/rides'
-import RideNewForm from '../../../components/rides/ride-new-form/ride-new-form'
+import { Col } from 'react-bootstrap'
 
-class RideNew extends Component {
+// actions
+import { fetchRidesOptions, createRide } from '../../../actions/rides'
+
+// components
+import RideForm from '../../../components/rides/ride-form/ride-form'
+
+export class RideNew extends Component {
   static propTypes = {
     ridesOptions: PropTypes.object.isRequired
-  }
-
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired
   }
 
   componentDidMount() {
@@ -32,7 +33,7 @@ class RideNew extends Component {
         if (data[key]) { body.append(key, data[key]) }
       }
     })
-    createRide(this.context.router, body)
+    createRide(body)
   }
 
   render() {
@@ -44,7 +45,7 @@ class RideNew extends Component {
           <div className='heading'>
             <div className='heading-title'>New ride</div>
           </div>
-          <RideNewForm
+          <RideForm
             ridesOptions={ridesOptions}
             onSubmit={this.handleSubmit.bind(this)}
           />
@@ -61,8 +62,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  fetchRidesOptions: actions.fetchRidesOptions,
-  createRide: actions.createRide,
+  fetchRidesOptions,
+  createRide,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RideNew)

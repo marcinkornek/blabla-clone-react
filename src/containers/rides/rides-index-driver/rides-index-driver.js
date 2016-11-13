@@ -1,25 +1,32 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import Router, { Link } from 'react-router'
 import { Button, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import ReactPaginate from 'react-paginate'
-import * as actions from '../../../actions/rides'
-import RidesItem from '../../../components/rides/rides-index-simple-item/rides-index-simple-item'
-import LoadingItem from '../../../components/shared/loading-item/loading-item'
+
+// actions
+import { fetchRidesAsDriver } from '../../../actions/rides'
+
+// components
+import { AsyncContent } from '../../../components/shared/async-content/async-content'
+import { RidesIndexSimpleItem } from '../../../components/rides/rides-index-simple-item/rides-index-simple-item'
 
 const per = 10
 
 class RidesIndexDriver extends Component {
   static PropTypes = {
-    rides: PropTypes.array.isRequired
+    rides: PropTypes.array.isRequired,
+    isStarted: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    pagination: PropTypes.object.isRequired,
+    currentUserId: PropTypes.number.isRequired,
   }
 
   componentDidMount() {
     const { fetchRidesAsDriver, currentUserId } = this.props
 
-    if (currentUserId) {
-      fetchRidesAsDriver(currentUserId, 1, per)
-    }
+    if (currentUserId) fetchRidesAsDriver(currentUserId, 1, per)
   }
 
   handlePageClick(e) {
@@ -30,41 +37,41 @@ class RidesIndexDriver extends Component {
   }
 
   renderRidesMain() {
-    return(
+    const { isStarted, isFetching } = this.props
+
+    return (
       <Col xs={12}>
         <div className='heading'>
           <div className='heading-title'>My rides as driver</div>
           {this.renderHeadingButton()}
         </div>
-        {this.renderRidesList()}
+        <AsyncContent
+          isFetching={isFetching || !isStarted}
+        >
+          {this.renderRidesList()}
+        </AsyncContent>
       </Col>
     )
   }
 
   renderRidesList() {
-    const { isFetching, rides, currentUserId } = this.props
+    const { rides } = this.props
 
-    if (isFetching || currentUserId === undefined) {
-      return(<LoadingItem />)
-    } else if (_.isEmpty(rides)) {
-      return('No rides')
-    } else {
-      return(
-        rides.map((ride, i) =>
-          <RidesItem
-            key={i}
-            ride={ride}
-          />
-        )
+    return (
+      rides.map((ride, i) =>
+        <RidesIndexSimpleItem
+          key={i}
+          ride={ride}
+        />
       )
-    }
+    )
   }
 
   renderHeadingButton() {
     const { currentUserId } = this.props
 
     if (currentUserId) {
-      return(
+      return (
         <div className='heading-button'>
           <Link to='/rides/new'><Button bsStyle='primary' bsSize='small'>New ride</Button></Link>
         </div>
@@ -76,7 +83,7 @@ class RidesIndexDriver extends Component {
     const { pagination } = this.props
 
     if (pagination.total_pages > 1) {
-      return(
+      return (
         <div>
           <ReactPaginate previousLabel={"previous"}
             nextLabel={"next"}
@@ -108,15 +115,16 @@ class RidesIndexDriver extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    isStarted: state.ridesDriver.isStarted,
     isFetching: state.ridesDriver.isFetching,
     rides: state.ridesDriver.items,
     pagination: state.ridesDriver.pagination,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
   }
 }
 
 const mapDispatchToProps = {
-  fetchRidesAsDriver: actions.fetchRidesAsDriver
+  fetchRidesAsDriver
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RidesIndexDriver)

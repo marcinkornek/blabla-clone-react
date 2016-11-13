@@ -1,6 +1,7 @@
 import 'whatwg-fetch'
 import * as types from '../constants/ActionTypes'
 import * as cons  from '../constants/constants'
+import { push } from 'react-router-redux'
 
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -9,7 +10,7 @@ function status(response) {
   throw new Error(response.statusText)
 }
 
-export function fetchRides(router, page = 1, per = 10, options = {}) {
+export function fetchRides(page = 1, per = 10, options = {}) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(ridesRequest())
@@ -31,7 +32,7 @@ export function fetchRides(router, page = 1, per = 10, options = {}) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(ridesSuccess(router, json, options)))
+    .then(json => dispatch(ridesSuccess(json, options)))
     .catch(errors => dispatch(ridesFailure(errors)))
   }
 }
@@ -113,7 +114,7 @@ export function fetchRidesOptions() {
   }
 }
 
-export function createRide(router, body) {
+export function createRide(body) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(rideCreateRequest())
@@ -128,12 +129,12 @@ export function createRide(router, body) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(rideCreateSuccessWithRedirect(router, json)))
+    .then(json => dispatch(rideCreateSuccess(json)))
     .catch(errors => dispatch(rideCreateFailure(errors)))
   }
 }
 
-export function updateRide(router, body, ride_id) {
+export function updateRide(body, ride_id) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(rideUpdateRequest())
@@ -148,7 +149,7 @@ export function updateRide(router, body, ride_id) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(rideUpdateSuccessWithRedirect(router, json)))
+    .then(json => dispatch(rideUpdateSuccess(json)))
     .catch(errors => dispatch(rideUpdateFailure(errors)))
   }
 }
@@ -159,7 +160,7 @@ export function ridesRequest() {
   }
 }
 
-export function ridesSuccess(router, json, options) {
+export function ridesSuccess(json, options) {
   return (dispatch, getState) => {
     var query = '?page=' + json.meta.current_page
     if (options) {
@@ -168,13 +169,13 @@ export function ridesSuccess(router, json, options) {
       if (options.start_date) { query += '&start_date=' + options.start_date }
       if (options.hide_full) { query += '&hide_full=' + options.hide_full }
     }
-    router.replace('/rides' + query)
     dispatch({
       type: types.RIDES_SUCCESS,
       items: json.items,
       pagination: json.meta,
       filters: json.filters
     })
+    dispatch(push('/rides' + query))
   }
 }
 
@@ -218,17 +219,13 @@ export function rideCreateRequest() {
   }
 }
 
-export function rideCreateSuccessWithRedirect(router, json) {
-  return (dispatch, getState) => {
-    dispatch(rideCreateSuccess(json))
-    router.replace('/account/rides_as_driver')
-  }
-}
-
 export function rideCreateSuccess(json) {
-  return {
-    type: types.RIDE_CREATE_SUCCESS,
-    item: json
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.RIDE_CREATE_SUCCESS,
+      item: json
+    })
+    dispatch(push('/account/rides_as_driver'))
   }
 }
 
@@ -245,17 +242,13 @@ export function rideUpdateRequest() {
   }
 }
 
-export function rideUpdateSuccessWithRedirect(router, json) {
-  return (dispatch, getState) => {
-    dispatch(rideUpdateSuccess(json))
-    router.replace('/account/rides_as_driver')
-  }
-}
-
 export function rideUpdateSuccess(json) {
-  return {
-    type: types.RIDE_UPDATE_SUCCESS,
-    item: json
+  return (dispatch, getState) => {
+    dispatch({
+      type: types.RIDE_UPDATE_SUCCESS,
+      item: json
+    })
+    dispatch(push('/account/rides_as_driver'))
   }
 }
 

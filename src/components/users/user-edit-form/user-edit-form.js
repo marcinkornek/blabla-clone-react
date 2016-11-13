@@ -1,15 +1,20 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
+import { RadioButton } from 'material-ui/RadioButton'
+import Dropzone from 'react-dropzone'
+
+// form validators
+import { UserEditValidator } from '../user-edit-validator/user-edit-validator'
+import { asyncValidate } from '../async-email-validate/async-email-validate'
+
+// components
+import DatePicker from '../../inputs/DatePicker'
 import { renderTextField } from '../../shared/render-text-field/render-text-field'
 import { renderRadioGroup } from '../../shared/render-radio-group/render-radio-group'
-import { RadioButton } from 'material-ui/RadioButton'
-import DatePicker from '../../inputs/DatePicker'
-import Dropzone from 'react-dropzone'
-import UserEditValidator from '../user-edit-validator/user-edit-validator'
-import asyncValidate from '../async-email-validate/async-email-validate'
 
-class UserEditForm extends Component {
+export class UserEditForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
   }

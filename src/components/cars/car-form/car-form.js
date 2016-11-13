@@ -5,17 +5,18 @@ import { reduxForm, Field } from 'redux-form'
 import MenuItem from 'material-ui/MenuItem'
 import Dropzone from 'react-dropzone'
 
-// form validator
-import CarValidator from '../car-validator/car-validator'
+// form validators
+import { CarValidator } from '../car-validator/car-validator'
 
 // components
 import { renderTextField } from '../../shared/render-text-field/render-text-field'
 import { renderSelectField } from '../../shared/render-select-field/render-select-field'
 
-class CarForm extends Component {
+export class CarForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     carsOptions: PropTypes.object.isRequired,
+    car: PropTypes.object,
   }
 
   render() {

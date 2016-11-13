@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes'
 
 const initialState = {
+  isStarted: false,
   isFetching: false,
   items: [],
   pagination: {},
@@ -12,7 +13,8 @@ export default function rides(state = initialState, action) {
   case types.RIDES_REQUEST:
     return {
       ...state,
-      isFetching: true
+      isStarted: true,
+      isFetching: true,
     };
   case types.RIDES_SUCCESS:
     return {

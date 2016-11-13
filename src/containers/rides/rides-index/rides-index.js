@@ -1,16 +1,21 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import Router, { Link } from 'react-router'
+import { connect } from 'react-redux'
+import ReactPaginate from 'react-paginate'
 import Button from 'react-bootstrap/lib/Button'
 import Row from 'react-bootstrap/lib/Row'
 import Col from 'react-bootstrap/lib/Col'
-import { connect } from 'react-redux'
-import ReactPaginate from 'react-paginate'
-import * as actions from '../../../actions/rides'
-import RidesIndexItem from '../../../components/rides/rides-index-item/rides-index-item'
+import Chip from 'material-ui/Chip'
+
+// actions
+import { fetchRides, loadSearchFormData } from '../../../actions/rides'
+
+// components
+import { AsyncContent } from '../../../components/shared/async-content/async-content'
+import { RidesIndexItem } from '../../../components/rides/rides-index-item/rides-index-item'
 import RideSearch from '../../../components/rides/ride-search/ride-search'
 import RideFilters from '../../../components/rides/ride-filters/ride-filters'
-import LoadingItem from '../../../components/shared/loading-item/loading-item'
-import Chip from 'material-ui/Chip'
 
 const per = 10
 
@@ -24,13 +29,14 @@ const styles = {
   }
 }
 
-class RidesIndex extends Component {
+export class RidesIndex extends Component {
   static PropTypes = {
-    isFetching: PropTypes.bool.isRequired,
     rides: PropTypes.array.isRequired,
+    isStarted: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     pagination: PropTypes.object.isRequired,
     filters: PropTypes.object.isRequired,
-    currentUserId: PropTypes.number.isRequired
+    currentUserId: PropTypes.number.isRequired,
   }
 
   static contextTypes = {
@@ -48,7 +54,7 @@ class RidesIndex extends Component {
 
     query.hide_full = query.hide_full || false
     loadSearchFormData(query)
-    fetchRides(this.context.router, page, per, query)
+    fetchRides(page, per, query)
   }
 
   componentWillReceiveProps() {
@@ -74,14 +80,14 @@ class RidesIndex extends Component {
     var extended = _.extend(query, newQuery)
     this.showChips(extended)
     loadSearchFormData(extended)
-    fetchRides(this.context.router, page, per, extended)
+    fetchRides(page, per, extended)
   }
 
   handlePageClick(e) {
     const { fetchRides, location: { query } } = this.props
     var page = query.page || 1
 
-    fetchRides(this.context.router, page, per, query)
+    fetchRides(page, per, query)
   }
 
   showChips(query) {
@@ -99,7 +105,7 @@ class RidesIndex extends Component {
 
     delete query[key]
     loadSearchFormData(query)
-    fetchRides(this.context.router, 1, per, query)
+    fetchRides(1, per, query)
   }
 
   renderChip(data) {
@@ -115,29 +121,23 @@ class RidesIndex extends Component {
   }
 
   renderRidesList() {
-    const { rides, isFetching } = this.props
+    const { rides } = this.props
 
-    if (isFetching) {
-      return(<LoadingItem />)
-    } else  if (_.isEmpty(rides)) {
-      return('No rides')
-    } else {
-      return(
-         rides.map((ride, i) =>
-          <RidesIndexItem
-            key={i}
-            ride={ride}
-          />
-        )
+    return (
+      rides.map((ride, i) =>
+        <RidesIndexItem
+          key={i}
+          ride={ride}
+        />
       )
-    }
+    )
   }
 
   renderHeadingButton() {
     const { currentUserId } = this.props
 
     if (currentUserId) {
-      return(
+      return (
         <div className='heading__button'>
           <Link to='/rides/new'><Button bsStyle='primary'>New ride</Button></Link>
         </div>
@@ -146,7 +146,7 @@ class RidesIndex extends Component {
   }
 
   renderActiveFilters() {
-    return(
+    return (
       <div style={styles.wrapper}>
         {this.state.chipData.map(this.renderChip, this)}
       </div>
@@ -154,9 +154,9 @@ class RidesIndex extends Component {
   }
 
   renderRidesMain() {
-    const { filters, pagination, location: { query } } = this.props
+    const { filters, pagination, location: { query }, isFetching, isStarted } = this.props
 
-    return(
+    return (
       <Row>
         <Col xs={12}>
           <RideFilters
@@ -173,7 +173,11 @@ class RidesIndex extends Component {
             <div className='heading__title'>{pagination.total_count} Rides</div>
             {this.renderHeadingButton()}
           </div>
-          {this.renderRidesList()}
+          <AsyncContent
+            isFetching={isFetching || !isStarted}
+          >
+            {this.renderRidesList()}
+          </AsyncContent>
         </Col>
       </Row>
     )
@@ -183,7 +187,7 @@ class RidesIndex extends Component {
     const { pagination, location: { query } } = this.props
 
     if (pagination.total_pages > 1) {
-      return(
+      return (
         <div>
           <ReactPaginate previousLabel={"previous"}
             nextLabel={"next"}
@@ -216,17 +220,18 @@ class RidesIndex extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.rides.isFetching,
     rides: state.rides.items,
+    isStarted: state.rides.isStarted,
+    isFetching: state.rides.isFetching,
     pagination: state.rides.pagination,
     filters: state.rides.filters,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
   }
 }
 
 const mapDispatchToProps = {
-  loadSearchFormData: actions.loadSearchFormData,
-  fetchRides: actions.fetchRides,
+  loadSearchFormData,
+  fetchRides,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RidesIndex)

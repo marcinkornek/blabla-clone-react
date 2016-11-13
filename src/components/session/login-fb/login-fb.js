@@ -1,9 +1,10 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments) } }
 var data = {}
 
-export default class LoginFb extends Component {
+export class LoginFb extends Component {
   constructor (props, context) {
     super(props, context)
     this.statusChangeCallback = this.statusChangeCallback.bind(this)

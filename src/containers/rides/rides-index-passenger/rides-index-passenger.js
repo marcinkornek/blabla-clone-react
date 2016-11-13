@@ -1,72 +1,76 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import Router, { Link } from 'react-router'
-import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { Col } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate'
-import * as actions from '../../../actions/rides'
-import RidesItem from '../../../components/rides/rides-index-item/rides-index-item'
-import LoadingItem from '../../../components/shared/loading-item/loading-item'
+
+// actions
+import { fetchRidesAsPassenger } from '../../../actions/rides'
+
+// components
+import { AsyncContent } from '../../../components/shared/async-content/async-content'
+import { RidesIndexItem } from '../../../components/rides/rides-index-item/rides-index-item'
 
 const per = 10
 
 class RidesIndexPassenger extends Component {
   static PropTypes = {
-    isFetching: PropTypes.bool.isRequired,
     rides: PropTypes.array.isRequired,
+    isStarted: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     pagination: PropTypes.object.isRequired,
-    currentUserId: PropTypes.number.isRequired
+    currentUserId: PropTypes.number.isRequired,
   }
 
   componentDidMount() {
     const { fetchRidesAsPassenger, currentUserId } = this.props
 
-    if (currentUserId) {
-      fetchRidesAsPassenger(currentUserId, 1, per)
-    }
+    if (currentUserId) fetchRidesAsPassenger(currentUserId, 1, per)
   }
 
   handlePageClick(e) {
     const { fetchRidesAsPassenger, currentUserId } = this.props
-    var page = e.selected + 1
+    let page = e.selected + 1
 
     fetchRidesAsPassenger(currentUserId, page, per)
   }
 
   renderRidesMain() {
-    return(
+    const { isFetching, isStarted } = this.props
+
+    return (
       <Col xs={12}>
         <div className='heading'>
           <div className='heading-title'>My rides as passenger</div>
         </div>
-        {this.renderRidesList()}
+        <AsyncContent
+          isFetching={isFetching || !isStarted}
+        >
+          {this.renderRidesList()}
+        </AsyncContent>
       </Col>
     )
   }
 
   renderRidesList() {
-    const { isFetching, rides, currentUserId } = this.props
+    const { rides } = this.props
 
-    if (isFetching || currentUserId === undefined) {
-      return(<LoadingItem />)
-    } else if (_.isEmpty(rides)) {
-      return('No rides')
-    } else {
-      return(
-        rides.map((ride, i) =>
-          <RidesItem
-            key={i}
-            ride={ride}
-          />
-        )
+    return (
+      rides.map((ride, i) =>
+        <RidesIndexItem
+          key={i}
+          ride={ride}
+        />
       )
-    }
+    )
   }
 
   renderRidesPagination() {
     const { pagination } = this.props
 
     if (pagination.total_pages > 1) {
-      return(
+      return (
         <div>
           <ReactPaginate previousLabel={"previous"}
             nextLabel={"next"}
@@ -98,15 +102,16 @@ class RidesIndexPassenger extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.ridesPassenger.isFetching,
     rides: state.ridesPassenger.items,
+    isStarted: state.ridesPassenger.isStarted,
+    isFetching: state.ridesPassenger.isFetching,
     pagination: state.ridesPassenger.pagination,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
   }
 }
 
 const mapDispatchToProps = {
-  fetchRidesAsPassenger: actions.fetchRidesAsPassenger
+  fetchRidesAsPassenger
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RidesIndexPassenger)

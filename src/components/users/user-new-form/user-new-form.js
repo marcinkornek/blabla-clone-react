@@ -1,12 +1,17 @@
+// utils
 import React, { Component, PropTypes }   from 'react'
 import { reduxForm, Field } from 'redux-form'
+import { RadioButton } from 'material-ui/RadioButton'
+import Dropzone from 'react-dropzone'
+
+// form validators
+import { UserNewValidator } from '../user-new-validator/user-new-validator'
+import { asyncValidate } from '../async-email-validate/async-email-validate'
+
+// components
+import DatePicker from '../../inputs/DatePicker'
 import { renderTextField } from '../../shared/render-text-field/render-text-field'
 import { renderRadioGroup } from '../../shared/render-radio-group/render-radio-group'
-import { RadioButton } from 'material-ui/RadioButton'
-import DatePicker from '../../inputs/DatePicker'
-import Dropzone from 'react-dropzone'
-import UserNewValidator from '../user-new-validator/user-new-validator'
-import asyncValidate from '../async-email-validate/async-email-validate'
 
 class UserNewForm extends Component {
   static propTypes = {

@@ -1,19 +1,30 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux';
 import { Col } from 'react-bootstrap'
 import Time from 'react-time'
 import Icon from 'react-fa'
-import * as actions from '../../../actions/users';
-import CarsItem from '../../../components/cars/cars-index-item/cars-index-item'
-import RidesItem from '../../../components/rides/rides-index-simple-item/rides-index-simple-item'
 import Avatar from 'material-ui/Avatar'
-import RenderUserAge from '../../../components/shared/render-user-age/render-user-age'
 
-class UserShow extends Component {
+// actions
+import { fetchUser } from '../../../actions/users';
+
+// components
+import { AsyncContent } from '../../../components/shared/async-content/async-content'
+import { RenderUserAge } from '../../../components/shared/render-user-age/render-user-age'
+import { CarsIndexItem } from '../../../components/cars/cars-index-item/cars-index-item'
+import { RidesIndexSimpleItem } from '../../../components/rides/rides-index-simple-item/rides-index-simple-item'
+
+export class UserShow extends Component {
   static PropTypes = {
-    isFetching: PropTypes.bool.isRequired,
     user: PropTypes.object.isRequired,
-    currentUserId: PropTypes.number.isRequired
+    isStarted: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
+    currentUserId: PropTypes.number.isRequired,
+  }
+
+  static defaultProps = {
+    user: {}
   }
 
   componentDidMount() {
@@ -61,7 +72,7 @@ class UserShow extends Component {
     if (user.cars) {
       return(
         user.cars.items.map((car, i) =>
-          <CarsItem
+          <CarsIndexItem
             key={i}
             car={car}
             currentUserId={currentUserId}
@@ -112,7 +123,7 @@ class UserShow extends Component {
     if (user.rides_as_driver) {
       return(
         user.rides_as_driver.items.map((ride, i) =>
-          <RidesItem
+          <RidesIndexSimpleItem
             ride={ride}
             key={i}
           />
@@ -124,16 +135,22 @@ class UserShow extends Component {
   }
 
   render() {
+    const { isStarted, isFetching } = this.props
+
     return (
       <div className='show-grid'>
-        <Col xs={8}>
-          {this.renderUserInfo()}
-          {this.renderUserRidesAsDriver()}
-        </Col>
-        <Col xs={4}>
-          {this.renderUserActivity()}
-          {this.renderUserCar()}
-        </Col>
+        <AsyncContent
+          isFetching={isFetching || !isStarted}
+        >
+          <Col xs={8}>
+            {this.renderUserInfo()}
+            {this.renderUserRidesAsDriver()}
+          </Col>
+          <Col xs={4}>
+            {this.renderUserActivity()}
+            {this.renderUserCar()}
+          </Col>
+        </AsyncContent>
       </div>
     )
   }
@@ -141,14 +158,15 @@ class UserShow extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    user: state.user.item,
+    isStarted: state.user.isStarted,
     isFetching: state.user.isFetching,
-    user: state.user,
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
   }
 }
 
 const mapDispatchToProps = {
-  fetchUser: actions.fetchUser
+  fetchUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserShow)

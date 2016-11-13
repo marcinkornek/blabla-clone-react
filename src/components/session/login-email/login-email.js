@@ -1,9 +1,12 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { reduxForm, Field } from 'redux-form'
 import { renderTextField } from '../../shared/render-text-field/render-text-field'
+
+// form validators
 import LoginValidator from '../login-validator/login-validator'
 
-class LoginEmail extends Component {
+export class LoginEmail extends Component {
   constructor (props, context) {
     super(props, context)
 

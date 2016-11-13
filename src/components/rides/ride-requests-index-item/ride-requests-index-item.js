@@ -1,13 +1,16 @@
+// utils
 import React, { Component, PropTypes } from 'react'
-import { Input, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 import pluralize from 'pluralize'
 import TimeAgo from 'react-timeago'
 import RaisedButton from 'material-ui/RaisedButton'
 
-export default class RideRequestsIndexItem extends Component {
+export class RideRequestsIndexItem extends Component {
   constructor (props, context) {
     super(props, context)
-    this.state = {ride_request: props.ride_request}
+
+    this.state = {
+      ride_request: props.ride_request
+    }
   }
 
   static propTypes = {
@@ -16,18 +19,21 @@ export default class RideRequestsIndexItem extends Component {
 
   handleAcceptClick () {
     const { ride_request, handleOnClick } = this.props
+
     handleOnClick(ride_request.id, 'accepted')
   }
 
   handleRejectClick () {
     const { ride_request, handleOnClick } = this.props
+
     handleOnClick(ride_request.id, 'rejected')
   }
 
   renderRideRequestsButtons() {
     const { ride_request } = this.props
+
     if (ride_request.status == 'pending') {
-      return(
+      return (
         <div className='ride-request__button'>
           <RaisedButton label="Accept" primary={true} onClick={this.handleAcceptClick.bind(this)} />
           <RaisedButton label="Reject" secondary={true} onClick={this.handleRejectClick.bind(this)} />

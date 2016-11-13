@@ -1,16 +1,23 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
+import MenuItem from 'material-ui/MenuItem'
+
+// form validators
+import { RideValidator } from '../ride-validator/ride-validator'
+
+// components
+import DatePicker from '../../inputs/DatePicker'
 import { renderTextField } from '../../shared/render-text-field/render-text-field'
 import { renderGeoTextField } from '../../shared/render-geo-text-field/render-geo-text-field'
 import { renderSelectField } from '../../shared/render-select-field/render-select-field'
-import MenuItem from 'material-ui/MenuItem'
-import DatePicker from '../../inputs/DatePicker'
-import RideValidator from '../ride-validator/ride-validator'
 
-class RideEditForm extends Component {
+class RideForm extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    ridesOptions: PropTypes.object.isRequired,
+    ride: PropTypes.object
   }
 
   render() {
@@ -50,15 +57,15 @@ class RideEditForm extends Component {
   }
 }
 
-RideEditForm = reduxForm({
-  form: 'RideEditForm',
+RideForm = reduxForm({
+  form: 'RideForm',
   validate: RideValidator,
-})(RideEditForm)
+})(RideForm)
 
-RideEditForm = connect(
-  state => ({
-    initialValues: state.ride
+RideForm = connect(
+  (state, props) => ({
+    initialValues: props.ride
   })
-)(RideEditForm)
+)(RideForm)
 
-export default RideEditForm
+export default RideForm

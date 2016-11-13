@@ -1,9 +1,10 @@
+// utils
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import ListItem from 'material-ui/List/ListItem'
 import Avatar from 'material-ui/Avatar'
 
-export default class UsersIndexPageItem extends Component {
+export class UsersIndexItem extends Component {
   render() {
     const { user } = this.props
 

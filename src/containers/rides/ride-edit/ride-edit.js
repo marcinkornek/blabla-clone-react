@@ -1,27 +1,28 @@
+// utils
 import React, { Component, PropTypes }  from 'react'
-import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import * as actions from '../../../actions/rides'
-import RideEditForm from '../../../components/rides/ride-edit-form/ride-edit-form'
-import LoadingItem from '../../../components/shared/loading-item/loading-item'
+import { Col } from 'react-bootstrap'
 
-class RideEdit extends Component {
+// actions
+import { fetchRidesOptions, fetchRide, updateRide } from '../../../actions/rides'
+
+// components
+import { AsyncContent } from '../../../components/shared/async-content/async-content'
+import RideForm from '../../../components/rides/ride-form/ride-form'
+
+export class RideEdit extends Component {
   static propTypes = {
+    ride: PropTypes.object.isRequired,
+    isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    ridesOptions: PropTypes.object.isRequired
-  }
-
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired
+    ridesOptions: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
     const { fetchRidesOptions, fetchRide, params: { rideId } } = this.props
 
     fetchRidesOptions()
-    if (rideId) {
-      fetchRide(rideId)
-    }
+    if (rideId) fetchRide(rideId)
   }
 
   handleSubmit(data) {
@@ -39,32 +40,35 @@ class RideEdit extends Component {
         if (data[key]) { body.append(key, data[key]) }
       }
     })
-    updateRide(this.context.router, body, ride.id)
+    updateRide(body, ride.id)
   }
 
-  renderRideEditForm() {
-    const { isFetching, ridesOptions } = this.props
+  renderRideForm() {
+    const { ride, ridesOptions } = this.props
 
-    if (isFetching) {
-      return(<LoadingItem />)
-    } else {
-      return(
-        <RideEditForm
-          ridesOptions={ridesOptions}
-          onSubmit={this.handleSubmit.bind(this)}
-        />
-      )
-    }
+    return (
+      <RideForm
+        ridesOptions={ridesOptions}
+        ride={ride}
+        onSubmit={this.handleSubmit.bind(this)}
+      />
+    )
   }
 
   render() {
+    const { isStarted, isFetching } = this.props
+
     return (
       <div className='show-grid'>
         <Col xs={12}>
           <div className='heading'>
             <div className='heading-title'>Edit ride</div>
           </div>
-          {this.renderRideEditForm()}
+          <AsyncContent
+            isFetching={isFetching || !isStarted}
+          >
+            {this.renderRideForm()}
+          </AsyncContent>
         </Col>
       </div>
     )
@@ -73,15 +77,17 @@ class RideEdit extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    ride: state.ride.item,
+    isStarted: state.ride.isStarted,
+    isFetching: state.ride.isFetching,
     ridesOptions: state.ridesOptions,
-    isFetching: state.ride.isFetching
   }
 }
 
 const mapDispatchToProps = {
-  fetchRidesOptions: actions.fetchRidesOptions,
-  fetchRide: actions.fetchRide,
-  updateRide: actions.updateRide
+  fetchRidesOptions,
+  fetchRide,
+  updateRide,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RideEdit)

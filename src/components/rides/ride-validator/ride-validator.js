@@ -1,4 +1,4 @@
-export default function RideValidator(values, props) {
+export function RideValidator(values, props) {
   const errors = {};
   if (!values.start_city) {
     errors.start_city = 'Required';

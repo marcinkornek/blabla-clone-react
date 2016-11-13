@@ -1,18 +1,17 @@
+// utils
 import React, { Component, PropTypes } from 'react'
-import Router, { Link } from 'react-router'
-import { Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import Router, { Link } from 'react-router'
 import _ from 'lodash'
-import * as actions from '../../../actions/users'
+import { Col } from 'react-bootstrap'
+
+// actions
+import { updateCurrentUser } from '../../../actions/users'
+
+// components
 import UserEditForm from '../../../components/users/user-edit-form/user-edit-form'
-import LoadingItem from '../../../components/shared/loading-item/loading-item'
 
-class UserEdit extends Component {
-  static PropTypes = {
-    isFetching: PropTypes.bool.isRequired,
-    currentUserId: PropTypes.number.isRequired
-  }
-
+export class UserEdit extends Component {
   handleSubmit(data) {
     const { updateCurrentUser } = this.props
     var body = new FormData()
@@ -27,16 +26,6 @@ class UserEdit extends Component {
     updateCurrentUser(body)
   }
 
-  renderUserEditForm() {
-    const { isFetching } = this.props
-
-    if (isFetching) {
-      return(<LoadingItem />)
-    } else {
-      return(<UserEditForm onSubmit={this.handleSubmit.bind(this)} />)
-    }
-  }
-
   render() {
     return (
       <div className='show-grid'>
@@ -44,7 +33,7 @@ class UserEdit extends Component {
           <div className='heading'>
             <div className='heading-title'>My profile</div>
           </div>
-          {this.renderUserEditForm()}
+          <UserEditForm onSubmit={this.handleSubmit.bind(this)} />
         </Col>
       </div>
     )
@@ -52,15 +41,11 @@ class UserEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    isFetching: state.currentUser.isFetching,
-    currentUserId: state.session.id
-  }
+  return {}
 }
 
 const mapDispatchToProps = {
-  fetchCurrentUser: actions.fetchCurrentUser,
-  updateCurrentUser: actions.updateCurrentUser
+  updateCurrentUser,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserEdit)

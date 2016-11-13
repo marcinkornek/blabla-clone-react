@@ -1,9 +1,12 @@
+// utils
 import React, { Component, PropTypes } from 'react'
-import NotificationsItem from '../notifications-item/notifications-item'
 import List from 'material-ui/List/List'
 import { Link } from 'react-router'
 
-export default class NotificationsList extends React.Component {
+// components
+import { NotificationsItem } from '../notifications-item/notifications-item'
+
+export class NotificationsList extends Component {
   static PropTypes = {
     notifications: PropTypes.array.isRequired,
     markAsSeen: PropTypes.func.isRequired
@@ -12,7 +15,7 @@ export default class NotificationsList extends React.Component {
   renderNotificationsItems() {
     const { notifications, markAsSeen } = this.props
     if (notifications.pagination.total_count > 0) {
-      return(
+      return (
         notifications.items.map((notification, i) =>
           <NotificationsItem
             key={i}
@@ -22,7 +25,7 @@ export default class NotificationsList extends React.Component {
         )
       )
     } else {
-      return(
+      return (
         <div className='header__notifications__empty'>
           no new notifications
         </div>
@@ -33,7 +36,7 @@ export default class NotificationsList extends React.Component {
   renderNotificationsFooter() {
     const { notifications } = this.props
     if (notifications.pagination.total_count > 0) {
-      return(
+      return (
         <Link to="/notifications">
           <div className='header__notifications__footer'>
             See all
@@ -44,7 +47,7 @@ export default class NotificationsList extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <div className='header__notifications'>
         <div className='header__notifications__header'>
           Notifications

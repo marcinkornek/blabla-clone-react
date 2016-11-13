@@ -1,6 +1,7 @@
 import * as types from '../constants/ActionTypes'
 
 const initialState = {
+  isStarted: false,
   isFetching: false,
   items: [],
   pagination: {}
@@ -11,7 +12,8 @@ export default function ridesDriver(state = initialState, action) {
   case types.RIDES_DRIVER_REQUEST:
     return {
       ...state,
-      isFetching: true
+      isStarted: true,
+      isFetching: true,
     };
   case types.RIDES_DRIVER_SUCCESS:
     return {
