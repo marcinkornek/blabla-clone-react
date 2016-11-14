@@ -1,8 +1,15 @@
 import 'whatwg-fetch'
-import * as types from '../constants/ActionTypes'
-import * as cons from '../constants/constants'
-import * as usersActions from './users'
-import * as notificationsActions from './notifications'
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAILURE,
+} from '../constants/ActionTypes'
+import { APIEndpoints, ActionCableURL } from '../constants/constants'
+import { fetchCurrentUser } from './users'
+import { fetchNotifications } from './notifications'
 import { push } from 'react-router-redux'
 
 function status(response) {
@@ -15,7 +22,7 @@ function status(response) {
 export function loginFromCookie(data) {
   return dispatch => {
     dispatch(loginRequest())
-    return fetch(cons.APIEndpoints.SESSIONS + '/get_user', {
+    return fetch(APIEndpoints.SESSIONS + '/get_user', {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -34,7 +41,7 @@ export function loginFromCookie(data) {
 export function logInEmailBackend(body) {
   return dispatch => {
     dispatch(loginRequest())
-    return fetch(cons.APIEndpoints.LOGIN_EMAIL, {
+    return fetch(APIEndpoints.LOGIN_EMAIL, {
     	method: 'post',
     	headers: {
     		'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -56,7 +63,7 @@ export function logInEmailBackend(body) {
 export function logInFbBackend(fbResponse) {
   return dispatch => {
     dispatch(loginRequest())
-    return fetch(cons.APIEndpoints.LOGIN_FB, {
+    return fetch(APIEndpoints.LOGIN_FB, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -80,7 +87,7 @@ export function logout() {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(logoutRequest())
-    return fetch(cons.APIEndpoints.SESSIONS, {
+    return fetch(APIEndpoints.SESSIONS, {
       method: 'delete',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -101,19 +108,19 @@ export function logout() {
 
 export function loginRequest() {
   return {
-    type: types.LOGIN_REQUEST
+    type: LOGIN_REQUEST
   }
 }
 
 export function loginSuccess(json) {
   return (dispatch, getState) => {
     dispatch({
-      type: types.LOGIN_SUCCESS,
+      type: LOGIN_SUCCESS,
       item: json
     })
-    dispatch(usersActions.fetchCurrentUser())
-    dispatch(notificationsActions.fetchNotifications())
-    window.cable = ActionCable.createConsumer(`${cons.ActionCableURL}?email=${json.email}&token=${json.access_token}`)
+    dispatch(fetchCurrentUser())
+    dispatch(fetchNotifications())
+    window.cable = ActionCable.createConsumer(`${ActionCableURL}?email=${json.email}&token=${json.access_token}`)
     saveToLocalStorage(json)
     dispatch(push('/'))
   }
@@ -121,21 +128,21 @@ export function loginSuccess(json) {
 
 export function loginFailure(errors) {
   return {
-    type: types.LOGIN_FAILURE,
+    type: LOGIN_FAILURE,
     errors: errors.error
   }
 }
 
 export function logoutRequest() {
   return {
-    type: types.LOGOUT_REQUEST
+    type: LOGOUT_REQUEST
   }
 }
 
 export function logoutSuccess(json) {
   return (dispatch, getState) => {
     dispatch({
-      type: types.LOGOUT_SUCCESS
+      type: LOGOUT_SUCCESS
     })
     localStorage.clear()
     dispatch(push('/'))
@@ -144,7 +151,7 @@ export function logoutSuccess(json) {
 
 export function logoutFailure(errors) {
   return {
-    type: types.LOGOUT_FAILURE,
+    type: LOGOUT_FAILURE,
     errors: errors
   }
 }

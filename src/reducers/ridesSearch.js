@@ -1,4 +1,6 @@
-import * as types from '../constants/ActionTypes'
+import {
+  RIDES_SEARCH_FORM
+} from '../constants/ActionTypes'
 
 const initialState = {
   data: undefined
@@ -6,7 +8,7 @@ const initialState = {
 
 export default function ridesSearch(state = initialState, action) {
   switch (action.type) {
-  case types.RIDES_SEARCH_FORM:
+  case RIDES_SEARCH_FORM:
     return {
       ...state,
       data: action.data

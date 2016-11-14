@@ -1,21 +1,24 @@
-import * as types from '../constants/ActionTypes'
+import {
+  FETCH_USERS_REQUEST,
+  FETCH_USERS_SUCCESS,
+} from '../constants/ActionTypes'
 
 const initialState = {
   isStarted: false,
   isFetching: false,
   items: [],
-  pagination: []
+  pagination: {}
 }
 
 export default function users(state = initialState, action) {
   switch (action.type) {
-  case types.FETCH_USERS_REQUEST:
+  case FETCH_USERS_REQUEST:
     return {
       ...state,
       isStarted: true,
       isFetching: true,
     };
-  case types.FETCH_USERS_SUCCESS:
+  case FETCH_USERS_SUCCESS:
     return {
       ...state,
       isFetching: false,

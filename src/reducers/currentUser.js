@@ -1,4 +1,11 @@
-import * as types from '../constants/ActionTypes'
+import {
+  FETCH_CURRENT_USER_REQUEST,
+  FETCH_CURRENT_USER_SUCCESS,
+  FETCH_CURRENT_USER_FAILURE,
+  CURRENT_USER_UPDATE_REQUEST,
+  CURRENT_USER_UPDATE_SUCCESS,
+  CURRENT_USER_UPDATE_FAILURE,
+} from '../constants/ActionTypes'
 
 const initialState = {
   isStarted: false,
@@ -9,38 +16,38 @@ const initialState = {
 
 export default function currentUser(state = initialState, action) {
   switch (action.type) {
-  case types.FETCH_CURRENT_USER_REQUEST:
+  case FETCH_CURRENT_USER_REQUEST:
     return {
       ...state,
       errors: [],
       isStarted: true,
       isFetching: true,
     };
-  case types.FETCH_CURRENT_USER_SUCCESS:
+  case FETCH_CURRENT_USER_SUCCESS:
     action.item.date_of_birth = new Date(action.item.date_of_birth)
     return {
       ...state,
       isFetching: false,
       ...action.item
     };
-  case types.FETCH_CURRENT_USER_FAILURE:
+  case FETCH_CURRENT_USER_FAILURE:
     return {
       ...state,
       isFetching: false
     };
-  case types.CURRENT_USER_UPDATE_REQUEST:
+  case CURRENT_USER_UPDATE_REQUEST:
     return {
       ...state,
       isSaving: true
     };
-  case types.CURRENT_USER_UPDATE_SUCCESS:
+  case CURRENT_USER_UPDATE_SUCCESS:
     return {
       ...state,
       isSaving: false,
       ...action.item,
       errors: []
     };
-  case types.CURRENT_USER_UPDATE_FAILURE:
+  case CURRENT_USER_UPDATE_FAILURE:
     return {
       ...state,
       isSaving: false,

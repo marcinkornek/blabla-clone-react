@@ -1,6 +1,14 @@
 import 'whatwg-fetch'
-import * as types from '../constants/ActionTypes'
-import * as cons  from '../constants/constants'
+import {
+  USER_NOTIFICATION_ADD_SUCCESS,
+  USER_NOTIFICATIONS_REQUEST,
+  USER_NOTIFICATIONS_SUCCESS,
+  USER_NOTIFICATIONS_FAILURE,
+  USER_NOTIFICATION_UPDATE_REQUEST,
+  USER_NOTIFICATION_UPDATE_SUCCESS,
+  USER_NOTIFICATION_UPDATE_FAILURE,
+} from '../constants/ActionTypes'
+import { APIEndpoints } from '../constants/constants'
 
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -13,7 +21,7 @@ export function fetchNotifications(page = 1, per = 10) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(userNotificationsRequest())
-    return fetch(cons.APIEndpoints.NOTIFICATIONS + '?page=' + page + '&per=' + per, {
+    return fetch(APIEndpoints.NOTIFICATIONS + '?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -33,7 +41,7 @@ export function markNotificationAsSeen(notificationId) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(userNotificationUpdateRequest())
-    return fetch(cons.APIEndpoints.NOTIFICATIONS + '/' + notificationId + '/mark_as_seen', {
+    return fetch(APIEndpoints.NOTIFICATIONS + '/' + notificationId + '/mark_as_seen', {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -55,20 +63,20 @@ export function markNotificationAsSeen(notificationId) {
 
 export function userNotificationAdd(notification) {
   return {
-    type: types.USER_NOTIFICATION_ADD_SUCCESS,
+    type: USER_NOTIFICATION_ADD_SUCCESS,
     item: notification
   }
 }
 
 export function userNotificationsRequest() {
   return {
-    type: types.USER_NOTIFICATIONS_REQUEST,
+    type: USER_NOTIFICATIONS_REQUEST,
   }
 }
 
 export function userNotificationsSuccess(json) {
   return {
-    type: types.USER_NOTIFICATIONS_SUCCESS,
+    type: USER_NOTIFICATIONS_SUCCESS,
     items: json.items,
     pagination: json.meta
   }
@@ -76,27 +84,27 @@ export function userNotificationsSuccess(json) {
 
 export function userNotificationsFailure(errors) {
   return {
-    type: types.USER_NOTIFICATIONS_FAILURE,
+    type: USER_NOTIFICATIONS_FAILURE,
     errors: errors
   }
 }
 
 export function userNotificationUpdateRequest() {
   return {
-    type: types.USER_NOTIFICATION_UPDATE_REQUEST,
+    type: USER_NOTIFICATION_UPDATE_REQUEST,
   }
 }
 
 export function userNotificationUpdateSuccess(json) {
   return {
-    type: types.USER_NOTIFICATION_UPDATE_SUCCESS,
+    type: USER_NOTIFICATION_UPDATE_SUCCESS,
     item: json
   }
 }
 
 export function userNotificationUpdateFailure(errors) {
   return {
-    type: types.USER_NOTIFICATION_UPDATE_FAILURE,
+    type: USER_NOTIFICATION_UPDATE_FAILURE,
     errors: errors
   }
 }

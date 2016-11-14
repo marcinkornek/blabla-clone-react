@@ -1,6 +1,22 @@
 import 'whatwg-fetch'
-import * as types from '../constants/ActionTypes'
-import * as cons  from '../constants/constants'
+import {
+  FETCH_USERS_REQUEST,
+  FETCH_USERS_SUCCESS,
+  FETCH_USERS_FAILURE,
+  FETCH_USER_REQUEST,
+  FETCH_USER_SUCCESS,
+  FETCH_USER_FAILURE,
+  FETCH_CURRENT_USER_REQUEST,
+  FETCH_CURRENT_USER_SUCCESS,
+  FETCH_CURRENT_USER_FAILURE,
+  USER_CREATE_REQUEST,
+  USER_CREATE_SUCCESS,
+  USER_CREATE_FAILURE,
+  CURRENT_USER_UPDATE_REQUEST,
+  CURRENT_USER_UPDATE_SUCCESS,
+  CURRENT_USER_UPDATE_FAILURE,
+} from '../constants/ActionTypes'
+import { APIEndpoints } from '../constants/constants'
 
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -13,7 +29,7 @@ function status(response) {
 export function fetchUsers(page = 1, per = 10) {
   return dispatch => {
     dispatch(fetchUsersRequest())
-    return fetch(cons.APIEndpoints.USERS + '?page=' + page + '&per=' + per, {
+    return fetch(APIEndpoints.USERS + '?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -31,7 +47,7 @@ export function fetchUsers(page = 1, per = 10) {
 export function fetchUser(userId) {
   return dispatch => {
     dispatch(fetchUserRequest())
-    return fetch(cons.APIEndpoints.USERS + '/' + userId, {
+    return fetch(APIEndpoints.USERS + '/' + userId, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -50,7 +66,7 @@ export function fetchCurrentUser() {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(fetchCurrentUserRequest())
-    return fetch(cons.APIEndpoints.USERS + '/' + session.id + '/profile', {
+    return fetch(APIEndpoints.USERS + '/' + session.id + '/profile', {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -68,7 +84,7 @@ export function fetchCurrentUser() {
 export function createUser(body) {
   return dispatch => {
     dispatch(userCreateRequest())
-    return fetch(cons.APIEndpoints.USERS, {
+    return fetch(APIEndpoints.USERS, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -87,7 +103,7 @@ export function updateCurrentUser(body) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(currentUserUpdateRequest())
-    return fetch(cons.APIEndpoints.USERS + '/' + session.id, {
+    return fetch(APIEndpoints.USERS + '/' + session.id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -112,7 +128,7 @@ export function updateCurrentUser(body) {
 export function checkUserEmailUniqueness(email) {
   return (dispatch, getState) => {
     const { session } = getState()
-    return fetch(cons.APIEndpoints.USERS + '/check_if_unique?email=' + email, {
+    return fetch(APIEndpoints.USERS + '/check_if_unique?email=' + email, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -128,13 +144,13 @@ export function checkUserEmailUniqueness(email) {
 
 export function fetchUsersRequest() {
   return {
-    type: types.FETCH_USERS_REQUEST
+    type: FETCH_USERS_REQUEST
   }
 }
 
 export function fetchUsersSuccess(json) {
   return {
-    type: types.FETCH_USERS_SUCCESS,
+    type: FETCH_USERS_SUCCESS,
     items: json.items,
     pagination: json.meta
   }
@@ -142,80 +158,80 @@ export function fetchUsersSuccess(json) {
 
 export function fetchUsersFailure(errors) {
   return {
-    type: types.FETCH_USERS_FAILURE,
+    type: FETCH_USERS_FAILURE,
     errors: errors
   }
 }
 
 export function fetchUserRequest() {
   return {
-    type: types.FETCH_USER_REQUEST
+    type: FETCH_USER_REQUEST
   }
 }
 
 export function fetchUserSuccess(json) {
   return {
-    type: types.FETCH_USER_SUCCESS,
+    type: FETCH_USER_SUCCESS,
     item: json
   }
 }
 
 export function fetchUserFailure(errors) {
   return {
-    type: types.FETCH_USER_FAILURE,
+    type: FETCH_USER_FAILURE,
     errors: errors
   }
 }
 
 export function fetchCurrentUserRequest() {
   return {
-    type: types.FETCH_CURRENT_USER_REQUEST
+    type: FETCH_CURRENT_USER_REQUEST
   }
 }
 
 export function fetchCurrentUserSuccess(json) {
   return {
-    type: types.FETCH_CURRENT_USER_SUCCESS,
+    type: FETCH_CURRENT_USER_SUCCESS,
     item: json
   }
 }
 
 export function fetchCurrentUserFailure(errors) {
   return {
-    type: types.FETCH_CURRENT_USER_FAILURE,
+    type: FETCH_CURRENT_USER_FAILURE,
     errors: errors
   }
 }
 
 export function userCreateRequest() {
   return {
-    type: types.USER_CREATE_REQUEST
+    type: USER_CREATE_REQUEST
   }
 }
 
 export function userCreateSuccess(json) {
   return {
-    type: types.USER_CREATE_SUCCESS,
+    type: USER_CREATE_SUCCESS,
     item: json
   }
 }
 
 export function userCreateFailure(errors) {
   return {
-    type: types.USER_CREATE_FAILURE,
+    type: USER_CREATE_FAILURE,
     errors: errors
   }
 }
 
 export function currentUserUpdateRequest() {
   return {
-    type: types.CURRENT_USER_UPDATE_REQUEST
+    type: CURRENT_USER_UPDATE_REQUEST
   }
 }
 
 export function currentUserUpdateSuccess(json, session) {
   return {
-    type: types.CURRENT_USER_UPDATE_SUCCESS,
+    type: CURRENT_USER_UPDATE_SUCCESS,
     item: json,
     session: session
   }
@@ -223,7 +239,7 @@ export function currentUserUpdateSuccess(json, session) {
 
 export function currentUserUpdateFailure(errors) {
   return {
-    type: types.CURRENT_USER_UPDATE_FAILURE,
+    type: CURRENT_USER_UPDATE_FAILURE,
     errors: errors
   }
 }

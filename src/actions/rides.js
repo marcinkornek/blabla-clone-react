@@ -1,6 +1,29 @@
 import 'whatwg-fetch'
-import * as types from '../constants/ActionTypes'
-import * as cons  from '../constants/constants'
+import {
+  RIDES_REQUEST,
+  RIDES_SUCCESS,
+  RIDES_SEARCH_FORM,
+  RIDES_FAILURE,
+  RIDE_REQUEST,
+  RIDE_SUCCESS,
+  RIDE_FAILURE,
+  RIDE_CREATE_REQUEST,
+  RIDE_CREATE_SUCCESS,
+  RIDE_CREATE_FAILURE,
+  RIDE_UPDATE_REQUEST,
+  RIDE_UPDATE_SUCCESS,
+  RIDE_UPDATE_FAILURE,
+  RIDE_OPTIONS_REQUEST,
+  RIDE_OPTIONS_SUCCESS,
+  RIDE_OPTIONS_FAILURE,
+  RIDES_DRIVER_REQUEST,
+  RIDES_DRIVER_SUCCESS,
+  RIDES_DRIVER_FAILURE,
+  RIDES_PASSENGER_REQUEST,
+  RIDES_PASSENGER_SUCCESS,
+  RIDES_PASSENGER_FAILURE,
+} from '../constants/ActionTypes'
+import { APIEndpoints } from '../constants/constants'
 import { push } from 'react-router-redux'
 
 function status(response) {
@@ -21,7 +44,7 @@ export function fetchRides(page = 1, per = 10, options = {}) {
       if (options.start_date) { rideOptions += '&start_date=' + options.start_date }
       if (options.hide_full) { rideOptions += '&hide_full=' + options.hide_full }
     }
-    return fetch(cons.APIEndpoints.RIDES + '?page=' + page + '&per=' + per + rideOptions, {
+    return fetch(APIEndpoints.RIDES + '?page=' + page + '&per=' + per + rideOptions, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -40,7 +63,7 @@ export function fetchRides(page = 1, per = 10, options = {}) {
 export function fetchRidesAsDriver(driverId, page = 1, per = 10) {
   return dispatch => {
     dispatch(ridesAsDriverRequest())
-    return fetch(cons.APIEndpoints.USERS + '/' + driverId + '/rides_as_driver?page=' + page + '&per=' + per, {
+    return fetch(APIEndpoints.USERS + '/' + driverId + '/rides_as_driver?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -58,7 +81,7 @@ export function fetchRidesAsPassenger(passengerId, page = 1, per = 10) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(ridesAsPassengerRequest())
-    return fetch(cons.APIEndpoints.USERS + '/' + passengerId + '/rides_as_passenger?page=' + page + '&per=' + per, {
+    return fetch(APIEndpoints.USERS + '/' + passengerId + '/rides_as_passenger?page=' + page + '&per=' + per, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -78,7 +101,7 @@ export function fetchRide(rideId) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(rideRequest())
-    return fetch(cons.APIEndpoints.RIDES + '/' + rideId, {
+    return fetch(APIEndpoints.RIDES + '/' + rideId, {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -98,7 +121,7 @@ export function fetchRidesOptions() {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(ridesOptionsRequest())
-    return fetch(cons.APIEndpoints.RIDES + '/options', {
+    return fetch(APIEndpoints.RIDES + '/options', {
       method: 'get',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -118,7 +141,7 @@ export function createRide(body) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(rideCreateRequest())
-    return fetch(cons.APIEndpoints.RIDES, {
+    return fetch(APIEndpoints.RIDES, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -138,7 +161,7 @@ export function updateRide(body, ride_id) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(rideUpdateRequest())
-    return fetch(cons.APIEndpoints.RIDES + '/' + ride_id, {
+    return fetch(APIEndpoints.RIDES + '/' + ride_id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -156,7 +179,7 @@ export function updateRide(body, ride_id) {
 
 export function ridesRequest() {
   return {
-    type: types.RIDES_REQUEST
+    type: RIDES_REQUEST
   }
 }
 
@@ -170,7 +193,7 @@ export function ridesSuccess(json, options) {
       if (options.hide_full) { query += '&hide_full=' + options.hide_full }
     }
     dispatch({
-      type: types.RIDES_SUCCESS,
+      type: RIDES_SUCCESS,
       items: json.items,
       pagination: json.meta,
       filters: json.filters
@@ -181,48 +204,48 @@ export function ridesSuccess(json, options) {
 
 export function loadSearchFormData(data) {
   return {
-    type: types.RIDES_SEARCH_FORM,
+    type: RIDES_SEARCH_FORM,
     data: data
   }
 }
 
 export function ridesFailure(errors) {
   return {
-    type: types.RIDES_FAILURE,
+    type: RIDES_FAILURE,
     errors: errors
   }
 }
 
 export function rideRequest() {
   return {
-    type: types.RIDE_REQUEST
+    type: RIDE_REQUEST
   }
 }
 
 export function rideSuccess(json) {
   return {
-    type: types.RIDE_SUCCESS,
+    type: RIDE_SUCCESS,
     item: json
   }
 }
 
 export function rideFailure(errors) {
   return {
-    type: types.RIDE_FAILURE,
+    type: RIDE_FAILURE,
     errors: errors
   }
 }
 
 export function rideCreateRequest() {
   return {
-    type: types.RIDE_CREATE_REQUEST
+    type: RIDE_CREATE_REQUEST
   }
 }
 
 export function rideCreateSuccess(json) {
   return (dispatch, getState) => {
     dispatch({
-      type: types.RIDE_CREATE_SUCCESS,
+      type: RIDE_CREATE_SUCCESS,
       item: json
     })
     dispatch(push('/account/rides_as_driver'))
@@ -231,21 +254,21 @@ export function rideCreateSuccess(json) {
 
 export function rideCreateFailure(errors) {
   return {
-    type: types.RIDE_CREATE_FAILURE,
+    type: RIDE_CREATE_FAILURE,
     errors: errors
   }
 }
 
 export function rideUpdateRequest() {
   return {
-    type: types.RIDE_UPDATE_REQUEST
+    type: RIDE_UPDATE_REQUEST
   }
 }
 
 export function rideUpdateSuccess(json) {
   return (dispatch, getState) => {
     dispatch({
-      type: types.RIDE_UPDATE_SUCCESS,
+      type: RIDE_UPDATE_SUCCESS,
       item: json
     })
     dispatch(push('/account/rides_as_driver'))
@@ -254,40 +277,40 @@ export function rideUpdateSuccess(json) {
 
 export function rideUpdateFailure(errors) {
   return {
-    type: types.RIDE_UPDATE_FAILURE,
+    type: RIDE_UPDATE_FAILURE,
     errors: errors
   }
 }
 
 export function ridesOptionsRequest() {
   return {
-    type: types.RIDE_OPTIONS_REQUEST
+    type: RIDE_OPTIONS_REQUEST
   }
 }
 
 export function ridesOptionsSuccess(json) {
   return {
-    type: types.RIDE_OPTIONS_SUCCESS,
+    type: RIDE_OPTIONS_SUCCESS,
     item: json
   }
 }
 
 export function ridesOptionsFailure(errors) {
   return {
-    type: types.RIDE_OPTIONS_FAILURE,
+    type: RIDE_OPTIONS_FAILURE,
     errors: errors
   }
 }
 
 export function ridesAsDriverRequest() {
   return {
-    type: types.RIDES_DRIVER_REQUEST
+    type: RIDES_DRIVER_REQUEST
   }
 }
 
 export function ridesAsDriverSuccess(json) {
   return {
-    type: types.RIDES_DRIVER_SUCCESS,
+    type: RIDES_DRIVER_SUCCESS,
     items: json.items,
     pagination: json.meta
   }
@@ -295,20 +318,20 @@ export function ridesAsDriverSuccess(json) {
 
 export function ridesAsDriverFailure(errors) {
   return {
-    type: types.RIDES_DRIVER_FAILURE,
+    type: RIDES_DRIVER_FAILURE,
     errors: errors
   }
 }
 
 export function ridesAsPassengerRequest() {
   return {
-    type: types.RIDES_PASSENGER_REQUEST
+    type: RIDES_PASSENGER_REQUEST
   }
 }
 
 export function ridesAsPassengerSuccess(json) {
   return {
-    type: types.RIDES_PASSENGER_SUCCESS,
+    type: RIDES_PASSENGER_SUCCESS,
     items: json.items,
     pagination: json.meta
   }
@@ -316,7 +339,7 @@ export function ridesAsPassengerSuccess(json) {
 
 export function ridesAsPassengerFailure(errors) {
   return {
-    type: types.RIDES_PASSENGER_FAILURE,
+    type: RIDES_PASSENGER_FAILURE,
     errors: errors
   }
 }

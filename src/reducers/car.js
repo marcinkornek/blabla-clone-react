@@ -1,4 +1,10 @@
-import * as types from '../constants/ActionTypes'
+import {
+  CAR_REQUEST,
+  CAR_SUCCESS,
+  CAR_INITIALIZE,
+  CAR_UPDATE_REQUEST,
+  CAR_UPDATE_SUCCESS,
+} from '../constants/ActionTypes'
 
 const initialState = {
   isStarted: false,
@@ -9,26 +15,26 @@ const initialState = {
 
 export default function car(state = initialState, action) {
   switch (action.type) {
-  case types.CAR_REQUEST:
+  case CAR_REQUEST:
     return {
       ...state,
       isStarted: true,
       isFetching: true
     };
-  case types.CAR_SUCCESS:
+  case CAR_SUCCESS:
     return {
       ...state,
       isFetching: false,
       item: action.item
     };
-  case types.CAR_INITIALIZE:
+  case CAR_INITIALIZE:
     return initialState;
-  case types.CAR_UPDATE_REQUEST:
+  case CAR_UPDATE_REQUEST:
     return {
       ...state,
       isSaving: true
     };
-  case types.CAR_UPDATE_SUCCESS:
+  case CAR_UPDATE_SUCCESS:
     return {
       ...state,
       isSaving: false,

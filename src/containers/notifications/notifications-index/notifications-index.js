@@ -16,7 +16,7 @@ const per = 10
 
 class NotificationsIndex extends Component {
   static propTypes = {
-    notifications: PropTypes.array.isRequired,
+    notifications: PropTypes.object.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,

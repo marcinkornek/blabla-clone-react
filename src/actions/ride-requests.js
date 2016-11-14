@@ -7,7 +7,7 @@ import {
   RIDE_REQUEST_CHANGE_SUCCESS,
   RIDE_REQUEST_CHANGE_FAILURE,
 } from '../constants/ActionTypes'
-import * as cons  from '../constants/constants'
+import { APIEndpoints } from '../constants/constants'
 
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -20,7 +20,7 @@ export function createRideRequest(rideId, places) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(rideRequestCreateRequest())
-    return fetch(cons.APIEndpoints.RIDE_REQUESTS, {
+    return fetch(APIEndpoints.RIDE_REQUESTS, {
       method: 'post',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
@@ -44,7 +44,7 @@ export function changeRideRequest(rideRequestId, status) {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(rideRequestChangeRequest())
-    return fetch(cons.APIEndpoints.RIDE_REQUESTS + '/' + rideRequestId, {
+    return fetch(APIEndpoints.RIDE_REQUESTS + '/' + rideRequestId, {
       method: 'put',
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',

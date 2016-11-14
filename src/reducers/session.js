@@ -1,4 +1,11 @@
-import * as types from '../constants/ActionTypes'
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_SUCCESS,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILURE,
+} from '../constants/ActionTypes'
 
 const initialState = {
   isStarted: false,
@@ -16,13 +23,13 @@ const emptySession = {
 
 export default function session(state = initialState, action) {
   switch (action.type) {
-  case types.LOGIN_REQUEST:
+  case LOGIN_REQUEST:
     return {
       ...state,
       isStarted: true,
       isFetching: true,
     };
-  case types.LOGIN_SUCCESS:
+  case LOGIN_SUCCESS:
     return {
       ...state,
       errors: [],
@@ -30,7 +37,7 @@ export default function session(state = initialState, action) {
       isLoggedIn: true,
       ...action.item
     };
-  case types.LOGIN_FAILURE:
+  case LOGIN_FAILURE:
     return {
       ...state,
       errors: [action.errors],
@@ -38,7 +45,7 @@ export default function session(state = initialState, action) {
       isLoggedIn: false,
       ...action.item
     };
-  case types.LOGOUT_SUCCESS:
+  case LOGOUT_SUCCESS:
     return {
       ...state,
       errors: [],
@@ -46,7 +53,7 @@ export default function session(state = initialState, action) {
       isLoggedIn: false,
       ...emptySession
     };
-  case types.USER_UPDATE_SUCCESS:
+  case USER_UPDATE_SUCCESS:
     return {
       ...state,
       errors: [],
@@ -54,7 +61,7 @@ export default function session(state = initialState, action) {
       isLoggedIn: true,
       ...action.item
     };
-    case types.USER_UPDATE_FAILURE:
+    case USER_UPDATE_FAILURE:
     return {
       ...state,
       errors: action.errors

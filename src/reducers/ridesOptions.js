@@ -1,4 +1,7 @@
-import * as types from '../constants/ActionTypes'
+import {
+  RIDE_OPTIONS_REQUEST,
+  RIDE_OPTIONS_SUCCESS,
+} from '../constants/ActionTypes'
 
 const initialState = {
   isStarted: false,
@@ -9,13 +12,13 @@ const initialState = {
 
 export default function ridesOptions(state = initialState, action) {
   switch (action.type) {
-  case types.RIDE_OPTIONS_REQUEST:
+  case RIDE_OPTIONS_REQUEST:
     return {
       ...state,
       isStarted: true,
       isFetching: true,
     };
-  case types.RIDE_OPTIONS_SUCCESS:
+  case RIDE_OPTIONS_SUCCESS:
     return {
       ...state,
       isFetching: false,

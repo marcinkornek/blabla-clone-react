@@ -8,7 +8,7 @@ import { NotificationsItem } from '../notifications-item/notifications-item'
 
 export class NotificationsList extends Component {
   static propTypes = {
-    notifications: PropTypes.array.isRequired,
+    notifications: PropTypes.object.isRequired,
     markAsSeen: PropTypes.func.isRequired
   }
 
