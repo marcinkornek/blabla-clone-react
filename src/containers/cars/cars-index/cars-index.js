@@ -15,7 +15,7 @@ import { CarsIndexItem } from '../../../components/cars/cars-index-item/cars-ind
 const per = 10
 
 class CarsIndex extends Component {
-  static PropTypes = {
+  static propTypes = {
     cars: PropTypes.array.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,

@@ -15,7 +15,7 @@ import { RidesIndexSimpleItem } from '../../../components/rides/rides-index-simp
 const per = 10
 
 class RidesIndexDriver extends Component {
-  static PropTypes = {
+  static propTypes = {
     rides: PropTypes.array.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,

@@ -12,7 +12,7 @@ import { AsyncContent } from '../../../components/shared/async-content/async-con
 import CarForm from '../../../components/cars/car-form/car-form'
 
 export class CarEdit extends Component {
-  static PropTypes = {
+  static propTypes = {
     car: PropTypes.object.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,

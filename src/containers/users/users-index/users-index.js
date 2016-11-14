@@ -15,7 +15,7 @@ import { UsersIndexItem } from '../../../components/users/users-index-item/users
 const per = 10
 
 class UsersIndex extends Component {
-  static PropTypes = {
+  static propTypes = {
     users: PropTypes.array.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,

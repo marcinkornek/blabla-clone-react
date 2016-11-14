@@ -7,7 +7,7 @@ import { Link } from 'react-router'
 import { NotificationsItem } from '../notifications-item/notifications-item'
 
 export class NotificationsList extends Component {
-  static PropTypes = {
+  static propTypes = {
     notifications: PropTypes.array.isRequired,
     markAsSeen: PropTypes.func.isRequired
   }

@@ -30,7 +30,7 @@ const styles = {
 }
 
 export class RidesIndex extends Component {
-  static PropTypes = {
+  static propTypes = {
     rides: PropTypes.array.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,

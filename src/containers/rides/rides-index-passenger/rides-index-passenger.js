@@ -15,7 +15,7 @@ import { RidesIndexItem } from '../../../components/rides/rides-index-item/rides
 const per = 10
 
 class RidesIndexPassenger extends Component {
-  static PropTypes = {
+  static propTypes = {
     rides: PropTypes.array.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,

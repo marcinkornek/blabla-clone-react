@@ -15,7 +15,7 @@ import { NotificationsItem } from '../../../components/notifications/notificatio
 const per = 10
 
 class NotificationsIndex extends Component {
-  static PropTypes = {
+  static propTypes = {
     notifications: PropTypes.array.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,

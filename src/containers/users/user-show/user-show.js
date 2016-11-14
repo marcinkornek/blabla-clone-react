@@ -16,7 +16,7 @@ import { CarsIndexItem } from '../../../components/cars/cars-index-item/cars-ind
 import { RidesIndexSimpleItem } from '../../../components/rides/rides-index-simple-item/rides-index-simple-item'
 
 export class UserShow extends Component {
-  static PropTypes = {
+  static propTypes = {
     user: PropTypes.object.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,

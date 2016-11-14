@@ -8,7 +8,7 @@ import TimeAgo from 'react-timeago'
 import classNames from 'classnames'
 
 export class NotificationsItem extends React.Component {
-  static PropTypes = {
+  static propTypes = {
     notification: PropTypes.object.isRequired,
     markAsSeen: PropTypes.func.isRequired
   }
