@@ -3,6 +3,7 @@ import * as types from '../constants/ActionTypes'
 import * as cons from '../constants/constants'
 import * as usersActions from './users'
 import * as notificationsActions from './notifications'
+import { push } from 'react-router-redux'
 
 function status(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -30,7 +31,7 @@ export function loginFromCookie(data) {
   }
 }
 
-export function logInEmailBackend(router, body) {
+export function logInEmailBackend(body) {
   return dispatch => {
     dispatch(loginRequest())
     return fetch(cons.APIEndpoints.LOGIN_EMAIL, {
@@ -43,7 +44,7 @@ export function logInEmailBackend(router, body) {
     .then(response => response.text().then(text => ({ text, response })))
     .then(({ text, response }) => {
       if (response.ok) {
-        dispatch(loginSuccessWithRedirect(router, JSON.parse(text)))
+        dispatch(loginSuccess(JSON.parse(text)))
       } else {
         return Promise.reject(text)
       }
@@ -52,7 +53,7 @@ export function logInEmailBackend(router, body) {
   }
 }
 
-export function logInFbBackend(router, fbResponse) {
+export function logInFbBackend(fbResponse) {
   return dispatch => {
     dispatch(loginRequest())
     return fetch(cons.APIEndpoints.LOGIN_FB, {
@@ -70,12 +71,12 @@ export function logInFbBackend(router, fbResponse) {
       })
     })
     .then(req => req.json())
-    .then(json => dispatch(loginSuccessWithRedirect(router, json)))
+    .then(json => dispatch(loginSuccess(json)))
     .catch(errors => dispatch(loginFailure(errors)))
   }
 }
 
-export function logout(router) {
+export function logout() {
   return (dispatch, getState) => {
     const { session } = getState()
     dispatch(logoutRequest())
@@ -93,7 +94,7 @@ export function logout(router) {
     })
     .then(status)
     .then(req => req.json())
-    .then(json => dispatch(logoutSuccess(router, json)))
+    .then(json => dispatch(logoutSuccess(json)))
     .catch(errors => dispatch(logoutFailure(errors)))
   }
 }
@@ -114,13 +115,7 @@ export function loginSuccess(json) {
     dispatch(notificationsActions.fetchNotifications())
     window.cable = ActionCable.createConsumer(`${cons.ActionCableURL}?email=${json.email}&token=${json.access_token}`)
     saveToLocalStorage(json)
-  }
-}
-
-export function loginSuccessWithRedirect(router, json) {
-  return (dispatch, getState) => {
-    dispatch(loginSuccess(json))
-    router.replace('/')
+    dispatch(push('/'))
   }
 }
 
@@ -137,13 +132,13 @@ export function logoutRequest() {
   }
 }
 
-export function logoutSuccess(router, json) {
+export function logoutSuccess(json) {
   return (dispatch, getState) => {
     dispatch({
       type: types.LOGOUT_SUCCESS
     })
     localStorage.clear()
-    router.replace('/')
+    dispatch(push('/'))
   }
 }
 

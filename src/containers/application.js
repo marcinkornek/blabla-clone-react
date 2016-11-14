@@ -21,8 +21,12 @@ import { Header } from '../components/header/header/header'
 injectTapEventPlugin()
 
 class Application extends Component {
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired
+  static propTypes = {
+    session: PropTypes.object,
+    isLoggedIn: PropTypes.bool.isRequired,
+    currentUser: PropTypes.object,
+    isFetching: PropTypes.bool.isRequired,
+    notifications: PropTypes.object,
   }
 
   markAsSeen(notificationId) {
@@ -63,7 +67,7 @@ class Application extends Component {
           containerWidth={containerWidth}
           markAsSeen={this.markAsSeen.bind(this)}
           onLogout={text =>
-            logout(this.context.router, currentUser)
+            logout(currentUser)
           } />
         <div id='main' className='container'>
           {children}
@@ -75,11 +79,11 @@ class Application extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isFetching: state.currentUser.isFetching,
-    isLoggedIn: state.session.isLoggedIn,
     session: state.session,
+    isLoggedIn: state.session.isLoggedIn,
     currentUser: state.currentUser,
-    notifications: state.notifications
+    isFetching: state.currentUser.isFetching,
+    notifications: state.notifications,
   }
 }
 

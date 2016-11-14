@@ -2,7 +2,7 @@
 import React, { Component, PropTypes } from "react"
 import { Col, Alert } from "react-bootstrap"
 import { connect } from "react-redux"
-import Router, { Link } from "react-router"
+import { Link } from "react-router"
 
 // actions
 import { logInEmailBackend, logInFbBackend } from "../../../actions/session"
@@ -19,10 +19,6 @@ class Login extends Component {
     user: PropTypes.object.isRequired
   }
 
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired
-  }
-
   handleSubmit(data) {
     const { logInEmailBackend } = this.props
     var body = new FormData()
@@ -30,7 +26,7 @@ class Login extends Component {
     Object.keys(data).forEach((key) => {
       body.append(key, data[key])
     })
-    logInEmailBackend(this.context.router, body)
+    logInEmailBackend(body)
   }
 
   renderFormErrors() {
@@ -64,7 +60,7 @@ class Login extends Component {
               <h3 className="login-form__title">Login</h3>
               <LoginFb
                 onDataReceive={text =>
-                  logInFbBackend(this.context.router, text)
+                  logInFbBackend(text)
                 }
               />
               <div className="login-button__separator">or</div>
