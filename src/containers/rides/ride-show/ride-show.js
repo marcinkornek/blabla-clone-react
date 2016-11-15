@@ -1,8 +1,9 @@
 // utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Col } from 'react-bootstrap'
+import { autobind } from 'core-decorators'
 import { Link } from 'react-router'
+import { Col } from 'react-bootstrap'
 import Time from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
@@ -27,6 +28,7 @@ const styles = {
   }
 }
 
+@autobind
 class RideShow extends Component {
   static propTypes = {
     ride: PropTypes.object.isRequired,
@@ -150,7 +152,7 @@ class RideShow extends Component {
         <RideOfferForm
           ride={ride}
           currentUserId={currentUserId}
-          onSubmit={this.handleSubmit.bind(this)}
+          onSubmit={this.handleSubmit}
         />
       )
     }
@@ -202,7 +204,7 @@ class RideShow extends Component {
           <RideRequestsIndexItem
             key={i}
             ride_request={ride_request}
-            handleOnClick={this.handleRideRequestChange.bind(this)}
+            handleOnClick={this.handleRideRequestChange}
           />
         )
       )

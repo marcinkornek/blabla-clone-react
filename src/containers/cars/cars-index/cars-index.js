@@ -1,8 +1,9 @@
 // utils
 import React, { Component, PropTypes } from 'react'
-import Router, { Link } from 'react-router'
-import { Button, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { autobind } from 'core-decorators'
+import { Link } from 'react-router'
+import { Button, Col } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate'
 
 // actions
@@ -29,6 +30,7 @@ class CarsIndex extends Component {
     if (currentUserId) fetchCars(currentUserId, 1, per)
   }
 
+  @autobind
   handlePageClick(e) {
     const { fetchCars, currentUserId } = this.props
     var page = e.selected + 1
@@ -82,7 +84,7 @@ class CarsIndex extends Component {
             pageNum={pagination.total_pages}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
-            clickCallback={this.handlePageClick.bind(this)}
+            clickCallback={this.handlePageClick}
             containerClassName={'pagination'}
             subContainerClassName={'pages pagination'}
             activeClassName={'active'}

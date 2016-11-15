@@ -1,5 +1,6 @@
 // utils
 import React, { Component, PropTypes } from 'react'
+import { autobind } from 'core-decorators'
 import { reduxForm, Field } from 'redux-form'
 import { renderTextField } from '../../shared/render-text-field/render-text-field'
 
@@ -7,16 +8,12 @@ import { renderTextField } from '../../shared/render-text-field/render-text-fiel
 import LoginValidator from '../login-validator/login-validator'
 
 export class LoginEmail extends Component {
-  constructor (props, context) {
-    super(props, context)
-
-    this.state = {
-      showLoginForm: false,
-    }
-  }
-
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired
+  }
+
+  state = {
+    showLoginForm: false,
   }
 
   renderLoginForm() {
@@ -33,6 +30,7 @@ export class LoginEmail extends Component {
     }
   }
 
+  @autobind
   showFormOnClick() {
     const { showLoginForm } = this.state
     if (showLoginForm === false) {
@@ -45,7 +43,9 @@ export class LoginEmail extends Component {
   render() {
     return (
       <div>
-        <button className='btn btn-default login-button' onClick={this.showFormOnClick.bind(this)}>Login with email and password</button>
+        <button className='btn btn-default login-button' onClick={this.showFormOnClick}>
+          Login with email and password
+        </button>
         {this.renderLoginForm()}
       </div>
     )

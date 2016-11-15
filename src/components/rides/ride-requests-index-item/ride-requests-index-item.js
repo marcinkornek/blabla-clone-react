@@ -1,5 +1,6 @@
 // utils
 import React, { Component, PropTypes } from 'react'
+import { autobind } from 'core-decorators'
 import pluralize from 'pluralize'
 import TimeAgo from 'react-timeago'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -17,12 +18,14 @@ export class RideRequestsIndexItem extends Component {
     onAddClick: PropTypes.func.isRequired,
   }
 
+  @autobind
   handleAcceptClick () {
     const { ride_request, handleOnClick } = this.props
 
     handleOnClick(ride_request.id, 'accepted')
   }
 
+  @autobind
   handleRejectClick () {
     const { ride_request, handleOnClick } = this.props
 
@@ -35,8 +38,8 @@ export class RideRequestsIndexItem extends Component {
     if (ride_request.status == 'pending') {
       return (
         <div className='ride-request__button'>
-          <RaisedButton label="Accept" primary={true} onClick={this.handleAcceptClick.bind(this)} />
-          <RaisedButton label="Reject" secondary={true} onClick={this.handleRejectClick.bind(this)} />
+          <RaisedButton label="Accept" primary={true} onClick={this.handleAcceptClick} />
+          <RaisedButton label="Reject" secondary={true} onClick={this.handleRejectClick} />
         </div>
       )
     }

@@ -1,7 +1,8 @@
 // utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Router, { Link } from 'react-router'
+import { autobind } from 'core-decorators'
+import { Link } from 'react-router'
 import _ from 'lodash'
 import { Col } from 'react-bootstrap'
 
@@ -12,6 +13,7 @@ import { updateCurrentUser } from '../../../actions/users'
 import UserEditForm from '../../../components/users/user-edit-form/user-edit-form'
 
 export class UserEdit extends Component {
+  @autobind
   handleSubmit(data) {
     const { updateCurrentUser } = this.props
     var body = new FormData()
@@ -33,7 +35,7 @@ export class UserEdit extends Component {
           <div className='heading'>
             <div className='heading-title'>My profile</div>
           </div>
-          <UserEditForm onSubmit={this.handleSubmit.bind(this)} />
+          <UserEditForm onSubmit={this.handleSubmit} />
         </Col>
       </div>
     )

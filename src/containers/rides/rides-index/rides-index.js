@@ -1,7 +1,8 @@
 // utils
 import React, { Component, PropTypes } from 'react'
-import Router, { Link } from 'react-router'
 import { connect } from 'react-redux'
+import { autobind } from 'core-decorators'
+import { Link } from 'react-router'
 import ReactPaginate from 'react-paginate'
 import Button from 'react-bootstrap/lib/Button'
 import Row from 'react-bootstrap/lib/Row'
@@ -39,13 +40,8 @@ export class RidesIndex extends Component {
     currentUserId: PropTypes.number.isRequired,
   }
 
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired
-  }
-
-  constructor(props) {
-    super(props)
-    this.state = {chipData: []}
+  state = {
+    chipData: []
   }
 
   componentDidMount() {
@@ -63,6 +59,7 @@ export class RidesIndex extends Component {
     this.showChips(query)
   }
 
+  @autobind
   handleSubmit(data) {
     const { loadSearchFormData, fetchRides, location: { query } } = this.props
     var newQuery = {}
@@ -83,6 +80,7 @@ export class RidesIndex extends Component {
     fetchRides(page, per, extended)
   }
 
+  @autobind
   handlePageClick(e) {
     const { fetchRides, location: { query } } = this.props
     var page = query.page || 1
@@ -162,11 +160,11 @@ export class RidesIndex extends Component {
           <RideFilters
             query={query}
             filters={filters}
-            onSubmit={this.handleSubmit.bind(this)}
+            onSubmit={this.handleSubmit}
           />
           <RideSearch
             query={query}
-            onSubmit={this.handleSubmit.bind(this)}
+            onSubmit={this.handleSubmit}
           />
           {this.renderActiveFilters()}
           <div className='heading'>
@@ -196,7 +194,7 @@ export class RidesIndex extends Component {
             initialSelected={(query.page || 1) - 1}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
-            clickCallback={this.handlePageClick.bind(this)}
+            clickCallback={this.handlePageClick}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}

@@ -1,16 +1,11 @@
 // utils
 import React, { Component, PropTypes } from 'react'
+import { autobind } from 'core-decorators'
 
 var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments) } }
 var data = {}
 
 export class LoginFb extends Component {
-  constructor (props, context) {
-    super(props, context)
-    this.statusChangeCallback = this.statusChangeCallback.bind(this)
-    this.loginWithFacebook = this.loginWithFacebook.bind(this)
-  }
-
   static propTypes = {
     onDataReceive: PropTypes.func.isRequired
   }
@@ -60,6 +55,7 @@ export class LoginFb extends Component {
     })
   }
 
+  @autobind
   statusChangeCallback(response) {
     if (response.status === 'connected' && data.login === true) {
       this.getDataFromFb()
@@ -72,6 +68,7 @@ export class LoginFb extends Component {
     }, this))
   }
 
+  @autobind
   loginWithFacebook() {
     data.login = true
     FB.login(this.checkLoginState(), {
@@ -82,7 +79,9 @@ export class LoginFb extends Component {
   render() {
     return (
       <div>
-        <button className='btn btn-primary login-button' onClick={this.loginWithFacebook}>Login with facebook</button>
+        <button className='btn btn-primary login-button' onClick={this.loginWithFacebook}>
+          Login with facebook
+        </button>
       </div>
     )
   }

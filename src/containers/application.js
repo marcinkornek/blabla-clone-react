@@ -1,6 +1,7 @@
 // utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { autobind } from 'core-decorators'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Dimensions from 'react-dimensions'
 import ActionCable from 'actioncable'
@@ -29,6 +30,7 @@ class Application extends Component {
     notifications: PropTypes.object,
   }
 
+  @autobind
   markAsSeen(notificationId) {
     const { markNotificationAsSeen } = this.props
     markNotificationAsSeen(notificationId)
@@ -65,7 +67,7 @@ class Application extends Component {
           currentUser={currentUser}
           notifications={notifications}
           containerWidth={containerWidth}
-          markAsSeen={this.markAsSeen.bind(this)}
+          markAsSeen={this.markAsSeen}
           onLogout={text =>
             logout(currentUser)
           } />

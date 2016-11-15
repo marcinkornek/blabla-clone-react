@@ -1,6 +1,7 @@
 // utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux';
+import { autobind } from 'core-decorators'
 import { Col } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate'
 import List from 'material-ui/List/List'
@@ -28,6 +29,7 @@ class UsersIndex extends Component {
     fetchUsers(1, per)
   }
 
+  @autobind
   handlePageClick(e) {
     const { fetchUsers } = this.props
     var page = e.selected + 1
@@ -77,7 +79,7 @@ class UsersIndex extends Component {
             pageNum={pagination.total_pages}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
-            clickCallback={this.handlePageClick.bind(this)}
+            clickCallback={this.handlePageClick}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}

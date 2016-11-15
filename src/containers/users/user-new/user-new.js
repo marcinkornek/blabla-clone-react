@@ -1,7 +1,8 @@
 // utils
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Router, { Link } from 'react-router'
+import { autobind } from 'core-decorators'
+import { Link } from 'react-router'
 import _ from 'lodash'
 import { Col } from 'react-bootstrap'
 import Icon from 'react-fa'
@@ -34,7 +35,7 @@ export class UserNew extends Component {
           <div className='heading'>
             <div className='heading-title'>Register</div>
           </div>
-          <UserNewForm onSubmit={this.handleSubmit.bind(this)} />
+          <UserNewForm onSubmit={this.handleSubmit} />
         </Col>
       </div>
     )

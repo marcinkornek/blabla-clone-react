@@ -1,6 +1,7 @@
 // utils
 import React, { Component, PropTypes }  from 'react'
 import { connect } from 'react-redux'
+import { autobind } from 'core-decorators'
 import { Col } from 'react-bootstrap'
 
 // actions
@@ -25,6 +26,7 @@ export class RideEdit extends Component {
     if (rideId) fetchRide(rideId)
   }
 
+  @autobind
   handleSubmit(data) {
     const { updateRide, ride } = this.props
     var body = new FormData()
@@ -50,7 +52,7 @@ export class RideEdit extends Component {
       <RideForm
         ridesOptions={ridesOptions}
         ride={ride}
-        onSubmit={this.handleSubmit.bind(this)}
+        onSubmit={this.handleSubmit}
       />
     )
   }

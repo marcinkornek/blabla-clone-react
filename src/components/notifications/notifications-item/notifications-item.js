@@ -1,5 +1,6 @@
 // utils
 import React, { Component, PropTypes } from 'react'
+import { autobind } from 'core-decorators'
 import ListItem from 'material-ui/List/ListItem'
 import Avatar from 'material-ui/Avatar'
 import { Link } from 'react-router'
@@ -24,6 +25,7 @@ export class NotificationsItem extends React.Component {
     }
   }
 
+  @autobind
   onMouseOverAction() {
     const { markAsSeen, notification } = this.props
 
@@ -84,7 +86,7 @@ export class NotificationsItem extends React.Component {
     return (
       <div
         className={classNames('header__notification', {'header__notification--seen' : notification.seen_at})}
-        onMouseOver={this.onMouseOverAction.bind(this)}
+        onMouseOver={this.onMouseOverAction}
       >
         <Link to={`/users/${notification.sender.id}`}>
           <Avatar src={notification.sender.avatar} />

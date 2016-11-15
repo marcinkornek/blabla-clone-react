@@ -1,7 +1,8 @@
 // utils
 import React, { Component, PropTypes } from 'react'
-import Router, { Link } from 'react-router'
 import { connect } from 'react-redux'
+import { autobind } from 'core-decorators'
+import { Link } from 'react-router'
 import { Col } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate'
 
@@ -67,7 +68,7 @@ class NotificationsIndex extends Component {
         <NotificationsItem
           key={i}
           notification={notification}
-          markAsSeen={this.markAsSeen.bind(this)}
+          markAsSeen={this.markAsSeen}
         />
       )
     )
@@ -86,7 +87,7 @@ class NotificationsIndex extends Component {
             pageNum={pagination.total_pages}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
-            clickCallback={this.handlePageClick.bind(this)}
+            clickCallback={this.handlePageClick}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}

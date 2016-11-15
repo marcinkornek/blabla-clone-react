@@ -1,7 +1,8 @@
 // utils
 import React, { Component, PropTypes } from 'react'
-import Router, { Link } from 'react-router'
 import { connect } from 'react-redux'
+import { autobind } from 'core-decorators'
+import { Link } from 'react-router'
 import { Col } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate'
 
@@ -29,6 +30,7 @@ class RidesIndexPassenger extends Component {
     if (currentUserId) fetchRidesAsPassenger(currentUserId, 1, per)
   }
 
+  @autobind
   handlePageClick(e) {
     const { fetchRidesAsPassenger, currentUserId } = this.props
     let page = e.selected + 1
@@ -78,7 +80,7 @@ class RidesIndexPassenger extends Component {
             pageNum={pagination.total_pages}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
-            clickCallback={this.handlePageClick.bind(this)}
+            clickCallback={this.handlePageClick}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}

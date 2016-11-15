@@ -1,7 +1,8 @@
 // utils
 import React, { Component, PropTypes } from "react"
-import { Col, Alert } from "react-bootstrap"
 import { connect } from "react-redux"
+import { autobind } from 'core-decorators'
+import { Col, Alert } from "react-bootstrap"
 import { Link } from "react-router"
 
 // actions
@@ -19,6 +20,7 @@ class Login extends Component {
     user: PropTypes.object.isRequired
   }
 
+  @autobind
   handleSubmit(data) {
     const { logInEmailBackend } = this.props
     var body = new FormData()
@@ -66,7 +68,7 @@ class Login extends Component {
               <div className="login-button__separator">or</div>
               <LoginEmail
                 errors={errors}
-                onSubmit={this.handleSubmit.bind(this)}
+                onSubmit={this.handleSubmit}
               />
             </div>
             <div className="register-form">

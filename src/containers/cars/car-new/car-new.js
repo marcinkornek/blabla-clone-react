@@ -1,6 +1,7 @@
 // utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { autobind } from 'core-decorators'
 import { Col } from 'react-bootstrap'
 
 // actions
@@ -21,6 +22,7 @@ export class CarNew extends Component {
     fetchCarsOptions()
   }
 
+  @autobind
   handleSubmit(data) {
     const { createCar } = this.props
     let body = new FormData()
@@ -40,7 +42,7 @@ export class CarNew extends Component {
 
     return(
       <CarForm
-        onSubmit={this.handleSubmit.bind(this)}
+        onSubmit={this.handleSubmit}
         carsOptions={carsOptions}
       />
     )
