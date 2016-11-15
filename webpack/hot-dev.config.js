@@ -16,7 +16,7 @@ config.module = {
       loader: 'babel',
       query: {
         presets: ['react', 'es2015', 'stage-1', 'stage-0'],
-        plugins: ['react-hot-loader/babel']
+        plugins: ['react-hot-loader/babel', 'transform-decorators-legacy']
       }
     },
     {
