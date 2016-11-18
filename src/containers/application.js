@@ -5,11 +5,11 @@ import { autobind } from 'core-decorators'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Dimensions from 'react-dimensions'
 import ActionCable from 'actioncable'
+import { browserHistory } from 'react-router'
 
 // actions
 import { logout } from '../actions/session'
-import { fetchNotifications, markNotificationAsSeen, userNotificationAdd } from '../actions/notifications'
-import { fetchCurrentUser } from '../actions/users'
+import { markNotificationAsSeen, userNotificationAdd } from '../actions/notifications'
 
 // styles
 import styles from '../stylesheets/application'
@@ -36,6 +36,15 @@ class Application extends Component {
     markNotificationAsSeen(notificationId)
   }
 
+  @autobind
+  logout(currentUser) {
+    const { logout } = this.props
+
+    logout(currentUser)
+      .then(localStorage.clear())
+      .then(browserHistory.push('/'))
+  }
+
   componentDidMount() {
     const { isLoggedIn, userNotificationAdd } = this.props
 
@@ -50,7 +59,6 @@ class Application extends Component {
 
   render () {
     const {
-      logout,
       currentUser,
       notifications,
       isLoggedIn,
@@ -68,9 +76,8 @@ class Application extends Component {
           notifications={notifications}
           containerWidth={containerWidth}
           markAsSeen={this.markAsSeen}
-          onLogout={text =>
-            logout(currentUser)
-          } />
+          onLogout={this.logout}
+        />
         <div id='main' className='container'>
           {children}
         </div>
@@ -91,8 +98,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   logout,
-  fetchCurrentUser,
-  fetchNotifications,
   markNotificationAsSeen,
   userNotificationAdd
 }

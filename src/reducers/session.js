@@ -30,20 +30,22 @@ export default function session(state = initialState, action) {
       isFetching: true,
     };
   case LOGIN_SUCCESS:
+    let itemSuccess = action.payload.data
     return {
       ...state,
       errors: [],
       isFetching: false,
       isLoggedIn: true,
-      ...action.item
+      ...itemSuccess
     };
   case LOGIN_FAILURE:
+    let itemFailure = action.payload.data
     return {
       ...state,
       errors: [action.errors],
       isFetching: false,
       isLoggedIn: false,
-      ...action.item
+      ...itemFailure
     };
   case LOGOUT_SUCCESS:
     return {
@@ -54,12 +56,13 @@ export default function session(state = initialState, action) {
       ...emptySession
     };
   case USER_UPDATE_SUCCESS:
+    let itemUpdated = action.payload.data
     return {
       ...state,
       errors: [],
       isFetching: false,
       isLoggedIn: true,
-      ...action.item
+      ...itemUpdated
     };
     case USER_UPDATE_FAILURE:
     return {

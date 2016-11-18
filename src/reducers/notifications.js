@@ -1,8 +1,8 @@
 import {
-  USER_NOTIFICATIONS_REQUEST,
-  USER_NOTIFICATIONS_SUCCESS,
-  USER_NOTIFICATION_ADD_SUCCESS,
-  USER_NOTIFICATION_UPDATE_SUCCESS,
+  NOTIFICATIONS_FETCH_REQUEST,
+  NOTIFICATIONS_FETCH_SUCCESS,
+  NOTIFICATION_ADD_SUCCESS,
+  NOTIFICATION_UPDATE_SUCCESS,
 } from '../constants/ActionTypes'
 
 const initialState = {
@@ -14,39 +14,43 @@ const initialState = {
 
 export default function notifications(state = initialState, action) {
   switch (action.type) {
-  case USER_NOTIFICATIONS_REQUEST:
+  case NOTIFICATIONS_FETCH_REQUEST:
     return {
       ...state,
       isStarted: true,
       isFetching: true,
     };
-  case USER_NOTIFICATIONS_SUCCESS:
+  case NOTIFICATIONS_FETCH_SUCCESS:
+    let items = action.payload.data.items
+    let pagination = action.payload.data.meta
     return {
       ...state,
       isFetching: false,
-      items: action.items,
-      pagination: action.pagination
+      items: items,
+      pagination: pagination
     };
-  case USER_NOTIFICATION_ADD_SUCCESS:
-    let unreadCount = action.item.unread_count
-    delete action.item['unread_count']
+  case NOTIFICATION_ADD_SUCCESS:
+    let addedItem = action.item
+    let unreadCount = addedItem.unread_count
+    delete addedItem['unread_count']
     return {
       ...state,
-      items: [...state.items, action.item],
+      items: [...state.items, addedItem],
       pagination: {
         ...state.pagination,
         unread_count: unreadCount
       }
     };
-  case USER_NOTIFICATION_UPDATE_SUCCESS:
+  case NOTIFICATION_UPDATE_SUCCESS:
+    let updatedItem = action.payload.data
     return {
       ...state,
       isFetching: false,
       items: state.items.map(item => {
-        if (item.id == action.item.id) {
+        if (item.id == updatedItem.id) {
           return {
             ...item,
-            seen_at: action.item.seen_at
+            seen_at: updatedItem.seen_at
           }
         } else {
           return item
@@ -54,7 +58,7 @@ export default function notifications(state = initialState, action) {
       }),
       pagination: {
         ...state.pagination,
-        unread_count: action.item.unread_count
+        unread_count: updatedItem.unread_count
       }
     };
   default:

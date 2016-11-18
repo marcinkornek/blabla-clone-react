@@ -1,12 +1,17 @@
 // utils
 import React, { Component, PropTypes } from "react"
+import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { autobind } from 'core-decorators'
 import { Col, Alert } from "react-bootstrap"
 import { Link } from "react-router"
+import { browserHistory } from 'react-router'
 
 // actions
-import { logInEmailBackend, logInFbBackend } from "../../../actions/session"
+import { logInEmailBackend, logInFbBackend, saveToLocalStorage } from "../../../actions/session"
+import { APIEndpoints, ActionCableURL } from '../../../constants/constants'
+import { fetchCurrentUser } from '../../../actions/users'
+import { fetchNotifications } from '../../../actions/notifications'
 
 // components
 import { LoginFb } from "../../../components/session/login-fb/login-fb"
@@ -17,18 +22,40 @@ class Login extends Component {
     errors: PropTypes.array,
     isFetching: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired,
-    user: PropTypes.object.isRequired
   }
 
   @autobind
-  handleSubmit(data) {
-    const { logInEmailBackend } = this.props
+  handleEmailLogin(data) {
+    const { logInEmailBackend, fetchCurrentUser, fetchNotifications, saveToLocalStorage, dispatch } = this.props
     var body = new FormData()
 
     Object.keys(data).forEach((key) => {
       body.append(key, data[key])
     })
     logInEmailBackend(body)
+      .then((response) => {
+        let data = response.payload.data
+        fetchCurrentUser()
+        fetchNotifications()
+        window.cable = ActionCable.createConsumer(`${ActionCableURL}?email=${data.email}&token=${data.access_token}`)
+        saveToLocalStorage(data.email, data.access_token)
+        browserHistory.push('/')
+      })
+  }
+
+  @autobind
+  handleFbLogin(data) {
+    const { logInFbBackend, fetchCurrentUser, fetchNotifications, saveToLocalStorage, push } = this.props
+
+    logInFbBackend(data)
+      .then((response) => {
+        let data = response.payload.data
+        fetchCurrentUser()
+        fetchNotifications()
+        window.cable = ActionCable.createConsumer(`${ActionCableURL}?email=${data.email}&token=${data.access_token}`)
+        saveToLocalStorage(data.email, data.access_token)
+        browserHistory.push('/')
+      })
   }
 
   renderFormErrors() {
@@ -61,14 +88,12 @@ class Login extends Component {
             <div className="login-form">
               <h3 className="login-form__title">Login</h3>
               <LoginFb
-                onDataReceive={text =>
-                  logInFbBackend(text)
-                }
+                onDataReceive={this.handleFbLogin}
               />
               <div className="login-button__separator">or</div>
               <LoginEmail
                 errors={errors}
-                onSubmit={this.handleSubmit}
+                onSubmit={this.handleEmailLogin}
               />
             </div>
             <div className="register-form">
@@ -87,13 +112,15 @@ const mapStateToProps = (state) => {
     errors: state.session.errors,
     isFetching: state.session.isFetching,
     isLoggedIn: state.session.isLoggedIn,
-    user: state.session
   }
 }
 
 const mapDispatchToProps = {
   logInEmailBackend,
-  logInFbBackend
+  logInFbBackend,
+  fetchCurrentUser,
+  fetchNotifications,
+  saveToLocalStorage,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

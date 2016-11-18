@@ -3,6 +3,7 @@ import React, { Component, PropTypes }  from 'react'
 import { connect } from 'react-redux'
 import { autobind } from 'core-decorators'
 import { Col } from 'react-bootstrap'
+import { browserHistory } from 'react-router'
 
 // actions
 import { fetchRidesOptions, createRide } from '../../../actions/rides'
@@ -36,6 +37,10 @@ export class RideNew extends Component {
       }
     })
     createRide(body)
+      .then((response) => {
+        let rideId = response.payload.data.id
+        browserHistory.push(`/rides/${rideId}`)
+      })
   }
 
   render() {

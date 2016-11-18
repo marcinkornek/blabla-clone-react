@@ -6,6 +6,7 @@ import { Link } from 'react-router'
 import _ from 'lodash'
 import { Col } from 'react-bootstrap'
 import Icon from 'react-fa'
+import { browserHistory } from 'react-router'
 
 // actions
 import { createUser } from '../../../actions/users';
@@ -14,6 +15,7 @@ import { createUser } from '../../../actions/users';
 import UserNewForm from '../../../components/users/user-new-form/user-new-form'
 
 export class UserNew extends Component {
+  @autobind
   handleSubmit(data) {
     const { createUser } = this.props
     var body = new FormData();
@@ -26,6 +28,7 @@ export class UserNew extends Component {
       }
     })
     createUser(body)
+      .then(browserHistory.push('/login'))
   }
 
   render() {
@@ -47,7 +50,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  createUser,
+  createUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserNew)

@@ -3,6 +3,7 @@ import React, { Component, PropTypes }  from 'react'
 import { connect } from 'react-redux'
 import { autobind } from 'core-decorators'
 import { Col } from 'react-bootstrap'
+import { browserHistory } from 'react-router'
 
 // actions
 import { fetchRidesOptions, fetchRide, updateRide } from '../../../actions/rides'
@@ -33,16 +34,22 @@ export class RideEdit extends Component {
 
     Object.keys(data).forEach((key) => {
       if (key == 'destination_city' || key == 'start_city') {
-        body.append(key, data[key].label)
+        if (!_.isEmpty(data[key].label)) body.append(key, data[key].label)
         if (data[key].location) {
           body.append(key + '_lat', data[key].location.lat)
           body.append(key + '_lng', data[key].location.lng)
         }
       } else {
-        if (data[key]) { body.append(key, data[key]) }
+        if (!_.isEmpty(data[key])) {
+          body.append(key, data[key])
+        }
       }
     })
     updateRide(body, ride.id)
+      .then((response) => {
+        let rideId = response.payload.data.id
+        browserHistory.push(`/rides/${rideId}`)
+      })
   }
 
   renderRideForm() {

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { autobind } from 'core-decorators'
 import _ from 'underscore'
 import { Col } from 'react-bootstrap'
+import { browserHistory } from 'react-router'
 
 // actions
 import { fetchCarsOptions, fetchCar, updateCar } from '../../../actions/cars'
@@ -14,7 +15,7 @@ import CarForm from '../../../components/cars/car-form/car-form'
 
 export class CarEdit extends Component {
   static propTypes = {
-    car: PropTypes.object.isRequired,
+    car: PropTypes.object,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
     carsOptions: PropTypes.object.isRequired,
@@ -40,6 +41,10 @@ export class CarEdit extends Component {
       }
     })
     updateCar(body, data.id)
+      .then((response) => {
+        let carId = response.payload.data.id
+        browserHistory.push(`/cars/${carId}`)
+      })
   }
 
   renderCarForm() {

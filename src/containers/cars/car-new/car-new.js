@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { autobind } from 'core-decorators'
 import { Col } from 'react-bootstrap'
+import { browserHistory } from 'react-router'
 
 // actions
 import { fetchCarsOptions, createCar, initializeCar } from '../../../actions/cars'
@@ -35,6 +36,10 @@ export class CarNew extends Component {
       }
     })
     createCar(body)
+      .then((response) => {
+        let carId = response.payload.data.id
+        browserHistory.push(`/cars/${carId}`)
+      })
   }
 
   renderCarForm() {

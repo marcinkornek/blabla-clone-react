@@ -1,6 +1,6 @@
 import {
-  RIDE_OPTIONS_REQUEST,
-  RIDE_OPTIONS_SUCCESS,
+  RIDE_OPTIONS_FETCH_REQUEST,
+  RIDE_OPTIONS_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 
 const initialState = {
@@ -12,17 +12,18 @@ const initialState = {
 
 export default function ridesOptions(state = initialState, action) {
   switch (action.type) {
-  case RIDE_OPTIONS_REQUEST:
+  case RIDE_OPTIONS_FETCH_REQUEST:
     return {
       ...state,
       isStarted: true,
       isFetching: true,
     };
-  case RIDE_OPTIONS_SUCCESS:
+  case RIDE_OPTIONS_FETCH_SUCCESS:
+    let item = action.payload.data
     return {
       ...state,
       isFetching: false,
-      ...action.item
+      ...item
     };
   default:
     return state;

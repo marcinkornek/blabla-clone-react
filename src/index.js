@@ -1,18 +1,30 @@
 import React from 'react'
-import * as actions from './actions/session'
 import { render } from 'react-dom'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { AppContainer } from 'react-hot-loader'
 import configureStore from './store/configureStore'
 import Root from './containers/Root'
+import { APIEndpoints, ActionCableURL } from './constants/constants'
+import { loginFromCookie, saveToLocalStorage } from './actions/session'
+import { fetchCurrentUser } from './actions/users'
+import { fetchNotifications } from './actions/notifications'
+import { push } from 'react-router-redux'
 
 function getFromLocalStorage(store) {
-  var email = localStorage.getItem('email')
-  var access_token = localStorage.getItem('access_token')
-  var data = { email: email, access_token: access_token }
+  const email = localStorage.getItem('email')
+  const access_token = localStorage.getItem('access_token')
+  const data = { email: email, access_token: access_token }
   if (email != null && access_token != null) {
-    store.dispatch(actions.loginFromCookie(data)).then(setTimeout(() => renderApp(store), 500))
+    store.dispatch(loginFromCookie(data))
+      .then(() => {
+        store.dispatch(fetchCurrentUser())
+        store.dispatch(fetchNotifications())
+        window.cable = ActionCable.createConsumer(`${ActionCableURL}?email=${email}&token=${access_token}`)
+        store.dispatch(saveToLocalStorage(email, access_token))
+        store.dispatch(push('/'))
+        setTimeout(() => renderApp(store), 500)
+      })
   } else {
     renderApp(store)
   }

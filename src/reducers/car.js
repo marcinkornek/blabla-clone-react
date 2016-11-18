@@ -1,6 +1,6 @@
 import {
-  CAR_REQUEST,
-  CAR_SUCCESS,
+  CAR_FETCH_REQUEST,
+  CAR_FETCH_SUCCESS,
   CAR_INITIALIZE,
   CAR_UPDATE_REQUEST,
   CAR_UPDATE_SUCCESS,
@@ -15,17 +15,18 @@ const initialState = {
 
 export default function car(state = initialState, action) {
   switch (action.type) {
-  case CAR_REQUEST:
+  case CAR_FETCH_REQUEST:
     return {
       ...state,
       isStarted: true,
       isFetching: true
     };
-  case CAR_SUCCESS:
+  case CAR_FETCH_SUCCESS:
+    let item = action.payload.data
     return {
       ...state,
       isFetching: false,
-      item: action.item
+      item: item
     };
   case CAR_INITIALIZE:
     return initialState;
@@ -35,10 +36,11 @@ export default function car(state = initialState, action) {
       isSaving: true
     };
   case CAR_UPDATE_SUCCESS:
+    let itemUpdate = action.payload.data
     return {
       ...state,
       isSaving: false,
-      item: action.item
+      item: itemUpdate
     };
   default:
     return state;

@@ -1,6 +1,6 @@
 import {
-  CARS_REQUEST,
-  CARS_SUCCESS,
+  CARS_FETCH_REQUEST,
+  CARS_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 
 const initialState = {
@@ -12,18 +12,20 @@ const initialState = {
 
 export default function cars(state = initialState, action) {
   switch (action.type) {
-  case CARS_REQUEST:
+  case CARS_FETCH_REQUEST:
     return {
       ...state,
       isStarted: true,
       isFetching: true,
     };
-  case CARS_SUCCESS:
+  case CARS_FETCH_SUCCESS:
+    let items = action.payload.data.items
+    let pagination = action.payload.data.meta
     return {
       ...state,
       isFetching: false,
-      items: action.items,
-      pagination: action.pagination
+      items: items,
+      pagination: pagination
     };
   default:
     return state;

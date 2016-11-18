@@ -15,7 +15,7 @@ export class RideRequestsIndexItem extends Component {
   }
 
   static propTypes = {
-    onAddClick: PropTypes.func.isRequired,
+    handleOnClick: PropTypes.func.isRequired,
   }
 
   @autobind

@@ -1,6 +1,6 @@
 import {
-  RIDES_PASSENGER_REQUEST,
-  RIDES_PASSENGER_SUCCESS,
+  RIDES_PASSENGER_FETCH_REQUEST,
+  RIDES_PASSENGER_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 
 const initialState = {
@@ -12,18 +12,20 @@ const initialState = {
 
 export default function ridesPassenger(state = initialState, action) {
   switch (action.type) {
-  case RIDES_PASSENGER_REQUEST:
+  case RIDES_PASSENGER_FETCH_REQUEST:
     return {
       ...state,
       isStarted: true,
       isFetching: true,
     };
-  case RIDES_PASSENGER_SUCCESS:
+  case RIDES_PASSENGER_FETCH_SUCCESS:
+    let items = action.payload.data.items
+    let pagination = action.payload.data.meta
     return {
       ...state,
       isFetching: false,
-      items: action.items,
-      pagination: action.pagination
+      items: items,
+      pagination: pagination
     };
   default:
     return state;

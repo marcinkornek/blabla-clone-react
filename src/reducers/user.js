@@ -1,7 +1,7 @@
 import {
-  FETCH_USER_REQUEST,
-  FETCH_USER_SUCCESS,
-  FETCH_USER_FAILURE,
+  USER_FETCH_REQUEST,
+  USER_FETCH_SUCCESS,
+  USER_FETCH_FAILURE,
 } from '../constants/ActionTypes'
 
 const initialState = {
@@ -14,21 +14,22 @@ const initialState = {
 
 export default function user(state = initialState, action) {
   switch (action.type) {
-  case FETCH_USER_REQUEST:
+  case USER_FETCH_REQUEST:
     return {
       ...state,
       errors: [],
       isStarted: true,
       isFetching: true,
     };
-  case FETCH_USER_SUCCESS:
-    action.item.date_of_birth = new Date(action.item.date_of_birth)
+  case USER_FETCH_SUCCESS:
+    let item = action.payload.data
+    item.date_of_birth = new Date(item.date_of_birth)
     return {
       ...state,
       isFetching: false,
-      item: action.item,
+      item: item,
     };
-  case FETCH_USER_FAILURE:
+  case USER_FETCH_FAILURE:
     return {
       ...state,
       isFetching: false

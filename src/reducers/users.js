@@ -1,6 +1,6 @@
 import {
-  FETCH_USERS_REQUEST,
-  FETCH_USERS_SUCCESS,
+  USERS_FETCH_REQUEST,
+  USERS_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 
 const initialState = {
@@ -12,18 +12,20 @@ const initialState = {
 
 export default function users(state = initialState, action) {
   switch (action.type) {
-  case FETCH_USERS_REQUEST:
+  case USERS_FETCH_REQUEST:
     return {
       ...state,
       isStarted: true,
       isFetching: true,
     };
-  case FETCH_USERS_SUCCESS:
+  case USERS_FETCH_SUCCESS:
+    let items = action.payload.data.items
+    let pagination = action.payload.data.meta
     return {
       ...state,
       isFetching: false,
-      items: action.items,
-      pagination: action.pagination
+      items: items,
+      pagination: pagination
     };
   default:
     return state;
