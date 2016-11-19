@@ -42,9 +42,9 @@ const styles = {
 
 export class HeaderRight extends Component {
   renderHeaderRight() {
-    const { isLoggedIn } = this.props
+    const { isAuthenticated } = this.props
 
-    if (isLoggedIn) {
+    if (isAuthenticated) {
       return this.renderLoggedInButtons()
     } else {
       return this.renderNotLoggedInButtons()

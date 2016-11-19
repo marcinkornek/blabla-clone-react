@@ -22,8 +22,7 @@ function getFromLocalStorage(store) {
         store.dispatch(fetchNotifications())
         window.cable = ActionCable.createConsumer(`${ActionCableURL}?email=${email}&token=${access_token}`)
         store.dispatch(saveToLocalStorage(email, access_token))
-        store.dispatch(push('/'))
-        setTimeout(() => renderApp(store), 500)
+        renderApp(store)
       })
   } else {
     renderApp(store)

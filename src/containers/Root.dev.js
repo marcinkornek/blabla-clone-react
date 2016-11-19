@@ -14,7 +14,7 @@ export default class Root extends Component {
 
   render() {
     const { store, history } = this.props
-    const routes = createRoutes(store)
+    const routes = createRoutes()
 
     return (
       <MuiThemeProvider>

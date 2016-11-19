@@ -47,7 +47,7 @@ export class Header extends Component {
   }
 
   render() {
-    const { containerWidth, currentUser, isLoggedIn, isFetching } = this.props
+    const { containerWidth, currentUser, isAuthenticated, isFetching } = this.props
     const title = 'Blabla clone'
     let docked = false
     let showMenuIconButton = true
@@ -76,7 +76,7 @@ export class Header extends Component {
           onChangeList={this.handleChangeList}
           open={navDrawerOpen}
           currentUser={currentUser}
-          isLoggedIn={isLoggedIn}
+          isAuthenticated={isAuthenticated}
           isFetching={isFetching}
           onLogout={this.handleLogout}
         />

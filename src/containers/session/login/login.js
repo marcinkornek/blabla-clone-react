@@ -21,7 +21,7 @@ class Login extends Component {
   static propTypes = {
     errors: PropTypes.array,
     isFetching: PropTypes.bool.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
   }
 
   @autobind
@@ -111,7 +111,7 @@ const mapStateToProps = (state) => {
   return {
     errors: state.session.errors,
     isFetching: state.session.isFetching,
-    isLoggedIn: state.session.isLoggedIn,
+    isAuthenticated: state.session.isAuthenticated,
   }
 }
 

@@ -15,21 +15,22 @@ import { NotificationsItem } from '../../../components/notifications/notificatio
 
 const per = 10
 
-class NotificationsIndex extends Component {
+export class NotificationsIndex extends Component {
   static propTypes = {
     notifications: PropTypes.object.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     pagination: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
-    const { isLoggedIn, fetchNotifications } = this.props
+    const { isAuthenticated, fetchNotifications } = this.props
 
-    if (isLoggedIn) fetchNotifications()
+    if (isAuthenticated) fetchNotifications()
   }
 
+  @autobind
   handlePageClick(e) {
     const { fetchNotifications } = this.props
     var page = e.selected + 1
@@ -37,6 +38,7 @@ class NotificationsIndex extends Component {
     fetchNotifications(page, per)
   }
 
+  @autobind
   markAsSeen(notificationId) {
     const { markNotificationAsSeen } = this.props
 
@@ -115,7 +117,7 @@ const mapStateToProps = (state) => {
     isStarted: state.notifications.isStarted,
     isFetching: state.notifications.isFetching,
     pagination: state.notifications.pagination,
-    isLoggedIn: state.session.isLoggedIn,
+    isAuthenticated: state.session.isAuthenticated,
   }
 }
 

@@ -1,16 +1,16 @@
+// utils
 import React from 'react'
-import { Router, Route } from 'react-router'
-import * as components from './components'
-import * as actions from './actions/session'
-import * as cons from './constants/constants'
+import { Route } from 'react-router'
 
-var isLogged = false
+// components
+import * as components from './components'
 
 const {
   Application,
   Header,
   Home,
   Login,
+  requireAuth,
 
   UserNew,
   UserShow,
@@ -29,68 +29,26 @@ const {
   RidesIndexDriver,
   RidesIndexPassenger,
 
-  NotificationsIndexPage,
+  NotificationsIndex,
 } = components
 
-function checkPermission(store, permission) {
-  return (nextState, replace) => {
-    if (isPublic(permission)) {
-      return;
-    } else {
-      checkIfLoggedIn(store)
-      if (isLoggedIn(store)) {
-        if (isAuthorized(store, permission)) {
-          return;
-        } else {
-          replace('/403')
-        }
-      } else {
-        replace('/login')
-      }
-    }
-  }
-}
-
-function isPublic(permission) {
-  return permission === 'public'
-}
-
-function checkIfLoggedIn(store) {
-  if (store.getState().session.isLoggedIn == true) {
-    isLogged = true
-  }
-}
-
-function isLoggedIn(store) {
-  return isLogged
-}
-
-function isAuthorized(store, permission) {
-  var userPermission = store.getState().session.role
-  if (userPermission === 'admin') {
-    return true;
-  } else {
-    return userPermission === permission;
-  }
-}
-
-export const createRoutes = (store) => {
+export const createRoutes = () => {
   return (
     <Route name ='App' component = {Application}>
       <Route requireAuth>
-        <Route name='usersIndex' path='/users' component={UsersIndex} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='usersEdit' path='/account/user' component={UserEdit} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='usersIndex' path='/users' component={requireAuth(UsersIndex)} />
+        <Route name='usersEdit' path='/account/user' component={requireAuth(UserEdit)} />
 
-        <Route name='carsIndex' path='/account/cars' component={CarsIndex} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='carsEdit' path='/account/cars/:carId/edit' component={CarEdit} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='carsNew' path='/cars/new' component={CarNew} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='carsIndex' path='/account/cars' component={requireAuth(CarsIndex)} />
+        <Route name='carsEdit' path='/account/cars/:carId/edit' component={requireAuth(CarEdit)} />
+        <Route name='carsNew' path='/cars/new' component={requireAuth(CarNew)} />
 
-        <Route name='ridesDriverIndex' path='/account/rides_as_driver' component={RidesIndexDriver} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='ridesPassengerIndex' path='/account/rides_as_passenger' component={RidesIndexPassenger} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='ridesDriverIndex' path='/account/rides_as_driver/:rideId/edit' component={RideEdit} onEnter={checkPermission(store, cons.Permissions.USER)} />
-        <Route name='carsNew' path='/rides/new' component={RideNew} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='ridesDriverIndex' path='/account/rides_as_driver' component={requireAuth(RidesIndexDriver)} />
+        <Route name='ridesPassengerIndex' path='/account/rides_as_passenger' component={requireAuth(RidesIndexPassenger)} />
+        <Route name='ridesDriverIndex' path='/account/rides_as_driver/:rideId/edit' component={requireAuth(RideEdit)} />
+        <Route name='carsNew' path='/rides/new' component={requireAuth(RideNew)} />
 
-        <Route name='notificationsIndex' path='/notifications' component={NotificationsIndexPage} onEnter={checkPermission(store, cons.Permissions.USER)} />
+        <Route name='notificationsIndex' path='/notifications' component={requireAuth(NotificationsIndex)} />
       </Route>
 
       <Route name='home' path='/' component={Home} />

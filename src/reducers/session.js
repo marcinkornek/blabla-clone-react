@@ -11,7 +11,7 @@ const initialState = {
   isStarted: false,
   isFetching: false,
   errors: [],
-  isLoggedIn: false
+  isAuthenticated: false
 }
 
 const emptySession = {
@@ -35,7 +35,7 @@ export default function session(state = initialState, action) {
       ...state,
       errors: [],
       isFetching: false,
-      isLoggedIn: true,
+      isAuthenticated: true,
       ...itemSuccess
     };
   case LOGIN_FAILURE:
@@ -44,7 +44,7 @@ export default function session(state = initialState, action) {
       ...state,
       errors: [action.errors],
       isFetching: false,
-      isLoggedIn: false,
+      isAuthenticated: false,
       ...itemFailure
     };
   case LOGOUT_SUCCESS:
@@ -52,7 +52,7 @@ export default function session(state = initialState, action) {
       ...state,
       errors: [],
       isFetching: false,
-      isLoggedIn: false,
+      isAuthenticated: false,
       ...emptySession
     };
   case USER_UPDATE_SUCCESS:
@@ -61,7 +61,7 @@ export default function session(state = initialState, action) {
       ...state,
       errors: [],
       isFetching: false,
-      isLoggedIn: true,
+      isAuthenticated: true,
       ...itemUpdated
     };
     case USER_UPDATE_FAILURE:

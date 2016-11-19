@@ -24,7 +24,7 @@ injectTapEventPlugin()
 class Application extends Component {
   static propTypes = {
     session: PropTypes.object,
-    isLoggedIn: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     currentUser: PropTypes.object,
     isFetching: PropTypes.bool.isRequired,
     notifications: PropTypes.object,
@@ -46,9 +46,9 @@ class Application extends Component {
   }
 
   componentDidMount() {
-    const { isLoggedIn, userNotificationAdd } = this.props
+    const { isAuthenticated, userNotificationAdd } = this.props
 
-    if (isLoggedIn) {
+    if (isAuthenticated) {
       window.cable.subscriptions.create("NotificationsChannel", {
         received(data) {
           userNotificationAdd(data.notification)
@@ -61,7 +61,7 @@ class Application extends Component {
     const {
       currentUser,
       notifications,
-      isLoggedIn,
+      isAuthenticated,
       isFetching,
       containerWidth,
       children
@@ -70,7 +70,7 @@ class Application extends Component {
     return (
       <div>
         <Header
-          isLoggedIn={isLoggedIn}
+          isAuthenticated={isAuthenticated}
           isFetching={isFetching}
           currentUser={currentUser}
           notifications={notifications}
@@ -89,7 +89,7 @@ class Application extends Component {
 const mapStateToProps = (state) => {
   return {
     session: state.session,
-    isLoggedIn: state.session.isLoggedIn,
+    isAuthenticated: state.session.isAuthenticated,
     currentUser: state.currentUser,
     isFetching: state.currentUser.isFetching,
     notifications: state.notifications,

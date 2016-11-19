@@ -62,9 +62,9 @@ export class AppNavDrawer extends Component {
   }
 
   renderLeftHeader() {
-    const { isLoggedIn, isFetching, currentUser } = this.props
+    const { isAuthenticated, isFetching, currentUser } = this.props
 
-    if (isFetching || !isLoggedIn) {
+    if (isFetching || !isAuthenticated) {
       return(
         <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
           Blabla Clone
@@ -83,8 +83,8 @@ export class AppNavDrawer extends Component {
   }
 
   nestedAccountItems() {
-    const { isLoggedIn, onLogout } = this.props
-    if (isLoggedIn) {
+    const { isAuthenticated, onLogout } = this.props
+    if (isAuthenticated) {
       return (
         <ListItem
           primaryText="My account"
