@@ -14,6 +14,7 @@ export const initialState = {
 }
 
 export function car(state = initialState, action) {
+  let item
   switch (action.type) {
   case CAR_INITIALIZE:
     return initialState;
@@ -24,7 +25,7 @@ export function car(state = initialState, action) {
       isFetching: true
     };
   case CAR_FETCH_SUCCESS:
-    let item = action.payload.data
+    item = action.payload.data
     return {
       ...state,
       isFetching: false,
@@ -36,11 +37,11 @@ export function car(state = initialState, action) {
       isSaving: true
     };
   case CAR_UPDATE_SUCCESS:
-    let itemUpdate = action.payload.data
+    item = action.payload.data
     return {
       ...state,
       isSaving: false,
-      item: itemUpdate
+      item: item
     };
   default:
     return state;

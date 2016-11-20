@@ -13,6 +13,7 @@ export const initialState = {
 }
 
 export function user(state = initialState, action) {
+  let item
   switch (action.type) {
   case USER_FETCH_REQUEST:
     return {
@@ -22,7 +23,7 @@ export function user(state = initialState, action) {
       isFetching: true,
     };
   case USER_FETCH_SUCCESS:
-    let item = action.payload.data
+    item = action.payload.data
     item.date_of_birth = new Date(item.date_of_birth)
     return {
       ...state,

@@ -11,6 +11,7 @@ export const initialState = {
 }
 
 export function cars(state = initialState, action) {
+  let items, pagination
   switch (action.type) {
   case CARS_FETCH_REQUEST:
     return {
@@ -19,8 +20,8 @@ export function cars(state = initialState, action) {
       isFetching: true,
     };
   case CARS_FETCH_SUCCESS:
-    let items = action.payload.data.items
-    let pagination = action.payload.data.meta
+    items = action.payload.data.items
+    pagination = action.payload.data.meta
     return {
       ...state,
       isFetching: false,

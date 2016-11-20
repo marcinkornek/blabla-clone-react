@@ -12,6 +12,7 @@ export const initialState = {
 }
 
 export function rides(state = initialState, action) {
+  let items, pagination, filters
   switch (action.type) {
   case RIDES_FETCH_REQUEST:
     return {
@@ -20,9 +21,9 @@ export function rides(state = initialState, action) {
       isFetching: true,
     };
   case RIDES_FETCH_SUCCESS:
-    let items = action.payload.data.items
-    let pagination = action.payload.data.meta
-    let filters = action.payload.data.filters
+    items = action.payload.data.items
+    pagination = action.payload.data.meta
+    filters = action.payload.data.filters
     return {
       ...state,
       isFetching: false,

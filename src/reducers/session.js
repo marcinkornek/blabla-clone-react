@@ -22,6 +22,7 @@ export const emptySession = {
 }
 
 export function session(state = initialState, action) {
+  let item
   switch (action.type) {
   case LOGIN_REQUEST:
     return {
@@ -30,22 +31,22 @@ export function session(state = initialState, action) {
       isFetching: true,
     };
   case LOGIN_SUCCESS:
-    let itemSuccess = action.payload.data
+    item = action.payload.data
     return {
       ...state,
       errors: [],
       isFetching: false,
       isAuthenticated: true,
-      ...itemSuccess
+      ...item
     };
   case LOGIN_FAILURE:
-    let itemFailure = action.payload.data
+    item = action.payload.data
     return {
       ...state,
       errors: [action.errors],
       isFetching: false,
       isAuthenticated: false,
-      ...itemFailure
+      ...item
     };
   case LOGOUT_SUCCESS:
     return {
@@ -56,13 +57,13 @@ export function session(state = initialState, action) {
       ...emptySession
     };
   case USER_UPDATE_SUCCESS:
-    let itemUpdated = action.payload.data
+    item = action.payload.data
     return {
       ...state,
       errors: [],
       isFetching: false,
       isAuthenticated: true,
-      ...itemUpdated
+      ...item
     };
     case USER_UPDATE_FAILURE:
     return {

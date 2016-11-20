@@ -11,6 +11,7 @@ export const initialState = {
 }
 
 export function ridesOptions(state = initialState, action) {
+  let item
   switch (action.type) {
   case RIDE_OPTIONS_FETCH_REQUEST:
     return {
@@ -19,7 +20,7 @@ export function ridesOptions(state = initialState, action) {
       isFetching: true,
     };
   case RIDE_OPTIONS_FETCH_SUCCESS:
-    let item = action.payload.data
+    item = action.payload.data
     return {
       ...state,
       isFetching: false,

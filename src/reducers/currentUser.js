@@ -15,6 +15,7 @@ export const initialState = {
 }
 
 export function currentUser(state = initialState, action) {
+  let item
   switch (action.type) {
   case CURRENT_USER_FETCH_REQUEST:
     return {
@@ -24,7 +25,7 @@ export function currentUser(state = initialState, action) {
       isFetching: true,
     };
   case CURRENT_USER_FETCH_SUCCESS:
-    let item = action.payload.data
+    item = action.payload.data
     item.date_of_birth = new Date(item.date_of_birth)
     return {
       ...state,
@@ -42,11 +43,11 @@ export function currentUser(state = initialState, action) {
       isSaving: true
     };
   case CURRENT_USER_UPDATE_SUCCESS:
-    let updatedItem = action.payload.data
+    item = action.payload.data
     return {
       ...state,
       isSaving: false,
-      ...updatedItem,
+      ...item,
       errors: []
     };
   case CURRENT_USER_UPDATE_FAILURE:
