@@ -25,10 +25,14 @@ export function fetchUsers(page = 1, per = 10) {
       types: [USERS_FETCH_REQUEST, USERS_FETCH_SUCCESS, USERS_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.USERS + '?page=' + page + '&per=' + per,
+          url: APIEndpoints.USERS,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
+          },
+          params: {
+            page,
+            per,
           }
         }
       }

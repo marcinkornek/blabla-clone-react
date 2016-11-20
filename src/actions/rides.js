@@ -25,24 +25,25 @@ import {
 } from '../constants/ActionTypes'
 import { APIEndpoints } from '../constants/constants'
 
-export function fetchRides(page = 1, per = 10, options = {}) {
+export function fetchRides(page = 1, per = 10, { start_city, destination_city, start_date, hide_full } = {}) {
   return (dispatch, getState) => {
     const { session } = getState()
-    var rideOptions = ''
-    if (options) {
-      if (options.start_city) { rideOptions = '&start_city=' + options.start_city }
-      if (options.destination_city) { rideOptions += '&destination_city=' + options.destination_city }
-      if (options.start_date) { rideOptions += '&start_date=' + options.start_date }
-      if (options.hide_full) { rideOptions += '&hide_full=' + options.hide_full }
-    }
     return dispatch({
       types: [RIDES_FETCH_REQUEST, RIDES_FETCH_SUCCESS, RIDES_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.RIDES + '?page=' + page + '&per=' + per + rideOptions,
+          url: APIEndpoints.RIDES,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
+          },
+          params: {
+            start_city,
+            destination_city,
+            start_date,
+            hide_full,
+            per,
+            page,
           }
         }
       }
@@ -57,10 +58,14 @@ export function fetchRidesAsDriver(driverId, page = 1, per = 10) {
       types: [RIDES_DRIVER_FETCH_REQUEST, RIDES_DRIVER_FETCH_SUCCESS, RIDES_DRIVER_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.USERS + '/' + driverId + '/rides_as_driver?page=' + page + '&per=' + per,
+          url: APIEndpoints.USERS + '/' + driverId + '/rides_as_driver',
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
+          },
+          params: {
+            page,
+            per,
           }
         }
       }
@@ -75,10 +80,14 @@ export function fetchRidesAsPassenger(passengerId, page = 1, per = 10) {
       types: [RIDES_PASSENGER_FETCH_REQUEST, RIDES_PASSENGER_FETCH_SUCCESS, RIDES_PASSENGER_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.USERS + '/' + passengerId + '/rides_as_passenger?page=' + page + '&per=' + per,
+          url: APIEndpoints.USERS + '/' + passengerId + '/rides_as_passenger',
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
+          },
+          params: {
+            page,
+            per,
           }
         }
       }

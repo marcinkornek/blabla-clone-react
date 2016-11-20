@@ -17,10 +17,14 @@ export function fetchNotifications(page = 1, per = 10) {
       types: [NOTIFICATIONS_FETCH_REQUEST, NOTIFICATIONS_FETCH_SUCCESS, NOTIFICATIONS_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.NOTIFICATIONS + '?page=' + page + '&per=' + per,
+          url: APIEndpoints.NOTIFICATIONS,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
+          },
+          params: {
+            page,
+            per,
           }
         }
       }

@@ -33,10 +33,14 @@ export function fetchCars(userId, page = 1, per = 10) {
       types: [CARS_FETCH_REQUEST, CARS_FETCH_SUCCESS, CARS_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.USERS + '/' + userId + '/cars?page=' + page + '&per=' + per,
+          url: APIEndpoints.USERS + '/' + userId + '/cars',
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
+          },
+          params: {
+            page,
+            per,
           }
         }
       }
