@@ -22,17 +22,12 @@ class RideForm extends Component {
 
   render() {
     const { handleSubmit, ridesOptions } = this.props
-
-    var currencies = []
-    var cars = []
-    if (ridesOptions) {
-      for (var i = 0; i < ridesOptions.currencies.length; i++) {
-        currencies.push(<MenuItem value={ridesOptions.currencies[i]} key={'option-' + i} primaryText={ridesOptions.currencies[i]}/>)
-      }
-      for (var i = 0; i < ridesOptions.cars.length; i++) {
-        cars.push(<MenuItem value={ridesOptions.cars[i].id} key={'car-' + i} primaryText={ridesOptions.cars[i].name}/>)
-      }
-    }
+    let currencies = ridesOptions.currencies.map((currency, i) =>
+      <MenuItem value={currency} key={'option-' + i} primaryText={currency}/>
+    )
+    let cars = ridesOptions.cars.map((car, i) =>
+      <MenuItem value={car.id} key={'car-' + i} primaryText={car.name}/>
+    )
 
     return (
       <form onSubmit={handleSubmit}>

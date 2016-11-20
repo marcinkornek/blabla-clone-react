@@ -21,20 +21,15 @@ export class CarForm extends Component {
 
   render() {
     const { handleSubmit, carOptions } = this.props
-    var colors = []
-    var comforts = []
-    var categories = []
-    if (carOptions) {
-      for (var i = 0; i < carOptions.colors.length; i++) {
-        colors.push(<MenuItem value={carOptions.colors[i]} key={'color' + i} primaryText={carOptions.colors[i]} />)
-      }
-      for (var i = 0; i < carOptions.comforts.length; i++) {
-        comforts.push(<MenuItem value={carOptions.comforts[i]} key={'comfort' + i} primaryText={carOptions.comforts[i]} />)
-      }
-      for (var i = 0; i < carOptions.categories.length; i++) {
-        categories.push(<MenuItem value={carOptions.categories[i]} key={'category' + i} primaryText={carOptions.categories[i]} />)
-      }
-    }
+    let colors = carOptions.colors.map((color, i) =>
+      <MenuItem value={color} key={'color' + i} primaryText={color} />
+    )
+    let comforts = carOptions.comforts.map((comfort, i) =>
+      <MenuItem value={comfort} key={'comfort' + i} primaryText={comfort} />
+    )
+    let categories = carOptions.categories.map((category, i) =>
+      <MenuItem value={category} key={'category' + i} primaryText={category} />
+    )
 
     return (
       <form onSubmit={handleSubmit}>

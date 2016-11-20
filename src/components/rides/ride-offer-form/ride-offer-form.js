@@ -18,10 +18,10 @@ export class RideOfferForm extends Component {
 
   renderRideOfferForm() {
     const { handleSubmit, currentUserId, ride } = this.props
-    var places = []
-    for (var i = 0; i < ride.places; i++) {
-      places.push(<MenuItem key={i} value={i + 1} primaryText={pluralize('place', i + 1, true)} />)
-    }
+    let places = new Array(ride.places).fill(undefined).map((place, i) =>
+      <MenuItem key={i} value={i + 1} primaryText={pluralize('place', i + 1, true)} />
+    )
+
     if (currentUserId && ride.places > 0 && this.isNotAuthor()) {
       return(
         <div className='book-ride'>
