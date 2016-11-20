@@ -14,3 +14,11 @@ export const car = {
   owner_id: 1,
   car_photo: 'http://example.com/car_photo.jpg',
 }
+
+export const pagination = {
+  current_page: 1,
+  next_page: 2,
+  prev_page: null,
+  total_count: 18,
+  total_pages: 2
+}
