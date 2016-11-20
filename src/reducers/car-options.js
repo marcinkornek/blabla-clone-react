@@ -11,7 +11,7 @@ export const initialState = {
   categories: []
 }
 
-export function carsOptions(state = initialState, action) {
+export function carOptions(state = initialState, action) {
   switch (action.type) {
   case CAR_OPTIONS_FETCH_REQUEST:
     return {

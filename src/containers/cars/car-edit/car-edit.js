@@ -18,7 +18,7 @@ export class CarEdit extends Component {
     car: PropTypes.object,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    carsOptions: PropTypes.object.isRequired,
+    carOptions: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -48,12 +48,12 @@ export class CarEdit extends Component {
   }
 
   renderCarForm() {
-    const { carsOptions, car } = this.props
+    const { carOptions, car } = this.props
 
     return (
       <CarForm
         onSubmit={this.handleSubmit}
-        carsOptions={carsOptions}
+        carOptions={carOptions}
         car={car}
       />
     )
@@ -84,7 +84,7 @@ const mapStateToProps = (state) => {
     car: state.car.item,
     isStarted: state.car.isStarted,
     isFetching: state.car.isFetching,
-    carsOptions: state.carsOptions,
+    carOptions: state.carOptions,
   }
 }
 

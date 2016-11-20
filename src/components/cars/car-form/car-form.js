@@ -15,24 +15,24 @@ import { renderSelectField } from '../../shared/render-select-field/render-selec
 export class CarForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    carsOptions: PropTypes.object.isRequired,
+    carOptions: PropTypes.object.isRequired,
     car: PropTypes.object,
   }
 
   render() {
-    const { handleSubmit, carsOptions } = this.props
+    const { handleSubmit, carOptions } = this.props
     var colors = []
     var comforts = []
     var categories = []
-    if (carsOptions) {
-      for (var i = 0; i < carsOptions.colors.length; i++) {
-        colors.push(<MenuItem value={carsOptions.colors[i]} key={'color' + i} primaryText={carsOptions.colors[i]} />)
+    if (carOptions) {
+      for (var i = 0; i < carOptions.colors.length; i++) {
+        colors.push(<MenuItem value={carOptions.colors[i]} key={'color' + i} primaryText={carOptions.colors[i]} />)
       }
-      for (var i = 0; i < carsOptions.comforts.length; i++) {
-        comforts.push(<MenuItem value={carsOptions.comforts[i]} key={'comfort' + i} primaryText={carsOptions.comforts[i]} />)
+      for (var i = 0; i < carOptions.comforts.length; i++) {
+        comforts.push(<MenuItem value={carOptions.comforts[i]} key={'comfort' + i} primaryText={carOptions.comforts[i]} />)
       }
-      for (var i = 0; i < carsOptions.categories.length; i++) {
-        categories.push(<MenuItem value={carsOptions.categories[i]} key={'category' + i} primaryText={carsOptions.categories[i]} />)
+      for (var i = 0; i < carOptions.categories.length; i++) {
+        categories.push(<MenuItem value={carOptions.categories[i]} key={'category' + i} primaryText={carOptions.categories[i]} />)
       }
     }
 

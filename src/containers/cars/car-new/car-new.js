@@ -13,7 +13,7 @@ import CarForm from '../../../components/cars/car-form/car-form'
 
 export class CarNew extends Component {
   static propTypes = {
-    carsOptions: PropTypes.object.isRequired
+    carOptions: PropTypes.object.isRequired
   }
 
   componentDidMount() {
@@ -43,12 +43,12 @@ export class CarNew extends Component {
   }
 
   renderCarForm() {
-    const { carsOptions } = this.props
+    const { carOptions } = this.props
 
     return(
       <CarForm
         onSubmit={this.handleSubmit}
-        carsOptions={carsOptions}
+        carOptions={carOptions}
       />
     )
   }
@@ -69,7 +69,7 @@ export class CarNew extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    carsOptions: state.carsOptions
+    carOptions: state.carOptions
   }
 }
 
