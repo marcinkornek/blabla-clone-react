@@ -3,7 +3,7 @@ import {
   CARS_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 import { cars, initialState } from './cars'
-import { car, pagination } from '../../test/support/fixtures'
+import { Car, Pagination } from '../../test/support/fixtures'
 
 describe('reducers', () => {
   it('handles CARS_FETCH_REQUEST', () => {
@@ -27,16 +27,16 @@ describe('reducers', () => {
   it('handles CARS_FETCH_SUCCESS', () => {
     const payload = {
       data: {
-        items: [car],
-        meta: pagination
+        items: [Car()],
+        meta: Pagination()
       }
     }
     const expected = {
       ...state,
       isStarted: true,
       isFetching: false,
-      items: [car],
-      pagination: pagination
+      items: [Car()],
+      pagination: Pagination()
     }
 
     const state = cars({
