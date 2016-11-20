@@ -15,6 +15,8 @@ export const initialState = {
 
 export function car(state = initialState, action) {
   switch (action.type) {
+  case CAR_INITIALIZE:
+    return initialState;
   case CAR_FETCH_REQUEST:
     return {
       ...state,
@@ -28,8 +30,6 @@ export function car(state = initialState, action) {
       isFetching: false,
       item: item
     };
-  case CAR_INITIALIZE:
-    return initialState;
   case CAR_UPDATE_REQUEST:
     return {
       ...state,
