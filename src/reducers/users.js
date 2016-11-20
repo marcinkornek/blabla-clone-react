@@ -3,14 +3,14 @@ import {
   USERS_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   items: [],
   pagination: {}
 }
 
-export default function users(state = initialState, action) {
+export function users(state = initialState, action) {
   switch (action.type) {
   case USERS_FETCH_REQUEST:
     return {

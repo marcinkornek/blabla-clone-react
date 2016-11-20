@@ -3,14 +3,14 @@ import {
   RIDE_OPTIONS_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   currencies: [],
   cars: []
 }
 
-export default function ridesOptions(state = initialState, action) {
+export function ridesOptions(state = initialState, action) {
   switch (action.type) {
   case RIDE_OPTIONS_FETCH_REQUEST:
     return {

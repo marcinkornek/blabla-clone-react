@@ -3,14 +3,14 @@ import {
   CARS_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   items: [],
   pagination: {}
 }
 
-export default function cars(state = initialState, action) {
+export function cars(state = initialState, action) {
   switch (action.type) {
   case CARS_FETCH_REQUEST:
     return {

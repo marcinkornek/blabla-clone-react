@@ -5,14 +5,14 @@ import {
   NOTIFICATION_UPDATE_SUCCESS,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   items: [],
   pagination: {}
 }
 
-export default function notifications(state = initialState, action) {
+export function notifications(state = initialState, action) {
   switch (action.type) {
   case NOTIFICATIONS_FETCH_REQUEST:
     return {

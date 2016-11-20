@@ -2,11 +2,11 @@ import {
   RIDES_SEARCH_FORM
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   data: undefined
 }
 
-export default function ridesSearch(state = initialState, action) {
+export function ridesSearch(state = initialState, action) {
   switch (action.type) {
   case RIDES_SEARCH_FORM:
     return {

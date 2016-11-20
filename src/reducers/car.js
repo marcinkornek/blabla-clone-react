@@ -6,14 +6,14 @@ import {
   CAR_UPDATE_SUCCESS,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   isSaving: false,
   item: undefined,
 }
 
-export default function car(state = initialState, action) {
+export function car(state = initialState, action) {
   switch (action.type) {
   case CAR_FETCH_REQUEST:
     return {

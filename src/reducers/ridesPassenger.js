@@ -3,14 +3,14 @@ import {
   RIDES_PASSENGER_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   items: [],
   pagination: {}
 }
 
-export default function ridesPassenger(state = initialState, action) {
+export function ridesPassenger(state = initialState, action) {
   switch (action.type) {
   case RIDES_PASSENGER_FETCH_REQUEST:
     return {

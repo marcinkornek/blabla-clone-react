@@ -4,7 +4,7 @@ import {
   USER_FETCH_FAILURE,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   item: undefined,
   isStarted: false,
   isFetching: false,
@@ -12,7 +12,7 @@ const initialState = {
   errors: [],
 }
 
-export default function user(state = initialState, action) {
+export function user(state = initialState, action) {
   switch (action.type) {
   case USER_FETCH_REQUEST:
     return {

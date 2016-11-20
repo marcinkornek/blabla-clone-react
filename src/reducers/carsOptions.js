@@ -3,7 +3,7 @@ import {
   CAR_OPTIONS_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   colors: [],
@@ -11,7 +11,7 @@ const initialState = {
   categories: []
 }
 
-export default function carsOptions(state = initialState, action) {
+export function carsOptions(state = initialState, action) {
   switch (action.type) {
   case CAR_OPTIONS_FETCH_REQUEST:
     return {

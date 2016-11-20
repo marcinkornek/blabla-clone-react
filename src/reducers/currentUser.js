@@ -7,14 +7,14 @@ import {
   CURRENT_USER_UPDATE_FAILURE,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   isSaving: false,
   errors: [],
 }
 
-export default function currentUser(state = initialState, action) {
+export function currentUser(state = initialState, action) {
   switch (action.type) {
   case CURRENT_USER_FETCH_REQUEST:
     return {

@@ -7,7 +7,7 @@ import {
   RIDE_REQUEST_CHANGE_SUCCESS,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   isSaving: false,
@@ -15,7 +15,7 @@ const initialState = {
   item: undefined,
 }
 
-export default function ride(state = initialState, action) {
+export function ride(state = initialState, action) {
   switch (action.type) {
   case RIDE_FETCH_REQUEST:
     return {

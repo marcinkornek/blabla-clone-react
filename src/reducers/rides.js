@@ -3,7 +3,7 @@ import {
   RIDES_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   items: [],
@@ -11,7 +11,7 @@ const initialState = {
   filters: {}
 }
 
-export default function rides(state = initialState, action) {
+export function rides(state = initialState, action) {
   switch (action.type) {
   case RIDES_FETCH_REQUEST:
     return {

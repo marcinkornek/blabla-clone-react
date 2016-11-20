@@ -7,21 +7,21 @@ import {
   USER_UPDATE_FAILURE,
 } from '../constants/ActionTypes'
 
-const initialState = {
+export const initialState = {
   isStarted: false,
   isFetching: false,
   errors: [],
   isAuthenticated: false
 }
 
-const emptySession = {
+export const emptySession = {
   id: undefined,
   access_token: undefined,
   email: undefined,
   role: undefined
 }
 
-export default function session(state = initialState, action) {
+export function session(state = initialState, action) {
   switch (action.type) {
   case LOGIN_REQUEST:
     return {
