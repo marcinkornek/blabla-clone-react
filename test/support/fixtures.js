@@ -165,6 +165,36 @@ export function NotificationWithUnreadCount() {
   })
 }
 
+export function Ride() {
+  return ({
+    id: 1,
+    car: {
+      id: 1,
+      full_name: 'Ford Focus',
+      comfort: 'basic',
+      comfort_stars: 1,
+      places_full: '3 places',
+      owner_id: 1,
+      car_photo: 'http://example.com/car_photo.jpg',
+    },
+    car_id: 1,
+    currency: 'usd',
+    destination_city: 'Wrocław, Polska',
+    driver: {
+      id: 1,
+      full_name: 'Barry P',
+      age: 21,
+      avatar: 'http://example.com/avatar2.jpg',
+    },
+    free_places_count: 5,
+    places: 5,
+    places_full: '5 places',
+    price: '2.0',
+    start_city: 'Opole, Polska',
+    start_date: '2016-11-26T23:00:00.000Z',
+  })
+}
+
 export function Pagination() {
   return ({
     current_page: 1,
