@@ -76,19 +76,93 @@ export function Car2() {
 
 export function Notification() {
   return ({
-    id: 1
-    ride_request_id: 1
-    notification_type: 'ride_request_created'
-    seen_at: '2016-11-19T17:09:00.216Z'
-    created_at: '2016-11-19T17:08:56.287Z'
+    id: 1,
+    ride_request_id: 1,
+    notification_type: 'ride_request_created',
+    seen_at: '2016-11-19T18:08:56.287Z',
+    created_at: '2016-11-19T17:08:56.287Z',
     sender: {
-      id: 1
-      full_name: 'Harry P'
-      age: null,
+      id: 1,
+      full_name: 'Harry P',
+      age: 26,
       avatar: 'http://example.com/avatar.jpg',
     },
+    receiver: {
+      id: 2,
+      full_name: 'Barry P',
+      age: 21,
+      avatar: 'http://example.com/avatar2.jpg',
+    },
+    ride: {
+      id: 1,
+      start_city: 'Opole, Polska',
+      destination_city: 'Wroclaw, Polska',
+      start_date: '2016-12-23T23:00:00.000Z',
+      price: '12.0',
+      currency: 'pln',
+    }
+  })
+}
 
-  }
+export function Notification2() {
+  return ({
+    id: 2,
+    ride_request_id: 2,
+    notification_type: 'ride_request_created',
+    seen_at: null,
+    created_at: '2016-11-19T17:08:56.287Z',
+    sender: {
+      id: 1,
+      full_name: 'Harry P',
+      age: 26,
+      avatar: 'http://example.com/avatar.jpg',
+    },
+    receiver: {
+      id: 2,
+      full_name: 'Barry P',
+      age: 21,
+      avatar: 'http://example.com/avatar2.jpg',
+    },
+    ride: {
+      id: 1,
+      start_city: 'Opole, Polska',
+      destination_city: 'Wroclaw, Polska',
+      start_date: '2016-12-23T23:00:00.000Z',
+      price: '12.0',
+      currency: 'pln',
+    }
+  })
+}
+
+export function NotificationWithUnreadCount() {
+  return ({
+    id: 3,
+    ride_request_id: 3,
+    notification_type: 'ride_request_created',
+    seen_at: null,
+    created_at: '2016-11-19T17:08:56.287Z',
+    sender: {
+      id: 1,
+      full_name: 'Harry P',
+      age: 26,
+      avatar: 'http://example.com/avatar.jpg',
+    },
+    receiver: {
+      id: 2,
+      full_name: 'Barry P',
+      age: 21,
+      avatar: 'http://example.com/avatar2.jpg',
+    },
+    ride: {
+      id: 1,
+      start_city: 'Opole, Polska',
+      destination_city: 'Wroclaw, Polska',
+      start_date: '2016-12-23T23:00:00.000Z',
+      price: '12.0',
+      currency: 'pln',
+    },
+    unread_count: 2,
+  })
 }
 
 export function Pagination() {
@@ -98,5 +172,16 @@ export function Pagination() {
     prev_page: null,
     total_count: 18,
     total_pages: 2
+  })
+}
+
+export function PaginationWithUnreadCount() {
+  return ({
+    current_page: 1,
+    next_page: 2,
+    prev_page: null,
+    total_count: 18,
+    total_pages: 2,
+    unread_count: 2,
   })
 }
