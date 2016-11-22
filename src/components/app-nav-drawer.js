@@ -45,6 +45,7 @@ export class AppNavDrawer extends Component {
     open: PropTypes.bool.isRequired,
     style: PropTypes.object,
     isFetching: PropTypes.bool.isRequired,
+    isStarted: PropTypes.bool.isRequired,
   }
 
   static contextTypes = {
@@ -62,21 +63,21 @@ export class AppNavDrawer extends Component {
   }
 
   renderLeftHeader() {
-    const { isAuthenticated, isFetching, currentUser } = this.props
+    const { isAuthenticated, isStarted, isFetching, currentUser } = this.props
 
-    if (isFetching || !isAuthenticated) {
-      return(
-        <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
-          Blabla Clone
-        </div>
-      )
-    } else {
+    if (!isFetching && isStarted && isAuthenticated) {
       return(
         <div style={styles.logo}>
           <Link to={`/users/${currentUser.id}`}>
             <Avatar src={currentUser.avatar} style={styles.avatatStyle} />
             <span>{currentUser.full_name}</span>
           </Link>
+        </div>
+      )
+    } else {
+      return(
+        <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
+          Blabla Clone
         </div>
       )
     }

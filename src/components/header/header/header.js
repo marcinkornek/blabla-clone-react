@@ -12,6 +12,7 @@ export class Header extends Component {
     location: PropTypes.object,
     containerWidth: PropTypes.number.isRequired,
     onLogout: PropTypes.func.isRequired,
+    isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
   }
 
@@ -47,7 +48,7 @@ export class Header extends Component {
   }
 
   render() {
-    const { containerWidth, currentUser, isAuthenticated, isFetching } = this.props
+    const { containerWidth, currentUser, isAuthenticated, isStarted, isFetching } = this.props
     const title = 'Blabla clone'
     let docked = false
     let showMenuIconButton = true
@@ -77,6 +78,7 @@ export class Header extends Component {
           open={navDrawerOpen}
           currentUser={currentUser}
           isAuthenticated={isAuthenticated}
+          isStarted={isStarted}
           isFetching={isFetching}
           onLogout={this.handleLogout}
         />

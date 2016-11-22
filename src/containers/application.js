@@ -26,6 +26,7 @@ class Application extends Component {
     session: PropTypes.object,
     isAuthenticated: PropTypes.bool.isRequired,
     currentUser: PropTypes.object,
+    isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
     notifications: PropTypes.object,
   }
@@ -62,6 +63,7 @@ class Application extends Component {
       currentUser,
       notifications,
       isAuthenticated,
+      isStarted,
       isFetching,
       containerWidth,
       children
@@ -71,6 +73,7 @@ class Application extends Component {
       <div>
         <Header
           isAuthenticated={isAuthenticated}
+          isStarted={isStarted}
           isFetching={isFetching}
           currentUser={currentUser}
           notifications={notifications}
@@ -91,6 +94,7 @@ const mapStateToProps = (state) => {
     session: state.session,
     isAuthenticated: state.session.isAuthenticated,
     currentUser: state.currentUser.item,
+    isStarted: state.currentUser.isStarted,
     isFetching: state.currentUser.isFetching,
     notifications: state.notifications,
   }

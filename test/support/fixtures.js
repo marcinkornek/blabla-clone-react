@@ -74,6 +74,23 @@ export function Car2() {
   })
 }
 
+export function Notification() {
+  return ({
+    id: 1
+    ride_request_id: 1
+    notification_type: 'ride_request_created'
+    seen_at: '2016-11-19T17:09:00.216Z'
+    created_at: '2016-11-19T17:08:56.287Z'
+    sender: {
+      id: 1
+      full_name: 'Harry P'
+      age: null,
+      avatar: 'http://example.com/avatar.jpg',
+    },
+
+  }
+}
+
 export function Pagination() {
   return ({
     current_page: 1,
