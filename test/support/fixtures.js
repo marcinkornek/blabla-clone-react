@@ -1,3 +1,41 @@
+export function User() {
+  return ({
+    id: 1,
+    first_name: 'Harry',
+    last_name: 'Potter',
+    full_name: 'Harry P',
+    email: 'harry.potter@a.com',
+    tel_num: '111222333',
+    date_of_birth: '1990-01-01',
+    created_at: '2016-04-28T06:21:42.994Z',
+    updated_at: '2016-11-22T07:10:47.705Z',
+    age: 26,
+    avatar: 'http://example.com/avatar.jpg',
+    gender: 'male',
+    role: 'user',
+    last_seen_at: '2016-11-22T07:10:47.705Z',
+  })
+}
+
+export function User2() {
+  return ({
+    id: 1,
+    first_name: 'Barry',
+    last_name: 'Potter',
+    full_name: 'Barry P',
+    email: 'barry.potter@a.com',
+    tel_num: '666222333',
+    date_of_birth: '1995-01-01',
+    created_at: '2015-04-28T06:21:42.994Z',
+    updated_at: '2015-11-22T07:10:47.705Z',
+    age: 21,
+    avatar: 'http://example.com/avatar2.jpg',
+    gender: 'male',
+    role: 'user',
+    last_seen_at: '2016-11-22T07:10:47.705Z',
+  })
+}
+
 export function Car() {
   return ({
     id: 1,
