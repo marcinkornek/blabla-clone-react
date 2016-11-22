@@ -11,9 +11,8 @@ export class RideOfferForm extends Component {
 
   isNotAuthor() {
     const { currentUserId, ride } = this.props
-    if (currentUserId != ride.driver.id) {
-      return true
-    }
+
+    if (currentUserId != ride.driver.id) return true
   }
 
   renderRideOfferForm() {

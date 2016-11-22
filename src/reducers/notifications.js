@@ -13,7 +13,7 @@ export const initialState = {
 }
 
 export function notifications(state = initialState, action) {
-  let item, items, pagination
+  let item, items, pagination, unreadCount
   switch (action.type) {
   case NOTIFICATIONS_FETCH_REQUEST:
     return {
@@ -47,10 +47,10 @@ export function notifications(state = initialState, action) {
     return {
       ...state,
       isFetching: false,
-      items: state.items.map(item => {
-        if (item.id == item.id) {
+      items: state.items.map(i => {
+        if (i.id == item.id) {
           return {
-            ...item,
+            ...i,
             seen_at: item.seen_at
           }
         } else {
