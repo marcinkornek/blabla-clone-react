@@ -90,7 +90,7 @@ const mapStateToProps = (state) => {
   return {
     session: state.session,
     isAuthenticated: state.session.isAuthenticated,
-    currentUser: state.currentUser,
+    currentUser: state.currentUser.item,
     isFetching: state.currentUser.isFetching,
     notifications: state.notifications,
   }

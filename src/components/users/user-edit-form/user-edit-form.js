@@ -16,7 +16,8 @@ import { renderRadioGroup } from '../../shared/render-radio-group/render-radio-g
 
 export class UserEditForm extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
+    currentUser: PropTypes.object.isRequired,
   }
 
   render() {
@@ -79,8 +80,8 @@ UserEditForm = reduxForm({
 })(UserEditForm)
 
 UserEditForm = connect(
-  state => ({
-    initialValues: state.currentUser
+  (state, props) => ({
+    initialValues: props.currentUser
   })
 )(UserEditForm)
 

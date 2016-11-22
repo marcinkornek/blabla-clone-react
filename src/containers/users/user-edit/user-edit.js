@@ -13,6 +13,10 @@ import { updateCurrentUser } from '../../../actions/users'
 import UserEditForm from '../../../components/users/user-edit-form/user-edit-form'
 
 export class UserEdit extends Component {
+  static propTypes = {
+    currentUser: PropTypes.object.isRequired,
+  }
+
   @autobind
   handleSubmit(data) {
     const { updateCurrentUser } = this.props
@@ -29,13 +33,18 @@ export class UserEdit extends Component {
   }
 
   render() {
+    const { currentUser } = this.props
+
     return (
       <div className='show-grid'>
         <Col xs={12}>
           <div className='heading'>
             <div className='heading-title'>My profile</div>
           </div>
-          <UserEditForm onSubmit={this.handleSubmit} />
+          <UserEditForm
+            currentUser={currentUser}
+            onSubmit={this.handleSubmit}
+          />
         </Col>
       </div>
     )
@@ -43,7 +52,9 @@ export class UserEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    currentUser: state.currentUser.item
+  }
 }
 
 const mapDispatchToProps = {

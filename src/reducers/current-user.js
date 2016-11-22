@@ -30,7 +30,7 @@ export function currentUser(state = initialState, action) {
     return {
       ...state,
       isFetching: false,
-      ...item
+      item: item,
     };
   case CURRENT_USER_FETCH_FAILURE:
     return {
@@ -47,7 +47,7 @@ export function currentUser(state = initialState, action) {
     return {
       ...state,
       isSaving: false,
-      ...item,
+      item: item,
       errors: []
     };
   case CURRENT_USER_UPDATE_FAILURE:
