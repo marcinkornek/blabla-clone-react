@@ -17,11 +17,11 @@ export class RideOfferForm extends Component {
 
   renderRideOfferForm() {
     const { handleSubmit, currentUserId, ride } = this.props
-    let places = new Array(ride.places).fill(undefined).map((place, i) =>
+    let places = new Array(ride.free_places_count).fill(undefined).map((place, i) =>
       <MenuItem key={i} value={i + 1} primaryText={pluralize('place', i + 1, true)} />
     )
 
-    if (currentUserId && ride.places > 0 && this.isNotAuthor()) {
+    if (currentUserId && ride.free_places_count > 0 && this.isNotAuthor()) {
       return(
         <div className='book-ride'>
           <form className='book-ride-form' onSubmit={handleSubmit}>
@@ -33,7 +33,7 @@ export class RideOfferForm extends Component {
           </form>
         </div>
       )
-    } else if (currentUserId && ride.places > 0 && this.isNotAuthor()) {
+    } else if (currentUserId && ride.free_places_count == 0 && this.isNotAuthor()) {
       return(
         <div className='book-ride'>
           No places

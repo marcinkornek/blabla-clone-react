@@ -11,7 +11,6 @@ export const initialState = {
   isStarted: false,
   isFetching: false,
   isSaving: false,
-  places: undefined,
   item: undefined,
 }
 
@@ -31,7 +30,6 @@ export function ride(state = initialState, action) {
       ...state,
       isFetching: false,
       item: item,
-      places: item.free_places_count
     };
   case RIDE_UPDATE_REQUEST:
     return {
@@ -44,21 +42,18 @@ export function ride(state = initialState, action) {
       ...state,
       isSaving: false,
       item: item,
-      places: item.free_places_count
     };
   case RIDE_REQUEST_CREATE_SUCCESS:
     item = action.payload.data
     return {
       ...state,
       item: item,
-      places: item.free_places_count
     };
   case RIDE_REQUEST_CHANGE_SUCCESS:
     item = action.payload.data
     return {
       ...state,
       item: item,
-      places: item.free_places_count
     };
   default:
     return state;

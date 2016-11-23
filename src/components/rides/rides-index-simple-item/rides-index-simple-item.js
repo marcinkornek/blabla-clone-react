@@ -42,7 +42,7 @@ export class RidesIndexSimpleItem extends Component {
         </div>
         <div className='ride-offer__places'>
           <div className='ride-offer__places-free'>{ride.free_places_count}</div>
-          <div className='ride-offer__places-label'>/ {ride.places} {pluralize('place', ride.free_places_count)} free</div>
+          <div className='ride-offer__places-label'>/ {ride.places} {pluralize('place', ride.places)} free</div>
         </div>
       </div>
 
