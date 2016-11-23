@@ -1,3 +1,4 @@
+// TODO use one reducer for fetching all rides
 import {
   RIDES_PASSENGER_FETCH_REQUEST,
   RIDES_PASSENGER_FETCH_SUCCESS,
