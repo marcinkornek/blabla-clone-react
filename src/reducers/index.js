@@ -13,7 +13,7 @@ import { rides } from './rides'
 import { ride } from './ride'
 import { ridesOptions } from './ridesOptions'
 import { ridesSearch } from './ridesSearch'
-import { ridesDriver } from './ridesDriver'
+import { ridesDriver } from './rides-driver'
 import { ridesPassenger } from './ridesPassenger'
 
 const rootReducer = combineReducers({
