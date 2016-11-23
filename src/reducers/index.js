@@ -14,7 +14,7 @@ import { ride } from './ride'
 import { ridesOptions } from './ridesOptions'
 import { ridesSearch } from './ridesSearch'
 import { ridesDriver } from './rides-driver'
-import { ridesPassenger } from './ridesPassenger'
+import { ridesPassenger } from './rides-passenger'
 
 const rootReducer = combineReducers({
   session,
