@@ -38,6 +38,7 @@ export function ride(state = initialState, action) {
     };
   case RIDE_UPDATE_SUCCESS:
     item = action.payload.data
+    item.start_date = new Date(item.start_date)
     return {
       ...state,
       isSaving: false,
@@ -45,12 +46,14 @@ export function ride(state = initialState, action) {
     };
   case RIDE_REQUEST_CREATE_SUCCESS:
     item = action.payload.data
+    item.start_date = new Date(item.start_date)
     return {
       ...state,
       item: item,
     };
   case RIDE_REQUEST_CHANGE_SUCCESS:
     item = action.payload.data
+    item.start_date = new Date(item.start_date)
     return {
       ...state,
       item: item,
