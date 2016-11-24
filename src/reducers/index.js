@@ -12,7 +12,7 @@ import { car } from './car'
 import { rides } from './rides'
 import { ride } from './ride'
 import { ridesOptions } from './ridesOptions'
-import { ridesSearch } from './ridesSearch'
+import { ridesSearch } from './rides-search'
 import { ridesDriver } from './rides-driver'
 import { ridesPassenger } from './rides-passenger'
 
