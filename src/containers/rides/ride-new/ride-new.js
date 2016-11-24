@@ -13,7 +13,7 @@ import RideForm from '../../../components/rides/ride-form/ride-form'
 
 export class RideNew extends Component {
   static propTypes = {
-    ridesOptions: PropTypes.object.isRequired
+    rideOptions: PropTypes.object.isRequired
   }
 
   componentDidMount() {
@@ -44,7 +44,7 @@ export class RideNew extends Component {
   }
 
   render() {
-    const { ridesOptions } = this.props
+    const { rideOptions } = this.props
 
     return (
       <div className='show-grid'>
@@ -53,7 +53,7 @@ export class RideNew extends Component {
             <div className='heading-title'>New ride</div>
           </div>
           <RideForm
-            ridesOptions={ridesOptions}
+            rideOptions={rideOptions}
             onSubmit={this.handleSubmit}
           />
         </Col>
@@ -64,7 +64,7 @@ export class RideNew extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ridesOptions: state.ridesOptions
+    rideOptions: state.rideOptions
   }
 }
 

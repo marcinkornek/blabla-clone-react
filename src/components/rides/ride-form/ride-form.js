@@ -16,16 +16,16 @@ import { renderSelectField } from '../../shared/render-select-field/render-selec
 class RideForm extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    ridesOptions: PropTypes.object.isRequired,
+    rideOptions: PropTypes.object.isRequired,
     ride: PropTypes.object
   }
 
   render() {
-    const { handleSubmit, ridesOptions } = this.props
-    let currencies = ridesOptions.currencies.map((currency, i) =>
+    const { handleSubmit, rideOptions } = this.props
+    let currencies = rideOptions.currencies.map((currency, i) =>
       <MenuItem value={currency} key={'option-' + i} primaryText={currency}/>
     )
-    let cars = ridesOptions.cars.map((car, i) =>
+    let cars = rideOptions.cars.map((car, i) =>
       <MenuItem value={car.id} key={'car-' + i} primaryText={car.name}/>
     )
 

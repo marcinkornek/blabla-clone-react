@@ -10,7 +10,7 @@ export const initialState = {
   cars: []
 }
 
-export function ridesOptions(state = initialState, action) {
+export function rideOptions(state = initialState, action) {
   let item
   switch (action.type) {
   case RIDE_OPTIONS_FETCH_REQUEST:

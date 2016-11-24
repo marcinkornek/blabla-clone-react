@@ -17,7 +17,7 @@ export class RideEdit extends Component {
     ride: PropTypes.object.isRequired,
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
-    ridesOptions: PropTypes.object.isRequired,
+    rideOptions: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -53,11 +53,11 @@ export class RideEdit extends Component {
   }
 
   renderRideForm() {
-    const { ride, ridesOptions } = this.props
+    const { ride, rideOptions } = this.props
 
     return (
       <RideForm
-        ridesOptions={ridesOptions}
+        rideOptions={rideOptions}
         ride={ride}
         onSubmit={this.handleSubmit}
       />
@@ -89,7 +89,7 @@ const mapStateToProps = (state) => {
     ride: state.ride.item,
     isStarted: state.ride.isStarted,
     isFetching: state.ride.isFetching,
-    ridesOptions: state.ridesOptions,
+    rideOptions: state.rideOptions,
   }
 }
 
