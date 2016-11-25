@@ -1,3 +1,55 @@
+export function User() {
+  return ({
+    id: 1,
+    first_name: 'Harry',
+    last_name: 'Potter',
+    full_name: 'Harry P',
+    email: 'harry.potter@a.com',
+    tel_num: '111222333',
+    date_of_birth: '1990-01-01',
+    created_at: '2016-04-28T06:21:42.994Z',
+    updated_at: '2016-11-22T07:10:47.705Z',
+    age: 26,
+    avatar: 'http://example.com/avatar.jpg',
+    gender: 'male',
+    role: 'user',
+    last_seen_at: '2016-11-22T07:10:47.705Z',
+    cars: {
+      items: [{
+        id: 1,
+        owner_id: 1,
+        full_name: 'Ford Focus',
+        comfort: 'basic',
+        comfort_stars: 1,
+        places_full: '3 places',
+        car_photo: 'http://example.com/car_photo.jpg',
+      }]
+    },
+    rides_as_driver: {
+      items: [{
+        id: 1,
+        currency: 'eur',
+        destination_city: 'Kraków, Polska',
+        free_places_count: 2,
+        places: 2,
+        places_full: '2 places',
+        price: '23.0',
+        start_city: 'Wrocław, Polska',
+        start_date: '2016-07-09T06:21:18.984Z',
+        car: {
+          id: 1,
+          owner_id: 1,
+          full_name: 'Ford Focus',
+          comfort: 'basic',
+          comfort_stars: 1,
+          places_full: '3 places',
+          car_photo: 'http://example.com/car_photo.jpg',
+        }
+      }]
+    }
+  })
+}
+
 export function CurrentUser() {
   return ({
     id: 1,
