@@ -3,7 +3,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   LOGOUT_SUCCESS,
-  USER_UPDATE_SUCCESS,
+  CURRENT_USER_UPDATE_SUCCESS,
 } from '../constants/ActionTypes'
 
 export const initialState = {
@@ -49,7 +49,7 @@ export function session(state = initialState, action) {
       isAuthenticated: false,
       ...initialState
     };
-  case USER_UPDATE_SUCCESS:
+  case CURRENT_USER_UPDATE_SUCCESS:
     item = action.payload.data
     return {
       ...state,
