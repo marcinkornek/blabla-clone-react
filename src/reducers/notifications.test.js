@@ -88,17 +88,20 @@ describe('reducers', () => {
   })
 
   it('handles NOTIFICATION_UPDATE_SUCCESS', () => {
-    let notification2
-    notification2 = Notification2()
-    notification2.seen_at = '2016-11-22T19:55:50.990Z'
-    notification2.unread_count = 2
+    let notification2 = {
+      ...Notification2(),
+      seen_at: '2016-11-22T19:55:50.990Z',
+      unread_count: 2
+    }
 
     const payload = {
       data: notification2
     }
 
-    notification2 = Notification2()
-    notification2.seen_at = '2016-11-22T19:55:50.990Z'
+    notification2 = {
+      ...Notification2(),
+      seen_at: '2016-11-22T19:55:50.990Z'
+    }
 
     const expected = {
       ...state,

@@ -12,6 +12,7 @@ export const initialState = {
 }
 
 export function carOptions(state = initialState, action) {
+  let item
   switch (action.type) {
   case CAR_OPTIONS_FETCH_REQUEST:
     return {
@@ -20,7 +21,7 @@ export function carOptions(state = initialState, action) {
       isFetching: true,
     };
   case CAR_OPTIONS_FETCH_SUCCESS:
-    let item = action.payload.data
+    item = action.payload.data
     return {
       ...state,
       isFetching: false,

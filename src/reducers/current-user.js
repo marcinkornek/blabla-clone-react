@@ -25,11 +25,13 @@ export function currentUser(state = initialState, action) {
     };
   case CURRENT_USER_FETCH_SUCCESS:
     item = action.payload.data
-    item.date_of_birth = new Date(item.date_of_birth)
     return {
       ...state,
       isFetching: false,
-      item: item,
+      item: {
+        ...item,
+        date_of_birth: new Date(item.date_of_birth)
+      }
     };
   case CURRENT_USER_UPDATE_REQUEST:
     return {
@@ -38,11 +40,13 @@ export function currentUser(state = initialState, action) {
     };
   case CURRENT_USER_UPDATE_SUCCESS:
     item = action.payload.data
-    item.date_of_birth = new Date(item.date_of_birth)
     return {
       ...state,
       isSaving: false,
-      item: item,
+      item: {
+        ...item,
+        date_of_birth: new Date(item.date_of_birth)
+      },
       errors: {}
     };
   case CURRENT_USER_UPDATE_FAILURE:

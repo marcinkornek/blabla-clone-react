@@ -29,9 +29,10 @@ describe('reducers', () => {
   })
 
   it('handles RIDE_FETCH_SUCCESS', () => {
-    let item = Ride()
-    item.start_date = new Date(item.start_date)
-
+    let item = {
+      ...Ride(),
+      start_date: new Date(Ride().start_date)
+    }
     const payload = {
       data: Ride()
     }
@@ -81,9 +82,10 @@ describe('reducers', () => {
   })
 
   it('handles RIDE_UPDATE_SUCCESS', () => {
-    let item = Ride2()
-    item.start_date = new Date(item.start_date)
-
+    let item = {
+      ...Ride2(),
+      start_date: new Date(Ride2().start_date)
+    }
     const payload = {
       data: Ride2()
     }
@@ -111,9 +113,10 @@ describe('reducers', () => {
   })
 
   it('handles RIDE_UPDATE_SUCCESS', () => {
-    let item = Ride2()
-    item.start_date = new Date(item.start_date)
-
+    let item = {
+      ...Ride2(),
+      start_date: new Date(Ride2().start_date)
+    }
     const payload = {
       data: Ride2()
     }
@@ -141,9 +144,10 @@ describe('reducers', () => {
   })
 
   it('handles RIDE_REQUEST_CHANGE_SUCCESS', () => {
-    let item = Ride2()
-    item.start_date = new Date(item.start_date)
-
+    let item = {
+      ...Ride2(),
+      start_date: new Date(Ride2().start_date)
+    }
     const payload = {
       data: Ride2()
     }

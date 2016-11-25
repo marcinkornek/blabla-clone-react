@@ -25,11 +25,13 @@ export function ride(state = initialState, action) {
     };
   case RIDE_FETCH_SUCCESS:
     item = action.payload.data
-    item.start_date = new Date(item.start_date)
     return {
       ...state,
       isFetching: false,
-      item: item,
+      item: {
+        ...item,
+        start_date: new Date(item.start_date)
+      }
     };
   case RIDE_UPDATE_REQUEST:
     return {
@@ -38,25 +40,31 @@ export function ride(state = initialState, action) {
     };
   case RIDE_UPDATE_SUCCESS:
     item = action.payload.data
-    item.start_date = new Date(item.start_date)
     return {
       ...state,
       isSaving: false,
-      item: item,
+      item: {
+        ...item,
+        start_date: new Date(item.start_date)
+      }
     };
   case RIDE_REQUEST_CREATE_SUCCESS:
     item = action.payload.data
-    item.start_date = new Date(item.start_date)
     return {
       ...state,
-      item: item,
+      item: {
+        ...item,
+        start_date: new Date(item.start_date)
+      }
     };
   case RIDE_REQUEST_CHANGE_SUCCESS:
     item = action.payload.data
-    item.start_date = new Date(item.start_date)
     return {
       ...state,
-      item: item,
+      item: {
+        ...item,
+        start_date: new Date(item.start_date)
+      }
     };
   default:
     return state;

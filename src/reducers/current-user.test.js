@@ -31,8 +31,10 @@ describe('reducers', () => {
     const payload = {
       data: CurrentUser(),
     }
-    let user = CurrentUser()
-    user.date_of_birth = new Date(user.date_of_birth)
+    let user = {
+      ...CurrentUser(),
+      date_of_birth: new Date(CurrentUser().date_of_birth)
+    }
     const expected = {
       ...state,
       isStarted: true,
@@ -79,12 +81,14 @@ describe('reducers', () => {
   })
 
   it('handles CURRENT_USER_UPDATE_SUCCESS', () => {
-    let user = CurrentUser()
-    user.date_of_birth = new Date(user.date_of_birth)
-
-    let user2 = CurrentUser2()
-    user2.date_of_birth = new Date(user2.date_of_birth)
-
+    let user = {
+      ...CurrentUser(),
+      date_of_birth: new Date(CurrentUser().date_of_birth)
+    }
+    let user2 = {
+      ...CurrentUser2(),
+      date_of_birth: new Date(CurrentUser2().date_of_birth)
+    }
     const payload = {
       data: CurrentUser2(),
     }
@@ -113,9 +117,10 @@ describe('reducers', () => {
   })
 
   it('handles CURRENT_USER_UPDATE_FAILURE', () => {
-    let user = CurrentUser()
-    user.date_of_birth = new Date(user.date_of_birth)
-
+    let user = {
+      ...CurrentUser(),
+      date_of_birth: new Date(CurrentUser().date_of_birth)
+    }
     const error = {
       response: {
         data: {

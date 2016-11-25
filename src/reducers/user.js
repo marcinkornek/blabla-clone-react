@@ -24,11 +24,13 @@ export function user(state = initialState, action) {
     };
   case USER_FETCH_SUCCESS:
     item = action.payload.data
-    item.date_of_birth = new Date(item.date_of_birth)
     return {
       ...state,
       isFetching: false,
-      item: item,
+      item: {
+        ...item,
+        date_of_birth: new Date(item.date_of_birth)
+      }
     };
   case USER_FETCH_FAILURE:
     return {
