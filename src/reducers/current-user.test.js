@@ -6,7 +6,7 @@ import {
   CURRENT_USER_UPDATE_FAILURE,
 } from '../constants/ActionTypes'
 import { currentUser, initialState } from './current-user'
-import { User, User2 } from '../../test/support/fixtures'
+import { CurrentUser, CurrentUser2 } from '../../test/support/fixtures'
 
 describe('reducers', () => {
   it('handles CURRENT_USER_FETCH_REQUEST', () => {
@@ -29,9 +29,9 @@ describe('reducers', () => {
 
   it('handles CURRENT_USER_FETCH_SUCCESS', () => {
     const payload = {
-      data: User(),
+      data: CurrentUser(),
     }
-    let user = User()
+    let user = CurrentUser()
     user.date_of_birth = new Date(user.date_of_birth)
     const expected = {
       ...state,
@@ -60,7 +60,7 @@ describe('reducers', () => {
       isStarted: true,
       isFetching: false,
       isSaving: true,
-      item: User(),
+      item: CurrentUser(),
       errors: {},
     }
 
@@ -69,7 +69,7 @@ describe('reducers', () => {
       isStarted: true,
       isFetching: false,
       isSaving: false,
-      item: User(),
+      item: CurrentUser(),
       errors: {},
     }, {
       type: CURRENT_USER_UPDATE_REQUEST
@@ -79,14 +79,14 @@ describe('reducers', () => {
   })
 
   it('handles CURRENT_USER_UPDATE_SUCCESS', () => {
-    let user = User()
+    let user = CurrentUser()
     user.date_of_birth = new Date(user.date_of_birth)
 
-    let user2 = User2()
+    let user2 = CurrentUser2()
     user2.date_of_birth = new Date(user2.date_of_birth)
 
     const payload = {
-      data: User2(),
+      data: CurrentUser2(),
     }
     const expected = {
       ...state,
@@ -113,7 +113,7 @@ describe('reducers', () => {
   })
 
   it('handles CURRENT_USER_UPDATE_FAILURE', () => {
-    let user = User()
+    let user = CurrentUser()
     user.date_of_birth = new Date(user.date_of_birth)
 
     const error = {

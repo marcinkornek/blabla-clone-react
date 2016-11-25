@@ -1,4 +1,4 @@
-export function User() {
+export function CurrentUser() {
   return ({
     id: 1,
     first_name: 'Harry',
@@ -17,7 +17,7 @@ export function User() {
   })
 }
 
-export function User2() {
+export function CurrentUser2() {
   return ({
     id: 1,
     first_name: 'Barry',
@@ -96,7 +96,7 @@ export function Notification() {
     ride: {
       id: 1,
       start_city: 'Opole, Polska',
-      destination_city: 'Wroclaw, Polska',
+      destination_city: 'Wrocław, Polska',
       start_date: '2016-12-23T23:00:00.000Z',
       price: '12.0',
       currency: 'pln',
@@ -126,7 +126,7 @@ export function Notification2() {
     ride: {
       id: 1,
       start_city: 'Opole, Polska',
-      destination_city: 'Wroclaw, Polska',
+      destination_city: 'Wrocław, Polska',
       start_date: '2016-12-23T23:00:00.000Z',
       price: '12.0',
       currency: 'pln',
@@ -156,7 +156,7 @@ export function NotificationWithUnreadCount() {
     ride: {
       id: 1,
       start_city: 'Opole, Polska',
-      destination_city: 'Wroclaw, Polska',
+      destination_city: 'Wrocław, Polska',
       start_date: '2016-12-23T23:00:00.000Z',
       price: '12.0',
       currency: 'pln',
@@ -220,7 +220,7 @@ export function Ride2() {
     places: 4,
     places_full: '4 places',
     price: '12.0',
-    start_city: 'Wroclaw, Polska',
+    start_city: 'Wrocław, Polska',
     start_date: '2016-11-28T23:00:00.000Z',
   })
 }
