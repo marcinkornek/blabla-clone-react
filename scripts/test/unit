@@ -4,4 +4,4 @@ NODE_ENV=test mocha \
   --opts ./test/mocha.opts \
   --compilers js:babel-core/register \
   --recursive \
-  src/**/*.test.js
+  "src/**/*.test.js"
