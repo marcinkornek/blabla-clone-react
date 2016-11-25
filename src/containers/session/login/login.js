@@ -41,6 +41,7 @@ class Login extends Component {
         saveToLocalStorage(data.email, data.access_token)
         browserHistory.push('/')
       })
+      .catch((errors) => {})
   }
 
   @autobind
@@ -56,6 +57,7 @@ class Login extends Component {
         saveToLocalStorage(data.email, data.access_token)
         browserHistory.push('/')
       })
+      .catch((errors) => {})
   }
 
   renderFormErrors() {

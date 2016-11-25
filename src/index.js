@@ -9,7 +9,6 @@ import { APIEndpoints, ActionCableURL } from './constants/constants'
 import { loginFromCookie, saveToLocalStorage } from './actions/session'
 import { fetchCurrentUser } from './actions/users'
 import { fetchNotifications } from './actions/notifications'
-import { push } from 'react-router-redux'
 
 function getFromLocalStorage(store) {
   const email = localStorage.getItem('email')
@@ -23,6 +22,11 @@ function getFromLocalStorage(store) {
         window.cable = ActionCable.createConsumer(`${ActionCableURL}?email=${email}&token=${access_token}`)
         store.dispatch(saveToLocalStorage(email, access_token))
         renderApp(store)
+      })
+      .catch((error) => {
+        localStorage.clear()
+        renderApp(store)
+        browserHistory.push('/login')
       })
   } else {
     renderApp(store)

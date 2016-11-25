@@ -4,17 +4,13 @@ import {
   LOGIN_FAILURE,
   LOGOUT_SUCCESS,
   USER_UPDATE_SUCCESS,
-  USER_UPDATE_FAILURE,
 } from '../constants/ActionTypes'
 
 export const initialState = {
   isStarted: false,
   isFetching: false,
   errors: [],
-  isAuthenticated: false
-}
-
-export const emptySession = {
+  isAuthenticated: false,
   id: undefined,
   access_token: undefined,
   email: undefined,
@@ -22,7 +18,7 @@ export const emptySession = {
 }
 
 export function session(state = initialState, action) {
-  let item
+  let item, errors
   switch (action.type) {
   case LOGIN_REQUEST:
     return {
@@ -40,13 +36,10 @@ export function session(state = initialState, action) {
       ...item
     };
   case LOGIN_FAILURE:
-    item = action.payload.data
+    errors = action.error.response.data.error
     return {
-      ...state,
-      errors: [action.errors],
-      isFetching: false,
-      isAuthenticated: false,
-      ...item
+      ...initialState,
+      errors: [errors],
     };
   case LOGOUT_SUCCESS:
     return {
@@ -54,7 +47,7 @@ export function session(state = initialState, action) {
       errors: [],
       isFetching: false,
       isAuthenticated: false,
-      ...emptySession
+      ...initialState
     };
   case USER_UPDATE_SUCCESS:
     item = action.payload.data
@@ -63,12 +56,7 @@ export function session(state = initialState, action) {
       errors: [],
       isFetching: false,
       isAuthenticated: true,
-      ...item
-    };
-    case USER_UPDATE_FAILURE:
-    return {
-      ...state,
-      errors: action.errors
+      email: item.email
     };
   default:
     return state;
