@@ -31,7 +31,8 @@ const defaults = {
   shallow,
   sinon,
   sinonChai,
-  store
+  store,
+  __DEVELOPMENT__: true,
 }
 
 merge(global, defaults)
