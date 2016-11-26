@@ -40,7 +40,7 @@ export function markNotificationAsSeen(notificationId) {
       payload: {
         request: {
           method: 'put',
-          url: APIEndpoints.NOTIFICATIONS + '/' + notificationId + '/mark_as_seen',
+          url: `${APIEndpoints.NOTIFICATIONS}/${notificationId}/mark_as_seen`,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
