@@ -24,7 +24,7 @@ export function createRideRequest(rideId, places) {
           },
           data: {
             ride_id: rideId,
-            places:  places
+            places
           },
           simple: false
         }
@@ -41,13 +41,13 @@ export function changeRideRequest(rideRequestId, status) {
       payload: {
         request: {
           method: 'put',
-          url: APIEndpoints.RIDE_REQUESTS + '/' + rideRequestId,
+          url: `${APIEndpoints.RIDE_REQUESTS}/${rideRequestId}`,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
           },
           data: {
-            status: status
+            status
           },
           simple: false
         }
