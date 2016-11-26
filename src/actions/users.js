@@ -47,7 +47,7 @@ export function fetchUser(userId) {
       types: [USER_FETCH_REQUEST, USER_FETCH_SUCCESS, USER_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.USERS + '/' + userId,
+          url: `${APIEndpoints.USERS}/${userId}`,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
@@ -65,7 +65,7 @@ export function fetchCurrentUser() {
       types: [CURRENT_USER_FETCH_REQUEST, CURRENT_USER_FETCH_SUCCESS, CURRENT_USER_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.USERS + '/' + session.id + '/profile',
+          url: `${APIEndpoints.USERS}/${session.id}/profile`,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
@@ -105,7 +105,7 @@ export function updateCurrentUser(body) {
       payload: {
         request: {
           method: 'put',
-          url: APIEndpoints.USERS + '/' + session.id,
+          url: `${APIEndpoints.USERS}/${session.id}`,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
@@ -123,7 +123,7 @@ export function checkUserEmailUniqueness(email) {
     const { session } = getState()
     return axios({
       method: 'get',
-      url: APIEndpoints.USERS + '/check_if_unique?email=' + email,
+      url: `${APIEndpoints.USERS}/check_if_unique?email=${email}`,
       headers: {
         'Accept': 'application/vnd.blabla-clone-v1+json',
         'Content-Type': 'application/json',
