@@ -26,13 +26,9 @@ class Login extends Component {
 
   @autobind
   handleEmailLogin(data) {
-    const { logInEmailBackend, fetchCurrentUser, fetchNotifications, saveToLocalStorage, dispatch } = this.props
-    var body = new FormData()
+    const { logInEmailBackend, fetchCurrentUser, fetchNotifications, saveToLocalStorage } = this.props
 
-    Object.keys(data).forEach((key) => {
-      body.append(key, data[key])
-    })
-    logInEmailBackend(body)
+    logInEmailBackend(data)
       .then((response) => {
         let data = response.payload.data
         fetchCurrentUser()
@@ -46,7 +42,7 @@ class Login extends Component {
 
   @autobind
   handleFbLogin(data) {
-    const { logInFbBackend, fetchCurrentUser, fetchNotifications, saveToLocalStorage, push } = this.props
+    const { logInFbBackend, fetchCurrentUser, fetchNotifications, saveToLocalStorage } = this.props
 
     logInFbBackend(data)
       .then((response) => {

@@ -15,7 +15,7 @@ export function loginFromCookie(data) {
       types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.SESSIONS + '/get_user',
+          url: `${APIEndpoints.SESSIONS}/get_user`,
           headers: {
             'X-User-Email': data.email,
             'X-User-Token': data.access_token
@@ -26,7 +26,7 @@ export function loginFromCookie(data) {
   }
 }
 
-export function logInEmailBackend(body) {
+export function logInEmailBackend(data) {
   return (dispatch, getState) => {
     return dispatch({
       types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE],
@@ -34,14 +34,14 @@ export function logInEmailBackend(body) {
         request: {
           method: 'post',
           url: APIEndpoints.LOGIN_EMAIL,
-          data: body
+          data: data
         }
       }
     })
   }
 }
 
-export function logInFbBackend(fbResponse) {
+export function logInFbBackend(data) {
   return (dispatch, getState) => {
     return dispatch({
       types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE],
@@ -50,11 +50,11 @@ export function logInFbBackend(fbResponse) {
           method: 'post',
           url: APIEndpoints.LOGIN_FB,
           data: {
-            uid: fbResponse.id,
+            uid: data.id,
             provider: 'facebook',
-            email: fbResponse.email,
-            first_name: fbResponse.first_name,
-            last_name: fbResponse.last_name
+            email: data.email,
+            first_name: data.first_name,
+            last_name: data.last_name
           }
         }
       }
