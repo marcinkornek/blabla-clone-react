@@ -15,7 +15,7 @@ import {
 import {
   itCallsApi,
   itIsAsyncAction
-} from 'test/support/redux-axios-middleware-helpers'
+} from 'test/helpers/redux-axios-middleware-helpers'
 
 describe('actions ride-requests', () => {
   const email = 'harry.potter@a.com'

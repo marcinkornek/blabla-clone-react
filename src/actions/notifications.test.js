@@ -14,8 +14,8 @@ import {
   markNotificationAsSeen,
   userNotificationAdd,
 } from './notifications'
-import { itCallsApi, itIsAsyncAction } from 'test/support/redux-axios-middleware-helpers'
-import { itReturnsValidType, itReturnsValidObject } from 'test/support/action-helpers'
+import { itCallsApi, itIsAsyncAction } from 'test/helpers/redux-axios-middleware-helpers'
+import { itReturnsValidType, itReturnsValidObject } from 'test/helpers/action-helpers'
 import { Notification } from '../../test/support/fixtures'
 
 describe('actions notifications', () => {

@@ -25,7 +25,7 @@ import {
   updateCurrentUser,
   checkUserEmailUniqueness
 } from './users'
-import { itCallsApi, itIsAsyncAction } from 'test/support/redux-axios-middleware-helpers'
+import { itCallsApi, itIsAsyncAction } from 'test/helpers/redux-axios-middleware-helpers'
 import { User } from '../../test/support/fixtures'
 
 describe('actions users', () => {
