@@ -66,7 +66,7 @@ describe('actions users', () => {
       const asyncAction = fetchUsers(page, per)
       const action = asyncAction(dispatch, getState)
       const opts = {
-        url: APIEndpoints.NOTIFICATIONS,
+        url: APIEndpoints.USERS,
         headers: {
           'X-User-Email': email,
           'X-User-Token': access_token

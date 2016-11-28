@@ -78,7 +78,7 @@ describe('actions session', () => {
     const first_name = 'first_name'
     const last_name = 'last_name'
     const data = {
-      uid,
+      id: uid,
       email,
       first_name,
       last_name,

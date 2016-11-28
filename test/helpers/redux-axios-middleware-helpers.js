@@ -5,11 +5,11 @@ export function itIsAsyncAction (action, types) {
   })
 }
 
-export function itCallsApi (action, path, opts = {}) {
+export function itCallsApi (action, opts = {}) {
   it('returns a request function that fires off a redux axios middleware request when called', () => {
-    const { payload:{request} } = action
+    const { payload: { request } } = action
 
     expect(request).to.be.a.object
-    expect(request).to.includes(opts)
+    expect(request).to.eql(opts)
   })
 }
