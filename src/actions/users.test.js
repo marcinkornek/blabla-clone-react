@@ -154,7 +154,7 @@ describe('actions users', () => {
     itCallsApi(action, opts)
   })
 
-    describe('updateCurrentUser', () => {
+  describe('updateCurrentUser', () => {
     const body = {
       data: 'data'
     }

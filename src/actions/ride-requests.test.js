@@ -12,10 +12,7 @@ import {
   createRideRequest,
   changeRideRequest,
 } from './ride-requests'
-import {
-  itCallsApi,
-  itIsAsyncAction
-} from 'test/helpers/redux-axios-middleware-helpers'
+import { itCallsApi, itIsAsyncAction } from 'test/helpers/redux-axios-middleware-helpers'
 
 describe('actions ride-requests', () => {
   const email = 'harry.potter@a.com'
