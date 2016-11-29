@@ -19,13 +19,6 @@ import {
 } from '../constants/ActionTypes'
 import { APIEndpoints } from '../constants/constants'
 
-function status(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response
-  }
-  throw new Error(response.statusText)
-}
-
 export function fetchCars(userId, page = 1, per = 10) {
   return (dispatch, getState) => {
     const { session } = getState()
@@ -33,7 +26,7 @@ export function fetchCars(userId, page = 1, per = 10) {
       types: [CARS_FETCH_REQUEST, CARS_FETCH_SUCCESS, CARS_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.USERS + '/' + userId + '/cars',
+          url: `${APIEndpoints.USERS}/${userId}/cars`,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
@@ -55,7 +48,7 @@ export function fetchCar(carId) {
       types: [CAR_FETCH_REQUEST, CAR_FETCH_SUCCESS, CAR_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.CARS + '/' + carId,
+          url: `${APIEndpoints.CARS}/${carId}`,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
@@ -73,7 +66,7 @@ export function fetchCarsOptions() {
       types: [CAR_OPTIONS_FETCH_REQUEST, CAR_OPTIONS_FETCH_SUCCESS, CAR_OPTIONS_FETCH_FAILURE],
       payload: {
         request: {
-          url: APIEndpoints.CARS + '/options',
+          url: `${APIEndpoints.CARS}/options`,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
@@ -105,7 +98,7 @@ export function createCar(body) {
   }
 }
 
-export function updateCar(body, id) {
+export function updateCar(body, carId) {
   return (dispatch, getState) => {
     const { session } = getState()
     return dispatch({
@@ -113,7 +106,7 @@ export function updateCar(body, id) {
       payload: {
         request: {
           method: 'put',
-          url: APIEndpoints.CARS + '/' + id,
+          url: `${APIEndpoints.CARS}/${carId}`,
           headers: {
             'X-User-Email': session.email,
             'X-User-Token': session.access_token
