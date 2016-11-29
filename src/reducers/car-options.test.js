@@ -3,6 +3,7 @@ import {
   CAR_OPTIONS_FETCH_SUCCESS,
 } from '../constants/ActionTypes'
 import { carOptions, initialState } from './car-options'
+import { CarOptions } from '../../test/support/fixtures'
 
 describe('reducers', () => {
   it('handles CAR_OPTIONS_FETCH_REQUEST', () => {
@@ -26,19 +27,13 @@ describe('reducers', () => {
 
   it('handles CAR_OPTIONS_FETCH_SUCCESS', () => {
     const payload = {
-      data: {
-        colors: ['red', 'blue'],
-        comforts: ['basic', 'luxury'],
-        categories: ['hatchback', 'sedan']
-      }
+      data: CarOptions()
     }
     const expected = {
       ...state,
+      ...CarOptions(),
       isStarted: true,
       isFetching: false,
-      colors: ['red', 'blue'],
-      comforts: ['basic', 'luxury'],
-      categories: ['hatchback', 'sedan']
     }
 
     const state = carOptions({

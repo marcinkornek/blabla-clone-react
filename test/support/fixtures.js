@@ -126,6 +126,14 @@ export function Car2() {
   })
 }
 
+export function CarOptions() {
+  return ({
+    colors: ['red', 'blue'],
+    comforts: ['basic', 'luxury'],
+    categories: ['hatchback', 'sedan']
+  })
+}
+
 export function Notification() {
   return ({
     id: 1,
