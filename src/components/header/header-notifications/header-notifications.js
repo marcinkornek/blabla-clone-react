@@ -76,6 +76,7 @@ export class HeaderNotifications extends React.Component {
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             onRequestClose={this.handleRequestClose}
             animation={PopoverAnimationVertical}
+            className='header__notifications'
           >
             <NotificationsList {...this.props} />
           </Popover>

@@ -48,7 +48,7 @@ export class NotificationsList extends Component {
 
   render() {
     return (
-      <div className='header__notifications'>
+      <div>
         <div className='header__notifications__header'>
           Notifications
         </div>

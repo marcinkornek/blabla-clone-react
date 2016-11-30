@@ -1,5 +1,9 @@
 .header__notifications {
   max-width: 450px;
+  max-height: 400px;
+  height: 70%;
+  top: 65px !important;
+  overflow-y: scroll;
 
   &__button {
     padding: 0 !important;
@@ -9,6 +13,7 @@
   &__header {
     padding: 5px;
     background-color: #f4f3f1;
+    color: black;
   }
 
   &__footer {
@@ -37,6 +42,7 @@
       width: calc(100% - 40px);
       padding-left: 10px;
       vertical-align: middle;
+      color: black;
     }
 
     &__link {
