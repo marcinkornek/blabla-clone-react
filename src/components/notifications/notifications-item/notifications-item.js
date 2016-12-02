@@ -20,7 +20,8 @@ export class NotificationsItem extends React.Component {
     switch (notification.notification_type) {
     case "ride_request_created":
       return(<RideRequestCreated notification={notification} />)
-    case "ride_request_accepted" || "ride_request_rejected":
+    case "ride_request_accepted":
+    case "ride_request_rejected":
       return(<RideRequestUpdated notification={notification} />)
     }
   }
