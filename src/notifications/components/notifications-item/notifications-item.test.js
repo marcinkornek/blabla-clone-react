@@ -1,5 +1,5 @@
 import ConnectedComponent, { NotificationsItem } from './notifications-item'
-import { Notification, Notification2 } from '../../../../test/support/fixtures'
+import { Notification, Notification2 } from 'test/support/fixtures'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 describe('<NotificationsItem />', () => {

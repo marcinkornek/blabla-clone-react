@@ -3,7 +3,7 @@ import {
   NOTIFICATIONS_FETCH_SUCCESS,
   NOTIFICATION_ADD_SUCCESS,
   NOTIFICATION_UPDATE_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 
 export const initialState = {
   isStarted: false,

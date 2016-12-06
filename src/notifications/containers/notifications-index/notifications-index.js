@@ -7,11 +7,11 @@ import { Col } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate'
 
 // actions
-import { fetchNotifications, markNotificationAsSeen } from '../../../actions/notifications'
+import { fetchNotifications, markNotificationAsSeen } from '../../actions/notifications'
 
 // components
 import { AsyncContent } from '../../../components/shared/async-content/async-content'
-import { NotificationsItem } from '../../../components/notifications/notifications-item/notifications-item'
+import { NotificationsItem } from '../../components/notifications-item/notifications-item'
 
 const per = 10
 

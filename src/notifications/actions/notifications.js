@@ -7,8 +7,8 @@ import {
   NOTIFICATION_UPDATE_REQUEST,
   NOTIFICATION_UPDATE_SUCCESS,
   NOTIFICATION_UPDATE_FAILURE,
-} from '../constants/ActionTypes'
-import { APIEndpoints } from '../constants/constants'
+} from '../action-types'
+import { APIEndpoints } from '../../constants/constants'
 
 export function fetchNotifications(page = 1, per = 10) {
   return (dispatch, getState) => {

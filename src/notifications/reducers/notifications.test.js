@@ -3,14 +3,14 @@ import {
   NOTIFICATIONS_FETCH_SUCCESS,
   NOTIFICATION_ADD_SUCCESS,
   NOTIFICATION_UPDATE_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 import { notifications, initialState } from './notifications'
 import {
   Notification,
   Notification2,
   NotificationWithUnreadCount,
   PaginationWithUnreadCount
-} from '../../test/support/fixtures'
+} from 'test/support/fixtures'
 
 describe('reducers', () => {
   it('handles NOTIFICATIONS_FETCH_REQUEST', () => {

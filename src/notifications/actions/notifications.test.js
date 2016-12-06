@@ -6,8 +6,8 @@ import {
   NOTIFICATION_UPDATE_REQUEST,
   NOTIFICATION_UPDATE_SUCCESS,
   NOTIFICATION_UPDATE_FAILURE,
-} from '../constants/ActionTypes'
-import { APIEndpoints } from '../constants/constants'
+} from '../action-types'
+import { APIEndpoints } from '../../constants/constants'
 import {
   fetchNotifications,
   markNotificationAsSeen,
@@ -15,7 +15,7 @@ import {
 } from './notifications'
 import { itCallsApi, itIsAsyncAction } from 'test/helpers/redux-axios-middleware-helpers'
 import { itReturnsValidType, itReturnsValidObject } from 'test/helpers/action-helpers'
-import { Notification } from '../../test/support/fixtures'
+import { Notification } from 'test/support/fixtures'
 
 describe('actions notifications', () => {
   const email = 'harry.potter@a.com'

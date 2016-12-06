@@ -11,7 +11,7 @@ import { browserHistory } from 'react-router'
 import { logInEmailBackend, logInFbBackend, saveToLocalStorage } from "../../../actions/session"
 import { APIEndpoints, ActionCableURL } from '../../../constants/constants'
 import { fetchCurrentUser } from '../../../users/actions/users'
-import { fetchNotifications } from '../../../actions/notifications'
+import { fetchNotifications } from '../../../notifications/actions/notifications'
 
 // components
 import { LoginFb } from "../../../components/session/login-fb/login-fb"

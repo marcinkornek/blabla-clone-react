@@ -1,5 +1,5 @@
 import ConnectedComponent, { RideRequestUpdated } from './notifications-item-ride-request-updated'
-import { Notification } from '../../../../test/support/fixtures'
+import { Notification } from 'test/support/fixtures'
 
 describe('<RideRequestUpdated />', () => {
   describe('when notification has type ride_request_accepted', () => {

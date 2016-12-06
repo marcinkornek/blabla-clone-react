@@ -1,5 +1,5 @@
 import ConnectedComponent, { RideRequestCreated } from './notifications-item-ride-request-created'
-import { Notification } from '../../../../test/support/fixtures'
+import { Notification } from 'test/support/fixtures'
 
 describe('<RideRequestCreated />', () => {
   const notificationSender = Notification().sender

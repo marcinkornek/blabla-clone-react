@@ -9,7 +9,7 @@ import { browserHistory } from 'react-router'
 
 // actions
 import { logout } from '../actions/session'
-import { markNotificationAsSeen, userNotificationAdd } from '../actions/notifications'
+import { markNotificationAsSeen, userNotificationAdd } from '../notifications/actions/notifications'
 
 // styles
 import styles from '../stylesheets/application'

@@ -22,14 +22,14 @@ import UserShow from './users/containers/user-show/user-show'
 import UserEdit from './users/containers/user-edit/user-edit'
 import UsersIndex from './users/containers/users-index/users-index'
 
+import NotificationsIndex from './notifications/containers/notifications-index/notifications-index'
+
 const {
   Application,
   Header,
   Home,
   Login,
   requireAuth,
-
-  NotificationsIndex,
 } = components
 
 export const createRoutes = () => {
