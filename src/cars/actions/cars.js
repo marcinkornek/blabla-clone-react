@@ -16,8 +16,8 @@ import {
   CAR_UPDATE_REQUEST,
   CAR_UPDATE_SUCCESS,
   CAR_UPDATE_FAILURE,
-} from '../constants/ActionTypes'
-import { APIEndpoints } from '../constants/constants'
+} from '../action-types'
+import { APIEndpoints } from '../../constants/constants'
 
 export function fetchCars(userId, page = 1, per = 10) {
   return (dispatch, getState) => {

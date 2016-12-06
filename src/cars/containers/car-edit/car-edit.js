@@ -7,11 +7,11 @@ import { Col } from 'react-bootstrap'
 import { browserHistory } from 'react-router'
 
 // actions
-import { fetchCarsOptions, fetchCar, updateCar } from '../../../actions/cars'
+import { fetchCarsOptions, fetchCar, updateCar } from '../../actions/cars'
 
 // components
 import { AsyncContent } from '../../../components/shared/async-content/async-content'
-import CarForm from '../../../components/cars/car-form/car-form'
+import CarForm from '../../components/car-form/car-form'
 
 export class CarEdit extends Component {
   static propTypes = {

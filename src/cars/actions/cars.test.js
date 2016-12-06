@@ -15,8 +15,8 @@ import {
   CAR_UPDATE_REQUEST,
   CAR_UPDATE_SUCCESS,
   CAR_UPDATE_FAILURE,
-} from '../constants/ActionTypes'
-import { APIEndpoints } from '../constants/constants'
+} from '../action-types'
+import { APIEndpoints } from '../../constants/constants'
 import {
   fetchCars,
   fetchCar,

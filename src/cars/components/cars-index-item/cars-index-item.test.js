@@ -1,5 +1,5 @@
 import ConnectedComponent, { CarsIndexItem } from './cars-index-item'
-import { Car } from '../../../../test/support/fixtures'
+import { Car } from 'test/support/fixtures'
 
 describe('<CarsIndexItem />', () => {
   describe('when car belongs to current user', () => {

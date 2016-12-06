@@ -9,8 +9,8 @@ import Dropzone from 'react-dropzone'
 import { CarValidator } from '../car-validator/car-validator'
 
 // components
-import { renderTextField } from '../../shared/render-text-field/render-text-field'
-import { renderSelectField } from '../../shared/render-select-field/render-select-field'
+import { renderTextField } from '../../../components/shared/render-text-field/render-text-field'
+import { renderSelectField } from '../../../components/shared/render-select-field/render-select-field'
 
 export class CarForm extends Component {
   static propTypes = {

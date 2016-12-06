@@ -7,11 +7,11 @@ import { Button, Col } from 'react-bootstrap'
 import ReactPaginate from 'react-paginate'
 
 // actions
-import { fetchCars } from '../../../actions/cars'
+import { fetchCars } from '../../actions/cars'
 
 // components
 import { AsyncContent } from '../../../components/shared/async-content/async-content'
-import { CarsIndexItem } from '../../../components/cars/cars-index-item/cars-index-item'
+import { CarsIndexItem } from '../../components/cars-index-item/cars-index-item'
 
 const per = 10
 

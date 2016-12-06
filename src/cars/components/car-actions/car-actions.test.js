@@ -1,5 +1,5 @@
 import ConnectedComponent, { CarActions } from './car-actions'
-import { Car } from '../../../../test/support/fixtures'
+import { Car } from 'test/support/fixtures'
 
 describe('<CarActions />', () => {
   describe('when car belongs to current user', () => {

@@ -6,10 +6,10 @@ import { Col } from 'react-bootstrap'
 import { browserHistory } from 'react-router'
 
 // actions
-import { fetchCarsOptions, createCar, initializeCar } from '../../../actions/cars'
+import { fetchCarsOptions, createCar, initializeCar } from '../../actions/cars'
 
 // components
-import CarForm from '../../../components/cars/car-form/car-form'
+import CarForm from '../../components/car-form/car-form'
 
 export class CarNew extends Component {
   static propTypes = {

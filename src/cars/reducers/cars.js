@@ -1,7 +1,7 @@
 import {
   CARS_FETCH_REQUEST,
   CARS_FETCH_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 
 export const initialState = {
   isStarted: false,

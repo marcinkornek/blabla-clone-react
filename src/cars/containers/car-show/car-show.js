@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { Grid } from 'react-bootstrap'
 
 // actions
-import { fetchCar } from '../../../actions/cars';
+import { fetchCar } from '../../actions/cars';
 
 // components
 import { AsyncContent } from '../../../components/shared/async-content/async-content'
-import { CarActions } from '../../../components/cars/car-actions/car-actions'
 import { Stars } from '../../../components/shared/stars/stars'
+import { CarActions } from '../../components/car-actions/car-actions'
 
 class CarShow extends Component {
   static propTypes = {

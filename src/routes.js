@@ -5,6 +5,11 @@ import { Route } from 'react-router'
 // components
 import * as components from './components'
 
+import CarNew from './cars/containers/car-new/car-new'
+import CarShow from './cars/containers/car-show/car-show'
+import CarEdit from './cars/containers/car-edit/car-edit'
+import CarsIndex from './cars/containers/cars-index/cars-index'
+
 const {
   Application,
   Header,
@@ -16,11 +21,6 @@ const {
   UserShow,
   UserEdit,
   UsersIndex,
-
-  CarNew,
-  CarShow,
-  CarEdit,
-  CarsIndex,
 
   RideNew,
   RideShow,

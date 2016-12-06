@@ -1,9 +1,9 @@
 import {
   CARS_FETCH_REQUEST,
   CARS_FETCH_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 import { cars, initialState } from './cars'
-import { Car, Pagination } from '../../test/support/fixtures'
+import { Car, Pagination } from 'test/support/fixtures'
 
 describe('reducers', () => {
   it('handles CARS_FETCH_REQUEST', () => {

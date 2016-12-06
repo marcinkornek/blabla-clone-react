@@ -1,9 +1,9 @@
 import {
   CAR_OPTIONS_FETCH_REQUEST,
   CAR_OPTIONS_FETCH_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 import { carOptions, initialState } from './car-options'
-import { CarOptions } from '../../test/support/fixtures'
+import { CarOptions } from 'test/support/fixtures'
 
 describe('reducers', () => {
   it('handles CAR_OPTIONS_FETCH_REQUEST', () => {

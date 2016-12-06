@@ -4,9 +4,9 @@ import {
   CAR_INITIALIZE,
   CAR_UPDATE_REQUEST,
   CAR_UPDATE_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 import { car, initialState } from './car'
-import { Car, Car2 } from '../../test/support/fixtures'
+import { Car, Car2 } from 'test/support/fixtures'
 
 describe('reducers', () => {
   it('handles CAR_INITIALIZE', () => {

@@ -12,7 +12,7 @@ import { fetchUser } from '../../../actions/users';
 // components
 import { AsyncContent } from '../../../components/shared/async-content/async-content'
 import { RenderUserAge } from '../../../components/shared/render-user-age/render-user-age'
-import { CarsIndexItem } from '../../../components/cars/cars-index-item/cars-index-item'
+import { CarsIndexItem } from '../../../cars/components/cars-index-item/cars-index-item'
 import { RidesIndexSimpleItem } from '../../../components/rides/rides-index-simple-item/rides-index-simple-item'
 
 export class UserShow extends Component {

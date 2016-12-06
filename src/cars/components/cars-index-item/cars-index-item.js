@@ -5,7 +5,7 @@ import { Panel } from 'react-bootstrap'
 
 // components
 import { CarActions } from '../car-actions/car-actions'
-import { Stars } from '../../shared/stars/stars'
+import { Stars } from '../../../components/shared/stars/stars'
 
 export class CarsIndexItem extends Component {
   renderCarsActions() {
