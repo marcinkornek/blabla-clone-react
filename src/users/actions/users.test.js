@@ -14,8 +14,8 @@ import {
   CURRENT_USER_UPDATE_REQUEST,
   CURRENT_USER_UPDATE_SUCCESS,
   CURRENT_USER_UPDATE_FAILURE,
-} from '../constants/ActionTypes'
-import { APIEndpoints } from '../constants/constants'
+} from '../action-types'
+import { APIEndpoints } from '../../constants/constants'
 import {
   fetchUsers,
   fetchUser,
@@ -25,7 +25,7 @@ import {
   checkUserEmailUniqueness
 } from './users'
 import { itCallsApi, itIsAsyncAction } from 'test/helpers/redux-axios-middleware-helpers'
-import { User } from '../../test/support/fixtures'
+import { User } from 'test/support/fixtures'
 
 describe('actions users', () => {
   const id = 1

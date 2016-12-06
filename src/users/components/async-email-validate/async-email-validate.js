@@ -1,5 +1,5 @@
 // actions
-import { checkUserEmailUniqueness } from '../../../actions/users'
+import { checkUserEmailUniqueness } from '../../actions/users'
 
 export const asyncValidate = (values, dispatch) => {
   return dispatch(checkUserEmailUniqueness(values.email))

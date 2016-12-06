@@ -17,17 +17,17 @@ import RidesIndex from './rides/containers/rides-index/rides-index'
 import RidesIndexDriver from './rides/containers/rides-index-driver/rides-index-driver'
 import RidesIndexPassenger from './rides/containers/rides-index-passenger/rides-index-passenger'
 
+import UserNew from './users/containers/user-new/user-new'
+import UserShow from './users/containers/user-show/user-show'
+import UserEdit from './users/containers/user-edit/user-edit'
+import UsersIndex from './users/containers/users-index/users-index'
+
 const {
   Application,
   Header,
   Home,
   Login,
   requireAuth,
-
-  UserNew,
-  UserShow,
-  UserEdit,
-  UsersIndex,
 
   NotificationsIndex,
 } = components

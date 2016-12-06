@@ -4,7 +4,7 @@ import {
   CURRENT_USER_UPDATE_REQUEST,
   CURRENT_USER_UPDATE_SUCCESS,
   CURRENT_USER_UPDATE_FAILURE,
-} from '../constants/ActionTypes'
+} from '../action-types'
 
 export const initialState = {
   isStarted: false,

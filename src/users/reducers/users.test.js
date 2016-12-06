@@ -1,9 +1,9 @@
 import {
   USERS_FETCH_REQUEST,
   USERS_FETCH_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 import { users, initialState } from './users'
-import { User, Pagination } from '../../test/support/fixtures'
+import { User, Pagination } from 'test/support/fixtures'
 
 describe('reducers', () => {
   it('handles USERS_FETCH_REQUEST', () => {

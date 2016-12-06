@@ -1,7 +1,7 @@
 import {
   USERS_FETCH_REQUEST,
   USERS_FETCH_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 
 export const initialState = {
   isStarted: false,

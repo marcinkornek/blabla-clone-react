@@ -1,9 +1,9 @@
 import {
   USER_FETCH_REQUEST,
   USER_FETCH_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 import { user, initialState } from './user'
-import { User } from '../../test/support/fixtures'
+import { User } from 'test/support/fixtures'
 
 describe('reducers', () => {
   it('handles USER_FETCH_REQUEST', () => {

@@ -10,7 +10,7 @@ import { browserHistory } from 'react-router'
 // actions
 import { logInEmailBackend, logInFbBackend, saveToLocalStorage } from "../../../actions/session"
 import { APIEndpoints, ActionCableURL } from '../../../constants/constants'
-import { fetchCurrentUser } from '../../../actions/users'
+import { fetchCurrentUser } from '../../../users/actions/users'
 import { fetchNotifications } from '../../../actions/notifications'
 
 // components

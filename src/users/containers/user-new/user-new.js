@@ -9,10 +9,10 @@ import Icon from 'react-fa'
 import { browserHistory } from 'react-router'
 
 // actions
-import { createUser } from '../../../actions/users';
+import { createUser } from '../../actions/users';
 
 // components
-import UserNewForm from '../../../components/users/user-new-form/user-new-form'
+import UserNewForm from '../../components/user-new-form/user-new-form'
 
 export class UserNew extends Component {
   @autobind

@@ -2,7 +2,7 @@ import {
   USER_FETCH_REQUEST,
   USER_FETCH_SUCCESS,
   USER_FETCH_FAILURE,
-} from '../constants/ActionTypes'
+} from '../action-types'
 
 export const initialState = {
   item: undefined,

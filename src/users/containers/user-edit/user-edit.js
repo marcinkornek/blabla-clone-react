@@ -7,10 +7,10 @@ import _ from 'lodash'
 import { Col } from 'react-bootstrap'
 
 // actions
-import { updateCurrentUser } from '../../../actions/users'
+import { updateCurrentUser } from '../../actions/users'
 
 // components
-import UserEditForm from '../../../components/users/user-edit-form/user-edit-form'
+import UserEditForm from '../../components/user-edit-form/user-edit-form'
 
 export class UserEdit extends Component {
   static propTypes = {

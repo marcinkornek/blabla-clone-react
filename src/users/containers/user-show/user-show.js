@@ -7,7 +7,7 @@ import Icon from 'react-fa'
 import Avatar from 'material-ui/Avatar'
 
 // actions
-import { fetchUser } from '../../../actions/users';
+import { fetchUser } from '../../actions/users';
 
 // components
 import { AsyncContent } from '../../../components/shared/async-content/async-content'

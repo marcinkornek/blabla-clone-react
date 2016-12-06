@@ -7,11 +7,11 @@ import ReactPaginate from 'react-paginate'
 import List from 'material-ui/List/List'
 
 // actions
-import { fetchUsers } from '../../../actions/users';
+import { fetchUsers } from '../../actions/users';
 
 // components
 import { AsyncContent } from '../../../components/shared/async-content/async-content'
-import { UsersIndexItem } from '../../../components/users/users-index-item/users-index-item'
+import { UsersIndexItem } from '../../components/users-index-item/users-index-item'
 
 const per = 10
 

@@ -15,8 +15,8 @@ import {
   CURRENT_USER_UPDATE_REQUEST,
   CURRENT_USER_UPDATE_SUCCESS,
   CURRENT_USER_UPDATE_FAILURE,
-} from '../constants/ActionTypes'
-import { APIEndpoints } from '../constants/constants'
+} from '../action-types'
+import { APIEndpoints } from '../../constants/constants'
 
 export function fetchUsers(page = 1, per = 10) {
   return (dispatch, getState) => {

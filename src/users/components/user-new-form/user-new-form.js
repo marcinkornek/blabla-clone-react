@@ -9,9 +9,9 @@ import { UserNewValidator } from '../user-new-validator/user-new-validator'
 import { asyncValidate } from '../async-email-validate/async-email-validate'
 
 // components
-import DatePicker from '../../inputs/DatePicker'
-import { renderTextField } from '../../shared/render-text-field/render-text-field'
-import { renderRadioGroup } from '../../shared/render-radio-group/render-radio-group'
+import DatePicker from '../../../components/inputs/DatePicker'
+import { renderTextField } from '../../../components/shared/render-text-field/render-text-field'
+import { renderRadioGroup } from '../../../components/shared/render-radio-group/render-radio-group'
 
 class UserNewForm extends Component {
   static propTypes = {

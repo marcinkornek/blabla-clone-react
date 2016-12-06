@@ -4,9 +4,9 @@ import {
   CURRENT_USER_UPDATE_REQUEST,
   CURRENT_USER_UPDATE_SUCCESS,
   CURRENT_USER_UPDATE_FAILURE,
-} from '../constants/ActionTypes'
+} from '../action-types'
 import { currentUser, initialState } from './current-user'
-import { CurrentUser, CurrentUser2 } from '../../test/support/fixtures'
+import { CurrentUser, CurrentUser2 } from 'test/support/fixtures'
 
 describe('reducers', () => {
   it('handles CURRENT_USER_FETCH_REQUEST', () => {
