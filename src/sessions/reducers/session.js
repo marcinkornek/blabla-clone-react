@@ -4,7 +4,7 @@ import {
   LOGIN_FAILURE,
   LOGOUT_SUCCESS,
   CURRENT_USER_UPDATE_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 
 export const initialState = {
   isStarted: false,

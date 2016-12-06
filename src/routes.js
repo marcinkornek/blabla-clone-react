@@ -5,6 +5,8 @@ import { Route } from 'react-router'
 // components
 import * as components from './components'
 
+import Login from './sessions/containers/login/login'
+
 import CarNew from './cars/containers/car-new/car-new'
 import CarShow from './cars/containers/car-show/car-show'
 import CarEdit from './cars/containers/car-edit/car-edit'
@@ -28,7 +30,6 @@ const {
   Application,
   Header,
   Home,
-  Login,
   requireAuth,
 } = components
 

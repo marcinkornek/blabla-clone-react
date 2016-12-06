@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { reducer as formReducer } from 'redux-form'
-import { session } from './session'
+
+import { session } from '../sessions/reducers/session'
 
 import { notifications } from '../notifications/reducers/notifications'
 

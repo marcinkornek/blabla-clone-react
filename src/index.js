@@ -6,7 +6,7 @@ import { AppContainer } from 'react-hot-loader'
 import configureStore from './store/configureStore'
 import Root from './containers/Root'
 import { APIEndpoints, ActionCableURL } from './constants/constants'
-import { loginFromCookie, saveToLocalStorage } from './actions/session'
+import { loginFromCookie, saveToLocalStorage } from './sessions/actions/session'
 import { fetchCurrentUser } from './users/actions/users'
 import { fetchNotifications } from './notifications/actions/notifications'
 

@@ -6,8 +6,8 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
-} from '../constants/ActionTypes'
-import { APIEndpoints } from '../constants/constants'
+} from '../action-types'
+import { APIEndpoints } from '../../constants/constants'
 
 export function loginFromCookie(data) {
   return (dispatch, getState) => {

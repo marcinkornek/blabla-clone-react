@@ -4,9 +4,9 @@ import {
   LOGIN_FAILURE,
   LOGOUT_SUCCESS,
   USER_UPDATE_SUCCESS,
-} from '../constants/ActionTypes'
+} from '../action-types'
 import { session, initialState } from './session'
-import { User, CurrentUser2 } from '../../test/support/fixtures'
+import { User, CurrentUser2 } from 'test/support/fixtures'
 
 describe('reducers', () => {
   it('handles LOGIN_REQUEST', () => {

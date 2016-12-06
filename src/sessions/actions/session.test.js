@@ -5,8 +5,8 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
-} from '../constants/ActionTypes'
-import { APIEndpoints } from '../constants/constants'
+} from '../action-types'
+import { APIEndpoints } from '../../constants/constants'
 import {
   loginFromCookie,
   logInEmailBackend,
@@ -16,7 +16,7 @@ import {
 } from './session'
 import { itCallsApi, itIsAsyncAction } from 'test/helpers/redux-axios-middleware-helpers'
 import { itReturnsValidType, itReturnsValidObject } from 'test/helpers/action-helpers'
-import { User } from '../../test/support/fixtures'
+import { User } from 'test/support/fixtures'
 
 describe('actions session', () => {
   const email = 'harry.potter@a.com'

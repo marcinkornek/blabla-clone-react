@@ -1,21 +1,21 @@
 // utils
-import React, { Component, PropTypes } from "react"
-import { bindActionCreators } from "redux"
-import { connect } from "react-redux"
+import React, { Component, PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import { autobind } from 'core-decorators'
-import { Col, Alert } from "react-bootstrap"
-import { Link } from "react-router"
+import { Col, Alert } from 'react-bootstrap'
+import { Link } from 'react-router'
 import { browserHistory } from 'react-router'
 
 // actions
-import { logInEmailBackend, logInFbBackend, saveToLocalStorage } from "../../../actions/session"
+import { logInEmailBackend, logInFbBackend, saveToLocalStorage } from '../../actions/session'
 import { APIEndpoints, ActionCableURL } from '../../../constants/constants'
 import { fetchCurrentUser } from '../../../users/actions/users'
 import { fetchNotifications } from '../../../notifications/actions/notifications'
 
 // components
-import { LoginFb } from "../../../components/session/login-fb/login-fb"
-import LoginEmail from "../../../components/session/login-email/login-email"
+import { LoginFb } from '../../components/login-fb/login-fb'
+import LoginEmail from '../../components/login-email/login-email'
 
 class Login extends Component {
   static propTypes = {

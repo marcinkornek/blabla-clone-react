@@ -2,7 +2,9 @@
 import React, { Component, PropTypes } from 'react'
 import { autobind } from 'core-decorators'
 import { reduxForm, Field } from 'redux-form'
-import { renderTextField } from '../../shared/render-text-field/render-text-field'
+
+// components
+import { renderTextField } from '../../../components/shared/render-text-field/render-text-field'
 
 // form validators
 import LoginValidator from '../login-validator/login-validator'

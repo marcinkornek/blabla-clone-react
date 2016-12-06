@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Menu from 'material-ui/Menu'
 
 // components
-import { NotificationsList } from '../../notifications/notifications-list/notifications-list'
+import { NotificationsList } from '../../../notifications/components/notifications-list/notifications-list'
 
 const styles = {
   badgeStyle: {
