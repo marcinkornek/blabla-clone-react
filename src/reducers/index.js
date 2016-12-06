@@ -6,15 +6,17 @@ import { users } from './users'
 import { currentUser } from './current-user'
 import { user } from './user'
 import { notifications } from './notifications'
+
 import { cars } from '../cars/reducers/cars'
 import { carOptions } from '../cars/reducers/car-options'
 import { car } from '../cars/reducers/car'
-import { rides } from './rides'
-import { ride } from './ride'
-import { rideOptions } from './ride-options'
-import { ridesSearch } from './rides-search'
-import { ridesDriver } from './rides-driver'
-import { ridesPassenger } from './rides-passenger'
+
+import { rides } from '../rides/reducers/rides'
+import { ride } from '../rides/reducers/ride'
+import { rideOptions } from '../rides/reducers/ride-options'
+import { ridesSearch } from '../rides/reducers/rides-search'
+import { ridesDriver } from '../rides/reducers/rides-driver'
+import { ridesPassenger } from '../rides/reducers/rides-passenger'
 
 const rootReducer = combineReducers({
   session,

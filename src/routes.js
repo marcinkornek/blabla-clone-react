@@ -10,6 +10,13 @@ import CarShow from './cars/containers/car-show/car-show'
 import CarEdit from './cars/containers/car-edit/car-edit'
 import CarsIndex from './cars/containers/cars-index/cars-index'
 
+import RideNew from './rides/containers/ride-new/ride-new'
+import RideShow from './rides/containers/ride-show/ride-show'
+import RideEdit from './rides/containers/ride-edit/ride-edit'
+import RidesIndex from './rides/containers/rides-index/rides-index'
+import RidesIndexDriver from './rides/containers/rides-index-driver/rides-index-driver'
+import RidesIndexPassenger from './rides/containers/rides-index-passenger/rides-index-passenger'
+
 const {
   Application,
   Header,
@@ -21,13 +28,6 @@ const {
   UserShow,
   UserEdit,
   UsersIndex,
-
-  RideNew,
-  RideShow,
-  RideEdit,
-  RidesIndex,
-  RidesIndexDriver,
-  RidesIndexPassenger,
 
   NotificationsIndex,
 } = components
