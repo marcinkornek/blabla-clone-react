@@ -3,7 +3,11 @@ import React from 'react'
 import { Route } from 'react-router'
 
 // components
-import * as components from './components'
+import Application from './containers/application'
+import Header from './components/header/header/header'
+import Home from './components/home'
+
+import requireAuth from './containers/shared/require-auth/require-auth'
 
 import Login from './sessions/containers/login/login'
 
@@ -25,13 +29,6 @@ import UserEdit from './users/containers/user-edit/user-edit'
 import UsersIndex from './users/containers/users-index/users-index'
 
 import NotificationsIndex from './notifications/containers/notifications-index/notifications-index'
-
-const {
-  Application,
-  Header,
-  Home,
-  requireAuth,
-} = components
 
 export const createRoutes = () => {
   return (
