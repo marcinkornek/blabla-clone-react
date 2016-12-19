@@ -1,67 +1,23 @@
-// utils
-import React from 'react'
-import { Route } from 'react-router'
+// root application
+import Application from './containers/application'
 
-// components
-import * as components from './components'
+// routes
+import rideRoutes from './rides/routes'
+import sessionRoutes from './sessions/routes'
+import userRoutes from './users/routes'
+import carRoutes from './cars/routes'
+import notificationRoutes from './notifications/routes'
 
-const {
-  Application,
-  Header,
-  Home,
-  Login,
-  requireAuth,
-
-  UserNew,
-  UserShow,
-  UserEdit,
-  UsersIndex,
-
-  CarNew,
-  CarShow,
-  CarEdit,
-  CarsIndex,
-
-  RideNew,
-  RideShow,
-  RideEdit,
-  RidesIndex,
-  RidesIndexDriver,
-  RidesIndexPassenger,
-
-  NotificationsIndex,
-} = components
-
-export const createRoutes = () => {
-  return (
-    <Route name ='App' component = {Application}>
-      <Route requireAuth>
-        <Route name='usersIndex' path='/users' component={requireAuth(UsersIndex)} />
-        <Route name='usersEdit' path='/account/user' component={requireAuth(UserEdit)} />
-
-        <Route name='carsIndex' path='/account/cars' component={requireAuth(CarsIndex)} />
-        <Route name='carsEdit' path='/account/cars/:carId/edit' component={requireAuth(CarEdit)} />
-        <Route name='carsNew' path='/cars/new' component={requireAuth(CarNew)} />
-
-        <Route name='ridesDriverIndex' path='/account/rides_as_driver' component={requireAuth(RidesIndexDriver)} />
-        <Route name='ridesPassengerIndex' path='/account/rides_as_passenger' component={requireAuth(RidesIndexPassenger)} />
-        <Route name='ridesDriverIndex' path='/account/rides_as_driver/:rideId/edit' component={requireAuth(RideEdit)} />
-        <Route name='carsNew' path='/rides/new' component={requireAuth(RideNew)} />
-
-        <Route name='notificationsIndex' path='/notifications' component={requireAuth(NotificationsIndex)} />
-      </Route>
-
-      <Route name='home' path='/' component={Home} />
-      <Route name='usersShow' path='/users/:userId' component={UserShow} />
-      <Route name='carsShow' path='/cars/:carId' component={CarShow} />
-      <Route name='ridesIndex'  path='/rides' component={RidesIndex} />
-      <Route name='ridesShow' path='/rides/:rideId' component={RideShow} />
-      <Route name='notAuthorized' path='/403' component={Home} />
-
-      <Route requireNoAuth>
-        <Route name='login' path='/login' component={Login} />
-        <Route name='register' path='/register' component={UserNew} />
-      </Route>
-    </Route>
-  );
-};
+export const rootRoutes = {
+  childRoutes: [{
+    path: '/',
+    component: Application,
+    childRoutes: [
+      ...rideRoutes,
+      ...sessionRoutes,
+      ...userRoutes,
+      ...carRoutes,
+      ...notificationRoutes,
+    ]
+  }]
+}

@@ -8,7 +8,7 @@ import sinonChai from 'sinon-chai'
 import chaiEnzyme from 'chai-enzyme'
 import chaiSorted from 'chai-sorted'
 import { merge } from 'lodash'
-import createStore from 'src/store/configureStore.prod.js'
+import createStore from '../../src/store/configureStore.dev.js'
 
 const { assert, expect } = chai
 

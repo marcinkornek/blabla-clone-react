@@ -17,6 +17,7 @@ global.document = doc
 global.window = win
 global.window.addEventListener = sinon.spy(window, 'addEventListener')
 global.window.removeEventListener = sinon.spy(window, 'removeEventListener')
+global.__DEVELOPMENT__ = true;
 
 // take all properties of the window object and also attach it to the
 // mocha global object
