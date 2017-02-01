@@ -37,7 +37,7 @@ export class RidesIndex extends Component {
     isFetching: PropTypes.bool.isRequired,
     pagination: PropTypes.object.isRequired,
     filters: PropTypes.object.isRequired,
-    currentUserId: PropTypes.number.isRequired,
+    currentUserId: PropTypes.number,
   }
 
   state = {
@@ -67,7 +67,7 @@ export class RidesIndex extends Component {
 
     Object.keys(data).forEach((key) => {
       if (data[key] != undefined) {
-        if (key == 'start_city' || key == 'destination_city') {
+        if (key == 'start_location' || key == 'destination_location') {
           _.merge(newQuery, { [key]: data[key].label || data[key] })
         } else {
           _.merge(newQuery, { [key]: data[key] })

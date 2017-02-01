@@ -20,8 +20,8 @@ describe('<RideRequestCreated />', () => {
 
   it('displays link to ride', () => {
     expect(component.find('Link').last()).to.have.props(['to']).eql([`/rides/${notificationRide.id}`])
-    expect(component.find('Link').last().dive()).to.include.text(notificationRide.start_city)
-    expect(component.find('Link').last().dive()).to.include.text(notificationRide.destination_city)
+    expect(component.find('Link').last().dive()).to.include.text(notificationRide.start_location)
+    expect(component.find('Link').last().dive()).to.include.text(notificationRide.destination_location)
   })
 
   it('displays notification timestamp', () => {

@@ -53,8 +53,8 @@ describe('actions rides', () => {
           'X-User-Token': access_token
         },
         params: {
-          start_city: undefined,
-          destination_city: undefined,
+          start_location: undefined,
+          destination_location: undefined,
           start_date: undefined,
           hide_full: undefined,
           page: 1,
@@ -83,8 +83,8 @@ describe('actions rides', () => {
           'X-User-Token': access_token
         },
         params: {
-          start_city: undefined,
-          destination_city: undefined,
+          start_location: undefined,
+          destination_location: undefined,
           start_date: undefined,
           hide_full: undefined,
           page: 2,
@@ -104,13 +104,13 @@ describe('actions rides', () => {
     describe('with page, per and additional params', () => {
       const page = 2
       const per = 20
-      const start_city = 'Opole'
-      const destination_city = 'Wroclaw'
+      const start_location = 'Opole'
+      const destination_location = 'Wroclaw'
       const start_date = '2016-11-28T23:00:00.000Z'
       const hide_full= true
       const additonalParams = {
-        start_city,
-        destination_city,
+        start_location,
+        destination_location,
         start_date,
         hide_full
       }
@@ -125,8 +125,8 @@ describe('actions rides', () => {
         params: {
           page: 2,
           per: 20,
-          start_city,
-          destination_city,
+          start_location,
+          destination_location,
           start_date,
           hide_full
         }

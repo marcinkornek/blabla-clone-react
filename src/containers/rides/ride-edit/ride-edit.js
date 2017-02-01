@@ -33,11 +33,11 @@ export class RideEdit extends Component {
     var body = new FormData()
 
     Object.keys(data).forEach((key) => {
-      if (key == 'destination_city' || key == 'start_city') {
-        if (!_.isEmpty(data[key].label)) body.append(key, data[key].label)
+      if (key == 'destination_location' || key == 'start_location') {
+        if (!_.isEmpty(data[key].label)) body.append(key + '_address', data[key].label)
         if (data[key].location) {
-          body.append(key + '_lat', data[key].location.lat)
-          body.append(key + '_lng', data[key].location.lng)
+          body.append(key + '_latitude', data[key].location.lat)
+          body.append(key + '_longitude', data[key].location.lng)
         }
       } else {
         if (!_.isEmpty(data[key])) {

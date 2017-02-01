@@ -11,7 +11,7 @@ export const RideRequestCreated = ({ notification }) => {
       </Link>
       {' added ride request for your ride '}
       <Link to={`/rides/${notification.ride.id}`} className='header__notification__link'>
-        {notification.ride.start_city} - {notification.ride.destination_city} {'on '}
+        {notification.ride.start_location} - {notification.ride.destination_location} {'on '}
         <Timestamp value={notification.ride.start_date} format="dddd DD MMMM - HH:mm" />
       </Link>
       <TimeAgo className='header__notification__timestamp' date={notification.created_at} />

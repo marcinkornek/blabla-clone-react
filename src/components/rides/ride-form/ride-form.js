@@ -31,8 +31,8 @@ class RideForm extends Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        <Field name="start_city" type="text" component={renderGeoTextField} label="Start city"/>
-        <Field name="destination_city" type="text" component={renderGeoTextField} label="Destination name"/>
+        <Field name="start_location" type="text" component={renderGeoTextField} label="Start city"/>
+        <Field name="destination_location" type="text" component={renderGeoTextField} label="Destination name"/>
         <Field name="start_date"
           component={DatePicker}
           floatingLabelText="Start date"

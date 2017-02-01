@@ -69,18 +69,18 @@ class RideShow extends Component {
     return(
       <Paper>
         <div className='ride-show-description__heading'>
-          {ride.start_city}
+          {ride.start_location_address}
           <Icon name="long-arrow-right" className='ride-show-description__arrow'/>
-          {ride.destination_city}
+          {ride.destination_location_address}
           {this.renderRideActions()}
         </div>
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Start city</div>
-          <div className='ride-show-description__details-value'>{ride.start_city}</div>
+          <div className='ride-show-description__details-value'>{ride.start_location_address}</div>
         </div>
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Destination city</div>
-          <div className='ride-show-description__details-value'>{ride.destination_city}</div>
+          <div className='ride-show-description__details-value'>{ride.destination_location_address}</div>
         </div>
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Date</div>

@@ -22,9 +22,9 @@ export class RidesIndexSimpleItem extends Component {
         <div className='ride-description__start_date'>
           <Timestamp value={ride.start_date} format="dddd DD MMMM - HH:mm" />
         </div>
-        <div className='ride-description__start-city'>{ride.start_city}</div>
+        <div className='ride-description__start-city'>{ride.start_location}</div>
         <Icon name="long-arrow-right" className='ride-description__arrow'/>
-        <div className='ride-description__destination-city'>{ride.destination_city}</div>
+        <div className='ride-description__destination-city'>{ride.destination_location}</div>
 
         <div className='ride-description__car'>
          <div className='ride-description__car-label'>car:</div>

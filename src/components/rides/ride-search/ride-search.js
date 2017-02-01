@@ -15,8 +15,8 @@ export class RideSearch extends React.Component {
 
     return (
       <form onSubmit={handleSubmit} className='rides-search'>
-        <Field name="start_city" type="text" component={renderGeoTextField} label="Start city"/>
-        <Field name="destination_city" type="text" component={renderGeoTextField} label="Destination city"/>
+        <Field name="start_location" type="text" component={renderGeoTextField} label="Start city"/>
+        <Field name="destination_location" type="text" component={renderGeoTextField} label="Destination city"/>
         <Field name="start_date"
           component={DatePicker}
           floatingLabelText="Start date"

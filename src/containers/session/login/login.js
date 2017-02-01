@@ -6,6 +6,7 @@ import { autobind } from 'core-decorators'
 import { Col, Alert } from "react-bootstrap"
 import { Link } from "react-router"
 import { browserHistory } from 'react-router'
+import ActionCable from 'actioncable'
 
 // actions
 import { logInEmailBackend, logInFbBackend, saveToLocalStorage } from "../../../actions/session"

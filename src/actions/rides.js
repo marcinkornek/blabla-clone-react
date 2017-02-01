@@ -25,7 +25,7 @@ import {
 } from '../constants/ActionTypes'
 import { APIEndpoints } from '../constants/constants'
 
-export function fetchRides(page = 1, per = 10, { start_city, destination_city, start_date, hide_full } = {}) {
+export function fetchRides(page = 1, per = 10, { start_location, destination_location, start_date, hide_full } = {}) {
   return (dispatch, getState) => {
     const { session } = getState()
     return dispatch({
@@ -38,8 +38,8 @@ export function fetchRides(page = 1, per = 10, { start_city, destination_city, s
             'X-User-Token': session.access_token
           },
           params: {
-            start_city,
-            destination_city,
+            start_location,
+            destination_location,
             start_date,
             hide_full,
             page,
