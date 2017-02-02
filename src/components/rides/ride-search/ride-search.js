@@ -23,7 +23,6 @@ export class RideSearch extends React.Component {
           className='date-input'
           defaultValue={null} // DatePicker requires an object, and redux-form defaults to ''
           minDate={new Date()} />
-
         <button type="submit" className="btn btn-default form-submit">Submit</button>
       </form>
     )

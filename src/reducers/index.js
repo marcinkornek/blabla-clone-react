@@ -13,6 +13,7 @@ import { rides } from './rides'
 import { ride } from './ride'
 import { rideOptions } from './ride-options'
 import { ridesSearch } from './rides-search'
+import { ridesFilters } from './rides-filters'
 import { ridesDriver } from './rides-driver'
 import { ridesPassenger } from './rides-passenger'
 
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   ride,
   rideOptions,
   ridesSearch,
+  ridesFilters,
   ridesDriver,
   ridesPassenger,
   routing: routerReducer,

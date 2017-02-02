@@ -10,7 +10,7 @@ import Col from 'react-bootstrap/lib/Col'
 import Chip from 'material-ui/Chip'
 
 // actions
-import { fetchRides, loadSearchFormData } from '../../../actions/rides'
+import { fetchRides, loadSearchFormData, updateRidesSearch, updateRidesFilters } from '../../../actions/rides'
 
 // components
 import { AsyncContent } from '../../../components/shared/async-content/async-content'
@@ -143,11 +143,25 @@ export class RidesIndex extends Component {
     }
   }
 
-  renderActiveFilters() {
+  renderRidesSearch() {
+    const { search } = this.props;
+
     return (
-      <div style={styles.wrapper}>
-        {this.state.chipData.map(this.renderChip, this)}
-      </div>
+      <RideSearch
+        onSubmit={this.searchRides.bind(this)}
+        search={search}
+      />
+    )
+  }
+
+  renderRidesFilters() {
+    const { filters } = this.props;
+
+    return (
+      <RideFilters
+        onSubmit={this.filterRides.bind(this)}
+        filters={filters}
+      />
     )
   }
 
@@ -157,16 +171,8 @@ export class RidesIndex extends Component {
     return (
       <Row>
         <Col xs={12}>
-          <RideFilters
-            query={query}
-            filters={filters}
-            onSubmit={this.handleSubmit}
-          />
-          <RideSearch
-            query={query}
-            onSubmit={this.handleSubmit}
-          />
-          {this.renderActiveFilters()}
+          {this.renderRidesFilters()}
+          {this.renderRidesSearch()}
           <div className='heading'>
             <div className='heading__title'>{pagination.total_count} Rides</div>
             {this.renderHeadingButton()}
@@ -204,6 +210,35 @@ export class RidesIndex extends Component {
     }
   }
 
+  filterRides(data) {
+    const { updateRidesFilters, fetchRides } = this.props;
+
+    updateRidesFilters(data)
+    fetchRides(1, per)
+  }
+
+  searchRides(data) {
+    const { updateRidesSearch, fetchRides } = this.props;
+
+    let search = { hide_full: data.hide_full }
+    if (data.start_location) {
+      search.start_location = {
+        address: data.start_location.label,
+        latitude: data.start_location.location.lat,
+        longitude: data.start_location.location.lng,
+      }
+    }
+    if (data.destination_location) {
+      search.destination_location = {
+        address: data.destination_location.label,
+        latitude: data.destination_location.location.lat,
+        longitude: data.destination_location.location.lng,
+      }
+    }
+    updateRidesSearch(search)
+    fetchRides(1, per)
+  }
+
   render() {
     return (
       <div className='show-grid'>
@@ -230,6 +265,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   loadSearchFormData,
   fetchRides,
+  updateRidesSearch,
+  updateRidesFilters,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RidesIndex)
