@@ -6,33 +6,40 @@ import rootReducer from '../reducers'
 import DevTools from '../containers/DevTools'
 import { routerMiddleware } from 'react-router-redux'
 import { APIRoot } from '../constants/constants'
-
-const client = axios.create({
-   baseURL: APIRoot,
-   headers: {
-     'Accept': 'application/vnd.blabla-clone-v1+json',
-     'Content-Type': 'application/json'
-   },
-   responseType: 'json'
-})
-
-client.interceptors.request.use((config) => {
-  if (!store.getState().session.email) {
-    return config;
-  } else {
-    const { session } = store.getState()
-    return update(config, {
-      $merge: {
-        headers: {
-          'X-User-Email': session.email,
-          'X-User-Token': session.access_token
-        },
-      },
-    });
-  }
-});
+import update from 'immutability-helper';
 
 export default function configureStore(history, initialState) {
+  const client = axios.create({
+     baseURL: APIRoot,
+     headers: {
+       'Accept': 'application/vnd.blabla-clone-v1+json',
+       'Content-Type': 'application/json'
+     },
+     responseType: 'json',
+     returnRejectedPromiseOnError: true,
+  })
+
+  client.interceptors.request.use((config) => {
+    const email = store.getState().session.email || localStorage.getItem('email')
+    const access_token = store.getState().session.access_token ||localStorage.getItem('access_token')
+    console.log(email);
+    console.log(access_token);
+    if (!email || !access_token) {
+      console.log('aaa');
+      return config;
+    } else {
+      console.log('bbb');
+      return update(config, {
+        $merge: {
+          headers: {
+            'X-User-Email': email,
+            'X-User-Token': access_token,
+          },
+        },
+      });
+    }
+  });
+
   const rMiddleware = routerMiddleware(history)
   const store = createStore(
     rootReducer,

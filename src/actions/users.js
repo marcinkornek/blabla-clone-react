@@ -47,34 +47,28 @@ export function fetchUser(userId) {
     payload: {
       request: {
         url: `${APIEndpoints.USERS}/${userId}`,
-        headers: {
-          'X-User-Email': session.email,
-          'X-User-Token': session.access_token
-        }
       }
     }
   }
 }
 
 export function fetchCurrentUser() {
-  return {
-    types: [
-      CURRENT_USER_FETCH_REQUEST,
-      CURRENT_USER_FETCH_SUCCESS,
-      CURRENT_USER_FETCH_FAILURE
-    ],
-    payload: {
-      request: {
-        url: `${APIEndpoints.USERS}/${session.id}/profile`,
-        headers: {
-          'X-User-Email': session.email,
-          'X-User-Token': session.access_token
+  return (dispatch, getState) => {
+    const { session } = getState()
+    return dispatch({
+      types: [
+        CURRENT_USER_FETCH_REQUEST,
+        CURRENT_USER_FETCH_SUCCESS,
+        CURRENT_USER_FETCH_FAILURE
+      ],
+      payload: {
+        request: {
+          url: `${APIEndpoints.USERS}/${session.id}/profile`,
         }
       }
-    }
+    })
   }
 }
-
 export function createUser(body) {
   return {
     types: [

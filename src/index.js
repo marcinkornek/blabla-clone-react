@@ -9,6 +9,7 @@ import { APIEndpoints, ActionCableURL } from './constants/constants'
 import { loginFromCookie, saveToLocalStorage } from './actions/session'
 import { fetchCurrentUser } from './actions/users'
 import { fetchNotifications } from './actions/notifications'
+import ActionCable from 'actioncable'
 
 function getFromLocalStorage(store) {
   const email = localStorage.getItem('email')

@@ -49,7 +49,7 @@ class Application extends Component {
   componentDidMount() {
     const { isAuthenticated, userNotificationAdd } = this.props
 
-    if (isAuthenticated) {
+    if (isAuthenticated && window.cable) {
       window.cable.subscriptions.create("NotificationsChannel", {
         received(data) {
           userNotificationAdd(data.notification)
