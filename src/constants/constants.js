@@ -1,6 +1,6 @@
 var APIRoot, ActionCableURL
 if (__DEVELOPMENT__) {
-  APIRoot = 'http://192.168.122.1:3000/api/'
+  APIRoot = 'http://localhost:3000/api/'
   ActionCableURL = 'ws://localhost:3000/cable'
 } else {
   APIRoot = 'https://blabla-clone-api.herokuapp.com/api/'

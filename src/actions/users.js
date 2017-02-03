@@ -19,102 +19,95 @@ import {
 import { APIEndpoints } from '../constants/constants'
 
 export function fetchUsers(page = 1, per = 10) {
-  return (dispatch, getState) => {
-    const { session } = getState()
-    return dispatch({
-      types: [USERS_FETCH_REQUEST, USERS_FETCH_SUCCESS, USERS_FETCH_FAILURE],
-      payload: {
-        request: {
-          url: APIEndpoints.USERS,
-          headers: {
-            'X-User-Email': session.email,
-            'X-User-Token': session.access_token
-          },
-          params: {
-            page,
-            per,
-          }
+  return {
+    types: [
+      USERS_FETCH_REQUEST,
+      USERS_FETCH_SUCCESS,
+      USERS_FETCH_FAILURE
+    ],
+    payload: {
+      request: {
+        url: APIEndpoints.USERS,
+        params: {
+          page,
+          per,
         }
       }
-    })
+    }
   }
 }
 
 export function fetchUser(userId) {
-  return (dispatch, getState) => {
-    const { session } = getState()
-    return dispatch({
-      types: [USER_FETCH_REQUEST, USER_FETCH_SUCCESS, USER_FETCH_FAILURE],
-      payload: {
-        request: {
-          url: `${APIEndpoints.USERS}/${userId}`,
-          headers: {
-            'X-User-Email': session.email,
-            'X-User-Token': session.access_token
-          }
+  return {
+    types: [
+      USER_FETCH_REQUEST,
+      USER_FETCH_SUCCESS,
+      USER_FETCH_FAILURE
+    ],
+    payload: {
+      request: {
+        url: `${APIEndpoints.USERS}/${userId}`,
+        headers: {
+          'X-User-Email': session.email,
+          'X-User-Token': session.access_token
         }
       }
-    })
+    }
   }
 }
 
 export function fetchCurrentUser() {
-  return (dispatch, getState) => {
-    const { session } = getState()
-    return dispatch({
-      types: [CURRENT_USER_FETCH_REQUEST, CURRENT_USER_FETCH_SUCCESS, CURRENT_USER_FETCH_FAILURE],
-      payload: {
-        request: {
-          url: `${APIEndpoints.USERS}/${session.id}/profile`,
-          headers: {
-            'X-User-Email': session.email,
-            'X-User-Token': session.access_token
-          }
+  return {
+    types: [
+      CURRENT_USER_FETCH_REQUEST,
+      CURRENT_USER_FETCH_SUCCESS,
+      CURRENT_USER_FETCH_FAILURE
+    ],
+    payload: {
+      request: {
+        url: `${APIEndpoints.USERS}/${session.id}/profile`,
+        headers: {
+          'X-User-Email': session.email,
+          'X-User-Token': session.access_token
         }
       }
-    })
+    }
   }
 }
 
 export function createUser(body) {
-  return (dispatch, getState) => {
-    const { session } = getState()
-    return dispatch({
-      types: [CURRENT_USER_CREATE_REQUEST, CURRENT_USER_CREATE_SUCCESS, CURRENT_USER_CREATE_FAILURE],
-      payload: {
-        request: {
-          method: 'post',
-          url: APIEndpoints.USERS,
-          headers: {
-            'X-User-Email': session.email,
-            'X-User-Token': session.access_token
-          },
-          data: body,
-          simple: false
-        }
+  return {
+    types: [
+      CURRENT_USER_CREATE_REQUEST,
+      CURRENT_USER_CREATE_SUCCESS,
+      CURRENT_USER_CREATE_FAILURE
+    ],
+    payload: {
+      request: {
+        method: 'post',
+        url: APIEndpoints.USERS,
+        data: body,
+        simple: false
       }
-    })
+    }
   }
 }
 
 export function updateCurrentUser(body) {
-  return (dispatch, getState) => {
-    const { session } = getState()
-    return dispatch({
-      types: [CURRENT_USER_UPDATE_REQUEST, CURRENT_USER_UPDATE_SUCCESS, CURRENT_USER_UPDATE_FAILURE],
-      payload: {
-        request: {
-          method: 'put',
-          url: `${APIEndpoints.USERS}/${session.id}`,
-          headers: {
-            'X-User-Email': session.email,
-            'X-User-Token': session.access_token
-          },
-          data: body,
-          simple: false
-        }
+  return {
+    types: [
+      CURRENT_USER_UPDATE_REQUEST,
+      CURRENT_USER_UPDATE_SUCCESS,
+      CURRENT_USER_UPDATE_FAILURE
+    ],
+    payload: {
+      request: {
+        method: 'put',
+        url: `${APIEndpoints.USERS}/${session.id}`,
+        data: body,
+        simple: false
       }
-    })
+    }
   }
 }
 

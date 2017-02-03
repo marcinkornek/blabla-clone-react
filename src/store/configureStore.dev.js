@@ -16,6 +16,22 @@ const client = axios.create({
    responseType: 'json'
 })
 
+client.interceptors.request.use((config) => {
+  if (!store.getState().session.email) {
+    return config;
+  } else {
+    const { session } = store.getState()
+    return update(config, {
+      $merge: {
+        headers: {
+          'X-User-Email': session.email,
+          'X-User-Token': session.access_token
+        },
+      },
+    });
+  }
+});
+
 export default function configureStore(history, initialState) {
   const rMiddleware = routerMiddleware(history)
   const store = createStore(
