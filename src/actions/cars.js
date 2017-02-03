@@ -19,7 +19,7 @@ import {
 } from '../constants/ActionTypes'
 import { APIEndpoints } from '../constants/constants'
 
-export function fetchCars(userId, page = 1, per = 10) {
+export function fetchCars(user_id, page = 1, per = 10) {
   return {
     types: [
       CARS_FETCH_REQUEST,
@@ -28,10 +28,11 @@ export function fetchCars(userId, page = 1, per = 10) {
     ],
     payload: {
       request: {
-        url: `${APIEndpoints.USERS}/${userId}/cars`,
+        url: APIEndpoints.CARS,
         params: {
           page,
           per,
+          user_id,
         }
       }
     }
