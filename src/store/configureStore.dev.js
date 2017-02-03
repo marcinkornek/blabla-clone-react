@@ -22,13 +22,9 @@ export default function configureStore(history, initialState) {
   client.interceptors.request.use((config) => {
     const email = store.getState().session.email || localStorage.getItem('email')
     const access_token = store.getState().session.access_token ||localStorage.getItem('access_token')
-    console.log(email);
-    console.log(access_token);
     if (!email || !access_token) {
-      console.log('aaa');
       return config;
     } else {
-      console.log('bbb');
       return update(config, {
         $merge: {
           headers: {
