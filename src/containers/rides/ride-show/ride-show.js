@@ -10,6 +10,7 @@ import pluralize from 'pluralize'
 import TimeAgo from 'react-timeago'
 import Paper from 'material-ui/Paper'
 import Avatar from 'material-ui/Avatar'
+import _ from 'underscore'
 
 // actions
 import { fetchRide } from '../../../actions/rides'
@@ -69,18 +70,18 @@ class RideShow extends Component {
     return(
       <Paper>
         <div className='ride-show-description__heading'>
-          {ride.start_location_address}
+          {ride.start_location.address}
           <Icon name="long-arrow-right" className='ride-show-description__arrow'/>
-          {ride.destination_location_address}
+          {ride.destination_location.address}
           {this.renderRideActions()}
         </div>
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Start city</div>
-          <div className='ride-show-description__details-value'>{ride.start_location_address}</div>
+          <div className='ride-show-description__details-value'>{ride.start_location.address}</div>
         </div>
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Destination city</div>
-          <div className='ride-show-description__details-value'>{ride.destination_location_address}</div>
+          <div className='ride-show-description__details-value'>{ride.destination_location.address}</div>
         </div>
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Date</div>
@@ -174,7 +175,7 @@ class RideShow extends Component {
   renderRideRequests() {
     const { ride } = this.props
 
-    if (ride.ride_requests) {
+    if (!_.isEmpty(ride.ride_requests)) {
       return(
         <Paper className='ride-show-requests'>
           <div className='ride-show-requests__heading'>
@@ -198,9 +199,9 @@ class RideShow extends Component {
   renderRideRequestsList() {
     const { ride } = this.props
 
-    if (ride.ride_requests && ride.ride_requests.items.length > 0) {
+    if (!_.isEmpty(ride.ride_requests)) {
       return(
-        ride.ride_requests.items.map((ride_request, i) =>
+        ride.ride_requests.map((ride_request, i) =>
           <RideRequestsIndexItem
             key={i}
             ride_request={ride_request}
