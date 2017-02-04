@@ -50,17 +50,19 @@ class CarShow extends Component {
   renderCarDetails() {
     const { car } = this.props
 
-    return(
-      <div className='car-details'>
-        <div className='car-details__name'>{car.full_name}</div>
-        <div className='car-details__places'>{car.places_full}</div>
-        <Stars stars={car.comfort_stars} label={car.comfort} />
-        <div className='car-details__year'>{car.production_year}</div>
-        <div className='car-details__color'>{car.color}</div>
-        <div className='car-details__category'>{car.category}</div>
-        {this.renderCarsActions()}
-      </div>
-    )
+    if (car.comfort_stars) {
+      return(
+        <div className='car-details'>
+          <div className='car-details__name'>{car.full_name}</div>
+          <div className='car-details__places'>{car.places_full}</div>
+          <Stars stars={car.comfort_stars} label={car.comfort} />
+          <div className='car-details__year'>{car.production_year}</div>
+          <div className='car-details__color'>{car.color}</div>
+          <div className='car-details__category'>{car.category}</div>
+          {this.renderCarsActions()}
+        </div>
+      )
+    }
   }
 
   render() {
