@@ -43,6 +43,8 @@ class RideShow extends Component {
       driver: {},
       car: {},
       user_ride_request: {},
+      start_location: {},
+      destination_location: {},
     }
   }
 
@@ -52,13 +54,13 @@ class RideShow extends Component {
     fetchRide(rideId)
   }
 
-  handleSubmit(data) {
+  createRideRequest(data) {
     const { createRideRequest, ride } = this.props
 
     createRideRequest(ride.id, data.places)
   }
 
-  handleRideRequestChange(rideRequestId, status) {
+  changeRideRequest(rideRequestId, status) {
     const { changeRideRequest } = this.props
 
     changeRideRequest(rideRequestId, status)
@@ -130,7 +132,7 @@ class RideShow extends Component {
   renderRideFormOrStatus() {
     const { ride, currentUserId } = this.props
 
-    if (ride.requested) {
+    if (ride.user_ride_request) {
       return(
         <Paper className='ride-request'>
           <div className='ride-request__status'>
@@ -153,7 +155,7 @@ class RideShow extends Component {
         <RideOfferForm
           ride={ride}
           currentUserId={currentUserId}
-          onSubmit={this.handleSubmit}
+          onSubmit={this.createRideRequest}
         />
       )
     }
@@ -162,7 +164,7 @@ class RideShow extends Component {
   renderRideStatusTime() {
     const { ride } = this.props
 
-    if (ride.requested && ride.user_ride_request.status != 'pending' ) {
+    if (ride.user_ride_request && ride.user_ride_request.status != 'pending' ) {
        return(
         <div>
           <div className='ride-request__status-capitalized'>{ride.user_ride_request.status}:</div>
@@ -205,7 +207,7 @@ class RideShow extends Component {
           <RideRequestsIndexItem
             key={i}
             ride_request={ride_request}
-            handleOnClick={this.handleRideRequestChange}
+            handleOnClick={this.changeRideRequest}
           />
         )
       )
