@@ -36,8 +36,9 @@ export class RidesIndex extends Component {
     isStarted: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
     pagination: PropTypes.object.isRequired,
-    filters: PropTypes.object.isRequired,
     currentUserId: PropTypes.number,
+    filters: PropTypes.object.isRequired,
+    search: PropTypes.object.isRequired,
   }
 
   state = {
@@ -166,7 +167,7 @@ export class RidesIndex extends Component {
   }
 
   renderRidesMain() {
-    const { filters, pagination, location: { query }, isFetching, isStarted } = this.props
+    const { pagination, location: { query }, isFetching, isStarted } = this.props
 
     return (
       <Row>
@@ -257,8 +258,9 @@ const mapStateToProps = (state) => {
     isStarted: state.rides.isStarted,
     isFetching: state.rides.isFetching,
     pagination: state.rides.pagination,
-    filters: state.rides.filters,
     currentUserId: state.session.id,
+    filters: state.ridesFilters.filters,
+    search: state.ridesFilters.search,
   }
 }
 
