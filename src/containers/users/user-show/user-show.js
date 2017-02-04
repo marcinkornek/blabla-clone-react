@@ -71,7 +71,7 @@ export class UserShow extends Component {
 
     if (user.cars) {
       return(
-        user.cars.items.map((car, i) =>
+        user.cars.map((car, i) =>
           <CarsIndexItem
             key={i}
             car={car}
@@ -122,7 +122,7 @@ export class UserShow extends Component {
 
     if (user.rides_as_driver) {
       return(
-        user.rides_as_driver.items.map((ride, i) =>
+        user.rides_as_driver.map((ride, i) =>
           <RidesIndexSimpleItem
             ride={ride}
             key={i}
