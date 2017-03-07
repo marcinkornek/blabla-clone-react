@@ -26,7 +26,7 @@ class RideForm extends Component {
       <MenuItem value={currency} key={'option-' + i} primaryText={currency}/>
     )
     let cars = rideOptions.cars.map((car, i) =>
-      <MenuItem value={car.id} key={'car-' + i} primaryText={car.name}/>
+      <MenuItem value={car.id} key={'car-' + i} primaryText={car.full_name}/>
     )
 
     return (
