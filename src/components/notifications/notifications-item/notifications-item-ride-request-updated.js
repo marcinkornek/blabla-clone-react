@@ -12,7 +12,7 @@ export const RideRequestUpdated = ({ notification }) => {
       {notification.notification_type == 'ride_request_accepted' ? ' accepted' : ' rejected'}
       {' your ride request in ride '}
       <Link to={`/rides/${notification.ride.id}`} className='header__notification__link'>
-        {notification.ride.start_location} - {notification.ride.destination_location} {'on '}
+        {notification.ride.start_location_address} - {notification.ride.destination_location_address} {'on '}
         <Timestamp value={notification.ride.start_date} format="dddd DD MMMM - HH:mm" />
       </Link>
       <TimeAgo className='header__notification__timestamp' date={notification.created_at} />
