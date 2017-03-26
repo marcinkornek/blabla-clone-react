@@ -1,0 +1,21 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin-top: 0;
+}
+
+a {
+  color: black;
+
+  &:hover, &:active, &:focus {
+    color: black;
+    text-decoration: none;
+  }
+}
+
+#main {
+  padding-top: 80px;
+
+  @media (min-width: 992px) {
+    padding-left: 275px;
+  }
+}

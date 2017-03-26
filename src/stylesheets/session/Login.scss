@@ -1,0 +1,77 @@
+.login {
+  display: table;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.alert {
+  margin-bottom: 0;
+}
+
+.login-button {
+  width: 50%;
+  min-width: 230px;
+  margin: 0 auto;
+  display: block;
+}
+
+.login-button__separator {
+  text-align: center;
+  margin: 5px 0;
+}
+
+.login-form {
+  display: table-cell;
+  width: 33%;
+  padding: 25px;
+  background: #f4f3f1;
+  vertical-align: top;
+  table-layout: fixed;
+}
+
+.login-form__title {
+  margin-top: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.login-email-form {
+  width: 50%;
+  min-width: 230px;
+  margin: 10px auto 0;
+}
+
+.register-button {
+  width: 100%;
+  display: block;
+  background-color: #85E6CE;
+  border-color: #78CFB9;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &:visited {
+    background-color: #78CFB9;
+    border-color: #78CFB9;
+  }
+}
+
+.register-form {
+  display: table-cell;
+  width: 16%;
+  padding: 25px;
+  background: #fff;
+  vertical-align: top;
+  table-layout: fixed;
+}
+
+.background {
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-image: url(https://s3-eu-west-1.amazonaws.com/ngshop/page/login/login_photo.jpg);
+}

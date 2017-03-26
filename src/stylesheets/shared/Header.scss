@@ -1,0 +1,58 @@
+.header__notifications {
+  max-width: 450px;
+  max-height: 400px;
+  height: 70%;
+  top: 65px !important;
+  overflow-y: scroll;
+
+  &__button {
+    padding: 0 !important;
+    vertical-align: bottom;
+  }
+
+  &__header {
+    padding: 5px;
+    background-color: #f4f3f1;
+    color: black;
+  }
+
+  &__footer {
+    padding: 5px;
+    background-color: #f4f3f1;
+  }
+
+  &__empty {
+    padding: 5px;
+    width: 200px;
+  }
+
+  .header__notification {
+    padding: 10px;
+
+    &:hover {
+      background-color: #f4f3f1;
+    }
+
+    &.header__notification--seen {
+      background-color: #f4f3f1;
+    }
+
+    &__body {
+      display: inline-block;
+      width: calc(100% - 40px);
+      padding-left: 10px;
+      vertical-align: middle;
+      color: black;
+    }
+
+    &__link {
+      color: #005999;
+    }
+
+    &__timestamp {
+      display: block;
+      color: gray;
+      font-size: 12px;
+    }
+  }
+}

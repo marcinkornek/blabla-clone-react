@@ -1,0 +1,105 @@
+.ride-request {
+  padding: 10px;
+  height: 100px;
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+
+.ride-request__status {
+  vertical-align: top;
+  display: inline-block;
+  width: 30px;
+  height: 100px;
+  padding: 5px;
+}
+
+.ride-request__status-capitalized {
+  display: inline-block;
+  text-transform: capitalize;
+  margin-right: 5px;
+}
+
+.ride-request__info {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.ride-request__button {
+  vertical-align: top;
+  display: inline-block;
+  max-width: 90px;
+}
+
+.ride-request__status--pending {
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 100px;
+  margin-top: 15px;
+  margin-left: 40px;
+  -webkit-transform: rotate(270deg); /* Safari and Chrome */
+  -moz-transform: rotate(270deg);   /* Firefox */
+  -ms-transform: rotate(270deg);   /* IE 9 */
+  -o-transform: rotate(270deg);   /* Opera */
+  transform: rotate(270deg);
+  color: orange;
+  margin-right: 5px;
+}
+
+.ride-request__status--rejected {
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 100px;
+  margin-top: 20px;
+  margin-left: 40px;
+  -webkit-transform: rotate(270deg); /* Safari and Chrome */
+  -moz-transform: rotate(270deg);   /* Firefox */
+  -ms-transform: rotate(270deg);   /* IE 9 */
+  -o-transform: rotate(270deg);   /* Opera */
+  transform: rotate(270deg);
+  color: red;
+  margin-right: 5px;
+}
+
+.ride-request__status--accepted {
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 100px;
+  margin-top: 22px;
+  margin-left: 40px;
+  -webkit-transform: rotate(270deg); /* Safari and Chrome */
+  -moz-transform: rotate(270deg);   /* Firefox */
+  -ms-transform: rotate(270deg);   /* IE 9 */
+  -o-transform: rotate(270deg);   /* Opera */
+  transform: rotate(270deg);
+
+  color: green;
+  margin-right: 5px;
+}
+
+.ride-request__places {
+  margin-right: 5px;
+}
+
+.ride-request__places-value {
+  font-size: 18px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.ride-request__places-label {
+  display: inline-block;
+}
+
+.ride-request__passenger {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.ride-request__created {
+  display: inline-block;
+  color: gray;
+}

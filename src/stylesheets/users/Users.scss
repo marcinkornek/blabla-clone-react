@@ -1,0 +1,265 @@
+.sidebar__container {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #BDBDBD;
+  width: 305px;
+}
+
+.main-info__container {
+  margin-left: 20px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.sidebar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid gray;
+
+  &:first-of-type {
+    padding-top: 0px;
+    border-top: none;
+  }
+
+  &:last-of-type {
+    padding-bottom: 0px;
+  }
+}
+
+.sidebar__title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.sidebar__details {
+  color: gray;
+}
+
+.sidebar__details-icon {
+  margin-right: 2px;
+}
+
+// User Account
+
+.account-menu {
+  border: 1px solid gray;
+  padding: 0;
+}
+
+.account-menu__heading {
+  border-bottom: 1px solid gray;
+  width: 100%;
+  padding: 5px;
+  font-weight: bold;
+  background-color: #B0B0B0;
+}
+
+.account-menu__item {
+  display: block;
+  background-color: #f8f8f8;
+  padding: 5px;
+  border-top: 1px solid gray;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ffeb00;
+  }
+
+  &.active {
+    background-color: #ffeb00;
+  }
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.account-menu__subitem {
+  display: block;
+  background-color: #f8f8f8;
+  padding: 5px;
+  border-top: 1px solid #B0B0B0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #FFFFCC;
+  }
+
+  &.active {
+    background-color: #FFFFCC;
+  }
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+// User Account Edit
+
+.account_form-fields {
+  width: 300px;
+}
+
+.account_form-photo,
+.account_form-avatar {
+  margin-bottom: 10px;
+
+  img {
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+}
+
+.account_form-photo-label,
+.account_form-avatar-label {
+  font-weight: bold;
+}
+
+.account_form-label {
+  font-weight: bold;
+}
+
+.account_form-label--required {
+  display: inline-block;
+  margin-left: 5px;
+  cursor: default;
+}
+
+// User Cars Index
+
+.car {
+  width: 32%;
+  min-width: 280px;
+  display: inline-block;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.car-details {
+  width: 130px;
+  display: inline-block;
+}
+
+.car-details__name {
+  font-weight: bold;
+}
+
+.car-details__places {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.car-photo {
+  display: inline-block;
+  float: right;
+}
+
+// Users Index
+
+.user {
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-right: 15px;
+
+  @media (max-width: 991px) {
+    width: calc(50% - 8px);
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+
+  @media (min-width: 992px) {
+    width: calc(33% - 10px);
+
+    &:nth-child(3n){
+      margin-right: 0;
+    }
+  }
+}
+
+// Users Show
+
+.user-show {
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.user-show__heading--info,
+.user-show__heading--car,
+.user-show__heading--activity {
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  padding-left: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #fafafa;
+}
+
+.user-show__details {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+}
+
+.user-show__details-car {
+  padding: 10px 0 10px 10px;
+  text-align: center;
+}
+
+.user-show__details-info {
+  padding: 10px;
+}
+
+.user-show__details-icon {
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.user-show__details-label {
+  display: inline-block;
+  width: 180px;
+}
+
+.user-show__details-value {
+  display: inline-block;
+  float: right;
+}
+
+.user-show__details-avatar {
+  display: inline-block;
+  margin: 10px;
+}
+
+.user-show__details-info {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.user-show__details-name {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.user-show__details-age {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.file-input .user-avatar__preview {
+  display: block;
+  height: auto !important;
+  margin: -25px 0 0 -10px !important;
+
+  .user-avatar__preview-title {
+    margin-top: 10px;
+  }
+
+  .user-avatar__preview-image {
+    max-width: 100px;
+  }
+
+  .user-avatar__preview-filename {
+    display: block;
+    color: gray;
+  }
+}
