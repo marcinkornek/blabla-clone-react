@@ -7,9 +7,12 @@
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
+    "node-sass": "^4.5.1",
     "react-scripts": "0.9.5"
   },
   "scripts": {
+    "build-css": "node-sass src/ -o src/",
+    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
