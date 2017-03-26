@@ -1,6 +1,5 @@
 // utils
 import React, { Component, PropTypes } from 'react'
-import List from 'material-ui/List/List'
 import { Link } from 'react-router'
 
 // components

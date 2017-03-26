@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
   RIDE_REQUEST_CREATE_REQUEST,
   RIDE_REQUEST_CREATE_SUCCESS,

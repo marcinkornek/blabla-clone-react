@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import IconMenu from 'material-ui/IconMenu'
-import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import ContentFilter from 'material-ui/svg-icons/content/filter-list'
 

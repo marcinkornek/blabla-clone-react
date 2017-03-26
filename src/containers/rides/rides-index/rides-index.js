@@ -165,7 +165,7 @@ export class RidesIndex extends Component {
   }
 
   renderRidesMain() {
-    const { pagination, location: { query }, isFetching, isStarted } = this.props
+    const { pagination, isFetching, isStarted } = this.props
 
     return (
       <Row>

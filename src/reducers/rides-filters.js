@@ -11,7 +11,6 @@ export const initialState = {
 };
 
 export function ridesFilters(state = initialState, action) {
-  let items, pagination, filters
   switch (action.type) {
   case RIDE_FILTER_UPDATE:
     return {

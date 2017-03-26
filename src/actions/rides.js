@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
   RIDES_SEARCH_FORM,
   RIDES_FETCH_REQUEST,

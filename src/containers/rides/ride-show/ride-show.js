@@ -265,7 +265,7 @@ class RideShow extends Component {
         <div className='ride-show-description__details'>
           <div className='ride-show-description__details-label'>Car</div>
           <div className='ride-show-description__details-value'>
-            <img src={ride.car.car_photo} />{ride.car.full_name}
+            <img src={ride.car.car_photo} alt="car"/>{ride.car.full_name}
           </div>
         </div>
       </Link>

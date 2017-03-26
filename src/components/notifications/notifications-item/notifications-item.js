@@ -1,6 +1,5 @@
 // utils
 import React, { Component, PropTypes } from 'react'
-import ListItem from 'material-ui/List/ListItem'
 import Avatar from 'material-ui/Avatar'
 import { Link } from 'react-router'
 import classNames from 'classnames'
@@ -9,7 +8,7 @@ import classNames from 'classnames'
 import { RideRequestCreated } from './notifications-item-ride-request-created'
 import { RideRequestUpdated } from './notifications-item-ride-request-updated'
 
-export class NotificationsItem extends React.Component {
+export class NotificationsItem extends Component {
   static propTypes = {
     notification: PropTypes.object.isRequired,
     markAsSeen: PropTypes.func.isRequired

@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
   CAR_INITIALIZE,
   CARS_FETCH_REQUEST,

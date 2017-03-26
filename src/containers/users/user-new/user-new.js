@@ -1,10 +1,8 @@
 // utils
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router'
 import _ from 'lodash'
 import { Col } from 'react-bootstrap'
-import Icon from 'react-fa'
 import { browserHistory } from 'react-router'
 
 // actions
@@ -14,6 +12,10 @@ import { createUser } from '../../../actions/users';
 import UserNewForm from '../../../components/users/user-new-form/user-new-form'
 
 export class UserNew extends Component {
+  static propTypes = {
+    createUser: PropTypes.object.isRequired,
+  }
+
   handleSubmit(data) {
     const { createUser } = this.props
     var body = new FormData();

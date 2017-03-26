@@ -1,7 +1,7 @@
 // utils
 import React, { Component, PropTypes } from 'react'
 import { Provider } from 'react-redux'
-import { Router, browserHistory } from 'react-router'
+import { Router } from 'react-router'
 import { createRoutes } from '../routes'
 import DevTools from './DevTools'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'

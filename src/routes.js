@@ -7,7 +7,6 @@ import * as components from './components'
 
 const {
   Application,
-  Header,
   Home,
   Login,
   requireAuth,
@@ -34,7 +33,7 @@ const {
 
 export const createRoutes = () => {
   return (
-    <Route name ='App' component = {Application}>
+    <Route name='App' component={Application}>
       <Route requireAuth>
         <Route name='usersIndex' path='/users' component={requireAuth(UsersIndex)} />
         <Route name='usersEdit' path='/account/user' component={requireAuth(UserEdit)} />

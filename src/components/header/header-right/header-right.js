@@ -41,6 +41,10 @@ const styles = {
 }
 
 export class HeaderRight extends Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+  }
+
   renderHeaderRight() {
     const { isAuthenticated } = this.props
 

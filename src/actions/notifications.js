@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
   NOTIFICATION_ADD_SUCCESS,
   NOTIFICATIONS_FETCH_REQUEST,

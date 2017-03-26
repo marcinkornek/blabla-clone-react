@@ -1,7 +1,6 @@
 // utils
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import _ from 'lodash'
 import { Col } from 'react-bootstrap'
 

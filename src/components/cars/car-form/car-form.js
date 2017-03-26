@@ -67,7 +67,7 @@ export class CarForm extends Component {
               <div className='user-avatar__preview-title'>Preview</div>
               {this.files.map((file, i) =>
                 <div>
-                  <img key={'image' + i} className='user-avatar__preview-image' src={file.preview} />
+                  <img key={'image' + i} alt="car preview" className='user-avatar__preview-image' src={file.preview} />
                   <span key={i} className='user-avatar__preview-filename'>{file.name}</span>
                 </div>
               )}

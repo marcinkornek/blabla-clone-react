@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import Drawer from 'material-ui/Drawer'
 import { List, ListItem, makeSelectable } from 'material-ui/List'
-import Divider from 'material-ui/Divider'
 import { spacing, typography, zIndex } from 'material-ui/styles'
 import { cyan500 } from 'material-ui/styles/colors'
-import RaisedButton from 'material-ui/RaisedButton'
 import ContentAddBox from 'material-ui/svg-icons/content/add-box'
 import ActionSearch from 'material-ui/svg-icons/action/search'
 import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
@@ -114,7 +112,6 @@ export class AppNavDrawer extends Component {
       docked,
       onRequestChangeNavDrawer,
       onChangeList,
-      onLogout,
       open,
       style,
     } = this.props;

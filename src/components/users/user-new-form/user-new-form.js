@@ -15,7 +15,7 @@ import { renderRadioGroup } from '../../shared/render-radio-group/render-radio-g
 
 class UserNewForm extends Component {
   static propTypes = {
-    handleSubmit: PropTypes.func.isRequired
+    handleSubmit: PropTypes.func.isRequired,
   }
 
   render() {
@@ -56,7 +56,7 @@ class UserNewForm extends Component {
               <div className='user-avatar__preview-title'>Preview</div>
               {this.files.map((file, i) =>
                 <div>
-                  <img key={'image' + i} className='user-avatar__preview-image' src={file.preview} />
+                  <img key={'image' + i} alt="avatar preview" className='user-avatar__preview-image' src={file.preview} />
                   <span key={i} className='user-avatar__preview-filename'>{file.name}</span>
                 </div>
               )}

@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Col } from 'react-bootstrap'
 import Time from 'react-time'
 import Icon from 'react-fa'
-import Avatar from 'material-ui/Avatar'
 
 // actions
 import { fetchUser } from '../../../actions/users';
@@ -42,7 +41,7 @@ export class UserShow extends Component {
           User
         </div>
         <div className='user-show__details-avatar'>
-          <img src={user.avatar}/>
+          <img src={user.avatar} alt="avatar"/>
         </div>
         <div className='user-show__details-info'>
           <div className='user-show__details-name'>{user.full_name}</div>

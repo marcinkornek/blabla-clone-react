@@ -1,6 +1,5 @@
 // utils
 import React, { Component, PropTypes } from "react"
-import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { Col, Alert } from "react-bootstrap"
 import { Link } from "react-router"
@@ -10,7 +9,7 @@ import _ from 'lodash'
 
 // actions
 import { logInEmailBackend, logInFbBackend, saveToLocalStorage } from "../../../actions/session"
-import { APIEndpoints, ActionCableURL } from '../../../constants/constants'
+import { ActionCableURL } from '../../../constants/constants'
 import { fetchCurrentUser } from '../../../actions/users'
 import { fetchNotifications } from '../../../actions/notifications'
 
@@ -68,7 +67,7 @@ class Login extends Component {
   }
 
   render() {
-    const { logInFbBackend, errors } = this.props
+    const { errors } = this.props
 
     return (
       <div className="show-grid">

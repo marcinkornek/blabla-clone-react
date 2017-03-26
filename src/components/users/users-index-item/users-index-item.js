@@ -1,23 +1,17 @@
 // utils
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 import ListItem from 'material-ui/List/ListItem'
 import Avatar from 'material-ui/Avatar'
 
-export class UsersIndexItem extends Component {
-  render() {
-    const { user } = this.props
+export const UsersIndexItem = ({user}) => (
+  <Link to={`/users/${user.id}`} className='user'>
+    <ListItem leftAvatar={<Avatar src={user.avatar} />}>
+      {user.full_name}
+    </ListItem>
+  </Link>
+)
 
-    return (
-      <Link to={`/users/${user.id}`} className='user'>
-        <ListItem
-          leftAvatar={
-            <Avatar src={user.avatar} />
-          }
-        >
-          {user.full_name}
-        </ListItem>
-      </Link>
-    )
-  }
+UsersIndexItem.propTypes = {
+  user: PropTypes.object.isRequired,
 }

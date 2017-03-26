@@ -1,7 +1,6 @@
 // utils
 import React, { Component, PropTypes }  from 'react'
 import { Link } from 'react-router'
-import { Tooltip } from 'react-bootstrap'
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
@@ -11,12 +10,12 @@ import { RenderUserAge } from '../../shared/render-user-age/render-user-age'
 import { Stars } from '../../shared/stars/stars'
 
 export class RidesIndexItem extends Component {
+  static propTypes = {
+    ride: PropTypes.object.isRequired,
+  }
+
   render() {
     const { ride } = this.props
-    const tooltipComfort = (
-      <Tooltip id='tooltip-comfort'>{ride.comfort}</Tooltip>
-    )
-
     var rideStatus, rideDescription, rideDriver, rideOffer
 
     rideStatus =
@@ -43,7 +42,7 @@ export class RidesIndexItem extends Component {
     rideDriver =
       <div className='ride-driver'>
         <div className='ride-driver__avatar'>
-          <img src={ride.driver.avatar} />
+          <img src={ride.driver.avatar} alt="driver avatar"/>
         </div>
         <div className='ride-driver__info'>
           <div className='ride-driver__name'>{ride.driver.full_name}</div>

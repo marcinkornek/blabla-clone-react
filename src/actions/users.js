@@ -1,4 +1,3 @@
-import axios from 'axios'
 import {
   USERS_FETCH_REQUEST,
   USERS_FETCH_SUCCESS,
@@ -112,7 +111,7 @@ export function updateCurrentUser(body) {
 export function checkUserEmailUniqueness(email) {
   return (dispatch, getState) => {
     const { session } = getState()
-    return axios({
+    return dispatch({
       method: 'get',
       url: `${APIEndpoints.USERS}/check_if_unique?email=${email}`,
       headers: {

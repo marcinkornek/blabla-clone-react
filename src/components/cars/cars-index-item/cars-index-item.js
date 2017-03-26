@@ -8,6 +8,11 @@ import { CarActions } from '../car-actions/car-actions'
 import { Stars } from '../../shared/stars/stars'
 
 export class CarsIndexItem extends Component {
+  static propTypes = {
+    car: PropTypes.object.isRequired,
+    currentUserId: PropTypes.number.isRequired,
+  }
+
   renderCarsActions() {
     const { car, currentUserId } = this.props
 
@@ -33,7 +38,7 @@ export class CarsIndexItem extends Component {
         </div>
         <Link to={`/cars/${car.id}`}>
           <div className='car-photo'>
-            <img src={car.car_photo} />
+            <img src={car.car_photo} alt="car"/>
           </div>
         </Link>
       </Panel>

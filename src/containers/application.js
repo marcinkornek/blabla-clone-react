@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import Dimensions from 'react-dimensions'
-import ActionCable from 'actioncable'
 import { browserHistory } from 'react-router'
 
 // actions
@@ -11,6 +10,7 @@ import { logout } from '../actions/session'
 import { markNotificationAsSeen, userNotificationAdd } from '../actions/notifications'
 
 // styles
+// eslint-disable-next-line
 import styles from '../stylesheets/application.scss'
 
 // components

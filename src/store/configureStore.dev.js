@@ -19,6 +19,20 @@ export default function configureStore(history, initialState) {
      returnRejectedPromiseOnError: true,
   })
 
+  const rMiddleware = routerMiddleware(history)
+  const store = createStore(
+    rootReducer,
+    initialState,
+    compose(
+      applyMiddleware(
+        thunk,
+        rMiddleware,
+        axiosMiddleware(client)
+      ),
+      DevTools.instrument()
+    )
+  )
+
   client.interceptors.request.use((config) => {
     const email = store.getState().session.email || localStorage.getItem('email')
     const access_token = store.getState().session.access_token ||localStorage.getItem('access_token')
@@ -35,20 +49,6 @@ export default function configureStore(history, initialState) {
       });
     }
   });
-
-  const rMiddleware = routerMiddleware(history)
-  const store = createStore(
-    rootReducer,
-    initialState,
-    compose(
-      applyMiddleware(
-        thunk,
-        rMiddleware,
-        axiosMiddleware(client)
-      ),
-      DevTools.instrument()
-    )
-  )
 
   return store
 }

@@ -34,7 +34,7 @@ class CarShow extends Component {
 
     return(
       <div className='main-info__photo'>
-        <img src={car.car_photo} />
+        <img src={car.car_photo} alt="car"/>
       </div>
     )
   }
