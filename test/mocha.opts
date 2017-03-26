@@ -1,7 +1,0 @@
---require mocha-clean
---require mock-local-storage
---require test/support/null-loader.js
---require test/support/dom.js
---require test/support/fix-root-path.js
---require test/support/globals.js
---full-trace
