@@ -34,6 +34,7 @@
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.2.0",
     "redux-form": "^6.6.0",
+    "redux-persist": "^4.5.0",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
