@@ -11,7 +11,7 @@ import { markNotificationAsSeen, userNotificationAdd } from '../actions/notifica
 
 // styles
 // eslint-disable-next-line
-import styles from '../stylesheets/application.scss'
+import styles from '../stylesheets/application.css'
 
 // components
 import { Header } from '../components/header/header/header'
