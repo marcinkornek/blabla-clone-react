@@ -82,10 +82,3 @@ export function logout() {
     }
   }
 }
-
-export function saveToLocalStorage(email, access_token) {
-  return () => {
-    localStorage.setItem('email', email)
-    localStorage.setItem('access_token', access_token)
-  }
-}

@@ -12,7 +12,6 @@ import {
   logInEmailBackend,
   logInFbBackend,
   logout,
-  saveToLocalStorage,
 } from './session'
 import { itCallsApi, itIsAsyncAction } from 'test/helpers/redux-axios-middleware-helpers'
 import { itReturnsValidType, itReturnsValidObject } from 'test/helpers/action-helpers'
@@ -125,21 +124,5 @@ describe('actions session', () => {
     ])
 
     itCallsApi(action, opts)
-  })
-
-  describe('saveToLocalStorage', () => {
-    // uses mock-local-storage
-    afterEach(() => {
-      localStorage.clear();
-      localStorage.itemInsertionCallback = null;
-    })
-
-    const asyncAction = saveToLocalStorage(email, access_token)
-    const action = asyncAction(dispatch, getState)
-
-    it('saves email and access_token to localStorage', () => {
-      expect(localStorage.getItem('email')).to.eql(email)
-      expect(localStorage.getItem('access_token')).to.eql(access_token)
-    })
   })
 })

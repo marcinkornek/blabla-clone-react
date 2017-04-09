@@ -43,7 +43,7 @@ class Application extends Component {
       .then(browserHistory.push('/'))
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { isAuthenticated, userNotificationAdd } = this.props
 
     if (isAuthenticated && window.cable) {

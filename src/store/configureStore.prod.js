@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import axios from 'axios'
 import axiosMiddleware from 'redux-axios-middleware'
@@ -6,6 +6,7 @@ import rootReducer from '../reducers'
 import { routerMiddleware } from 'react-router-redux'
 import { APIRoot } from '../constants/constants'
 import update from 'immutability-helper';
+import { autoRehydrate } from 'redux-persist';
 
 export default function configureStore(history, initialState = {}) {
   const client = axios.create({
@@ -38,10 +39,13 @@ export default function configureStore(history, initialState = {}) {
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(
-      thunk,
-      rMiddleware,
-      axiosMiddleware(client)
+    compose(
+      applyMiddleware(
+        thunk,
+        rMiddleware,
+        axiosMiddleware(client)
+      ),
+      autoRehydrate(),
     )
   )
 

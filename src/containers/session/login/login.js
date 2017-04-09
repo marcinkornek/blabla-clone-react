@@ -8,7 +8,7 @@ import ActionCable from 'actioncable'
 import _ from 'lodash'
 
 // actions
-import { logInEmailBackend, logInFbBackend, saveToLocalStorage } from "../../../actions/session"
+import { logInEmailBackend, logInFbBackend } from "../../../actions/session"
 import { ActionCableURL } from '../../../constants/constants'
 import { fetchCurrentUser } from '../../../actions/users'
 import { fetchNotifications } from '../../../actions/notifications'
@@ -25,7 +25,7 @@ class Login extends Component {
   }
 
   handleEmailLogin(data) {
-    const { logInEmailBackend, fetchCurrentUser, fetchNotifications, saveToLocalStorage } = this.props
+    const { logInEmailBackend, fetchCurrentUser, fetchNotifications } = this.props
 
     logInEmailBackend(data)
       .then((response) => {
@@ -33,14 +33,13 @@ class Login extends Component {
         fetchCurrentUser()
         fetchNotifications()
         window.cable = ActionCable.createConsumer(`${ActionCableURL}?email=${data.email}&token=${data.access_token}`)
-        saveToLocalStorage(data.email, data.access_token)
         browserHistory.push('/')
       })
       .catch((errors) => {})
   }
 
   handleFbLogin(data) {
-    const { logInFbBackend, fetchCurrentUser, fetchNotifications, saveToLocalStorage } = this.props
+    const { logInFbBackend, fetchCurrentUser, fetchNotifications } = this.props
 
     logInFbBackend(data)
       .then((response) => {
@@ -48,7 +47,6 @@ class Login extends Component {
         fetchCurrentUser()
         fetchNotifications()
         window.cable = ActionCable.createConsumer(`${ActionCableURL}?email=${data.email}&token=${data.access_token}`)
-        saveToLocalStorage(data.email, data.access_token)
         browserHistory.push('/')
       })
       .catch((errors) => {})
@@ -116,7 +114,6 @@ const mapDispatchToProps = {
   logInFbBackend,
   fetchCurrentUser,
   fetchNotifications,
-  saveToLocalStorage,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

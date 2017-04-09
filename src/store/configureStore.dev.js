@@ -7,6 +7,7 @@ import DevTools from '../containers/DevTools'
 import { routerMiddleware } from 'react-router-redux'
 import { APIRoot } from '../constants/constants'
 import update from 'immutability-helper';
+import { autoRehydrate } from 'redux-persist';
 
 export default function configureStore(history, initialState) {
   const client = axios.create({
@@ -29,13 +30,14 @@ export default function configureStore(history, initialState) {
         rMiddleware,
         axiosMiddleware(client)
       ),
-      DevTools.instrument()
+      autoRehydrate(),
+      DevTools.instrument(),
     )
   )
 
   client.interceptors.request.use((config) => {
-    const email = store.getState().session.email || localStorage.getItem('email')
-    const access_token = store.getState().session.access_token ||localStorage.getItem('access_token')
+    const email = store.getState().session.email
+    const access_token = store.getState().session.access_token
     if (!email || !access_token) {
       return config;
     } else {
