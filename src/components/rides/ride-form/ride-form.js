@@ -22,7 +22,7 @@ class RideForm extends Component {
   }
 
   render() {
-    const { handleSubmit, rideOptions } = this.props
+    const { handleSubmit, rideOptions, ride } = this.props
     let currencies = rideOptions.currencies.map((currency, i) =>
       <MenuItem value={currency} key={'option-' + i} primaryText={currency}/>
     )
@@ -32,18 +32,40 @@ class RideForm extends Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        <Field name="start_location" type="text" component={renderGeoTextField} label="Start city"/>
-        <Field name="destination_location" type="text" component={renderGeoTextField} label="Destination name"/>
+        <Field
+          name="start_location"
+          type="text"
+          component={renderGeoTextField}
+          label="Start city"
+          initialValue={ride ? ride.start_location_address : ''}
+        />
+        <Field
+          name="destination_location"
+          type="text"
+          component={renderGeoTextField}
+          label="Destination name"
+          initialValue={ride ? ride.destination_location_address : ''}
+        />
         <Field name="start_date"
           component={DatePicker}
           floatingLabelText="Start date"
           className='date-input'
-          minDate={new Date()} />
+          minDate={new Date()}
+        />
         <Field name="car_id" component={renderSelectField} label="Car">
           {_.map(cars, (n) => n)}
         </Field>
-        <Field name="places" type="text" component={renderTextField} label="Seats"/>
-        <Field name="price" type="text" component={renderTextField} label="Price"/>
+        <Field name="places"
+          type="text"
+          component={renderTextField}
+          label="Seats"
+        />
+        <Field
+          name="price"
+          type="text"
+          component={renderTextField}
+          label="Price"
+        />
         <Field name="currency" component={renderSelectField} label="Currency">
           {_.map(currencies, (n) => n)}
         </Field>

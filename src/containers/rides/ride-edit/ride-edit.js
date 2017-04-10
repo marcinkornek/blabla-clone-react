@@ -12,6 +12,16 @@ import { fetchRidesOptions, fetchRide, updateRide } from '../../../actions/rides
 import { AsyncContent } from '../../../components/shared/async-content/async-content'
 import RideForm from '../../../components/rides/ride-form/ride-form'
 
+const keys = [
+  'destination_location',
+  'start_location',
+  'places',
+  'start_date',
+  'price',
+  'currency',
+  'car_id',
+]
+
 export class RideEdit extends Component {
   static propTypes = {
     ride: PropTypes.object.isRequired,
@@ -32,16 +42,15 @@ export class RideEdit extends Component {
     var body = new FormData()
 
     Object.keys(data).forEach((key) => {
+      if (!keys.includes(key)) return
       if (key === 'destination_location' || key === 'start_location') {
-        if (!_.isEmpty(data[key].label)) body.append(key + '_address', data[key].label)
-        if (data[key].location) {
+        if (!_.isEmpty(data[key].label)) {
+          body.append(key + '_address', data[key].label)
           body.append(key + '_latitude', data[key].location.lat)
           body.append(key + '_longitude', data[key].location.lng)
         }
       } else {
-        if (!_.isEmpty(data[key])) {
-          body.append(key, data[key])
-        }
+        body.append(key, data[key])
       }
     })
     updateRide(body, ride.id)
