@@ -3,40 +3,43 @@
  * NOTE: duplicated font-sizes' are for browsers which don't support rem (only IE 8)
  */
 .geosuggest {
-  font-family: Roboto, sans-serif;
   font-size: 16px;
   position: relative;
   width: 100%;
   line-height: 24px;
   background-color: transparent;
-  cursor: auto;
-}
+  font-family: Roboto, sans-serif;
+  transition: height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  cursor: auto; }
 
 .geosuggest__input {
   width: 100%;
+  padding: .5em 1em;
   background-color: transparent;
-  padding: 2px;
+  padding: 0px;
   position: relative;
   width: 100%;
   border: none;
   outline: none;
   background-color: transparent;
   color: rgba(0, 0, 0, 0.870588);
-  -webkit-tap-highlight-color: $white;
+  cursor: inherit;
+  font-style: inherit;
+  font-variant: inherit;
+  font-weight: inherit;
+  font-stretch: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
   height: 100%;
   box-sizing: border-box;
   margin-top: 14px;
-  -webkit-transition: font-weight 0.2s, border-bottom 0.2s, -webkit-transform 0.2s;
-  transition: font-weight 0.2s, border-bottom 0.2s, transform 0.2s;
-
-  &:focus{
-    border-bottom: 2px solid rgb(0, 188, 212);
-  }
-}
+  -webkit-appearance: textfield; }
 
 .geosuggest__input:focus {
-  box-shadow: 0 0 0 transparent;
-}
+  border-color: #267dc0;
+  box-shadow: 0 0 0 transparent; }
 
 .geosuggest__suggests {
   position: absolute;
@@ -46,22 +49,19 @@
   max-height: 25em;
   padding: 0;
   margin-top: -1px;
-  border: 2px solid $gray-light;
-  background: $gray-lightest;
+  border: 2px solid #267dc0;
   border-top-width: 0;
   overflow-x: hidden;
   overflow-y: auto;
   list-style: none;
   z-index: 5;
   -webkit-transition: max-height 0.2s, border 0.2s;
-          transition: max-height 0.2s, border 0.2s;
-}
+  transition: max-height 0.2s, border 0.2s; }
 
 .geosuggest__suggests--hidden {
   max-height: 0;
   overflow: hidden;
-  border-width: 0;
-}
+  border-width: 0; }
 
 /**
  * A geosuggest item
@@ -71,43 +71,12 @@
   font-size: 18px;
   font-size: 1rem;
   padding: .5em .65em;
-  cursor: pointer;
-}
-
-.geosuggest__item:hover,
-.geosuggest__item:focus {
-  background-color: $gray-light;
-}
+  cursor: pointer; }
 
 .geosuggest__item--active {
-  color: $white;
-}
+  background: #267dc0;
+  color: #fff; }
 
 .geosuggest__item--active:hover,
 .geosuggest__item--active:focus {
-  background: #ccc;
-}
-
-.geosuggest__wrapper {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  height: 39px;
-  font-size: 16px;
-  line-height: 24px;
-  width: 100%;
-  display: inline-block;
-  position: relative;
-  background-color: transparent;
-  font-family: Roboto, sans-serif;
-  cursor: auto;
-  border-bottom: 1px solid $gray-light;
-
-  &--error {
-    border-bottom: 2px solid $red-error;
-  }
-}
-
-.geosuggest__error {
-  font-size: 13px;
-  color: $red-error;
-}
+  background: #ccc; }

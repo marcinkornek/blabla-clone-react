@@ -56,15 +56,22 @@
   display: inline-block;
   width: calc(100% - 32px);
 
+  .geosuggest__wrapper {
+    display: inline-block;
+    width: calc(33% - 30px);
+    margin-right: 10px;
+    margin-bottom: 3px;
+    vertical-align: bottom;
+  }
+
   .geosuggest {
     display: inline-block;
-    width: calc(33% - 23px);
+    width: 100%;
   }
 
   .geosuggest__input-wrapper {
     display: inline-block;
     width: 100%;
-    padding-right: 10px;
   }
 
   .date-input {
