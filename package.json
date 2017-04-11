@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "actioncable": "^5.0.2",
-    "axios": "^0.15.3",
+    "axios": "^0.16.1",
     "classnames": "^2.2.5",
     "immutability-helper": "^2.1.2",
     "immutable": "^3.8.1",
