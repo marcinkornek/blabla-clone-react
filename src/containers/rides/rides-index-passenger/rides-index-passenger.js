@@ -74,10 +74,10 @@ class RidesIndexPassenger extends Component {
           <ReactPaginate previousLabel={"previous"}
             nextLabel={"next"}
             breakLabel={<a href="">...</a>}
-            pageNum={pagination.total_pages}
+            pageCount={pagination.total_pages}
             marginPagesDisplayed={2}
             pageRangeDisplayed={5}
-            clickCallback={this.handlePageClick.bind(this)}
+            onPageChange={this.handlePageClick.bind(this)}
             containerClassName={"pagination"}
             subContainerClassName={"pages pagination"}
             activeClassName={"active"}
