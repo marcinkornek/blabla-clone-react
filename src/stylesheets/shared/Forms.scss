@@ -56,6 +56,12 @@
   display: inline-block;
   width: calc(100% - 32px);
 
+  @media (max-width: 767px) {
+    margin-top: -15px;
+    margin-bottom: 10px;
+    width: calc(100% - 62px);
+  }
+
   .geosuggest__wrapper {
     display: inline-block;
     width: calc(33% - 30px);
@@ -114,11 +120,19 @@
 
 .rides-filters {
   display: inline-block;
-  width: 168px;
+  width: 280px;
   padding: 10px;
 
   label {
     font-size: 12px !important;
+  }
+
+  .select-input {
+    margin-top: -30px !important;
+  }
+
+  .form-submit {
+    margin: 0;
   }
 }
 
@@ -127,15 +141,16 @@
   margin-left: - 8px;
 
   @media (max-width: 767px) {
+    margin-left: 10px;
     vertical-align: top;
   }
+}
 
-  button {
-    height: 40px !important;
-    width: 40px !important;
-    padding: 0 !important;
-    vertical-align: middle;
-  }
+.rides-filters__button button {
+  height: 40px !important;
+  width: 40px !important;
+  padding: 0 !important;
+  vertical-align: middle;
 }
 
 .text-input {

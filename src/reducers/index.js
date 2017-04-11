@@ -12,7 +12,6 @@ import { car } from './car'
 import { rides } from './rides'
 import { ride } from './ride'
 import { rideOptions } from './ride-options'
-import { ridesSearch } from './rides-search'
 import { ridesFilters } from './rides-filters'
 import { ridesDriver } from './rides-driver'
 import { ridesPassenger } from './rides-passenger'
@@ -29,7 +28,6 @@ const rootReducer = combineReducers({
   rides,
   ride,
   rideOptions,
-  ridesSearch,
   ridesFilters,
   ridesDriver,
   ridesPassenger,

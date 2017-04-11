@@ -537,6 +537,12 @@ a:hover, a:active, a:focus {
   display: inline-block;
   width: calc(100% - 32px); }
 
+@media (max-width: 767px) {
+  .rides-search {
+    margin-top: -15px;
+    margin-bottom: 10px;
+    width: calc(100% - 62px); } }
+
 .rides-search .geosuggest__wrapper {
   display: inline-block;
   width: calc(33% - 30px);
@@ -584,11 +590,17 @@ a:hover, a:active, a:focus {
 
 .rides-filters {
   display: inline-block;
-  width: 168px;
+  width: 280px;
   padding: 10px; }
 
 .rides-filters label {
   font-size: 12px !important; }
+
+.rides-filters .select-input {
+  margin-top: -30px !important; }
+
+.rides-filters .form-submit {
+  margin: 0; }
 
 .rides-filters__button {
   display: inline-block;
@@ -596,6 +608,7 @@ a:hover, a:active, a:focus {
 
 @media (max-width: 767px) {
   .rides-filters__button {
+    margin-left: 10px;
     vertical-align: top; } }
 
 .rides-filters__button button {
@@ -813,9 +826,17 @@ label {
   margin-bottom: 5px;
   padding-top: 5px; }
 
+@media (max-width: 767px) {
+  .heading__title {
+    margin-left: 10px; } }
+
 .heading__button {
   float: right;
   margin-bottom: 10px; }
+
+@media (max-width: 767px) {
+  .heading__button {
+    margin-right: 10px; } }
 
 .heading {
   padding-bottom: 5px;

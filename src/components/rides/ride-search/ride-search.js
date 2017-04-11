@@ -16,12 +16,6 @@ export class RideSearch extends Component {
       <form onSubmit={handleSubmit} className='rides-search'>
         <Field name="start_location" type="text" component={renderGeoTextField} label="Start city"/>
         <Field name="destination_location" type="text" component={renderGeoTextField} label="Destination city"/>
-        <Field name="start_date"
-          component={DatePicker}
-          floatingLabelText="Start date"
-          className='date-input'
-          defaultValue={null} // DatePicker requires an object, and redux-form defaults to ''
-          minDate={new Date()} />
         <button type="submit" className="btn btn-default form-submit">Submit</button>
       </form>
     )
@@ -33,8 +27,8 @@ RideSearch = reduxForm({
 })(RideSearch)
 
 RideSearch = connect(
-  state => ({
-    initialValues: state.ridesSearch.data
+  (state, props) => ({
+    initialValues: props.search
   })
 )(RideSearch);
 

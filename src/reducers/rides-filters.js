@@ -6,11 +6,19 @@ import {
 } from '../constants/ActionTypes'
 
 export const initialState = {
-  filters: {},
+  filters: {
+    currency: undefined,
+    order: undefined,
+    show_past: false,
+    show_full: true,
+    show_as_driver: true,
+    show_requested: true,
+  },
   search: {},
 };
 
 export function ridesFilters(state = initialState, action) {
+  let items, pagination, filters
   switch (action.type) {
   case RIDE_FILTER_UPDATE:
     return {
@@ -25,7 +33,7 @@ export function ridesFilters(state = initialState, action) {
   case RIDE_FILTER_CLEAR:
     return {
       ...state,
-      filters: {}
+      filters: initialState.filters,
     };
   case RIDE_SEARCH_CLEAR:
     return {
