@@ -253,9 +253,22 @@
 .ride-status {
   vertical-align: top;
   display: inline-block;
-  width: 30px;
+  width: 20px;
   height: 90px;
   padding: 5px;
+  color: $white;
+
+  &--pending {
+    background-color: $orange;
+  }
+
+  &--accepted {
+    background-color: $green;
+  }
+
+  &--rejected {
+    background-color: $red;
+  }
 
   &__label {
     text-align: left;

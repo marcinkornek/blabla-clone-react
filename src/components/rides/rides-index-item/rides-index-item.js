@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import Timestamp from 'react-time'
 import Icon from 'react-fa'
 import pluralize from 'pluralize'
+import classNames from 'classnames'
 
 // components
 import { RenderUserAge } from '../../shared/render-user-age/render-user-age'
@@ -19,8 +20,8 @@ export class RidesIndexItem extends Component {
     var rideStatus, rideDescription, rideDriver, rideOffer
 
     rideStatus =
-      <div className='ride-status'>
-        <div className='ride-status__label'>{ride.status}</div>
+      <div className={classNames('ride-status', `ride-status--${ride.user_ride_request_status}`)}>
+        <div className='ride-status__label'>{ride.user_ride_request_status}</div>
       </div>
 
     rideDescription =
