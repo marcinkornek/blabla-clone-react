@@ -391,7 +391,7 @@ a:hover, a:active, a:focus {
   display: table-cell;
   width: 33%;
   padding: 25px;
-  background: #484C4B;
+  background: #f4f3f1;
   vertical-align: top;
   table-layout: fixed; }
 
@@ -905,9 +905,7 @@ label {
 
 @media (max-width: 991px) {
   .user {
-    width: calc(50% - 8px); }
-  .user:nth-child(2n) {
-    margin-right: 0; } }
+    width: 100%; } }
 
 @media (min-width: 992px) {
   .user {
