@@ -35,7 +35,7 @@ export class NotificationsItem extends Component {
 
     return (
       <div
-        className={classNames('header__notification', {'header__notification--seen' : notification.seen_at})}
+        className={classNames('notification', {'notification--seen' : notification.seen_at})}
         onMouseOver={this.onMouseOverAction.bind(this)}
       >
         <Link to={`/users/${notification.sender.id}`}>
