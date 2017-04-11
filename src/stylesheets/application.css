@@ -11,10 +11,13 @@ a:hover, a:active, a:focus {
   text-decoration: none; }
 
 #main {
-  padding-top: 80px; }
+  padding-top: 80px;
+  padding-right: 0;
+  padding-left: 0; }
 
 @media (min-width: 992px) {
   #main {
+    padding: auto 15px;
     padding-left: 275px; } }
 
 .car-image__preview {
@@ -142,6 +145,10 @@ a:hover, a:active, a:focus {
   padding-left: 5px;
   padding-right: 5px; }
 
+@media (max-width: 767px) {
+  .ride-driver {
+    display: none; } }
+
 .ride-driver__avatar {
   display: inline-block;
   margin-right: 10px; }
@@ -166,11 +173,19 @@ a:hover, a:active, a:focus {
   padding-left: 5px;
   padding-right: 5px; }
 
+@media (max-width: 767px) {
+  .ride-description {
+    width: calc(100% - 20px); } }
+
 .ride-simple-description {
   display: inline-block;
-  width: calc(100% - 150px);
   padding-left: 5px;
-  padding-right: 5px; }
+  padding-right: 5px;
+  width: calc(100% - 150px); }
+
+@media (max-width: 767px) {
+  .ride-simple-description {
+    width: 100%; } }
 
 .ride-description__start_date {
   font-weight: bold;
@@ -183,6 +198,10 @@ a:hover, a:active, a:focus {
 
 .ride-description__car {
   margin-top: 20px; }
+
+@media (max-width: 767px) {
+  .ride-description__car {
+    display: none; } }
 
 .ride-description__car-label,
 .ride-description__car-name {
@@ -208,6 +227,17 @@ a:hover, a:active, a:focus {
   padding-right: 5px;
   vertical-align: top; }
 
+@media (max-width: 767px) {
+  .ride-offer {
+    width: 100%;
+    border-left: none;
+    display: flex;
+    justify-content: space-between; } }
+
+@media (max-width: 767px) {
+  .ride-offer__price, .ride-offer__places {
+    display: inline-block; } }
+
 .ride-offer__price-value {
   font-weight: bold;
   margin-bottom: -5px;
@@ -215,20 +245,36 @@ a:hover, a:active, a:focus {
   display: inline-block;
   margin-right: 5px; }
 
+@media (max-width: 767px) {
+  .ride-offer__price-value {
+    font-size: 18px; } }
+
 .ride-offer__price-currency {
   margin-bottom: -5px;
   font-size: 22px;
   text-transform: uppercase;
   display: inline-block; }
 
+@media (max-width: 767px) {
+  .ride-offer__price-currency {
+    font-size: 16px; } }
+
 .ride-offer__price-label {
   font-size: 18px; }
+
+@media (max-width: 767px) {
+  .ride-offer__price-label {
+    display: none; } }
 
 .ride-offer__places-free {
   font-weight: bold;
   font-size: 25px;
   display: inline-block;
   margin-right: 5px; }
+
+@media (max-width: 767px) {
+  .ride-offer__places-free {
+    font-size: 16px; } }
 
 .ride-offer__places-label {
   display: inline-block; }

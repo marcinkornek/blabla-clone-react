@@ -41,7 +41,7 @@ export class RidesIndexSimpleItem extends Component {
         <div className='ride-offer__price'>
           <div className='ride-offer__price-value'>{ride.price}</div>
           <div className='ride-offer__price-currency'>{ride.currency}</div>
-          <div className='ride-offer__price-lebel'>for person</div>
+          <div className='ride-offer__price-label'>for person</div>
         </div>
         <div className='ride-offer__places'>
           <div className='ride-offer__places-free'>{ride.free_places_count}</div>

@@ -15,8 +15,11 @@ a {
 
 #main {
   padding-top: 80px;
+  padding-right: 0;
+  padding-left: 0;
 
   @media (min-width: 992px) {
+    padding: auto 15px;
     padding-left: 275px;
   }
 }
