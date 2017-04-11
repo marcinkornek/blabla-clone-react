@@ -12,12 +12,12 @@
 }
 
 .has-error .form-control {
-  border-color: #a94442;
+  border-color: $red-error;
 }
 
 .form-error {
   margin-left: 10px;
-  color: #a94442;
+  color: $red-error;
   display: inline-block;
 }
 
@@ -25,7 +25,7 @@
   width: 100%;
   max-width: 300px;
   border-width: 2px;
-  border-color: #666;
+  border-color: $gray-dark;
   border-style: dashed;
   border-radius: 5px;
   padding: 10px;
@@ -33,7 +33,7 @@
 }
 
 .cities-search-form {
-  background-color: #F1F1E9;
+  background-color: $gray-lightest;
   text-align: center;
 }
 
@@ -171,6 +171,6 @@
 
 label {
   display: block;
-  color: #bbbbbb;
+  color: $gray-light;
   font-size: 16px;
 }

@@ -1,13 +1,14 @@
 body {
   font-family: 'Roboto', sans-serif;
   margin-top: 0;
+  background-color: $gray-lightest;
 }
 
 a {
-  color: black;
+  color: $black;
 
   &:hover, &:active, &:focus {
-    color: black;
+    color: $black;
     text-decoration: none;
   }
 }

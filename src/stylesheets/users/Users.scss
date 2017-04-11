@@ -1,7 +1,7 @@
 .sidebar__container {
   display: inline-block;
   padding: 10px;
-  border: 1px solid #BDBDBD;
+  border: 1px solid $gray-light;
   width: 305px;
 }
 
@@ -14,7 +14,7 @@
 .sidebar {
   padding-top: 10px;
   padding-bottom: 10px;
-  border-top: 1px solid gray;
+  border-top: 1px solid $gray;
 
   &:first-of-type {
     padding-top: 0px;
@@ -32,7 +32,7 @@
 }
 
 .sidebar__details {
-  color: gray;
+  color: $gray;
 }
 
 .sidebar__details-icon {
@@ -42,31 +42,31 @@
 // User Account
 
 .account-menu {
-  border: 1px solid gray;
+  border: 1px solid $gray;
   padding: 0;
 }
 
 .account-menu__heading {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid $gray;
   width: 100%;
   padding: 5px;
   font-weight: bold;
-  background-color: #B0B0B0;
+  background-color: $gray-light;
 }
 
 .account-menu__item {
   display: block;
-  background-color: #f8f8f8;
+  background-color: $gray-light;
   padding: 5px;
-  border-top: 1px solid gray;
+  border-top: 1px solid $gray;
   cursor: pointer;
 
   &:hover {
-    background-color: #ffeb00;
+    background-color: $yellow;
   }
 
   &.active {
-    background-color: #ffeb00;
+    background-color: $yellow;
   }
 
   &:last-of-type {
@@ -76,17 +76,17 @@
 
 .account-menu__subitem {
   display: block;
-  background-color: #f8f8f8;
+  background-color: $gray-light;
   padding: 5px;
-  border-top: 1px solid #B0B0B0;
+  border-top: 1px solid $gray-light;
   cursor: pointer;
 
   &:hover {
-    background-color: #FFFFCC;
+    background-color: $yellow-light;
   }
 
   &.active {
-    background-color: #FFFFCC;
+    background-color: $yellow-light;
   }
 
   &:last-of-type {
@@ -180,23 +180,23 @@
 // Users Show
 
 .user-show {
-  border: 1px solid #ddd;
+  border: 1px solid $gray-light;
   margin-bottom: 20px;
 }
 
 .user-show__heading--info,
 .user-show__heading--car,
 .user-show__heading--activity {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $gray-light;
   padding: 5px;
   padding-left: 10px;
   font-weight: bold;
   font-size: 18px;
-  background-color: #fafafa;
+  background-color: $gray-lightest;
 }
 
 .user-show__details {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $gray-light;
   padding: 10px;
 }
 
@@ -260,6 +260,6 @@
 
   .user-avatar__preview-filename {
     display: block;
-    color: gray;
+    color: $gray;
   }
 }

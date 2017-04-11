@@ -24,7 +24,7 @@
   display: table-cell;
   width: 33%;
   padding: 25px;
-  background: #f4f3f1;
+  background: $gray-darkest;
   vertical-align: top;
   table-layout: fixed;
 }
@@ -44,15 +44,15 @@
 .register-button {
   width: 100%;
   display: block;
-  background-color: #85E6CE;
-  border-color: #78CFB9;
+  background-color: $register-button;
+  border-color: $register-button-border;
 
   &:hover,
   &:focus,
   &:active,
   &:visited {
-    background-color: #78CFB9;
-    border-color: #78CFB9;
+    background-color: $register-button-hover;
+    border-color: $register-button-hover;
   }
 }
 
@@ -60,7 +60,7 @@
   display: table-cell;
   width: 16%;
   padding: 25px;
-  background: #fff;
+  background: $white;
   vertical-align: top;
   table-layout: fixed;
 }

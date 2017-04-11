@@ -1,10 +1,10 @@
 .stars {
-  color: blue;
+  color: $blue;
   display: inline-block;
 }
 
 .heading {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid $gray;
 }
 
 .heading__title {
@@ -23,7 +23,7 @@
 .heading {
   padding-bottom: 5px;
   margin-bottom: 10px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid $gray;
   height: 40px;
 }
 

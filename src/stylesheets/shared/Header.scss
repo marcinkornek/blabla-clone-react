@@ -1,10 +1,5 @@
+.notifications,
 .header__notifications {
-  max-width: 450px;
-  max-height: 400px;
-  height: 70%;
-  top: 65px !important;
-  overflow-y: scroll;
-
   &__button {
     padding: 0 !important;
     vertical-align: bottom;
@@ -12,13 +7,13 @@
 
   &__header {
     padding: 5px;
-    background-color: #f4f3f1;
-    color: black;
+    background-color: $gray-lightest;
+    color: $black;
   }
 
   &__footer {
     padding: 5px;
-    background-color: #f4f3f1;
+    background-color: $gray-lightest;
   }
 
   &__empty {
@@ -26,15 +21,16 @@
     width: 200px;
   }
 
-  .header__notification {
+  .notification {
     padding: 10px;
+    background-color: $white;
 
     &:hover {
-      background-color: #f4f3f1;
+      background-color: $gray-lightest;
     }
 
-    &.header__notification--seen {
-      background-color: #f4f3f1;
+    &.notification--seen {
+      background-color: $gray-lightest;
     }
 
     &__body {
@@ -42,17 +38,25 @@
       width: calc(100% - 40px);
       padding-left: 10px;
       vertical-align: middle;
-      color: black;
+      color: $black;
     }
 
     &__link {
-      color: #005999;
+      color: $blue-light;
     }
 
     &__timestamp {
       display: block;
-      color: gray;
+      color: $gray;
       font-size: 12px;
     }
   }
+}
+
+.header__notifications {
+  max-width: 450px;
+  max-height: 400px;
+  height: 70%;
+  top: 65px !important;
+  overflow-y: scroll;
 }

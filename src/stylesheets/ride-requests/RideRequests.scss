@@ -2,7 +2,7 @@
   padding: 10px;
   height: 100px;
   display: block;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $gray-light;
 }
 
 .ride-request__status {
@@ -42,7 +42,7 @@
   -ms-transform: rotate(270deg);   /* IE 9 */
   -o-transform: rotate(270deg);   /* Opera */
   transform: rotate(270deg);
-  color: orange;
+  color: $orange;
   margin-right: 5px;
 }
 
@@ -75,7 +75,7 @@
   -o-transform: rotate(270deg);   /* Opera */
   transform: rotate(270deg);
 
-  color: green;
+  color: $green;;
   margin-right: 5px;
 }
 
@@ -101,5 +101,5 @@
 
 .ride-request__created {
   display: inline-block;
-  color: gray;
+  color: $gray;
 }

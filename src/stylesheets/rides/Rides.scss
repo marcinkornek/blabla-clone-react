@@ -1,18 +1,18 @@
 // INDEX
 
 .ride {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $gray-light;
   padding: 10px;
 
   &:hover {
-    background-color: #F2FFFA;
+    background-color: $green-light;
   }
 }
 
 .ride-driver {
   display: inline-block;
   width: 250px;
-  border-right: 1px solid #ddd;
+  border-right: 1px solid $gray-light;
   height: 90px;
   vertical-align: top;
   padding-left: 5px;
@@ -64,7 +64,7 @@
 
 .ride-description__start-city {
   display: inline-block;
-  color: #484C4B;
+  color: $gray-darkest;
 }
 
 .ride-description__car {
@@ -74,26 +74,26 @@
 .ride-description__car-label,
 .ride-description__car-name {
   display: inline-block;
-  color: #484C4B;
+  color: $gray-darkest;
   margin-right: 5px;
 }
 
 .ride-description__destination-city {
   display: inline-block;
-  color: #484C4B;
+  color: $gray-darkest;
 }
 
 .ride-description__arrow {
   margin-left: 10px;
   margin-right: 10px;
-  color: #484C4B;
+  color: $gray-darkest;
 }
 
 .ride-offer {
   text-align: right;
   display: inline-block;
   width: 150px;
-  border-left: 1px solid #ddd;
+  border-left: 1px solid $gray-light;
   padding-left: 5px;
   padding-right: 5px;
   vertical-align: top;
@@ -135,17 +135,17 @@
 .ride-show-requests,
 .ride-show-driver,
 .ride-show-description {
-  border: 1px solid #ddd;
+  border: 1px solid $gray-light;
   margin-bottom: 20px;
 }
 
 .ride-show-description {
   &__heading {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid $gray-light;
     padding: 10px;
     font-weight: bold;
     font-size: 22px;
-    background-color: #fafafa;
+    background-color: $gray-lightest;
   }
 
   &__actions {
@@ -154,7 +154,7 @@
 
   &__arrow {
     display: inline-block;
-    color: #484C4B;
+    color: $gray-darkest;
     margin-right: 5px;
     margin-left: 5px;
   }
@@ -181,12 +181,12 @@
 .ride-show-driver__heading,
 .ride-show-requests__heading,
 .ride-show-offer__heading {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid $gray-light;
   padding: 5px;
   padding-left: 10px;
   font-weight: bold;
   font-size: 18px;
-  background-color: #fafafa;
+  background-color: $gray-lightest;
 }
 
 .ride-show-driver {
