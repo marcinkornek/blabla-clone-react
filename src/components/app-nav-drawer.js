@@ -1,152 +1,309 @@
-import React, { Component, PropTypes } from 'react'
-import Drawer from 'material-ui/Drawer'
-import { List, ListItem, makeSelectable } from 'material-ui/List'
-import { spacing, typography, zIndex } from 'material-ui/styles'
-import { cyan500 } from 'material-ui/styles/colors'
-import ContentAddBox from 'material-ui/svg-icons/content/add-box'
-import ActionSearch from 'material-ui/svg-icons/action/search'
-import ActionAccountBox from 'material-ui/svg-icons/action/account-box'
-import SocialGroup from 'material-ui/svg-icons/social/group'
-import MapsDirectionsCar from 'material-ui/svg-icons/maps/directions-car'
-import DriverIcon from './icons/DriverIcon'
-import PassengerIcon from './icons/PassengerIcon'
-import Delete from 'material-ui/svg-icons/action/delete'
-import MenuItem from 'material-ui/MenuItem'
-import Avatar from 'material-ui/Avatar'
-import { Link } from 'react-router'
+// src/components/app-nav-drawer.jsx
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  Collapse,
+  Avatar,
+  MenuItem,
+  Box,
+} from '@mui/material';
+import { cyan } from '@mui/material/colors';
 
-const SelectableList = makeSelectable(List);
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import SearchIcon from '@mui/icons-material/Search';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import GroupIcon from '@mui/icons-material/Group';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
-const styles = {
-  logo: {
-    cursor: 'pointer',
-    fontSize: 24,
-    color: typography.textFullWhite,
-    lineHeight: `${spacing.desktopKeylineIncrement}px`,
-    fontWeight: typography.fontWeightLight,
-    backgroundColor: cyan500,
-    paddingLeft: spacing.desktopGutter,
-    marginBottom: 8,
-  },
-  avatatStyle: {
-    marginRight: 10
-  }
-}
+// Custom icons
+import DriverIcon from './icons/DriverIcon';
+import PassengerIcon from './icons/PassengerIcon';
 
-export class AppNavDrawer extends Component {
-  static propTypes = {
-    docked: PropTypes.bool.isRequired,
-    location: PropTypes.object.isRequired,
-    onChangeList: PropTypes.func.isRequired,
-    onLogout: PropTypes.func.isRequired,
-    onRequestChangeNavDrawer: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
-    style: PropTypes.object,
-    isFetching: PropTypes.bool.isRequired,
-    isStarted: PropTypes.bool.isRequired,
-  }
+// Router
+import { Link, useLocation } from 'react-router-dom';
 
-  static contextTypes = {
-    muiTheme: PropTypes.object.isRequired,
-    router: PropTypes.object.isRequired,
-  }
+const drawerWidth = 240;
 
-  handleRequestChangeLink = (event, value) => {
-    window.location = value
-  }
+export default function AppNavDrawer(props) {
+  const {
+    docked,
+    open,
+    style,
+    onRequestChangeNavDrawer,
+    onLogout,
+    onChangeList,
+    isFetching,
+    isStarted,
+    isAuthenticated,
+    currentUser,
+  } = props;
 
-  handleTouchTapHeader = () => {
-    this.context.router.push('/')
-    this.props.onRequestChangeNavDrawer(false)
-  }
+  const [openRides, setOpenRides] = useState(false);
+  const [openUsers, setOpenUsers] = useState(false);
+  const [openAccount, setOpenAccount] = useState(false);
 
-  renderLeftHeader() {
-    const { isAuthenticated, isStarted, isFetching, currentUser } = this.props
+  const location = useLocation();
 
-    if (!isFetching && isStarted && isAuthenticated) {
-      return(
-        <div style={styles.logo}>
-          <Link to={`/users/${currentUser.id}`}>
-            <Avatar src={currentUser.avatar} style={styles.avatatStyle} />
+  const toggle = (setter, current) => () => setter(!current);
+
+  const isSelected = (path) => location.pathname === path;
+
+  const handleHeaderClick = () => {
+    if (onRequestChangeNavDrawer) onRequestChangeNavDrawer(false);
+  };
+
+  const renderLeftHeader = () => {
+    if (!isFetching && isStarted && isAuthenticated && currentUser) {
+      return (
+        <Box
+          sx={{
+            cursor: 'pointer',
+            fontSize: 24,
+            color: '#fff',
+            lineHeight: '56px',
+            fontWeight: 300,
+            backgroundColor: cyan[500],
+            paddingLeft: 2,
+            marginBottom: 1,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1.5,
+            textDecoration: 'none',
+          }}
+        >
+          <Link
+            to={`/users/${currentUser.id}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              textDecoration: 'none',
+              color: 'inherit',
+            }}
+          >
+            <Avatar src={currentUser.avatar} sx={{ width: 32, height: 32, marginRight: 1.5 }} />
             <span>{currentUser.full_name}</span>
           </Link>
-        </div>
-      )
-    } else {
-      return(
-        <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
-          Blabla Clone
-        </div>
-      )
+        </Box>
+      );
     }
-  }
-
-  nestedAccountItems() {
-    const { isAuthenticated, onLogout } = this.props
-    if (isAuthenticated) {
-      return (
-        <ListItem
-          primaryText="My account"
-          primaryTogglesNestedList={true}
-          nestedItems={[
-            <ListItem primaryText="My profile" value="/account/user" key="my-profile" leftIcon={<ActionAccountBox />}/>,
-            <ListItem primaryText="My cars" value="/account/cars" key="my-cars" leftIcon={<MapsDirectionsCar />} />,
-            <ListItem primaryText="My rides as driver" value="/account/rides_as_driver" key="my-rides-driver" leftIcon={<DriverIcon />}/>,
-            <ListItem primaryText="My rides as passenger" value="/account/rides_as_passenger" key="my-rides-passenger" leftIcon={<PassengerIcon />}/>,
-            <MenuItem onTouchTap={onLogout} primaryText="Logout" key="logout" leftIcon={<Delete />} />
-          ]}/>
-      )
-    } else {
-      return (
-        [
-          <ListItem primaryText='Login' value='/login' key="login" />,
-          <ListItem primaryText='Register' value='/register' key="register" />
-        ]
-      )
-    }
-  }
-
-  render() {
-    const {
-      location,
-      docked,
-      onRequestChangeNavDrawer,
-      onChangeList,
-      open,
-      style,
-    } = this.props;
 
     return (
-      <Drawer
-        style={style}
-        docked={docked}
-        open={open}
-        onRequestChange={onRequestChangeNavDrawer}
-        containerStyle={{zIndex: zIndex.drawer - 100}}
+      <Box
+        sx={{
+          cursor: 'pointer',
+          fontSize: 24,
+          color: '#fff',
+          lineHeight: '56px',
+          fontWeight: 300,
+          backgroundColor: cyan[500],
+          paddingLeft: 2,
+          marginBottom: 1,
+        }}
+        onClick={handleHeaderClick}
       >
-        {this.renderLeftHeader()}
-        <SelectableList
-          value={location.pathname}
-          onChange={onChangeList}
+        Blabla Clone
+      </Box>
+    );
+  };
+
+  const renderAccountSection = () => {
+    if (isAuthenticated) {
+      return (
+        <>
+          <ListItem button onClick={toggle(setOpenAccount, openAccount)}>
+            <ListItemText primary="My account" />
+            {openAccount ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+
+          <Collapse in={openAccount} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                component={Link}
+                to="/account/user"
+                selected={isSelected('/account/user')}
+                onClick={() => onChangeList && onChangeList(null, '/account/user')}
+                sx={{ pl: 4 }}
+              >
+                <ListItemIcon><AccountBoxIcon /></ListItemIcon>
+                <ListItemText primary="My profile" />
+              </ListItem>
+
+              <ListItem
+                button
+                component={Link}
+                to="/account/cars"
+                selected={isSelected('/account/cars')}
+                onClick={() => onChangeList && onChangeList(null, '/account/cars')}
+                sx={{ pl: 4 }}
+              >
+                <ListItemIcon><DirectionsCarIcon /></ListItemIcon>
+                <ListItemText primary="My cars" />
+              </ListItem>
+
+              <ListItem
+                button
+                component={Link}
+                to="/account/rides_as_driver"
+                selected={isSelected('/account/rides_as_driver')}
+                onClick={() => onChangeList && onChangeList(null, '/account/rides_as_driver')}
+                sx={{ pl: 4 }}
+              >
+                <ListItemIcon><DriverIcon /></ListItemIcon>
+                <ListItemText primary="My rides as driver" />
+              </ListItem>
+
+              <ListItem
+                button
+                component={Link}
+                to="/account/rides_as_passenger"
+                selected={isSelected('/account/rides_as_passenger')}
+                onClick={() => onChangeList && onChangeList(null, '/account/rides_as_passenger')}
+                sx={{ pl: 4 }}
+              >
+                <ListItemIcon><PassengerIcon /></ListItemIcon>
+                <ListItemText primary="My rides as passenger" />
+              </ListItem>
+
+              <Box sx={{ pl: 4 }}>
+                <MenuItem onClick={onLogout}>
+                  <ListItemIcon><DeleteIcon /></ListItemIcon>
+                  Logout
+                </MenuItem>
+              </Box>
+            </List>
+          </Collapse>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <ListItem
+          button
+          component={Link}
+          to="/login"
+          selected={isSelected('/login')}
+          onClick={() => onChangeList && onChangeList(null, '/login')}
         >
-          <ListItem
-            primaryText="Rides"
-            primaryTogglesNestedList={true}
-            nestedItems={[
-              <ListItem primaryText="Add ride" value="/rides/new" key="add-ride" leftIcon={<ContentAddBox />}/>,
-              <ListItem primaryText="Search rides" value="/rides" key="search-rides" leftIcon={<ActionSearch />}/>,
-            ]}
-          />
-          <ListItem
-            primaryText="Users"
-            primaryTogglesNestedList={true}
-            nestedItems={[
-              <ListItem primaryText="Browse users" value="/users" key="browse-users" leftIcon={<SocialGroup />} />,
-            ]}
-          />
-          {this.nestedAccountItems()}
-        </SelectableList>
-      </Drawer>
-    )
-  }
+          <ListItemText primary="Login" />
+        </ListItem>
+
+        <ListItem
+          button
+          component={Link}
+          to="/register"
+          selected={isSelected('/register')}
+          onClick={() => onChangeList && onChangeList(null, '/register')}
+        >
+          <ListItemText primary="Register" />
+        </ListItem>
+      </>
+    );
+  };
+
+  return (
+    <Drawer
+      variant={docked ? 'permanent' : 'temporary'}
+      open={open}
+      onClose={() => onRequestChangeNavDrawer && onRequestChangeNavDrawer(false)}
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: drawerWidth,
+          boxSizing: 'border-box',
+          ...style,
+        },
+      }}
+    >
+      {renderLeftHeader()}
+
+      <List component="nav" aria-label="main navigation">
+        {/* Rides */}
+        <ListItem button onClick={toggle(setOpenRides, openRides)}>
+          <ListItemText primary="Rides" />
+          {openRides ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+
+        <Collapse in={openRides} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem
+              button
+              component={Link}
+              to="/rides/new"
+              selected={isSelected('/rides/new')}
+              onClick={() => onChangeList && onChangeList(null, '/rides/new')}
+              sx={{ pl: 4 }}
+            >
+              <ListItemIcon><AddBoxIcon /></ListItemIcon>
+              <ListItemText primary="Add ride" />
+            </ListItem>
+
+            <ListItem
+              button
+              component={Link}
+              to="/rides"
+              selected={isSelected('/rides')}
+              onClick={() => onChangeList && onChangeList(null, '/rides')}
+              sx={{ pl: 4 }}
+            >
+              <ListItemIcon><SearchIcon /></ListItemIcon>
+              <ListItemText primary="Search rides" />
+            </ListItem>
+          </List>
+        </Collapse>
+
+        {/* Users */}
+        <ListItem button onClick={toggle(setOpenUsers, openUsers)}>
+          <ListItemText primary="Users" />
+          {openUsers ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+
+        <Collapse in={openUsers} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItem
+              button
+              component={Link}
+              to="/users"
+              selected={isSelected('/users')}
+              onClick={() => onChangeList && onChangeList(null, '/users')}
+              sx={{ pl: 4 }}
+            >
+              <ListItemIcon><GroupIcon /></ListItemIcon>
+              <ListItemText primary="Browse users" />
+            </ListItem>
+          </List>
+        </Collapse>
+
+        {/* Account */}
+        {renderAccountSection()}
+      </List>
+    </Drawer>
+  );
 }
+
+AppNavDrawer.propTypes = {
+  docked: PropTypes.bool.isRequired,
+  open: PropTypes.bool.isRequired,
+  style: PropTypes.object,
+  onRequestChangeNavDrawer: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
+  onChangeList: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  isStarted: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool,
+  currentUser: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    avatar: PropTypes.string,
+    full_name: PropTypes.string,
+  }),
+};

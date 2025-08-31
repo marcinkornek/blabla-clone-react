@@ -1,14 +1,28 @@
-// copied from https://github.com/erikras/redux-form-material-ui
+// Updated for MUI v5
 
-import AutoComplete from 'material-ui/AutoComplete'
-import createComponent from './createComponent'
-import mapError from './mapError'
+import { Autocomplete, TextField } from '@mui/material'
+import React from 'react'
 
-export default createComponent(
-  AutoComplete,
-  ({ input: { onChange, value, ...inputProps }, ...props }) => ({
-    ...mapError(props),
-    ...inputProps,
-    searchText: value,
-    onNewRequest: value => onChange(value)
-  }))
+const AutoCompleteField = ({ input, label, options, meta: { touched, error }, ...custom }) => {
+  const hasError = touched && error
+  
+  return (
+    <Autocomplete
+      {...custom}
+      options={options || []}
+      value={input.value || null}
+      onChange={(event, newValue) => input.onChange(newValue)}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={label}
+          error={hasError}
+          helperText={hasError ? error : ''}
+          fullWidth
+        />
+      )}
+    />
+  )
+}
+
+export default AutoCompleteField

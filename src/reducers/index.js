@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import { routerReducer } from 'react-router-redux'
 import { reducer as formReducer } from 'redux-form'
 import { session } from './session'
 import { users } from './users'
@@ -15,6 +14,7 @@ import { rideOptions } from './ride-options'
 import { ridesFilters } from './rides-filters'
 import { ridesDriver } from './rides-driver'
 import { ridesPassenger } from './rides-passenger'
+import { ridesSearch } from './rides-search'
 
 const rootReducer = combineReducers({
   session,
@@ -31,7 +31,8 @@ const rootReducer = combineReducers({
   ridesFilters,
   ridesDriver,
   ridesPassenger,
-  routing: routerReducer,
+  ridesSearch,
+
   form: formReducer
 })
 

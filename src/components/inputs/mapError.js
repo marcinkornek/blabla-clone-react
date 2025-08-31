@@ -1,6 +1,13 @@
-// copied from https://github.com/erikras/redux-form-material-ui
+// Updated for MUI v5
 
-const mapError = ({ meta: { touched, error } = {}, input: { ...inputProps }, ...props }, errorProp = 'errorText') =>
-  touched && error ? { ...props, ...inputProps, [errorProp]: error } : { ...inputProps, ...props }
+const mapError = ({ meta: { touched, error } = {}, input: { ...inputProps }, ...props }, errorProp = 'helperText') => {
+  const hasError = touched && error
+  return {
+    ...inputProps,
+    ...props,
+    error: hasError,
+    [errorProp]: hasError ? error : props[errorProp]
+  }
+}
 
 export default mapError

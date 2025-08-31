@@ -1,66 +1,55 @@
-// utils
-import React from 'react'
-import { Route } from 'react-router'
-
-// components
-import * as components from './components'
+// src/routes.js
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import * as components from './components';
 
 const {
   Application,
   Home,
   Login,
   requireAuth,
-
+  requireNoAuth,
   UserNew,
   UserShow,
   UserEdit,
   UsersIndex,
-
   CarNew,
   CarShow,
   CarEdit,
   CarsIndex,
-
   RideNew,
   RideShow,
   RideEdit,
   RidesIndex,
   RidesIndexDriver,
   RidesIndexPassenger,
-
   NotificationsIndex,
-} = components
+} = components;
 
-export const createRoutes = () => {
+const AppRoutes = () => {
   return (
-    <Route name='App' component={Application}>
-      <Route requireAuth>
-        <Route name='usersIndex' path='/users' component={requireAuth(UsersIndex)} />
-        <Route name='usersEdit' path='/account/user' component={requireAuth(UserEdit)} />
-
-        <Route name='carsIndex' path='/account/cars' component={requireAuth(CarsIndex)} />
-        <Route name='carsEdit' path='/account/cars/:carId/edit' component={requireAuth(CarEdit)} />
-        <Route name='carsNew' path='/cars/new' component={requireAuth(CarNew)} />
-
-        <Route name='ridesDriverIndex' path='/account/rides_as_driver' component={requireAuth(RidesIndexDriver)} />
-        <Route name='ridesPassengerIndex' path='/account/rides_as_passenger' component={requireAuth(RidesIndexPassenger)} />
-        <Route name='ridesDriverIndex' path='/account/rides_as_driver/:rideId/edit' component={requireAuth(RideEdit)} />
-        <Route name='carsNew' path='/rides/new' component={requireAuth(RideNew)} />
-
-        <Route name='notificationsIndex' path='/notifications' component={requireAuth(NotificationsIndex)} />
+    <Routes>
+      <Route path="/" element={<Application />}>
+        <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<UserNew />} />
+        <Route path="users/:id" element={<UserShow />} />
+        <Route path="users/:id/edit" element={<UserEdit />} />
+        <Route path="users" element={<UsersIndex />} />
+        <Route path="cars/new" element={<CarNew />} />
+        <Route path="cars/:id" element={<CarShow />} />
+        <Route path="cars/:id/edit" element={<CarEdit />} />
+        <Route path="cars" element={<CarsIndex />} />
+        <Route path="rides/new" element={<RideNew />} />
+        <Route path="rides/:id" element={<RideShow />} />
+        <Route path="rides/:id/edit" element={<RideEdit />} />
+        <Route path="rides" element={<RidesIndex />} />
+        <Route path="rides-driver" element={<RidesIndexDriver />} />
+        <Route path="rides-passenger" element={<RidesIndexPassenger />} />
+        <Route path="notifications" element={<NotificationsIndex />} />
       </Route>
-
-      <Route name='home' path='/' component={Home} />
-      <Route name='usersShow' path='/users/:userId' component={UserShow} />
-      <Route name='carsShow' path='/cars/:carId' component={CarShow} />
-      <Route name='ridesIndex'  path='/rides' component={RidesIndex} />
-      <Route name='ridesShow' path='/rides/:rideId' component={RideShow} />
-      <Route name='notAuthorized' path='/403' component={Home} />
-
-      <Route requireNoAuth>
-        <Route name='login' path='/login' component={Login} />
-        <Route name='register' path='/register' component={UserNew} />
-      </Route>
-    </Route>
+    </Routes>
   );
 };
+
+export default AppRoutes;

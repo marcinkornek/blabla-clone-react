@@ -1,14 +1,17 @@
-// copied from https://github.com/erikras/redux-form-material-ui
+// Updated for MUI v5
 
-import Slider from 'material-ui/Slider'
-import createComponent from './createComponent'
-import mapError from './mapError'
+import { Slider } from '@mui/material'
+import React from 'react'
 
-export default createComponent(
-  Slider,
-  ({ input: { onDragStart, ...inputProps }, ...props }) =>  // eslint-disable-line no-unused-vars
-    ({
-      ...mapError({ ...props, input: inputProps }, 'error'),
-      onChange: (event, value) => inputProps.onChange(value)
-    })
-)
+const SliderField = ({ input, ...custom }) => {
+  return (
+    <Slider
+      {...input}
+      {...custom}
+      value={input.value || 0}
+      onChange={(event, value) => input.onChange(value)}
+    />
+  )
+}
+
+export default SliderField

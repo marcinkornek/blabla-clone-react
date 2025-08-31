@@ -1,89 +1,75 @@
-// utils
-import React, { Component, PropTypes } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import injectTapEventPlugin from 'react-tap-event-plugin'
-import Dimensions from 'react-dimensions'
-import { browserHistory } from 'react-router'
+import { Outlet } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 // actions
 import { logout } from '../actions/session'
 import { markNotificationAsSeen, userNotificationAdd } from '../actions/notifications'
 
 // styles
-// eslint-disable-next-line
-import styles from '../stylesheets/application.css'
+import '../stylesheets/application.css'
 
 // components
 import { Header } from '../components/header/header/header'
 
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin()
-
-class Application extends Component {
-  static propTypes = {
-    session: PropTypes.object,
-    isAuthenticated: PropTypes.bool.isRequired,
-    currentUser: PropTypes.object,
-    isStarted: PropTypes.bool.isRequired,
-    isFetching: PropTypes.bool.isRequired,
-    notifications: PropTypes.object,
+const Application = ({
+  currentUser,
+  notifications,
+  isAuthenticated,
+  isStarted,
+  isFetching,
+  containerWidth,
+  logout: logoutAction,
+  markNotificationAsSeen: markAsSeenAction,
+  userNotificationAdd: addNotificationAction
+}) => {
+  const markAsSeen = (notificationId) => {
+    markAsSeenAction(notificationId)
   }
 
-  markAsSeen(notificationId) {
-    const { markNotificationAsSeen } = this.props
-    markNotificationAsSeen(notificationId)
+  const handleLogout = (currentUser) => {
+    logoutAction(currentUser)
+      .then(() => localStorage.clear())
+      .then(() => window.location.href = '/')
   }
 
-  logout(currentUser) {
-    const { logout } = this.props
-
-    logout(currentUser)
-      .then(localStorage.clear())
-      .then(browserHistory.push('/'))
-  }
-
-  componentWillMount() {
-    const { isAuthenticated, userNotificationAdd } = this.props
-
+  useEffect(() => {
     if (isAuthenticated && window.cable) {
       window.cable.subscriptions.create("NotificationsChannel", {
         received(data) {
-          userNotificationAdd(data.notification)
+          addNotificationAction(data.notification)
         }
       })
     }
-  }
+  }, [isAuthenticated, addNotificationAction])
 
-  render () {
-    const {
-      currentUser,
-      notifications,
-      isAuthenticated,
-      isStarted,
-      isFetching,
-      containerWidth,
-      children
-    } = this.props
-
-    return (
-      <div>
-        <Header
-          isAuthenticated={isAuthenticated}
-          isStarted={isStarted}
-          isFetching={isFetching}
-          currentUser={currentUser}
-          notifications={notifications}
-          containerWidth={containerWidth}
-          markAsSeen={this.markAsSeen.bind(this)}
-          onLogout={this.logout.bind(this)}
-        />
-        <div id='main' className='container'>
-          {children}
-        </div>
+  return (
+    <div>
+      <Header
+        isAuthenticated={isAuthenticated}
+        isStarted={isStarted}
+        isFetching={isFetching}
+        currentUser={currentUser}
+        notifications={notifications}
+        containerWidth={containerWidth}
+        markAsSeen={markAsSeen}
+        onLogout={handleLogout}
+      />
+      <div id='main' className='container'>
+        <Outlet />
       </div>
-    )
-  }
+    </div>
+  )
+}
+
+Application.propTypes = {
+  session: PropTypes.object,
+  isAuthenticated: PropTypes.bool.isRequired,
+  currentUser: PropTypes.object,
+  isStarted: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  notifications: PropTypes.object,
 }
 
 const mapStateToProps = (state) => {
@@ -103,4 +89,4 @@ const mapDispatchToProps = {
   userNotificationAdd
 }
 
-export default Dimensions()(connect(mapStateToProps, mapDispatchToProps)(Application))
+export default connect(mapStateToProps, mapDispatchToProps)(Application)

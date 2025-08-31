@@ -1,5 +1,5 @@
 import React from 'react'
-import SvgIcon from 'material-ui/SvgIcon'
+import { SvgIcon } from '@mui/material'
 
 const iconStyles = {
   height: 40,
@@ -8,7 +8,7 @@ const iconStyles = {
   position: 'absolute',
   top: 0,
   left: 4,
-  marginLeft: 5,
+  marginLeft: '5px',
   color: '#757575'
 };
 
@@ -23,7 +23,7 @@ const PassengerSvgIcon = (props) => (
 
 const StyledPassengerSvgIcon = () => (
   <div>
-    <PassengerSvgIcon style={iconStyles} />
+    <PassengerSvgIcon sx={iconStyles} />
   </div>
 );
 

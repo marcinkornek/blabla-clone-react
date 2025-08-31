@@ -1,6 +1,6 @@
-// copied from https://github.com/erikras/redux-form-material-ui
+// Updated for MUI v5
 
-import TextField from 'material-ui/TextField'
+import { TextField } from '@mui/material'
 import createComponent from './createComponent'
 import mapError from './mapError'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import SvgIcon from 'material-ui/SvgIcon'
+import { SvgIcon } from '@mui/material'
 
 const iconStyles = {
   height: 20,
@@ -7,7 +7,7 @@ const iconStyles = {
   position: 'absolute',
   top: 0,
   left: 4,
-  margin: 12,
+  margin: '12px',
   color: '#757575'
 };
 
@@ -21,7 +21,7 @@ const DriverSvgIcon = (props) => (
 
 const StyledDriverSvgIcon = () => (
   <div>
-    <DriverSvgIcon style={iconStyles} />
+    <DriverSvgIcon sx={iconStyles} />
   </div>
 );
 

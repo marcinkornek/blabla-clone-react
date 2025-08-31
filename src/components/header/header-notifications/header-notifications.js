@@ -1,9 +1,8 @@
 // utils
-import React, { Component, PropTypes } from 'react'
-import Badge from 'material-ui/Badge'
-import IconButton from 'material-ui/IconButton'
-import NotificationsIcon from 'material-ui/svg-icons/social/notifications'
-import { Popover, PopoverAnimationVertical } from 'material-ui/Popover'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Badge, IconButton, Popover, Tooltip } from '@mui/material'
+import { Notifications as NotificationsIcon } from '@mui/icons-material'
 
 // components
 import { NotificationsList } from '../../notifications/notifications-list/notifications-list'
@@ -36,7 +35,7 @@ export class HeaderNotifications extends Component {
     open: false
   }
 
-  handleTouchTap = (event) => {
+  handleClick = (event) => {
     event.preventDefault()
 
     this.setState({
@@ -56,30 +55,34 @@ export class HeaderNotifications extends Component {
 
     return (
       <Badge
-        className='header__notifications__button'
         badgeContent={notifications.pagination.unread_count || 0}
-        primary={true}
-        badgeStyle={notifications.pagination.unread_count > 0 ? styles.badgeStyle : styles.badgeEmptyStyle}
+        color="error"
+        invisible={notifications.pagination.unread_count === 0}
       >
-        <IconButton
-          tooltip='Notifications'
-          iconStyle={styles.iconButtonStyle}
-          onTouchTap={this.handleTouchTap}
-        >
-          <NotificationsIcon style={styles.fullIconStyle} />
-          <Popover
-            open={this.state.open}
-            anchorEl={this.state.anchorEl}
-            anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-            onRequestClose={this.handleRequestClose}
-            animation={PopoverAnimationVertical}
-            className='header__notifications'
+        <Tooltip title="Notifications">
+          <IconButton
+            sx={{ color: 'white' }}
+            onClick={this.handleClick}
           >
-            <NotificationsList {...this.props} />
-          </Popover>
-        </IconButton>
+            <NotificationsIcon />
+          </IconButton>
+        </Tooltip>
       </Badge>
+      <Popover
+        open={this.state.open}
+        anchorEl={this.state.anchorEl}
+        onClose={this.handleRequestClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <NotificationsList {...this.props} />
+      </Popover>
     )
   }
 

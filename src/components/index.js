@@ -22,3 +22,4 @@ export { default as RidesIndexPassenger } from '../containers/rides/rides-index-
 
 export { default as NotificationsIndex } from '../containers/notifications/notifications-index/notifications-index'
 export { default as requireAuth } from '../containers/shared/require-auth/require-auth'
+export { default as requireNoAuth } from '../containers/shared/require-no-auth/require-no-auth'

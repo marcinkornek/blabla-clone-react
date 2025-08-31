@@ -1,21 +1,25 @@
-// copied from https://github.com/erikras/redux-form-material-ui
+// Updated for MUI v5 - using TextField with type="date"
 
-import DatePicker from 'material-ui/DatePicker'
-import createComponent from './createComponent'
-import mapError from './mapError'
+import { TextField } from '@mui/material'
+import React from 'react'
 
-export default createComponent(
-  DatePicker,
-  ({
-    input: {
-      onBlur, // eslint-disable-line no-unused-vars
-      onChange,
-      ...inputProps
-    },
-    ...props
-  }) => ({
-    ...inputProps,
-    ...mapError(props),
-    onChange: (event, value) => onChange(value)
-  })
-)
+const DatePicker = ({ input, label, meta: { touched, error }, ...custom }) => {
+  const hasError = touched && error
+  
+  return (
+    <TextField
+      {...input}
+      {...custom}
+      type="date"
+      label={label}
+      error={hasError}
+      helperText={hasError ? error : ''}
+      InputLabelProps={{
+        shrink: true,
+      }}
+      fullWidth
+    />
+  )
+}
+
+export default DatePicker

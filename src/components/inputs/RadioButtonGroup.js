@@ -1,7 +1,23 @@
-// copied from https://github.com/erikras/redux-form-material-ui
+// Updated for MUI v5
 
-import { RadioButtonGroup } from 'material-ui/RadioButton'
-import createComponent from './createComponent'
-import mapError from './mapError'
+import { RadioGroup, FormControl, FormLabel, FormHelperText } from '@mui/material'
+import React from 'react'
 
-export default createComponent(RadioButtonGroup, mapError)
+const RadioButtonGroup = ({ input, label, meta: { touched, error }, children, ...custom }) => {
+  const hasError = touched && error
+  
+  return (
+    <FormControl error={hasError}>
+      {label && <FormLabel>{label}</FormLabel>}
+      <RadioGroup
+        {...input}
+        {...custom}
+      >
+        {children}
+      </RadioGroup>
+      {hasError && <FormHelperText>{error}</FormHelperText>}
+    </FormControl>
+  )
+}
+
+export default RadioButtonGroup

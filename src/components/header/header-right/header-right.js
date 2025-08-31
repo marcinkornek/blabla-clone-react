@@ -1,10 +1,9 @@
 // utils
-import React, { Component, PropTypes } from 'react'
-import { Link } from 'react-router'
-import RaisedButton from 'material-ui/RaisedButton'
-import ContentAddBox from 'material-ui/svg-icons/content/add-box'
-import IconButton from 'material-ui/IconButton'
-import ActionSearch from 'material-ui/svg-icons/action/search'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import { Button, IconButton, Tooltip } from '@mui/material'
+import { Add as ContentAddBox, Search as ActionSearch } from '@mui/icons-material'
 
 // components
 import { HeaderNotifications } from '../header-notifications/header-notifications'
@@ -59,21 +58,24 @@ export class HeaderRight extends Component {
     return (
       <div>
         <HeaderNotifications {...this.props} />
-        <Link to="/rides">
+        <Tooltip title="Search rides">
           <IconButton
-            tooltip="Search rides"
-            iconStyle={styles.iconButtonStyle}
+            component={Link}
+            to="/rides"
+            sx={{ color: 'white' }}
           >
-              <ActionSearch style={styles.iconStyle} />
+            <ActionSearch />
           </IconButton>
-        </Link>
-        <RaisedButton
-          label="Add ride"
-          labelPosition="after"
-          icon={<ContentAddBox />}
-          style={styles.button}
-          containerElement={<Link to="/rides/new" />}
-        />
+        </Tooltip>
+        <Button
+          variant="contained"
+          startIcon={<ContentAddBox />}
+          component={Link}
+          to="/rides/new"
+          sx={{ ml: 1, mr: 1 }}
+        >
+          Add ride
+        </Button>
       </div>
     )
   }
@@ -81,15 +83,23 @@ export class HeaderRight extends Component {
   renderNotLoggedInButtons() {
     return(
       <div>
-        <RaisedButton
-          label="Login"
-          style={styles.loginButton}
-          containerElement={<Link to="/login" />} />
-        <RaisedButton
-          label="Register"
-          style={styles.loginButton}
-          secondary={true}
-          containerElement={<Link to="/register" />} />
+        <Button
+          variant="outlined"
+          component={Link}
+          to="/login"
+          sx={{ ml: 1, mr: 1, color: 'white', borderColor: 'white' }}
+        >
+          Login
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          component={Link}
+          to="/register"
+          sx={{ ml: 1, mr: 1 }}
+        >
+          Register
+        </Button>
       </div>
     )
   }

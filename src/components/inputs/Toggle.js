@@ -1,22 +1,21 @@
-// copied from https://github.com/erikras/redux-form-material-ui
+// Updated for MUI v5
 
-import Toggle from 'material-ui/Toggle'
-import createComponent from './createComponent'
+import { Switch, FormControlLabel } from '@mui/material'
+import React from 'react'
 
-export default createComponent(
-  Toggle,
-  ({
-    input: {
-      onChange,
-      value,
-      ...inputProps
-    },
-    meta, // eslint-disable-line no-unused-vars
-    ...props
-  }) => ({
-    ...inputProps,
-    ...props,
-    toggled: value ? true : false,
-    onToggle: onChange
-  })
-)
+const ToggleField = ({ input, label, ...custom }) => {
+  return (
+    <FormControlLabel
+      control={
+        <Switch
+          checked={!!input.value}
+          onChange={input.onChange}
+          {...custom}
+        />
+      }
+      label={label}
+    />
+  )
+}
+
+export default ToggleField

@@ -1,22 +1,21 @@
-// copied from https://github.com/erikras/redux-form-material-ui
+// Updated for MUI v5
 
-import Checkbox from 'material-ui/Checkbox'
-import createComponent from './createComponent'
+import { Checkbox, FormControlLabel } from '@mui/material'
+import React from 'react'
 
-export default createComponent(
-  Checkbox,
-  ({
-    input: {
-      onChange,
-      value,
-      ...inputProps
-    },
-    meta, // eslint-disable-line no-unused-vars
-    ...props
-  }) => ({
-    ...inputProps,
-    ...props,
-    checked: value ? true : false,
-    onCheck: onChange
-  })
-)
+const CheckboxField = ({ input, label, ...custom }) => {
+  return (
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={!!input.value}
+          onChange={input.onChange}
+          {...custom}
+        />
+      }
+      label={label}
+    />
+  )
+}
+
+export default CheckboxField

@@ -1,27 +1,22 @@
-// copied from https://github.com/erikras/redux-form-material-ui
+// Updated for React 18 and MUI v5
 
-import { Component, createElement } from 'react'
+import React, { forwardRef } from 'react'
 
 /**
- * Creates a component class that renders the given Material UI component
+ * Creates a component that renders the given Material UI component
  *
  * @param MaterialUIComponent The material ui component to render
  * @param mapProps A mapping of props provided by redux-form to the props the Material UI
  * component needs
  */
 export default function createComponent(MaterialUIComponent, mapProps) {
-  class InputComponent extends Component {
-    getRenderedComponent() {
-      return this.refs.component
-    }
-
-    render() {
-      return createElement(MaterialUIComponent, {
-        ...mapProps(this.props),
-        ref: 'component'
-      })
-    }
-  }
-  InputComponent.displayName = `ReduxFormMaterialUI${MaterialUIComponent.name}`
+  const InputComponent = forwardRef((props, ref) => {
+    return React.createElement(MaterialUIComponent, {
+      ...mapProps(props),
+      ref
+    })
+  })
+  
+  InputComponent.displayName = `ReduxFormMaterialUI${MaterialUIComponent.displayName || MaterialUIComponent.name}`
   return InputComponent
 }

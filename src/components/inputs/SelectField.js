@@ -1,13 +1,24 @@
-// copied from https://github.com/erikras/redux-form-material-ui
+// Updated for MUI v5
 
-import SelectField from 'material-ui/SelectField'
-import createComponent from './createComponent'
-import mapError from './mapError'
+import { Select, FormControl, InputLabel, FormHelperText } from '@mui/material'
+import React from 'react'
 
-export default createComponent(
-  SelectField,
-  ({ input: { onChange, ...inputProps }, ...props }) => ({
-    ...mapError(props),
-    ...inputProps,
-    onChange: (event, index, value) => onChange(value)
-  }))
+const SelectField = ({ input, label, meta: { touched, error }, children, ...custom }) => {
+  const hasError = touched && error
+  
+  return (
+    <FormControl error={hasError} fullWidth>
+      {label && <InputLabel>{label}</InputLabel>}
+      <Select
+        {...input}
+        {...custom}
+        label={label}
+      >
+        {children}
+      </Select>
+      {hasError && <FormHelperText>{error}</FormHelperText>}
+    </FormControl>
+  )
+}
+
+export default SelectField

@@ -1,6 +1,8 @@
 // utils
-import React, { PropTypes, Component } from 'react'
-import AppBar from 'material-ui/AppBar'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { AppBar, Toolbar, Typography, IconButton } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
 
 // components
 import { AppNavDrawer } from '../../app-nav-drawer'
@@ -62,14 +64,24 @@ export class Header extends Component {
 
     return (
       <div>
-        <AppBar
-          onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
-          title={title}
-          zDepth={0}
-          style={{position: 'fixed'}}
-          showMenuIconButton={showMenuIconButton}
-          iconElementRight={<HeaderRight {...this.props} />}
-        />
+        <AppBar position="fixed" elevation={0}>
+          <Toolbar>
+            {showMenuIconButton && (
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={this.handleTouchTapLeftIconButton}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+              {title}
+            </Typography>
+            <HeaderRight {...this.props} />
+          </Toolbar>
+        </AppBar>
         <AppNavDrawer
           location={location}
           docked={docked}
